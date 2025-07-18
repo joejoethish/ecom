@@ -1,0 +1,3 @@
+"""
+Cart app tests.
+"""
