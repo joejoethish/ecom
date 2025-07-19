@@ -445,7 +445,10 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write tests for customer management
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 6.1, 6.2, 6.3, 6.4, 6.5, 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9, 10.10_
 
-  - [ ] 11.2 Build customer management API and wishlist functionality
+  - [x] 11.2 Build customer management API and wishlist functionality
+
+
+
     - Create customer and address serializers
     - Implement customer CRUD endpoints
     - Add wishlist management endpoints

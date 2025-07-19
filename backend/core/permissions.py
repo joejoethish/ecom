@@ -53,3 +53,27 @@ class IsAdminOrReadOnly(permissions.BasePermission):
             return True
         
         return request.user.is_authenticated and request.user.is_staff
+
+
+class IsOwnerOrAdmin(permissions.BasePermission):
+    """
+    Custom permission to allow owners or admins to access/modify objects.
+    """
+
+    def has_permission(self, request, view):
+        return request.user.is_authenticated
+
+    def has_object_permission(self, request, view, obj):
+        # Admin users can access everything
+        if request.user.is_staff or request.user.is_superuser:
+            return True
+        
+        # Check if user is the owner (works for different object types)
+        if hasattr(obj, 'user'):
+            return obj.user == request.user
+        elif hasattr(obj, 'customer') and hasattr(obj.customer, 'user'):
+            return obj.customer.user == request.user
+        elif hasattr(obj, 'owner'):
+            return obj.owner == request.user
+        
+        return False

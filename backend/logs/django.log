@@ -2517,3 +2517,53 @@ INFO 2025-07-17 17:52:03,592 middleware 4644 16668 Request completed - ID: ffcfe
 INFO 2025-07-17 17:52:03,592 middleware 4644 16668 Request started - ID: 7d1af503-5adc-42d9-bdb3-66ed8ffc5b66, Method: GET, Path: /api/v1/products/, User: None
 INFO 2025-07-17 17:52:03,609 middleware 4644 16668 Request completed - ID: 7d1af503-5adc-42d9-bdb3-66ed8ffc5b66, Status: 200, Duration: 0.018s
 WARNING 2025-07-19 12:30:52,134 connection 3732 7464 No hostname was supplied. Reverting to default 'localhost'
+WARNING 2025-07-19 17:50:33,280 connection 16872 9656 No hostname was supplied. Reverting to default 'localhost'
+WARNING 2025-07-19 17:53:30,274 connection 14884 14896 No hostname was supplied. Reverting to default 'localhost'
+WARNING 2025-07-19 18:05:36,340 connection 15352 18200 No hostname was supplied. Reverting to default 'localhost'
+INFO 2025-07-19 18:07:54,572 signals 15352 18200 Profile created for user: test2@example.com
+INFO 2025-07-19 18:08:16,096 signals 15352 18200 Profile created for user: test2@example.com
+INFO 2025-07-19 18:08:37,303 signals 15352 18200 Profile created for user: test2@example.com
+INFO 2025-07-19 18:09:02,761 signals 15352 18200 Profile created for user: test2@example.com
+INFO 2025-07-19 18:09:24,185 signals 15352 18200 Profile created for user: test2@example.com
+INFO 2025-07-19 18:09:45,948 signals 15352 18200 Profile created for user: test2@example.com
+INFO 2025-07-19 18:10:07,456 signals 15352 18200 Profile created for user: test4@example.com
+INFO 2025-07-19 18:10:33,071 signals 15352 18200 Profile created for user: test4@example.com
+INFO 2025-07-19 18:10:58,510 signals 15352 18200 Profile created for user: test4@example.com
+INFO 2025-07-19 18:11:23,898 signals 15352 18200 Profile created for user: test4@example.com
+INFO 2025-07-19 18:11:49,473 signals 15352 18200 Profile created for user: test@example.com
+INFO 2025-07-19 18:12:06,649 signals 15352 18200 Profile created for user: test@example.com
+INFO 2025-07-19 18:12:23,864 signals 15352 18200 Profile created for user: test@example.com
+INFO 2025-07-19 18:12:41,096 signals 15352 18200 Profile created for user: test@example.com
+INFO 2025-07-19 18:12:59,327 signals 15352 18200 Profile created for user: test@example.com
+INFO 2025-07-19 18:13:26,265 signals 15352 18200 Profile created for user: test@example.com
+INFO 2025-07-19 18:13:42,645 signals 15352 18200 Profile created for user: test@example.com
+INFO 2025-07-19 18:14:00,885 signals 15352 18200 Profile created for user: test3@example.com
+INFO 2025-07-19 18:14:26,147 signals 15352 18200 Profile created for user: test3@example.com
+INFO 2025-07-19 18:14:51,357 signals 15352 18200 Profile created for user: test3@example.com
+INFO 2025-07-19 18:15:16,591 signals 15352 18200 Profile created for user: test3@example.com
+INFO 2025-07-19 18:15:41,895 signals 15352 18200 Profile created for user: test3@example.com
+INFO 2025-07-19 18:16:07,040 signals 15352 18200 Profile created for user: test3@example.com
+WARNING 2025-07-19 18:17:57,478 connection 18000 5832 No hostname was supplied. Reverting to default 'localhost'
+INFO 2025-07-19 18:20:15,804 signals 18000 5832 Profile created for user: test2@example.com
+INFO 2025-07-19 18:20:37,067 signals 18000 5832 Profile created for user: test2@example.com
+INFO 2025-07-19 18:20:58,207 signals 18000 5832 Profile created for user: test2@example.com
+INFO 2025-07-19 18:21:24,435 signals 18000 5832 Profile created for user: test2@example.com
+INFO 2025-07-19 18:21:45,778 signals 18000 5832 Profile created for user: test2@example.com
+INFO 2025-07-19 18:22:06,946 signals 18000 5832 Profile created for user: test2@example.com
+INFO 2025-07-19 18:22:24,144 signals 18000 5832 Profile created for user: test4@example.com
+INFO 2025-07-19 18:22:53,517 signals 18000 5832 Profile created for user: test4@example.com
+INFO 2025-07-19 18:23:27,035 signals 18000 5832 Profile created for user: test4@example.com
+INFO 2025-07-19 18:23:56,382 signals 18000 5832 Profile created for user: test4@example.com
+INFO 2025-07-19 18:24:25,686 signals 18000 5832 Profile created for user: test@example.com
+INFO 2025-07-19 18:24:42,715 signals 18000 5832 Profile created for user: test@example.com
+INFO 2025-07-19 18:24:59,781 signals 18000 5832 Profile created for user: test@example.com
+INFO 2025-07-19 18:25:16,868 signals 18000 5832 Profile created for user: test@example.com
+INFO 2025-07-19 18:25:33,980 signals 18000 5832 Profile created for user: test@example.com
+INFO 2025-07-19 18:26:00,906 signals 18000 5832 Profile created for user: test@example.com
+INFO 2025-07-19 18:26:14,194 signals 18000 5832 Profile created for user: test@example.com
+INFO 2025-07-19 18:26:31,474 signals 18000 5832 Profile created for user: test3@example.com
+INFO 2025-07-19 18:27:00,924 signals 18000 5832 Profile created for user: test3@example.com
+INFO 2025-07-19 18:27:34,907 signals 18000 5832 Profile created for user: test3@example.com
+INFO 2025-07-19 18:28:08,753 signals 18000 5832 Profile created for user: test3@example.com
+INFO 2025-07-19 18:28:43,280 signals 18000 5832 Profile created for user: test3@example.com
+INFO 2025-07-19 18:29:17,489 signals 18000 5832 Profile created for user: test3@example.com
