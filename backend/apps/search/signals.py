@@ -43,16 +43,32 @@ class CelerySignalProcessor(RealTimeSignalProcessor):
         """
         Handle save signal by dispatching a Celery task.
         """
-        app_label = instance._meta.app_label
-        model_name = instance._meta.model_name
-        
-        update_document.delay(app_label, model_name, str(instance.id), 'save')
+        try:
+            app_label = instance._meta.app_label
+            model_name = instance._meta.model_name
+            
+            update_document.delay(app_label, model_name, str(instance.id), 'save')
+        except Exception as e:
+            # Fallback to synchronous processing if Celery is not available
+            try:
+                super().handle_save(sender, instance, **kwargs)
+            except Exception as es_error:
+                # If Elasticsearch is also not available, just skip indexing
+                pass
     
     def handle_delete(self, sender, instance, **kwargs):
         """
         Handle delete signal by dispatching a Celery task.
         """
-        app_label = instance._meta.app_label
-        model_name = instance._meta.model_name
-        
-        delete_document.delay(str(instance.id), app_label, model_name)
+        try:
+            app_label = instance._meta.app_label
+            model_name = instance._meta.model_name
+            
+            delete_document.delay(str(instance.id), app_label, model_name)
+        except Exception as e:
+            # Fallback to synchronous processing if Celery is not available
+            try:
+                super().handle_delete(sender, instance, **kwargs)
+            except Exception as es_error:
+                # If Elasticsearch is also not available, just skip indexing
+                pass

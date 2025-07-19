@@ -6,7 +6,13 @@ import hashlib
 import logging
 from typing import Dict, Any, Optional
 from django.conf import settings
-import razorpay
+
+try:
+    import razorpay
+    RAZORPAY_AVAILABLE = True
+except ImportError:
+    RAZORPAY_AVAILABLE = False
+    razorpay = None
 
 from .base import BasePaymentGateway
 from core.exceptions import PaymentGatewayError
@@ -23,6 +29,10 @@ class RazorpayGateway(BasePaymentGateway):
         """
         Initialize Razorpay client with API credentials.
         """
+        if not RAZORPAY_AVAILABLE:
+            logger.warning("Razorpay package not installed. Install with: pip install razorpay")
+            raise PaymentGatewayError("Razorpay package not available")
+        
         try:
             self.client = razorpay.Client(
                 auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET)
