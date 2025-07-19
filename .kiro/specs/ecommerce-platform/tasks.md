@@ -449,6 +449,8 @@ This implementation plan converts the comprehensive e-commerce platform design i
 
 
 
+
+
     - Create customer and address serializers
     - Implement customer CRUD endpoints
     - Add wishlist management endpoints
