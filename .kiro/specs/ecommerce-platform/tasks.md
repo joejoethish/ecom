@@ -436,8 +436,13 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write component tests for shipping functionality
     - _Requirements: 15.2, 15.3, 15.6, 15.7, 15.8_
 
-- [ ] 11. Customer and Address Management
-  - [ ] 11.1 Implement Customer and Address models
+- [-] 11. Customer and Address Management
+
+
+  - [x] 11.1 Implement Customer and Address models
+
+
+
     - Create enhanced customer profile models
     - Implement Address model with validation
     - Add Wishlist and WishlistItem models

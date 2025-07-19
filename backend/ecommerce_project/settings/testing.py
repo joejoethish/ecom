@@ -14,9 +14,19 @@ DATABASES = {
 # Disable Celery for testing
 CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
+CELERY_BROKER_URL = 'memory://'
+CELERY_RESULT_BACKEND = 'cache+memory://'
 
 # Disable Elasticsearch for testing
 ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = 'django_elasticsearch_dsl.signals.RealTimeSignalProcessor'
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'localhost:9200'
+    },
+}
+
+# Disable search signals during testing
+ELASTICSEARCH_DSL_AUTOSYNC = False
 
 # Use in-memory channel layer for testing
 CHANNEL_LAYERS = {

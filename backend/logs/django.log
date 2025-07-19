@@ -2567,3 +2567,4 @@ INFO 2025-07-19 18:27:34,907 signals 18000 5832 Profile created for user: test3@
 INFO 2025-07-19 18:28:08,753 signals 18000 5832 Profile created for user: test3@example.com
 INFO 2025-07-19 18:28:43,280 signals 18000 5832 Profile created for user: test3@example.com
 INFO 2025-07-19 18:29:17,489 signals 18000 5832 Profile created for user: test3@example.com
+WARNING 2025-07-19 21:02:30,332 connection 7312 19644 No hostname was supplied. Reverting to default 'localhost'
