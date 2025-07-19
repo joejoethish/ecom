@@ -2516,3 +2516,4 @@ INFO 2025-07-17 17:52:03,576 middleware 4644 16668 Request started - ID: ffcfe4e
 INFO 2025-07-17 17:52:03,592 middleware 4644 16668 Request completed - ID: ffcfe4e1-b1fc-4faf-8e02-291666de144c, Status: 200, Duration: 0.016s
 INFO 2025-07-17 17:52:03,592 middleware 4644 16668 Request started - ID: 7d1af503-5adc-42d9-bdb3-66ed8ffc5b66, Method: GET, Path: /api/v1/products/, User: None
 INFO 2025-07-17 17:52:03,609 middleware 4644 16668 Request completed - ID: 7d1af503-5adc-42d9-bdb3-66ed8ffc5b66, Status: 200, Duration: 0.018s
+WARNING 2025-07-19 12:30:52,134 connection 3732 7464 No hostname was supplied. Reverting to default 'localhost'
