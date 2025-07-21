@@ -1,0 +1,33 @@
+{% extends "emails/base.html" %}
+
+{% block title %}Low Stock Alert - {{ total_items }} items{% endblock %}
+
+{% block header %}Inventory Alert{% endblock %}
+
+{% block content %}
+<h2>Low Stock Alert</h2>
+
+<p>The following {{ total_items }} item{{ total_items|pluralize }} {{ total_items|pluralize:"has,have" }} reached or fallen below the minimum stock level:</p>
+
+<div class="order-details">
+    <h3>Items Requiring Attention</h3>
+    <p><strong>Check Time:</strong> {{ check_time|date:"F d, Y g:i A" }}</p>
+    
+    {% for item in low_stock_items %}
+    <div class="item-row">
+        <strong>{{ item.product_name }}</strong> (SKU: {{ item.product_sku }})<br>
+        Current Stock: <span style="color: #ff6b6b; font-weight: bold;">{{ item.current_stock }}</span> | 
+        Minimum Level: {{ item.minimum_level }} | 
+        Reorder Point: {{ item.reorder_point }}
+    </div>
+    {% endfor %}
+</div>
+
+<p style="background-color: #fff3cd; padding: 15px; border: 1px solid #ffeaa7; border-radius: 5px;">
+    <strong>Action Required:</strong> Please review and restock these items to prevent stockouts and maintain customer satisfaction.
+</p>
+
+<p>
+    <a href="{{ frontend_url }}/admin/inventory" class="button">Manage Inventory</a>
+</p>
+{% endblock %}

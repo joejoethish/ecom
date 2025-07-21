@@ -55,6 +55,15 @@ class IsAdminOrReadOnly(permissions.BasePermission):
         return request.user.is_authenticated and request.user.is_staff
 
 
+class IsAdminUser(permissions.BasePermission):
+    """
+    Custom permission for admin-only operations.
+    """
+
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and (request.user.is_staff or request.user.is_superuser)
+
+
 class IsOwnerOrAdmin(permissions.BasePermission):
     """
     Custom permission to allow owners or admins to access/modify objects.

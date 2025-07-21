@@ -155,6 +155,53 @@ class Product(BaseModel):
             return [tag.strip() for tag in self.tags.split(',') if tag.strip()]
         return []
 
+    def update_rating_aggregation(self):
+        """Update product rating aggregation based on approved reviews."""
+        from django.db.models import Avg, Count
+        from apps.reviews.models import Review
+        
+        approved_reviews = Review.objects.filter(
+            product=self, 
+            status='approved'
+        )
+        
+        aggregation = approved_reviews.aggregate(
+            avg_rating=Avg('rating'),
+            review_count=Count('id')
+        )
+        
+        # Update or create ProductRating
+        rating, created = ProductRating.objects.get_or_create(
+            product=self,
+            defaults={
+                'average_rating': aggregation['avg_rating'] or 0,
+                'total_reviews': aggregation['review_count'] or 0,
+            }
+        )
+        
+        if not created:
+            rating.average_rating = aggregation['avg_rating'] or 0
+            rating.total_reviews = aggregation['review_count'] or 0
+            rating.save()
+        
+        return rating
+
+    @property
+    def average_rating(self):
+        """Get the average rating for this product."""
+        try:
+            return self.rating.average_rating
+        except ProductRating.DoesNotExist:
+            return 0
+
+    @property
+    def total_reviews(self):
+        """Get the total number of approved reviews for this product."""
+        try:
+            return self.rating.total_reviews
+        except ProductRating.DoesNotExist:
+            return 0
+
 
 class ProductImage(BaseModel):
     """
@@ -200,3 +247,74 @@ class ProductImage(BaseModel):
 
     def __str__(self):
         return f"{self.product.name} - Image {self.sort_order}"
+
+
+class ProductRating(BaseModel):
+    """
+    Product rating aggregation model.
+    """
+    product = models.OneToOneField(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='rating'
+    )
+    average_rating = models.DecimalField(
+        max_digits=3,
+        decimal_places=2,
+        default=0,
+        validators=[MinValueValidator(0)]
+    )
+    total_reviews = models.PositiveIntegerField(default=0)
+    
+    # Rating distribution
+    rating_1_count = models.PositiveIntegerField(default=0)
+    rating_2_count = models.PositiveIntegerField(default=0)
+    rating_3_count = models.PositiveIntegerField(default=0)
+    rating_4_count = models.PositiveIntegerField(default=0)
+    rating_5_count = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['average_rating']),
+            models.Index(fields=['total_reviews']),
+        ]
+
+    def __str__(self):
+        return f"{self.product.name} - {self.average_rating}/5 ({self.total_reviews} reviews)"
+
+    def update_rating_distribution(self):
+        """Update the rating distribution counts."""
+        from apps.reviews.models import Review
+        from django.db.models import Count, Q
+        
+        distribution = Review.objects.filter(
+            product=self.product,
+            status='approved'
+        ).aggregate(
+            rating_1=Count('id', filter=Q(rating=1)),
+            rating_2=Count('id', filter=Q(rating=2)),
+            rating_3=Count('id', filter=Q(rating=3)),
+            rating_4=Count('id', filter=Q(rating=4)),
+            rating_5=Count('id', filter=Q(rating=5)),
+        )
+        
+        self.rating_1_count = distribution['rating_1']
+        self.rating_2_count = distribution['rating_2']
+        self.rating_3_count = distribution['rating_3']
+        self.rating_4_count = distribution['rating_4']
+        self.rating_5_count = distribution['rating_5']
+        self.save()
+
+    @property
+    def rating_distribution(self):
+        """Get rating distribution as percentages."""
+        if self.total_reviews == 0:
+            return {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+        
+        return {
+            5: round((self.rating_5_count / self.total_reviews) * 100, 1),
+            4: round((self.rating_4_count / self.total_reviews) * 100, 1),
+            3: round((self.rating_3_count / self.total_reviews) * 100, 1),
+            2: round((self.rating_2_count / self.total_reviews) * 100, 1),
+            1: round((self.rating_1_count / self.total_reviews) * 100, 1),
+        }

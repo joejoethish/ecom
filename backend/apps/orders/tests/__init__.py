@@ -1,3 +1,1 @@
-"""
-Tests for the orders app.
-"""
+# Orders app tests package

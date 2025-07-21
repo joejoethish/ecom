@@ -1,0 +1,52 @@
+{% extends "emails/base.html" %}
+
+{% block title %}Daily Inventory Report - {{ report_date }}{% endblock %}
+
+{% block header %}Daily Inventory Report{% endblock %}
+
+{% block content %}
+<h2>Daily Inventory Report</h2>
+<p><strong>Report Date:</strong> {{ report_date|date:"F d, Y" }}</p>
+
+<div class="order-details">
+    <h3>Inventory Summary</h3>
+    <div class="item-row">
+        <strong>Total Active Products:</strong> {{ total_products }}
+    </div>
+    <div class="item-row">
+        <strong>Low Stock Items:</strong> 
+        <span style="color: #ff6b6b; font-weight: bold;">{{ low_stock_count }}</span>
+    </div>
+    <div class="item-row">
+        <strong>Out of Stock Items:</strong> 
+        <span style="color: #e74c3c; font-weight: bold;">{{ out_of_stock_count }}</span>
+    </div>
+</div>
+
+{% if low_stock_items %}
+<div class="order-details">
+    <h3>Top Low Stock Items (Immediate Attention Required)</h3>
+    {% for item in low_stock_items %}
+    <div class="item-row">
+        <strong>{{ item.product_name }}</strong> (SKU: {{ item.sku }})<br>
+        Current Stock: <span style="color: #ff6b6b; font-weight: bold;">{{ item.current_stock }}</span> | 
+        Minimum Level: {{ item.minimum_level }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if low_stock_count > 0 or out_of_stock_count > 0 %}
+<p style="background-color: #fff3cd; padding: 15px; border: 1px solid #ffeaa7; border-radius: 5px;">
+    <strong>Action Required:</strong> Please review and restock items to maintain optimal inventory levels.
+</p>
+{% else %}
+<p style="background-color: #d4edda; padding: 15px; border: 1px solid #c3e6cb; border-radius: 5px;">
+    <strong>Good News:</strong> All items are currently above minimum stock levels!
+</p>
+{% endif %}
+
+<p>
+    <a href="{{ frontend_url }}/admin/inventory" class="button">Manage Inventory</a>
+</p>
+{% endblock %}

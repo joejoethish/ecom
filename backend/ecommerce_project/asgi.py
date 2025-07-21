@@ -19,6 +19,8 @@ django_asgi_app = get_asgi_application()
 
 from apps.chat import routing as chat_routing
 from apps.notifications import routing as notification_routing
+from apps.orders import routing as order_routing
+from apps.inventory import routing as inventory_routing
 
 application = ProtocolTypeRouter({
     "http": django_asgi_app,
@@ -27,6 +29,8 @@ application = ProtocolTypeRouter({
             URLRouter([
                 *chat_routing.websocket_urlpatterns,
                 *notification_routing.websocket_urlpatterns,
+                *order_routing.websocket_urlpatterns,
+                *inventory_routing.websocket_urlpatterns,
             ])
         )
     ),
