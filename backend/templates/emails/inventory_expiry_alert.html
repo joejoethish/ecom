@@ -1,0 +1,51 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+<h2>Inventory Expiry Alert</h2>
+
+<p>Dear Administrator,</p>
+
+<p>This is an automated alert to inform you that there are <strong>{{ total_items }}</strong> items in inventory that will expire within {{ days_threshold }} days.</p>
+
+<h3>Items Expiring Soon:</h3>
+
+<table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    <thead>
+        <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">Product</th>
+            <th style="padding: 10px; text-align: left; border: 1px solid #ddd;">SKU</th>
+            <th style="padding: 10px; text-align: right; border: 1px solid #ddd;">Current Stock</th>
+            <th style="padding: 10px; text-align: center; border: 1px solid #ddd;">Expiry Date</th>
+            <th style="padding: 10px; text-align: center; border: 1px solid #ddd;">Days Until Expiry</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in expiring_items %}
+        <tr style="{% if item.days_until_expiry <= 7 %}background-color: #ffeeee;{% endif %}">
+            <td style="padding: 10px; text-align: left; border: 1px solid #ddd;">{{ item.product_name }}</td>
+            <td style="padding: 10px; text-align: left; border: 1px solid #ddd;">{{ item.product_sku }}</td>
+            <td style="padding: 10px; text-align: right; border: 1px solid #ddd;">{{ item.current_stock }}</td>
+            <td style="padding: 10px; text-align: center; border: 1px solid #ddd;">{{ item.expiry_date }}</td>
+            <td style="padding: 10px; text-align: center; border: 1px solid #ddd; 
+                {% if item.days_until_expiry <= 7 %}color: red; font-weight: bold;{% endif %}">
+                {{ item.days_until_expiry }} days
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p style="margin-top: 20px;">Please take appropriate action to manage these expiring items:</p>
+<ul>
+    <li>Consider discounting items approaching expiry</li>
+    <li>Move items to prominent display locations</li>
+    <li>Plan for disposal of items that cannot be sold</li>
+</ul>
+
+<p>This report was generated at {{ check_time }}.</p>
+
+<p>
+    <a href="{{ frontend_url }}/admin/inventory" style="background-color: #4CAF50; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px;">View Inventory</a>
+</p>
+
+{% endblock %}

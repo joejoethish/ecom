@@ -1,0 +1,44 @@
+{% extends "emails/base.html" %}
+
+{% block content %}
+<h2>Payment Failed</h2>
+
+<p>Dear {{ user.first_name|default:user.username }},</p>
+
+<p>We're sorry to inform you that the payment for your order <strong>#{{ order.order_number }}</strong> has failed.</p>
+
+<div style="background-color: #f8f8f8; padding: 15px; border-left: 4px solid #e74c3c; margin: 20px 0;">
+    <p style="margin: 0;"><strong>Error:</strong> {{ error_message }}</p>
+</div>
+
+<h3>Order Details:</h3>
+<table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+    <tr>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Order Number:</strong></td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">{{ order.order_number }}</td>
+    </tr>
+    <tr>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Order Date:</strong></td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">{{ order.created_at }}</td>
+    </tr>
+    <tr>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Total Amount:</strong></td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">{{ payment.amount }} {{ payment.currency }}</td>
+    </tr>
+    <tr>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;"><strong>Payment Method:</strong></td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">{{ payment.payment_method }}</td>
+    </tr>
+</table>
+
+<p style="margin-top: 20px;">Please try again with a different payment method or check your payment details.</p>
+
+<p>
+    <a href="{{ frontend_url }}/orders/{{ order.id }}/retry-payment" style="background-color: #3498db; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; display: inline-block; margin-top: 15px;">Retry Payment</a>
+</p>
+
+<p style="margin-top: 20px;">If you continue to experience issues, please contact our customer support team for assistance.</p>
+
+<p>Thank you for your understanding.</p>
+
+{% endblock %}

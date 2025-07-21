@@ -1,0 +1,47 @@
+{% extends "emails/base.html" %}
+
+{% block title %}Don't forget your items!{% endblock %}
+
+{% block header %}Items Waiting for You{% endblock %}
+
+{% block content %}
+<h2>Hello {{ user.first_name|default:user.username }},</h2>
+
+<p>You have {{ total_items }} item{{ total_items|pluralize }} waiting in your cart. Don't let them get away!</p>
+
+<div class="order-details">
+    <h3>Items in Your Cart</h3>
+    {% for item in cart_items %}
+    <div class="item-row">
+        <strong>{{ item.product.name }}</strong><br>
+        Quantity: {{ item.quantity }} × ${{ item.product.price }}
+        {% if item.product.discount_price %}
+        <span style="color: #e74c3c; text-decoration: line-through;">
+            ${{ item.product.price }}
+        </span>
+        <span style="color: #27ae60; font-weight: bold;">
+            ${{ item.product.discount_price }}
+        </span>
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+    {% if total_items > 5 %}
+    <div class="item-row">
+        <em>... and {{ total_items|add:"-5" }} more item{{ total_items|add:"-5"|pluralize }}</em>
+    </div>
+    {% endif %}
+</div>
+
+<p>Complete your purchase now before these items are gone!</p>
+
+<p>
+    <a href="{{ frontend_url }}/cart" class="button">Complete Your Purchase</a>
+</p>
+
+<p style="font-size: 14px; color: #666;">
+    If you're no longer interested in these items, you can 
+    <a href="{{ frontend_url }}/cart">remove them from your cart</a> or 
+    <a href="{{ frontend_url }}/wishlist">save them for later</a>.
+</p>
+{% endblock %}

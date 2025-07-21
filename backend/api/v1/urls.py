@@ -15,8 +15,8 @@ urlpatterns = [
     path('customers/', include('apps.customers.urls')),
     # path('sellers/', include('apps.sellers.urls')),
     path('shipping/', include('apps.shipping.urls')),
-    # path('reviews/', include('apps.reviews.urls')),
+    path('reviews/', include('apps.reviews.urls')),
     # path('analytics/', include('apps.analytics.urls')),
     # path('content/', include('apps.content.urls')),
-    # path('notifications/', include('apps.notifications.urls')),
+    path('notifications/', include('apps.notifications.urls')),
 ]

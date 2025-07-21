@@ -318,7 +318,8 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Implement Razorpay and Stripe integration services
     - Add comprehensive payment method support (UPI, Cash, Credit/Debit Cards, IMPS, RTGS, NEFT)
     - Create refund processing service
-    - Implement multi-currency support (USD, INR, AED, EUR, SGD)
+    - Implement multi-currency support with INR as default currency (INR, USD, AED, EUR, SGD)
+    - Set INR (Indian Rupee) as the primary and default currency for all pricing
     - Write tests for payment operations
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, 12.9, 12.10, 12.11, 12.12_
 
@@ -333,7 +334,7 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Implement payment gateway selection logic
     - Add wallet and gift card management
     - Create payment status synchronization
-    - Implement currency conversion services
+    - Implement currency conversion services with INR as base currency
     - Write API tests for payment functionality
     - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, 12.9, 12.10, 12.11, 12.12_
 
@@ -429,6 +430,7 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - _Requirements: 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 15.7, 15.8, 15.9, 15.10_
 
   - [x] 10.3 Develop frontend shipping and tracking components
+<<<<<<< Updated upstream
 
 
 
@@ -437,6 +439,8 @@ This implementation plan converts the comprehensive e-commerce platform design i
 
 
 
+=======
+>>>>>>> Stashed changes
     - Create delivery slot selection UI
     - Implement shipping address management
     - Build order tracking interface
@@ -444,6 +448,7 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write component tests for shipping functionality
     - _Requirements: 15.2, 15.3, 15.6, 15.7, 15.8_
 
+<<<<<<< Updated upstream
 - [-] 11. Customer and Address Management
 
 
@@ -451,6 +456,10 @@ This implementation plan converts the comprehensive e-commerce platform design i
 
 
 
+=======
+- [ ] 11. Customer and Address Management
+  - [x] 11.1 Implement Customer and Address models
+>>>>>>> Stashed changes
     - Create enhanced customer profile models
     - Implement Address model with validation
     - Add Wishlist and WishlistItem models
@@ -471,7 +480,13 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write API tests for customer functionality
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 6.1, 6.2, 6.3, 6.4, 6.5, 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9, 10.10_
 
-  - [ ] 11.3 Develop frontend customer profile and wishlist components
+  - [x] 11.3 Develop frontend customer profile and wishlist components
+
+
+
+
+
+
     - Create customer profile management interface
     - Implement address book functionality
     - Build wishlist management components
@@ -479,8 +494,12 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write component tests for customer features
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 6.1, 6.2, 6.3, 6.4, 6.5_
 
-- [ ] 12. Product Review and Rating System
-  - [ ] 12.1 Create Review models and validation logic
+- [-] 12. Product Review and Rating System
+
+
+  - [x] 12.1 Create Review models and validation logic
+
+
     - Implement Review model with rating system
     - Add review verification for purchased products
     - Create review moderation functionality
@@ -488,7 +507,9 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write tests for review system
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6_
 
-  - [ ] 12.2 Build review API with moderation features
+  - [x] 12.2 Build review API with moderation features
+
+
     - Create review serializers and endpoints
     - Implement review submission validation
     - Add review moderation endpoints
@@ -496,7 +517,20 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write API tests for review system
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6_
 
-  - [ ] 12.3 Develop frontend review and rating components
+  - [x] 12.3 Develop frontend review and rating components
+
+
+
+
+
+
+
+
+
+
+
+
+
     - Create review submission forms
     - Implement rating display components
     - Build review listing and filtering
@@ -504,8 +538,14 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write component tests for review functionality
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 13. Comprehensive Notification System
-  - [ ] 13.1 Implement Notification models and services
+- [x] 13. Comprehensive Notification System
+
+
+
+
+  - [x] 13.1 Implement Notification models and services
+
+
     - Create Notification and NotificationTemplate models
     - Implement NotificationPreference model
     - Create multi-channel notification service
@@ -513,15 +553,20 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write tests for notification system
     - _Requirements: 21.1, 21.2, 21.3, 21.4, 21.5, 21.6, 21.7, 21.8_
 
-  - [ ] 13.2 Build notification API and preference management
+
+
+  - [x] 13.2 Build notification API and preference management
+
     - Create notification serializers and endpoints
     - Implement notification preference management
     - Add notification history and tracking
     - Create notification analytics
     - Write API tests for notification system
+
     - _Requirements: 21.1, 21.2, 21.3, 21.4, 21.5, 21.6, 21.7, 21.8_
 
-  - [ ] 13.3 Develop frontend notification components and preferences
+  - [x] 13.3 Develop frontend notification components and preferences
+
     - Create notification preference settings
     - Implement in-app notification display
     - Build notification history interface
@@ -529,8 +574,14 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write component tests for notification features
     - _Requirements: 21.1, 21.2, 21.3, 21.5, 21.6_
 
-- [ ] 14. Background Task Processing with Celery
-  - [ ] 14.1 Set up Celery infrastructure and task definitions
+- [-] 14. Background Task Processing with Celery
+
+
+
+  - [x] 14.1 Set up Celery infrastructure and task definitions
+
+
+
     - Configure Celery with Redis/RabbitMQ
     - Create email sending background tasks
     - Implement SMS notification tasks
@@ -538,7 +589,17 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write tests for background tasks
     - _Requirements: 18.1, 18.2, 18.3, 18.4, 18.5, 18.6, 18.7, 18.8_
 
-  - [ ] 14.2 Integrate background tasks with business logic
+  - [x] 14.2 Integrate background tasks with business logic
+
+
+
+
+
+
+
+
+
+
     - Connect order processing with email tasks
     - Implement payment status sync tasks
     - Add inventory monitoring tasks
@@ -546,8 +607,14 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write integration tests for task flows
     - _Requirements: 18.1, 18.2, 18.3, 18.4, 18.5, 18.6, 18.7, 18.8_
 
-- [ ] 15. Real-Time Communication with WebSockets
-  - [ ] 15.1 Implement WebSocket consumers and routing
+- [x] 15. Real-Time Communication with WebSockets
+
+
+
+
+  - [x] 15.1 Implement WebSocket consumers and routing
+
+
     - Set up Django Channels for WebSocket support
     - Create order tracking WebSocket consumer
     - Implement customer support chat consumer
@@ -555,7 +622,9 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - Write tests for WebSocket functionality
     - _Requirements: 19.1, 19.2, 19.3, 19.4, 19.5, 19.6, 19.7, 19.8_
 
-  - [ ] 15.2 Build frontend WebSocket integration and components
+  - [x] 15.2 Build frontend WebSocket integration and components
+
+
     - Create WebSocket connection manager
     - Implement real-time order tracking hooks
     - Build customer support chat interface
@@ -564,7 +633,12 @@ This implementation plan converts the comprehensive e-commerce platform design i
     - _Requirements: 19.1, 19.2, 19.3, 19.4, 19.5, 19.6, 19.7, 19.8_
 
 - [ ] 16. Enhanced Admin Panel with Analytics and Advanced Reporting
-  - [ ] 16.1 Create admin models and analytics services
+
+
+
+  - [-] 16.1 Create admin models and analytics services
+
+
     - Implement Banner and Carousel models
     - Create analytics data models
     - Build analytics calculation services

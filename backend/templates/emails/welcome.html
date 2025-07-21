@@ -1,0 +1,30 @@
+{% extends "emails/base.html" %}
+
+{% block title %}Welcome to E-commerce Platform{% endblock %}
+
+{% block header %}Welcome!{% endblock %}
+
+{% block content %}
+<h2>Welcome to our E-commerce Platform, {{ user.first_name|default:user.username }}!</h2>
+
+<p>Thank you for joining our community. We're excited to have you on board!</p>
+
+<p>Here's what you can do with your new account:</p>
+
+<ul>
+    <li>Browse thousands of products across various categories</li>
+    <li>Add items to your wishlist for later</li>
+    <li>Enjoy secure and fast checkout</li>
+    <li>Track your orders in real-time</li>
+    <li>Manage your addresses and payment methods</li>
+    <li>Leave reviews and ratings for products</li>
+</ul>
+
+<p>
+    <a href="{{ frontend_url }}" class="button">Start Shopping</a>
+</p>
+
+<p>If you have any questions or need assistance, our customer support team is here to help.</p>
+
+<p>Happy shopping!</p>
+{% endblock %}

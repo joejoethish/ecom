@@ -1,0 +1,45 @@
+{% extends "emails/base.html" %}
+
+{% block title %}Order Confirmation - #{{ order.order_number }}{% endblock %}
+
+{% block header %}Order Confirmation{% endblock %}
+
+{% block content %}
+<h2>Thank you for your order, {{ customer.first_name|default:customer.username }}!</h2>
+
+<p>Your order has been confirmed and is being processed. Here are the details:</p>
+
+<div class="order-details">
+    <h3>Order #{{ order.order_number }}</h3>
+    <p><strong>Order Date:</strong> {{ order.created_at|date:"F d, Y" }}</p>
+    <p><strong>Status:</strong> {{ order.get_status_display }}</p>
+    
+    <h4>Items Ordered:</h4>
+    {% for item in order_items %}
+    <div class="item-row">
+        <strong>{{ item.product.name }}</strong><br>
+        Quantity: {{ item.quantity }} × ${{ item.unit_price }} = ${{ item.total_price }}
+    </div>
+    {% endfor %}
+    
+    <div class="total-row">
+        <p>Subtotal: ${{ order.total_amount|floatformat:2 }}</p>
+        {% if order.discount_amount > 0 %}
+        <p>Discount: -${{ order.discount_amount|floatformat:2 }}</p>
+        {% endif %}
+        {% if order.tax_amount > 0 %}
+        <p>Tax: ${{ order.tax_amount|floatformat:2 }}</p>
+        {% endif %}
+        {% if order.shipping_amount > 0 %}
+        <p>Shipping: ${{ order.shipping_amount|floatformat:2 }}</p>
+        {% endif %}
+        <p><strong>Total: ${{ order.total_amount|floatformat:2 }}</strong></p>
+    </div>
+</div>
+
+<p>
+    <a href="{{ frontend_url }}/orders/{{ order.id }}" class="button">Track Your Order</a>
+</p>
+
+<p>We'll send you another email when your order ships. If you have any questions, please don't hesitate to contact us.</p>
+{% endblock %}
