@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ alert.name }} Alert</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .alert-header {
+            background-color: {% if alert.severity == 'critical' %}#721c24{% elif alert.severity == 'error' %}#dc3545{% elif alert.severity == 'warning' %}#ffc107{% else %}#17a2b8{% endif %};
+            color: {% if alert.severity == 'warning' %}#212529{% else %}#fff{% endif %};
+            padding: 15px;
+            border-radius: 4px 4px 0 0;
+            margin-bottom: 0;
+        }
+        
+        .alert-body {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+        }
+        
+        .alert-title {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        
+        .alert-severity {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .alert-details {
+            margin-top: 20px;
+        }
+        
+        .alert-details table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .alert-details th, .alert-details td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .alert-details th {
+            background-color: #f2f2f2;
+        }
+        
+        .alert-footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+        
+        .alert-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #417690;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="alert-header">
+        <h1 class="alert-title">{{ alert.name }} Alert</h1>
+        <p class="alert-severity">Severity: {{ alert.severity|upper }}</p>
+    </div>
+    
+    <div class="alert-body">
+        <p>{{ alert.description }}</p>
+        
+        <div class="alert-details">
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <td>{{ alert.metric }}.{{ alert.field }}</td>
+                </tr>
+                <tr>
+                    <th>Current Value</th>
+                    <td>{{ value }}</td>
+                </tr>
+                <tr>
+                    <th>Threshold</th>
+                    <td>{{ alert.condition }} {{ alert.threshold }}</td>
+                </tr>
+                <tr>
+                    <th>Time</th>
+                    <td>{{ timestamp|date:"Y-m-d H:i:s" }}</td>
+                </tr>
+            </table>
+        </div>
+        
+        <a href="{{ site_url }}{% url 'logs:dashboard' %}" class="alert-button">View Dashboard</a>
+    </div>
+    
+    <div class="alert-footer">
+        <p>This is an automated alert from {{ site_name }}. Please do not reply to this email.</p>
+    </div>
+</body>
+</html>

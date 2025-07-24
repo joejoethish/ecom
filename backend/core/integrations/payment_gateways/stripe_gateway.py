@@ -4,7 +4,13 @@ Stripe payment gateway integration.
 import logging
 from typing import Dict, Any, Optional
 from django.conf import settings
-import stripe
+
+try:
+    import stripe
+    STRIPE_AVAILABLE = True
+except ImportError:
+    stripe = None
+    STRIPE_AVAILABLE = False
 
 from .base import BasePaymentGateway
 from core.exceptions import PaymentGatewayError
@@ -21,9 +27,13 @@ class StripeGateway(BasePaymentGateway):
         """
         Initialize Stripe client with API key.
         """
+        if not STRIPE_AVAILABLE:
+            logger.warning("Stripe package not installed. Payment gateway will not work.")
+            return
+            
         try:
-            stripe.api_key = settings.STRIPE_SECRET_KEY
-            self.public_key = settings.STRIPE_PUBLIC_KEY
+            stripe.api_key = getattr(settings, 'STRIPE_SECRET_KEY', '')
+            self.public_key = getattr(settings, 'STRIPE_PUBLIC_KEY', '')
         except Exception as e:
             logger.error(f"Failed to initialize Stripe client: {str(e)}")
             raise PaymentGatewayError("Failed to initialize payment gateway")
