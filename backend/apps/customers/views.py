@@ -21,7 +21,7 @@ from .serializers import (
     CustomerActivitySerializer, CustomerAnalyticsSerializer,
     CustomerListSerializer, CustomerDetailSerializer, CustomerSearchSerializer
 )
-from .services import CustomerService, AddressService, WishlistService, CustomerActivityService
+from .services import CustomerService, AddressService, WishlistService, CustomerAnalyticsService
 from apps.products.models import Product
 from core.permissions import IsOwnerOrAdmin
 from core.pagination import StandardResultsSetPagination
@@ -423,7 +423,7 @@ class CustomerActivityView(APIView):
             activity_type = request.query_params.get('type')
             limit = int(request.query_params.get('limit', 50))
             
-            activities = CustomerActivityService.get_customer_activities(
+            activities = CustomerAnalyticsService.get_customer_activities(
                 customer_profile, activity_type, limit
             )
             
@@ -452,7 +452,7 @@ class CustomerAnalyticsView(APIView):
         """Get customer analytics."""
         try:
             customer_profile = CustomerService.get_or_create_customer_profile(request.user)
-            analytics = CustomerActivityService.get_customer_analytics(customer_profile)
+            analytics = CustomerAnalyticsService.get_customer_analytics(customer_profile)
             
             serializer = CustomerAnalyticsSerializer(analytics)
             
@@ -638,7 +638,7 @@ def log_customer_activity(request):
         user_agent = request.META.get('HTTP_USER_AGENT', '')
         session_key = request.session.session_key
         
-        activity = CustomerActivityService.log_activity(
+        activity = CustomerAnalyticsService.log_activity(
             customer_profile=customer_profile,
             activity_type=activity_type,
             description=description,

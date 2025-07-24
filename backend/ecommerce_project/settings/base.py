@@ -36,6 +36,8 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'channels',
     'django_elasticsearch_dsl',
+    'drf_spectacular',
+    'drf_yasg',
 ]
 
 LOCAL_APPS = [
@@ -66,9 +68,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'core.middleware.APIVersionMiddleware',
+    'core.middleware.RequestLoggingMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'core.middleware.RequestLoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'ecommerce_project.urls'
@@ -158,6 +161,34 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'core.pagination.CustomPageNumberPagination',
     'PAGE_SIZE': 20,
     'EXCEPTION_HANDLER': 'core.exceptions.custom_exception_handler',
+    'DEFAULT_VERSIONING_CLASS': 'core.versioning.CustomURLPathVersioning',
+    'DEFAULT_VERSION': 'v1',
+    'ALLOWED_VERSIONS': ['v1', 'v2'],
+    'VERSION_PARAM': 'version',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# API Versioning Configuration
+API_VERSIONS = ['v1', 'v2']
+DEFAULT_API_VERSION = 'v1'
+RECOMMENDED_API_VERSION = 'v2'
+DEPRECATED_API_VERSIONS = ['v1']  # v1 is now deprecated
+API_SUNSET_DATES = {
+    'v1': '2025-12-31',  # v1 will be removed on December 31, 2025
+}
+
+# Version-specific feature flags
+API_VERSION_FEATURES = {
+    'v1': {
+        'advanced_search': False,
+        'bulk_operations': False,
+        'enhanced_analytics': False,
+    },
+    'v2': {
+        'advanced_search': True,
+        'bulk_operations': True,
+        'enhanced_analytics': True,
+    }
 }
 
 # JWT Configuration
@@ -225,6 +256,71 @@ CHANNEL_LAYERS = {
         'CONFIG': {
             "hosts": [('127.0.0.1', 6379)],
         },
+    },
+}
+
+# DRF Spectacular Settings
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'E-Commerce Platform API',
+    'DESCRIPTION': 'A comprehensive API for the multi-vendor e-commerce platform',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': r'/api/v[0-9]',
+    'COMPONENT_SPLIT_REQUEST': True,
+    'COMPONENT_SPLIT_RESPONSE': True,
+    'SWAGGER_UI_SETTINGS': {
+        'deepLinking': True,
+        'persistAuthorization': True,
+        'displayOperationId': True,
+        'defaultModelsExpandDepth': 3,
+        'defaultModelExpandDepth': 3,
+        'docExpansion': 'list',
+    },
+    'TAGS': [
+        {'name': 'Authentication', 'description': 'Authentication endpoints'},
+        {'name': 'Products', 'description': 'Product management endpoints'},
+        {'name': 'Orders', 'description': 'Order management endpoints'},
+        {'name': 'Cart', 'description': 'Shopping cart endpoints'},
+        {'name': 'Inventory', 'description': 'Inventory management endpoints'},
+        {'name': 'Customers', 'description': 'Customer management endpoints'},
+        {'name': 'Payments', 'description': 'Payment processing endpoints'},
+        {'name': 'Shipping', 'description': 'Shipping and logistics endpoints'},
+        {'name': 'Sellers', 'description': 'Seller management endpoints'},
+        {'name': 'Analytics', 'description': 'Analytics and reporting endpoints'},
+        {'name': 'Content', 'description': 'Content management endpoints'},
+        {'name': 'Reviews', 'description': 'Product review endpoints'},
+        {'name': 'Search', 'description': 'Search and filtering endpoints'},
+        {'name': 'Notifications', 'description': 'Notification management endpoints'},
+    ],
+    'SERVERS': [
+        {'url': '/api/v1', 'description': 'API v1 (Legacy)'},
+        {'url': '/api/v2', 'description': 'API v2 (Current)'},
+    ],
+    'SECURITY': [
+        {
+            'Bearer': {
+                'type': 'apiKey',
+                'name': 'Authorization',
+                'in': 'header',
+                'description': 'Enter your bearer token in the format: Bearer <token>'
+            }
+        }
+    ],
+    'APPEND_COMPONENTS': {
+        'securitySchemes': {
+            'Bearer': {
+                'type': 'http',
+                'scheme': 'bearer',
+                'bearerFormat': 'JWT',
+                'description': 'JWT token authentication'
+            }
+        }
+    },
+    'REDOC_UI_SETTINGS': {
+        'hideDownloadButton': False,
+        'hideHostname': False,
+        'expandResponses': '200,201',
+        'pathInMiddlePanel': True,
     },
 }
 

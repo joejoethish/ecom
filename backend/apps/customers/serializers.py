@@ -8,7 +8,7 @@ from typing import Dict, Any
 
 from .models import CustomerProfile, Address, Wishlist, WishlistItem, CustomerActivity
 from .services import CustomerService, AddressService, WishlistService
-from apps.products.serializers import ProductSerializer
+from apps.products.serializers import ProductListSerializer
 
 User = get_user_model()
 
@@ -149,7 +149,7 @@ class WishlistItemSerializer(serializers.ModelSerializer):
     """
     Serializer for wishlist items.
     """
-    product = ProductSerializer(read_only=True)
+    product = ProductListSerializer(read_only=True)
     product_id = serializers.IntegerField(write_only=True)
     
     class Meta:

@@ -1,0 +1,15 @@
+{{ alert.name|upper }} ALERT
+
+Severity: {{ alert.severity|upper }}
+
+{{ alert.description }}
+
+Details:
+- Metric: {{ alert.metric }}.{{ alert.field }}
+- Current Value: {{ value }}
+- Threshold: {{ alert.condition }} {{ alert.threshold }}
+- Time: {{ timestamp|date:"Y-m-d H:i:s" }}
+
+View Dashboard: {{ site_url }}{% url 'logs:dashboard' %}
+
+This is an automated alert from {{ site_name }}. Please do not reply to this email.

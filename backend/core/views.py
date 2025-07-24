@@ -1,144 +1,143 @@
 """
-Core views and mixins for the ecommerce platform.
+Core views for the ecommerce platform.
+
+This module provides views for rendering API documentation guides and other
+core functionality for the ecommerce platform.
 """
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.decorators import action
-from django.http import JsonResponse
-from django.utils import timezone
+import os
+import markdown
+import json
 from django.conf import settings
-from .utils import create_response_data
-from .exceptions import EcommerceException
+from django.http import HttpResponse, Http404, JsonResponse
+from django.template.loader import render_to_string
+from django.views.decorators.cache import cache_page
+from django.utils.safestring import mark_safe
+from django.views.decorators.http import require_http_methods
+from drf_spectacular.generators import SchemaGenerator
+from drf_spectacular.renderers import OpenApiJsonRenderer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
 
 
-class BaseAPIView(APIView):
+# Define all available guides with metadata
+API_GUIDES = [
+    {'name': 'authentication', 'title': 'Authentication Guide', 'file': 'api/authentication_guide.md'},
+    {'name': 'error-handling', 'title': 'Error Handling Guide', 'file': 'api/error_handling.md'},
+    {'name': 'usage', 'title': 'API Usage Guide', 'file': 'api/usage_guide.md'},
+    {'name': 'versioning', 'title': 'API Versioning Guide', 'file': 'api/versioning_guide.md'},
+]
+
+
+@cache_page(60 * 15)  # Cache for 15 minutes
+def api_documentation_guide(request, guide_name):
     """
-    Base API view with common functionality.
-    """
+    View to render API documentation guides from markdown files.
     
-    def handle_exception(self, exc):
-        """
-        Handle exceptions and return consistent error responses.
-        """
-        if isinstance(exc, EcommerceException):
-            return Response(
-                create_response_data(
-                    success=False,
-                    message=exc.message,
-                    errors={'code': exc.code}
-                ),
-                status=exc.status_code
+    Args:
+        request: HTTP request
+        guide_name: Name of the guide to render
+    
+    Returns:
+        HTTP response with rendered guide
+    """
+    # Find the guide by name
+    guide = next((g for g in API_GUIDES if g['name'] == guide_name), None)
+    
+    if not guide:
+        raise Http404("Guide not found")
+    
+    file_path = os.path.join(settings.BASE_DIR, 'docs', guide['file'])
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as file:
+            content = file.read()
+            
+            # Convert markdown to HTML
+            html_content = markdown.markdown(
+                content,
+                extensions=[
+                    'markdown.extensions.fenced_code',
+                    'markdown.extensions.tables',
+                    'markdown.extensions.toc',
+                    'markdown.extensions.codehilite',
+                ]
             )
-        
-        return super().handle_exception(exc)
+            
+            # Render template with guide content
+            context = {
+                'title': guide['title'],
+                'content': mark_safe(html_content),
+                'guide_name': guide_name,
+                'guides': API_GUIDES
+            }
+            
+            return HttpResponse(render_to_string('docs/guide.html', context))
+    except FileNotFoundError:
+        raise Http404("Guide file not found")
 
 
-class BaseModelViewSet(ModelViewSet):
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def api_guides_list(request):
     """
-    Base model viewset with common functionality.
+    View to list all available API guides.
+    
+    Args:
+        request: HTTP request
+    
+    Returns:
+        JSON response with list of guides
     """
-    
-    def create(self, request, *args, **kwargs):
-        """
-        Create a new instance with standardized response.
-        """
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        instance = serializer.save()
-        
-        return Response(
-            create_response_data(
-                success=True,
-                data=serializer.data,
-                message=f"{self.get_serializer_class().Meta.model.__name__} created successfully"
-            ),
-            status=status.HTTP_201_CREATED
-        )
-    
-    def update(self, request, *args, **kwargs):
-        """
-        Update an instance with standardized response.
-        """
-        partial = kwargs.pop('partial', False)
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        
-        return Response(
-            create_response_data(
-                success=True,
-                data=serializer.data,
-                message=f"{self.get_serializer_class().Meta.model.__name__} updated successfully"
-            )
-        )
-    
-    def destroy(self, request, *args, **kwargs):
-        """
-        Delete an instance with standardized response.
-        """
-        instance = self.get_object()
-        instance.delete()
-        
-        return Response(
-            create_response_data(
-                success=True,
-                message=f"{self.get_serializer_class().Meta.model.__name__} deleted successfully"
-            ),
-            status=status.HTTP_204_NO_CONTENT
-        )
-    
-    def list(self, request, *args, **kwargs):
-        """
-        List instances with pagination.
-        """
-        queryset = self.filter_queryset(self.get_queryset())
-        page = self.paginate_queryset(queryset)
-        
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-        
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(
-            create_response_data(
-                success=True,
-                data=serializer.data
-            )
-        )
-    
-    def retrieve(self, request, *args, **kwargs):
-        """
-        Retrieve a single instance.
-        """
-        instance = self.get_object()
-        serializer = self.get_serializer(instance)
-        
-        return Response(
-            create_response_data(
-                success=True,
-                data=serializer.data
-            )
-        )
+    return JsonResponse({
+        'guides': [
+            {
+                'name': guide['name'],
+                'title': guide['title'],
+                'url': request.build_absolute_uri(f'/api/docs/guides/{guide["name"]}/')
+            }
+            for guide in API_GUIDES
+        ]
+    })
 
 
-class HealthCheckView(APIView):
+@require_http_methods(["GET"])
+def api_endpoints_list(request):
     """
-    Simple health check endpoint.
-    """
-    permission_classes = []
-    authentication_classes = []
+    View to list all API endpoints with their documentation.
     
-    def get(self, request):
-        """
-        Return system health status.
-        """
-        return Response({
-            'status': 'healthy',
-            'timestamp': timezone.now().isoformat(),
-            'version': getattr(settings, 'API_VERSION', 'v1')
-        })
-
-
+    Args:
+        request: HTTP request
+    
+    Returns:
+        JSON response with list of endpoints
+    """
+    # Generate schema
+    generator = SchemaGenerator()
+    schema = generator.get_schema(request=request, public=True)
+    
+    # Extract endpoints from schema
+    paths = schema.get('paths', {})
+    endpoints = []
+    
+    for path, methods in paths.items():
+        for method, details in methods.items():
+            endpoints.append({
+                'path': path,
+                'method': method.upper(),
+                'summary': details.get('summary', ''),
+                'description': details.get('description', ''),
+                'tags': details.get('tags', []),
+                'deprecated': details.get('deprecated', False),
+            })
+    
+    # Group endpoints by tag
+    grouped_endpoints = {}
+    for endpoint in endpoints:
+        for tag in endpoint.get('tags', ['Other']):
+            if tag not in grouped_endpoints:
+                grouped_endpoints[tag] = []
+            grouped_endpoints[tag].append(endpoint)
+    
+    return JsonResponse({
+        'endpoints': grouped_endpoints
+    })
