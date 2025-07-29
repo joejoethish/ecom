@@ -2567,224 +2567,79 @@ INFO 2025-07-19 18:27:34,907 signals 18000 5832 Profile created for user: test3@
 INFO 2025-07-19 18:28:08,753 signals 18000 5832 Profile created for user: test3@example.com
 INFO 2025-07-19 18:28:43,280 signals 18000 5832 Profile created for user: test3@example.com
 INFO 2025-07-19 18:29:17,489 signals 18000 5832 Profile created for user: test3@example.com
-<<<<<<< Updated upstream
-WARNING 2025-07-19 21:02:30,332 connection 7312 19644 No hostname was supplied. Reverting to default 'localhost'
-=======
 WARNING 2025-07-20 09:04:19,536 connection 7532 17948 No hostname was supplied. Reverting to default 'localhost'
 WARNING 2025-07-20 11:21:35,417 connection 14424 12080 No hostname was supplied. Reverting to default 'localhost'
 WARNING 2025-07-20 20:41:24,302 connection 12736 11392 No hostname was supplied. Reverting to default 'localhost'
->>>>>>> Stashed changes
+
 INFO 2025-07-24 16:09:16,429 autoreload 15988 19132 C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
 INFO 2025-07-24 16:09:19,553 autoreload 6652 12584 Watching for file changes with StatReloader
 INFO 2025-07-25 21:52:00,158 autoreload 9608 21712 Watching for file changes with StatReloader
-INFO 2025-07-26 10:02:42,403 autoreload 2000 11368 Watching for file changes with StatReloader
-INFO 2025-07-26 10:02:52,799 autoreload 12408 8552 Watching for file changes with StatReloader
-INFO 2025-07-26 10:05:34,489 middleware 2000 17420 Request started - ID: 3ec8401d-dc5a-4312-8d93-301957bf3f9c, Method: GET, Path: /, User: None
-INFO 2025-07-26 10:05:34,691 middleware 2000 17420 Request completed - ID: 3ec8401d-dc5a-4312-8d93-301957bf3f9c, Status: 404, Duration: 0.201s
-WARNING 2025-07-26 10:05:34,691 log 2000 17420 Not Found: /
-WARNING 2025-07-26 10:05:34,695 basehttp 2000 17420 "GET / HTTP/1.1" 404 15951
-INFO 2025-07-26 10:05:34,808 basehttp 2000 17420 "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 200 29444
-INFO 2025-07-26 10:05:34,836 basehttp 2000 17588 "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 200 14803
-INFO 2025-07-26 10:05:34,872 basehttp 2000 5440 "GET /static/debug_toolbar/css/print.css HTTP/1.1" 200 43
-INFO 2025-07-26 10:05:34,957 basehttp 2000 5440 "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 200 4692
-INFO 2025-07-26 10:05:35,060 middleware 2000 5440 Request started - ID: ec092e8a-dc30-4200-b020-32d44269fba6, Method: GET, Path: /favicon.ico, User: None
-INFO 2025-07-26 10:05:35,220 middleware 2000 5440 Request completed - ID: ec092e8a-dc30-4200-b020-32d44269fba6, Status: 404, Duration: 0.160s
-WARNING 2025-07-26 10:05:35,220 log 2000 5440 Not Found: /favicon.ico
-WARNING 2025-07-26 10:05:35,225 basehttp 2000 5440 "GET /favicon.ico HTTP/1.1" 404 16013
-INFO 2025-07-26 10:05:48,916 middleware 2000 5440 Request started - ID: 5ae8912c-171b-4fe9-9d92-94100a865823, Method: GET, Path: /admin, User: None
-INFO 2025-07-26 10:05:49,082 middleware 2000 5440 Request completed - ID: 5ae8912c-171b-4fe9-9d92-94100a865823, Status: 404, Duration: 0.165s
-INFO 2025-07-26 10:05:49,084 basehttp 2000 5440 "GET /admin HTTP/1.1" 301 0
-INFO 2025-07-26 10:05:49,088 middleware 2000 17588 Request started - ID: 915dc26e-34ee-46b7-bb68-5740f43d8d57, Method: GET, Path: /admin/, User: None
-INFO 2025-07-26 10:05:49,247 middleware 2000 17588 Request completed - ID: 915dc26e-34ee-46b7-bb68-5740f43d8d57, Status: 302, Duration: 0.159s
-INFO 2025-07-26 10:05:49,247 basehttp 2000 17588 "GET /admin/ HTTP/1.1" 302 0
-INFO 2025-07-26 10:05:49,254 middleware 2000 17588 Request started - ID: a2272a54-3a8f-4441-a7e8-b24ca60d0b33, Method: GET, Path: /admin/login/, User: None
-INFO 2025-07-26 10:05:49,715 middleware 2000 17588 Request completed - ID: a2272a54-3a8f-4441-a7e8-b24ca60d0b33, Status: 200, Duration: 0.463s
-INFO 2025-07-26 10:05:49,717 basehttp 2000 17588 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 17363
-INFO 2025-07-26 10:05:49,788 basehttp 2000 17420 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
-INFO 2025-07-26 10:05:49,797 basehttp 2000 17588 "GET /static/admin/css/base.css HTTP/1.1" 200 22120
-INFO 2025-07-26 10:05:49,852 basehttp 2000 16072 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
-INFO 2025-07-26 10:05:49,863 basehttp 2000 7176 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
-INFO 2025-07-26 10:05:49,865 basehttp 2000 8348 "GET /static/admin/css/login.css HTTP/1.1" 200 951
-INFO 2025-07-26 10:05:49,896 basehttp 2000 9716 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
-INFO 2025-07-26 10:05:50,004 basehttp 2000 8348 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
-INFO 2025-07-26 10:06:38,812 middleware 2000 8348 Request started - ID: 0b4dffeb-78fb-4cbd-adaf-05832531be49, Method: GET, Path: /, User: None
-INFO 2025-07-26 10:06:39,008 middleware 2000 8348 Request completed - ID: 0b4dffeb-78fb-4cbd-adaf-05832531be49, Status: 404, Duration: 0.196s
-WARNING 2025-07-26 10:06:39,013 log 2000 8348 Not Found: /
-WARNING 2025-07-26 10:06:39,016 basehttp 2000 8348 "GET / HTTP/1.1" 404 15951
-INFO 2025-07-26 10:06:50,605 middleware 2000 8348 Request started - ID: 8a06d2a2-a135-4cbb-b373-933a13249b6e, Method: GET, Path: /api/v1/, User: None
-INFO 2025-07-26 10:06:50,783 middleware 2000 8348 Request completed - ID: 8a06d2a2-a135-4cbb-b373-933a13249b6e, Status: 404, Duration: 0.178s
-WARNING 2025-07-26 10:06:50,786 log 2000 8348 Not Found: /api/v1/
-WARNING 2025-07-26 10:06:50,786 basehttp 2000 8348 "GET /api/v1/ HTTP/1.1" 404 18088
-INFO 2025-07-26 10:07:00,369 middleware 2000 8348 Request started - ID: 071ad894-98fe-442d-b592-1030f4f83843, Method: GET, Path: /api/v1/ products/, User: None
-INFO 2025-07-26 10:07:00,567 middleware 2000 8348 Request completed - ID: 071ad894-98fe-442d-b592-1030f4f83843, Status: 404, Duration: 0.197s
-WARNING 2025-07-26 10:07:00,571 log 2000 8348 Not Found: /api/v1/ products/
-WARNING 2025-07-26 10:07:00,578 basehttp 2000 8348 "GET /api/v1/%20products/ HTTP/1.1" 404 18132
-INFO 2025-07-26 10:07:07,347 middleware 2000 8348 Request started - ID: c1539131-a6cf-4992-95b1-e7cc1dc2e390, Method: GET, Path: /api/v1/products/, User: None
-INFO 2025-07-26 10:07:12,882 middleware 2000 8348 Request completed - ID: c1539131-a6cf-4992-95b1-e7cc1dc2e390, Status: 200, Duration: 5.536s
-INFO 2025-07-26 10:07:12,900 basehttp 2000 8348 "GET /api/v1/products/ HTTP/1.1" 200 13882
-INFO 2025-07-26 12:05:19,253 basehttp 2000 10936 "OPTIONS /api/v1/auth/login/ HTTP/1.1" 200 0
-INFO 2025-07-26 12:13:47,260 autoreload 2000 11368 C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
-INFO 2025-07-26 12:13:59,853 autoreload 2240 14008 Watching for file changes with StatReloader
-INFO 2025-07-26 12:17:29,926 autoreload 2240 14008 C:\Local_ecom\backend\api\v1\urls.py changed, reloading.
-INFO 2025-07-26 12:17:37,332 autoreload 2388 19060 Watching for file changes with StatReloader
-INFO 2025-07-26 13:14:10,975 autoreload 2388 19060 C:\Local_ecom\backend\apps\authentication\models.py changed, reloading.
-INFO 2025-07-26 13:14:50,904 autoreload 20356 17012 Watching for file changes with StatReloader
-INFO 2025-07-26 13:27:01,991 autoreload 20356 17012 C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
-INFO 2025-07-26 13:27:06,665 autoreload 17184 2872 Watching for file changes with StatReloader
-INFO 2025-07-26 13:27:38,686 autoreload 17184 2872 C:\Local_ecom\backend\ecommerce_project\settings\development.py changed, reloading.
-INFO 2025-07-26 13:27:43,658 autoreload 19988 16128 Watching for file changes with StatReloader
-INFO 2025-07-26 13:28:18,955 autoreload 19988 16128 C:\Local_ecom\backend\ecommerce_project\settings\development.py changed, reloading.
-INFO 2025-07-26 13:28:24,930 autoreload 14988 20476 Watching for file changes with StatReloader
-INFO 2025-07-26 13:29:05,674 autoreload 14988 20476 C:\Local_ecom\backend\ecommerce_project\settings\development.py changed, reloading.
-INFO 2025-07-26 13:29:10,548 autoreload 19044 18480 Watching for file changes with StatReloader
-INFO 2025-07-26 13:29:20,433 autoreload 19044 18480 C:\Local_ecom\backend\ecommerce_project\settings\development.py changed, reloading.
-INFO 2025-07-26 13:29:24,372 autoreload 18540 20228 Watching for file changes with StatReloader
-WARNING 2025-07-27 08:15:41,344 connection 11276 15160 No hostname was supplied. Reverting to default 'localhost'
-WARNING 2025-07-27 08:20:15,048 connection 3076 14528 No hostname was supplied. Reverting to default 'localhost'
-INFO 2025-07-27 09:38:46,719 middleware 16040 6752 Request started - ID: d6644fe7-0a21-4624-8548-3a67a59f967e, Method: GET, Path: /, User: None
-INFO 2025-07-27 09:38:47,892 middleware 16040 6752 Request completed - ID: d6644fe7-0a21-4624-8548-3a67a59f967e, Status: 404, Duration: 1.175s
-WARNING 2025-07-27 09:38:47,900 log 16040 6752 Not Found: /
-WARNING 2025-07-27 09:38:47,900 basehttp 16040 6752 "GET / HTTP/1.1" 404 15682
-INFO 2025-07-27 09:38:48,060 basehttp 16040 6752 "GET /static/debug_toolbar/css/toolbar.css HTTP/1.1" 200 29444
-INFO 2025-07-27 09:38:48,087 basehttp 16040 8956 "GET /static/debug_toolbar/js/toolbar.js HTTP/1.1" 200 14803
-INFO 2025-07-27 09:38:48,177 basehttp 16040 14072 "GET /static/debug_toolbar/css/print.css HTTP/1.1" 200 43
-INFO 2025-07-27 09:38:48,464 basehttp 16040 8956 "GET /static/debug_toolbar/js/utils.js HTTP/1.1" 200 4692
-INFO 2025-07-27 09:38:48,565 middleware 16040 8956 Request started - ID: 8c56c4e4-c844-47d8-988a-9d210712712e, Method: GET, Path: /favicon.ico, User: None
-INFO 2025-07-27 09:38:48,849 middleware 16040 8956 Request completed - ID: 8c56c4e4-c844-47d8-988a-9d210712712e, Status: 404, Duration: 0.284s
-WARNING 2025-07-27 09:38:48,851 log 16040 8956 Not Found: /favicon.ico
-WARNING 2025-07-27 09:38:48,851 basehttp 16040 8956 "GET /favicon.ico HTTP/1.1" 404 15744
-INFO 2025-07-27 09:38:52,792 middleware 16040 8956 Request started - ID: e31cda26-4405-4ee2-b5be-7a863e1d38ea, Method: GET, Path: /__debug__/render_panel/, User: None
-INFO 2025-07-27 09:38:52,857 middleware 16040 8956 Request completed - ID: e31cda26-4405-4ee2-b5be-7a863e1d38ea, Status: 200, Duration: 0.067s
-INFO 2025-07-27 09:38:52,859 basehttp 16040 8956 "GET /__debug__/render_panel/?store_id=96b74796c8c1498e889cec99ad4bae3d&panel_id=HeadersPanel HTTP/1.1" 200 3748
-INFO 2025-07-27 09:39:02,444 middleware 16040 8956 Request started - ID: 642c0cb0-0198-478e-a1e0-f8b10039c934, Method: GET, Path: /admin, User: None
-INFO 2025-07-27 09:39:02,794 middleware 16040 8956 Request completed - ID: 642c0cb0-0198-478e-a1e0-f8b10039c934, Status: 404, Duration: 0.349s
-INFO 2025-07-27 09:39:02,796 basehttp 16040 8956 "GET /admin HTTP/1.1" 301 0
-INFO 2025-07-27 09:39:02,808 middleware 16040 14072 Request started - ID: 45018c68-5c06-48f0-b086-7d169153c55d, Method: GET, Path: /admin/, User: None
-INFO 2025-07-27 09:39:03,276 middleware 16040 14072 Request completed - ID: 45018c68-5c06-48f0-b086-7d169153c55d, Status: 302, Duration: 0.467s
-INFO 2025-07-27 09:39:03,287 basehttp 16040 14072 "GET /admin/ HTTP/1.1" 302 0
-INFO 2025-07-27 09:39:03,295 middleware 16040 14072 Request started - ID: ca3c046d-d808-4c8d-922c-cf3cc63161ba, Method: GET, Path: /admin/login/, User: None
-INFO 2025-07-27 09:39:04,287 middleware 16040 14072 Request completed - ID: ca3c046d-d808-4c8d-922c-cf3cc63161ba, Status: 200, Duration: 0.992s
-INFO 2025-07-27 09:39:04,289 basehttp 16040 14072 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 17372
-INFO 2025-07-27 09:39:04,368 basehttp 16040 6752 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
-INFO 2025-07-27 09:39:04,399 basehttp 16040 14072 "GET /static/admin/css/base.css HTTP/1.1" 200 21310
-INFO 2025-07-27 09:39:04,409 basehttp 16040 11008 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
-INFO 2025-07-27 09:39:04,494 basehttp 16040 18900 "GET /static/admin/css/login.css HTTP/1.1" 200 958
-INFO 2025-07-27 09:39:04,504 basehttp 16040 12976 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18559
-INFO 2025-07-27 09:39:04,508 basehttp 16040 6752 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
-INFO 2025-07-27 09:39:04,633 basehttp 16040 17736 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
-INFO 2025-07-27 09:39:47,184 middleware 16040 17736 Request started - ID: c38b5d34-7b27-4e78-8f47-75e85cf84efd, Method: GET, Path: /api/v1/, User: None
-INFO 2025-07-27 09:39:52,106 middleware 16040 17736 Request completed - ID: c38b5d34-7b27-4e78-8f47-75e85cf84efd, Status: 404, Duration: 4.924s
-WARNING 2025-07-27 09:39:52,158 log 16040 17736 Not Found: /api/v1/
-WARNING 2025-07-27 09:39:52,190 basehttp 16040 17736 "GET /api/v1/ HTTP/1.1" 404 18092
-INFO 2025-07-27 09:40:09,742 middleware 16040 17736 Request started - ID: 545453db-6252-41e6-815f-e039c9a8546a, Method: GET, Path: /api/v1/shipping, User: None
-INFO 2025-07-27 09:40:10,373 middleware 16040 17736 Request completed - ID: 545453db-6252-41e6-815f-e039c9a8546a, Status: 404, Duration: 0.631s
-INFO 2025-07-27 09:40:10,385 basehttp 16040 17736 "GET /api/v1/shipping HTTP/1.1" 301 0
-INFO 2025-07-27 09:40:10,396 middleware 16040 12976 Request started - ID: 368984e1-b78f-4f06-b070-07cd813f92fe, Method: GET, Path: /api/v1/shipping/, User: None
-ERROR 2025-07-27 09:40:10,415 exceptions 16040 12976 API Exception: Authentication credentials were not provided.
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\http\request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+ERROR 2025-07-22 11:33:19,764 exception 6668 5964 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
 Traceback (most recent call last):
-  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 503, in dispatch
-    self.initial(request, *args, **kwargs)
-  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 421, in initial
-    self.check_permissions(request)
-  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 339, in check_permissions
-    self.permission_denied(
-  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 180, in permission_denied
-    raise exceptions.NotAuthenticated()
-rest_framework.exceptions.NotAuthenticated: Authentication credentials were not provided.
-INFO 2025-07-27 09:40:10,922 middleware 16040 12976 Request completed - ID: 368984e1-b78f-4f06-b070-07cd813f92fe, Status: 401, Duration: 0.522s
-WARNING 2025-07-27 09:40:10,926 log 16040 12976 Unauthorized: /api/v1/shipping/
-WARNING 2025-07-27 09:40:10,931 basehttp 16040 12976 "GET /api/v1/shipping/ HTTP/1.1" 401 187
-INFO 2025-07-27 09:40:28,383 middleware 16040 12976 Request started - ID: d7dcd50a-0633-4740-8347-3845bc0e08ff, Method: GET, Path: /api/v1/payments, User: None
-INFO 2025-07-27 09:40:28,573 middleware 16040 12976 Request completed - ID: d7dcd50a-0633-4740-8347-3845bc0e08ff, Status: 404, Duration: 0.190s
-INFO 2025-07-27 09:40:28,573 basehttp 16040 12976 "GET /api/v1/payments HTTP/1.1" 301 0
-INFO 2025-07-27 09:40:28,584 middleware 16040 6752 Request started - ID: 1a499138-d7c1-45fe-ae7d-8f5549b5a280, Method: GET, Path: /api/v1/payments/, User: None
-ERROR 2025-07-27 09:40:28,589 exceptions 16040 6752 API Exception: Authentication credentials were not provided.
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\http\request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+ERROR 2025-07-22 11:33:20,380 exception 6668 5964 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
 Traceback (most recent call last):
-  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 503, in dispatch
-    self.initial(request, *args, **kwargs)
-  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 421, in initial
-    self.check_permissions(request)
-  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 339, in check_permissions
-    self.permission_denied(
-  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 180, in permission_denied
-    raise exceptions.NotAuthenticated()
-rest_framework.exceptions.NotAuthenticated: Authentication credentials were not provided.
-INFO 2025-07-27 09:40:28,720 middleware 16040 6752 Request completed - ID: 1a499138-d7c1-45fe-ae7d-8f5549b5a280, Status: 401, Duration: 0.136s
-WARNING 2025-07-27 09:40:28,721 log 16040 6752 Unauthorized: /api/v1/payments/
-WARNING 2025-07-27 09:40:28,721 basehttp 16040 6752 "GET /api/v1/payments/ HTTP/1.1" 401 187
-INFO 2025-07-27 09:40:35,322 middleware 16040 6752 Request started - ID: 69e8909c-56fc-46b4-b6cd-e2251763878a, Method: GET, Path: /api/v1/products, User: None
-INFO 2025-07-27 09:40:35,511 middleware 16040 6752 Request completed - ID: 69e8909c-56fc-46b4-b6cd-e2251763878a, Status: 404, Duration: 0.191s
-INFO 2025-07-27 09:40:35,524 basehttp 16040 6752 "GET /api/v1/products HTTP/1.1" 301 0
-INFO 2025-07-27 09:40:35,531 middleware 16040 18900 Request started - ID: f276061e-349f-46ae-bbd2-3096e13c80fe, Method: GET, Path: /api/v1/products/, User: None
-INFO 2025-07-27 09:40:39,910 middleware 16040 18900 Request completed - ID: f276061e-349f-46ae-bbd2-3096e13c80fe, Status: 200, Duration: 4.379s
-INFO 2025-07-27 09:40:39,910 basehttp 16040 18900 "GET /api/v1/products/ HTTP/1.1" 200 52
-INFO 2025-07-27 09:40:47,777 middleware 16040 18900 Request started - ID: c3adbaa8-a95b-463a-bf01-302748f0457e, Method: GET, Path: /api/v1/auth, User: None
-INFO 2025-07-27 09:40:48,411 middleware 16040 18900 Request completed - ID: c3adbaa8-a95b-463a-bf01-302748f0457e, Status: 404, Duration: 0.634s
-WARNING 2025-07-27 09:40:48,411 log 16040 18900 Not Found: /api/v1/auth
-WARNING 2025-07-27 09:40:48,417 basehttp 16040 18900 "GET /api/v1/auth HTTP/1.1" 404 18107
-INFO 2025-07-27 09:40:57,552 middleware 16040 18900 Request started - ID: 977062e9-6e2f-4ff6-b6a8-43e8d6ea5448, Method: GET, Path: /api/v1/categories, User: None
-INFO 2025-07-27 09:40:57,961 middleware 16040 18900 Request completed - ID: 977062e9-6e2f-4ff6-b6a8-43e8d6ea5448, Status: 404, Duration: 0.409s
-INFO 2025-07-27 09:40:57,964 basehttp 16040 18900 "GET /api/v1/categories HTTP/1.1" 301 0
-INFO 2025-07-27 09:40:57,998 middleware 16040 11008 Request started - ID: d9a7e7b6-b2a2-447e-9311-75992179c14e, Method: GET, Path: /api/v1/categories/, User: None
-INFO 2025-07-27 09:40:58,337 middleware 16040 11008 Request completed - ID: d9a7e7b6-b2a2-447e-9311-75992179c14e, Status: 200, Duration: 0.339s
-INFO 2025-07-27 09:40:58,363 basehttp 16040 11008 "GET /api/v1/categories/ HTTP/1.1" 200 130
-WARNING 2025-07-27 09:52:46,303 connection 10896 16260 No hostname was supplied. Reverting to default 'localhost'
-INFO 2025-07-27 10:46:11,849 signals 17832 17280 Cleaned up data for user: test@example.com
-WARNING 2025-07-27 10:46:12,010 connection 17832 17280 No hostname was supplied. Reverting to default 'localhost'
-INFO 2025-07-27 10:46:16,378 signals 17832 17280 Cleaned up data for user: test@example.com
-WARNING 2025-07-27 10:57:51,562 connection 16236 15968 No hostname was supplied. Reverting to default 'localhost'
-ERROR 2025-07-27 10:57:55,964 services 16236 15968 Failed to generate reset token: [WinError 10061] No connection could be made because the target machine actively refused it
-ERROR 2025-07-27 10:58:00,037 services 16236 15968 Failed to log reset attempt: [WinError 10061] No connection could be made because the target machine actively refused it
-WARNING 2025-07-28 14:00:40,948 connection 23064 8436 No hostname was supplied. Reverting to default 'localhost'
-INFO 2025-07-28 15:37:33,903 monitoring 8028 8660 Task delete_document (None) started
-INFO 2025-07-28 15:37:33,921 signals 8028 8660 Deleting Elasticsearch document: authentication.passwordresetattempt ID: 14
-ERROR 2025-07-28 15:37:33,933 signals 8028 8660 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-WARNING 2025-07-28 15:37:33,935 monitoring 8028 8660 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:33,936 monitoring 8028 8660 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:33,936 monitoring 8028 8660 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-INFO 2025-07-28 15:37:33,961 monitoring 8028 8660 Task delete_document (None) started
-ERROR 2025-07-28 15:37:33,962 monitoring 8028 8660 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
-INFO 2025-07-28 15:37:33,968 monitoring 8028 8660 Task delete_document (None) started
-ERROR 2025-07-28 15:37:33,968 monitoring 8028 8660 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
-INFO 2025-07-28 15:37:33,978 monitoring 8028 8660 Task delete_document (None) started
-ERROR 2025-07-28 15:37:33,979 monitoring 8028 8660 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
-INFO 2025-07-28 15:37:33,984 monitoring 8028 8660 Task delete_document (None) started
-ERROR 2025-07-28 15:37:33,985 monitoring 8028 8660 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
-INFO 2025-07-28 15:37:33,990 monitoring 8028 8660 Task delete_document (None) started
-ERROR 2025-07-28 15:37:33,996 monitoring 8028 8660 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
-INFO 2025-07-28 15:37:34,014 tasks 8028 8660 Starting password reset token performance monitoring
-INFO 2025-07-28 15:37:34,120 tasks 8028 8660 Password reset monitoring: 3 total tokens, 1 active, 2 expired, success rate: 50.0%
-INFO 2025-07-28 15:37:34,121 tasks 8028 8660 Starting cleanup of expired password reset tokens
-INFO 2025-07-28 15:37:34,129 monitoring 8028 8660 Task delete_document (None) started
-INFO 2025-07-28 15:37:34,129 signals 8028 8660 Deleting Elasticsearch document: authentication.passwordresettoken ID: 8
-ERROR 2025-07-28 15:37:34,130 signals 8028 8660 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-WARNING 2025-07-28 15:37:34,130 monitoring 8028 8660 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:34,131 monitoring 8028 8660 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:34,131 monitoring 8028 8660 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-INFO 2025-07-28 15:37:34,132 monitoring 8028 8660 Task delete_document (None) started
-INFO 2025-07-28 15:37:34,132 signals 8028 8660 Deleting Elasticsearch document: authentication.passwordresettoken ID: 6
-ERROR 2025-07-28 15:37:34,135 signals 8028 8660 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-WARNING 2025-07-28 15:37:34,138 monitoring 8028 8660 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:34,140 monitoring 8028 8660 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:34,147 monitoring 8028 8660 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-INFO 2025-07-28 15:37:34,184 tasks 8028 8660 Password reset token cleanup completed. Deleted 2 tokens: 2 expired, 0 old, 0 used
-INFO 2025-07-28 15:37:34,187 tasks 8028 8660 Starting cleanup of password reset attempts older than 7 days
-INFO 2025-07-28 15:37:34,199 monitoring 8028 8660 Task delete_document (None) started
-INFO 2025-07-28 15:37:34,199 signals 8028 8660 Deleting Elasticsearch document: authentication.passwordresetattempt ID: 15
-ERROR 2025-07-28 15:37:34,200 signals 8028 8660 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-WARNING 2025-07-28 15:37:34,200 monitoring 8028 8660 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:34,201 monitoring 8028 8660 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:34,203 monitoring 8028 8660 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-INFO 2025-07-28 15:37:34,219 tasks 8028 8660 Password reset attempts cleanup completed. Deleted 1 attempts older than 7 days
-INFO 2025-07-28 15:37:34,256 monitoring 8028 8660 Task delete_document (None) started
-INFO 2025-07-28 15:37:34,256 signals 8028 8660 Deleting Elasticsearch document: authentication.passwordresettoken ID: 9
-ERROR 2025-07-28 15:37:34,257 signals 8028 8660 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-WARNING 2025-07-28 15:37:34,257 monitoring 8028 8660 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:34,258 monitoring 8028 8660 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:34,258 monitoring 8028 8660 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-INFO 2025-07-28 15:37:34,272 monitoring 8028 8660 Task delete_document (None) started
-INFO 2025-07-28 15:37:34,273 signals 8028 8660 Deleting Elasticsearch document: authentication.passwordresetattempt ID: 16
-ERROR 2025-07-28 15:37:34,273 signals 8028 8660 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-WARNING 2025-07-28 15:37:34,274 monitoring 8028 8660 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:34,274 monitoring 8028 8660 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
-ERROR 2025-07-28 15:37:34,280 monitoring 8028 8660 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\http\request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+ERROR 2025-07-22 11:33:21,530 exception 6668 5964 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\http\request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+ERROR 2025-07-22 11:33:22,143 exception 6668 5964 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\http\request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+ERROR 2025-07-22 11:33:22,722 exception 6668 5964 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\http\request.py", line 186, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+INFO 2025-07-24 15:17:27,431 autoreload 17784 11100 Watching for file changes with StatReloader
+INFO 2025-07-24 15:19:02,547 autoreload 6648 9196 Watching for file changes with StatReloader
+INFO 2025-07-24 15:21:01,721 autoreload 13708 20440 Watching for file changes with StatReloader
+INFO 2025-07-24 15:48:19,183 autoreload 14156 5752 Watching for file changes with StatReloader
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e

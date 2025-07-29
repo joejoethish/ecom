@@ -12,6 +12,7 @@ from .models import (
     DailySalesReport, ProductPerformanceReport, CustomerAnalytics,
     InventoryReport, SystemMetrics, ReportExport
 )
+from django.db import models
 
 
 class AnalyticsService:
@@ -30,7 +31,7 @@ class AnalyticsService:
             date_to = timezone.now()
 
         from apps.orders.models import Order
-        from apps.customers.models import Customer
+        from apps.customers.models import CustomerProfile
         from apps.products.models import Product
         from apps.inventory.models import Inventory
 
@@ -47,14 +48,15 @@ class AnalyticsService:
         )
 
         # Customer metrics
-        customers = Customer.objects.filter(
+        from apps.customers.models import CustomerProfile
+        customers = CustomerProfile.objects.filter(
             user__date_joined__range=[date_from, date_to],
             is_deleted=False
         )
         
         customer_data = {
             'new_customers': customers.count(),
-            'total_customers': Customer.objects.filter(is_deleted=False).count(),
+            'total_customers': CustomerProfile.objects.filter(is_deleted=False).count(),
             'returning_customers': orders.values('user').distinct().count() - customers.count()
         }
 
@@ -362,6 +364,8 @@ class ReportGenerationService:
         """
         Create a report export job.
         """
+        from .export_services import ReportExportService
+        
         export = ReportExport.objects.create(
             report_type=report_type,
             export_format=export_format,
@@ -369,12 +373,53 @@ class ReportGenerationService:
             date_from=date_from.date() if date_from else None,
             date_to=date_to.date() if date_to else None,
             filters=filters or {},
-            expires_at=timezone.now() + timedelta(days=7)  # Expire after 7 days
+            expires_at=timezone.now() + timedelta(days=7),  # Expire after 7 days
+            export_status='processing'
         )
         
-        # In a real implementation, this would trigger a background task
-        # to generate the actual file
+        try:
+            # Generate report data based on type
+            if report_type == 'sales':
+                if not date_from:
+                    date_from = timezone.now() - timedelta(days=30)
+                if not date_to:
+                    date_to = timezone.now()
+                data = AnalyticsService.generate_sales_report(date_from, date_to, filters)
+            elif report_type == 'inventory':
+                data = ReportGenerationService.get_stock_maintenance_report()
+            elif report_type == 'customer':
+                data = AnalyticsService.get_customer_analytics_summary()
+            elif report_type == 'profit_loss':
+                if not date_from:
+                    date_from = timezone.now() - timedelta(days=30)
+                if not date_to:
+                    date_to = timezone.now()
+                data = AnalyticsService.generate_profit_loss_report(date_from, date_to)
+            else:
+                raise ValueError(f"Unsupported report type: {report_type}")
+            
+            # Generate filename
+            timestamp = timezone.now().strftime('%Y%m%d_%H%M%S')
+            filename = f"{report_type}_report_{timestamp}"
+            
+            # Export the data
+            file_path = ReportExportService.export_report(
+                report_type, export_format, data, filename
+            )
+            
+            if file_path:
+                export.file_path = file_path
+                export.file_size = ReportExportService.get_file_size(file_path)
+                export.export_status = 'completed'
+            else:
+                export.export_status = 'failed'
+            
+        except Exception as e:
+            export.export_status = 'failed'
+            # In production, you would log this error
+            print(f"Export failed: {str(e)}")
         
+        export.save()
         return export
 
     @staticmethod

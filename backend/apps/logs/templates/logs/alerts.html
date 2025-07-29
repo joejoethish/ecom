@@ -1,0 +1,463 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Alert Configuration | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block extrastyle %}
+<style>
+    .alerts-container {
+        margin-bottom: 20px;
+    }
+    
+    .alert-card {
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .alert-card h2 {
+        margin-top: 0;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        font-size: 18px;
+    }
+    
+    .alert-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .alert-table th,
+    .alert-table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .alert-table th {
+        background-color: #f2f2f2;
+    }
+    
+    .alert-severity {
+        display: inline-block;
+        padding: 2px 6px;
+        border-radius: 3px;
+        color: white;
+        font-weight: bold;
+    }
+    
+    .alert-severity-info {
+        background-color: #17a2b8;
+    }
+    
+    .alert-severity-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
+    
+    .alert-severity-error {
+        background-color: #dc3545;
+    }
+    
+    .alert-severity-critical {
+        background-color: #721c24;
+    }
+    
+    .alert-enabled {
+        color: #28a745;
+    }
+    
+    .alert-disabled {
+        color: #dc3545;
+    }
+    
+    .alert-actions {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .alert-actions button {
+        padding: 5px 10px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .alert-actions .edit-button {
+        background-color: #17a2b8;
+        color: white;
+    }
+    
+    .alert-actions .toggle-button {
+        background-color: #6c757d;
+        color: white;
+    }
+    
+    .alert-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .alert-modal-content {
+        background-color: #fff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 4px;
+        width: 50%;
+        max-width: 600px;
+    }
+    
+    .alert-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .alert-modal-header h2 {
+        margin: 0;
+    }
+    
+    .alert-modal-close {
+        font-size: 24px;
+        cursor: pointer;
+    }
+    
+    .alert-form-group {
+        margin-bottom: 15px;
+    }
+    
+    .alert-form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    .alert-form-group input,
+    .alert-form-group select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+    
+    .alert-form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    
+    .alert-form-actions button {
+        padding: 8px 15px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .alert-form-actions .save-button {
+        background-color: #28a745;
+        color: white;
+    }
+    
+    .alert-form-actions .cancel-button {
+        background-color: #6c757d;
+        color: white;
+    }
+    
+    .alert-channels {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    .alert-channel {
+        display: inline-block;
+        padding: 2px 6px;
+        border-radius: 3px;
+        background-color: #e9ecef;
+        font-size: 12px;
+    }
+</style>
+{% endblock %}
+
+{% block extrahead %}
+<script>
+    // Alert management functions
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set up edit buttons
+        document.querySelectorAll('.edit-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const alertId = this.getAttribute('data-id');
+                openEditModal(alertId);
+            });
+        });
+        
+        // Set up toggle buttons
+        document.querySelectorAll('.toggle-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const alertId = this.getAttribute('data-id');
+                const enabled = this.getAttribute('data-enabled') === 'true';
+                toggleAlert(alertId, !enabled);
+            });
+        });
+        
+        // Set up modal close button
+        document.querySelector('.alert-modal-close').addEventListener('click', function() {
+            closeEditModal();
+        });
+        
+        // Set up form cancel button
+        document.querySelector('.cancel-button').addEventListener('click', function() {
+            closeEditModal();
+        });
+        
+        // Set up form submit
+        document.getElementById('alert-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveAlertConfig();
+        });
+    });
+    
+    // Open edit modal for an alert
+    function openEditModal(alertId) {
+        const alert = alertConfigs.find(a => a.id === alertId);
+        if (!alert) return;
+        
+        document.getElementById('alert-id').value = alert.id;
+        document.getElementById('alert-name').value = alert.name;
+        document.getElementById('alert-description').value = alert.description;
+        document.getElementById('alert-enabled').checked = alert.enabled;
+        document.getElementById('alert-threshold').value = alert.threshold;
+        document.getElementById('alert-severity').value = alert.severity;
+        
+        document.getElementById('alert-modal-title').textContent = `Edit Alert: ${alert.name}`;
+        document.getElementById('alert-modal').style.display = 'block';
+    }
+    
+    // Close edit modal
+    function closeEditModal() {
+        document.getElementById('alert-modal').style.display = 'none';
+    }
+    
+    // Save alert configuration
+    function saveAlertConfig() {
+        const alertId = document.getElementById('alert-id').value;
+        const enabled = document.getElementById('alert-enabled').checked;
+        const threshold = parseFloat(document.getElementById('alert-threshold').value);
+        
+        fetch('{% url "logs:api_alerts" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({
+                id: alertId,
+                enabled: enabled,
+                threshold: threshold
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                // Reload the page to show updated config
+                window.location.reload();
+            } else {
+                alert('Failed to update alert configuration: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error updating alert configuration:', error);
+            alert('An error occurred while updating the alert configuration');
+        });
+    }
+    
+    // Toggle alert enabled/disabled
+    function toggleAlert(alertId, enabled) {
+        fetch('{% url "logs:api_alerts" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({
+                id: alertId,
+                enabled: enabled
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                // Reload the page to show updated config
+                window.location.reload();
+            } else {
+                alert('Failed to update alert configuration: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error updating alert configuration:', error);
+            alert('An error occurred while updating the alert configuration');
+        });
+    }
+    
+    // Helper function to get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    // Store alert configurations for client-side use
+    const alertConfigs = {{ alert_configs|safe }};
+</script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">Home</a> &rsaquo;
+    <a href="{% url 'logs:dashboard' %}">Monitoring Dashboard</a> &rsaquo;
+    <a href="{% url 'logs:alerts' %}">Alert Configuration</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<h1>Alert Configuration</h1>
+
+<div class="alerts-container">
+    <div class="alert-card">
+        <h2>System Alerts</h2>
+        <table class="alert-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Metric</th>
+                    <th>Threshold</th>
+                    <th>Severity</th>
+                    <th>Status</th>
+                    <th>Channels</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in alert_configs %}
+                <tr>
+                    <td>{{ alert.name }}</td>
+                    <td>{{ alert.description }}</td>
+                    <td>{{ alert.metric }}.{{ alert.field }}</td>
+                    <td>{{ alert.condition }} {{ alert.threshold }}</td>
+                    <td>
+                        <span class="alert-severity alert-severity-{{ alert.severity }}">
+                            {{ alert.severity|upper }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if alert.enabled %}
+                        <span class="alert-enabled">Enabled</span>
+                        {% else %}
+                        <span class="alert-disabled">Disabled</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="alert-channels">
+                            {% for channel in alert.channels %}
+                            <span class="alert-channel">{{ channel }}</span>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="alert-actions">
+                            <button class="edit-button" data-id="{{ alert.id }}">Edit</button>
+                            <button class="toggle-button" data-id="{{ alert.id }}" data-enabled="{{ alert.enabled|lower }}">
+                                {% if alert.enabled %}
+                                Disable
+                                {% else %}
+                                Enable
+                                {% endif %}
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8">No alerts configured</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Edit Alert Modal -->
+<div id="alert-modal" class="alert-modal">
+    <div class="alert-modal-content">
+        <div class="alert-modal-header">
+            <h2 id="alert-modal-title">Edit Alert</h2>
+            <span class="alert-modal-close">&times;</span>
+        </div>
+        <form id="alert-form">
+            <input type="hidden" id="alert-id">
+            
+            <div class="alert-form-group">
+                <label for="alert-name">Name</label>
+                <input type="text" id="alert-name" readonly>
+            </div>
+            
+            <div class="alert-form-group">
+                <label for="alert-description">Description</label>
+                <input type="text" id="alert-description" readonly>
+            </div>
+            
+            <div class="alert-form-group">
+                <label for="alert-enabled">Enabled</label>
+                <input type="checkbox" id="alert-enabled">
+            </div>
+            
+            <div class="alert-form-group">
+                <label for="alert-threshold">Threshold</label>
+                <input type="number" id="alert-threshold" step="0.01">
+            </div>
+            
+            <div class="alert-form-group">
+                <label for="alert-severity">Severity</label>
+                <select id="alert-severity" disabled>
+                    <option value="info">Info</option>
+                    <option value="warning">Warning</option>
+                    <option value="error">Error</option>
+                    <option value="critical">Critical</option>
+                </select>
+            </div>
+            
+            <div class="alert-form-actions">
+                <button type="button" class="cancel-button">Cancel</button>
+                <button type="submit" class="save-button">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="dashboard-links">
+    <a href="{% url 'logs:dashboard' %}" class="button">Back to Dashboard</a>
+    <a href="{% url 'logs:analysis' %}" class="button">Log Analysis</a>
+</div>
+{% endblock %}

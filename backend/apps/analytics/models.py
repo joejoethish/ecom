@@ -183,7 +183,7 @@ class CustomerAnalytics(BaseModel):
     Customer behavior and analytics data.
     """
     customer = models.ForeignKey(
-        User,
+        'customers.CustomerProfile',
         on_delete=models.CASCADE,
         related_name='analytics'
     )

@@ -11,6 +11,16 @@ from django.utils import timezone
 from django.db import models
 from datetime import timedelta
 
+<<<<<<< HEAD
+=======
+# Import models
+from apps.authentication.models import User
+from apps.orders.models import Order
+from apps.inventory.models import Inventory, InventoryTransaction
+from apps.notifications.models import Notification, NotificationTemplate
+from apps.products.models import Product
+
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
 logger = logging.getLogger(__name__)
 
 
@@ -19,7 +29,11 @@ def send_email_task(self, subject: str, message: str, recipient_list: List[str],
                    html_message: Optional[str] = None, template_name: Optional[str] = None,
                    context: Optional[Dict[str, Any]] = None):
     """
+<<<<<<< HEAD
     Send email asynchronously with retry mechanism.
+=======
+    Send email asynchronously with retry mechanism and monitoring.
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
     """
     try:
         logger.info(f"Sending email to {recipient_list} with subject: {subject}")
@@ -52,15 +66,24 @@ def send_email_task(self, subject: str, message: str, recipient_list: List[str],
         return {"status": "success", "recipients": recipient_list}
         
     except Exception as exc:
+<<<<<<< HEAD
         logger.error(f"Email task failed: {str(exc)}")
         raise self.retry(exc=exc)
+=======
+        logger.error(f"Email sending failed: {str(exc)}")
+        raise self.retry(exc=exc, countdown=60, max_retries=3)
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
 
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=60)
 def send_sms_task(self, phone_number: str, message: str, template_name: Optional[str] = None,
                  context: Optional[Dict[str, Any]] = None):
     """
+<<<<<<< HEAD
     Send SMS notification asynchronously.
+=======
+    Send SMS notification asynchronously with monitoring.
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
     """
     try:
         logger.info(f"Sending SMS to {phone_number}")
@@ -77,8 +100,13 @@ def send_sms_task(self, phone_number: str, message: str, template_name: Optional
         return {"status": "success", "phone_number": phone_number}
         
     except Exception as exc:
+<<<<<<< HEAD
         logger.error(f"SMS task failed: {str(exc)}")
         raise self.retry(exc=exc)
+=======
+        logger.error(f"SMS sending failed: {str(exc)}")
+        raise self.retry(exc=exc, countdown=60, max_retries=3)
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
 
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=300)
@@ -136,7 +164,11 @@ def check_inventory_levels_task(self):
         
     except Exception as exc:
         logger.error(f"Inventory check failed: {str(exc)}")
+<<<<<<< HEAD
         raise self.retry(exc=exc)
+=======
+        raise self.retry(exc=exc, countdown=300, max_retries=3)
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
 
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=60)
@@ -145,10 +177,13 @@ def send_order_confirmation_email(self, order_id: int):
     Send order confirmation email to customer.
     """
     try:
+<<<<<<< HEAD
         # Import models inside the task
         from apps.orders.models import Order
         from apps.notifications.models import Notification
         
+=======
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
         logger.info(f"Sending order confirmation email for order {order_id}")
         
         order = Order.objects.get(id=order_id)
@@ -157,7 +192,11 @@ def send_order_confirmation_email(self, order_id: int):
             'order': order,
             'customer': order.user,
             'order_items': order.items.all(),
+<<<<<<< HEAD
             'frontend_url': settings.FRONTEND_URL
+=======
+            'frontend_url': getattr(settings, 'FRONTEND_URL', 'http://localhost:3000')
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
         }
         
         send_email_task.delay(
@@ -180,9 +219,18 @@ def send_order_confirmation_email(self, order_id: int):
         logger.info(f"Order confirmation email sent for order {order_id}")
         return {"status": "success", "order_id": order_id}
         
+<<<<<<< HEAD
     except Exception as exc:
         logger.error(f"Order confirmation email failed: {str(exc)}")
         raise self.retry(exc=exc)
+=======
+    except Order.DoesNotExist:
+        logger.error(f"Order {order_id} not found")
+        return {"status": "failed", "error": "Order not found"}
+    except Exception as exc:
+        logger.error(f"Order confirmation email failed: {str(exc)}")
+        raise self.retry(exc=exc, countdown=60, max_retries=3)
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
 
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=60)
@@ -191,12 +239,17 @@ def send_order_status_update_notification(self, order_id: int, status: str):
     Send order status update notification via email and SMS.
     """
     try:
+<<<<<<< HEAD
         # Import models inside the task
         from apps.orders.models import Order
         from apps.notifications.models import Notification
         
         logger.info(f"Sending order status update notification for order {order_id}")
         
+=======
+        logger.info(f"Sending order status update for order {order_id}")
+        
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
         order = Order.objects.get(id=order_id)
         
         # Email notification
@@ -204,7 +257,11 @@ def send_order_status_update_notification(self, order_id: int, status: str):
             'order': order,
             'customer': order.user,
             'new_status': status,
+<<<<<<< HEAD
             'frontend_url': settings.FRONTEND_URL
+=======
+            'frontend_url': getattr(settings, 'FRONTEND_URL', 'http://localhost:3000')
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
         }
         
         send_email_task.delay(
@@ -227,17 +284,33 @@ def send_order_status_update_notification(self, order_id: int, status: str):
         Notification.objects.create(
             user=order.user,
             title=f"Order Update - #{order.order_number}",
+<<<<<<< HEAD
             message=f"Your order status has been updated to {status}",
+=======
+            message=f"Your order status has been updated to {status}.",
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
             notification_type="ORDER_STATUS_UPDATE",
             reference_id=str(order.id)
         )
         
+<<<<<<< HEAD
         logger.info(f"Order status update notification sent for order {order_id}")
         return {"status": "success", "order_id": order_id, "new_status": status}
         
     except Exception as exc:
         logger.error(f"Order status update notification failed: {str(exc)}")
         raise self.retry(exc=exc)
+=======
+        logger.info(f"Order status update sent for order {order_id}")
+        return {"status": "success", "order_id": order_id, "new_status": status}
+        
+    except Order.DoesNotExist:
+        logger.error(f"Order {order_id} not found")
+        return {"status": "failed", "error": "Order not found"}
+    except Exception as exc:
+        logger.error(f"Order status update failed: {str(exc)}")
+        raise self.retry(exc=exc, countdown=60, max_retries=3)
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
 
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=60)
@@ -256,12 +329,21 @@ def send_welcome_email(self, user_id: int):
         
         context = {
             'user': user,
+<<<<<<< HEAD
             'frontend_url': settings.FRONTEND_URL
         }
         
         send_email_task.delay(
             subject="Welcome to our E-commerce Platform!",
             message=f"Welcome {user.first_name or user.username}! Thank you for joining us.",
+=======
+            'frontend_url': getattr(settings, 'FRONTEND_URL', 'http://localhost:3000')
+        }
+        
+        send_email_task.delay(
+            subject="Welcome to our E-Commerce Platform!",
+            message=f"Welcome {user.first_name or user.username}.",
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
             recipient_list=[user.email],
             template_name='emails/welcome.html',
             context=context
@@ -271,27 +353,47 @@ def send_welcome_email(self, user_id: int):
         Notification.objects.create(
             user=user,
             title="Welcome!",
+<<<<<<< HEAD
             message="Welcome to our platform! Start exploring amazing products now!",
+=======
+            message="Welcome to our platform! Start exploring now!",
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
             notification_type="WELCOME",
             reference_id=str(user.id)
         )
         
         logger.info(f"Welcome email sent to user {user_id}")
         return {"status": "success", "user_id": user_id}
+<<<<<<< HEAD
        
     except Exception as exc:
         logger.error(f"Welcome email failed: {str(exc)}")
         raise self.retry(exc=exc)
+=======
+        
+    except User.DoesNotExist:
+        logger.error(f"User {user_id} not found")
+        return {"status": "failed", "error": "User not found"}
+    except Exception as exc:
+        logger.error(f"Welcome email failed: {str(exc)}")
+        raise self.retry(exc=exc, countdown=60, max_retries=3)
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
 
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=60)
 def process_inventory_transaction(self, inventory_id: int, transaction_type: str, 
+<<<<<<< HEAD
                                 quantity: int, reference_number: str = None,
                                 notes: str = None, user_id: int = None):
+=======
+                                quantity: int, reference_number: str = "", 
+                                notes: str = "", user_id: int = None):
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
     """
     Process inventory transaction and update stock levels.
     """
     try:
+<<<<<<< HEAD
         # Import models inside the task
         from apps.authentication.models import User
         from apps.inventory.models import Inventory, InventoryTransaction
@@ -301,6 +403,13 @@ def process_inventory_transaction(self, inventory_id: int, transaction_type: str
         inventory = Inventory.objects.select_for_update().get(id=inventory_id)
         user = User.objects.get(id=user_id) if user_id else None
         
+=======
+        logger.info(f"Processing inventory transaction for inventory {inventory_id}")
+        
+        inventory = Inventory.objects.select_for_update().get(id=inventory_id)
+        user = User.objects.get(id=user_id) if user_id else None
+        
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
         # Create transaction record
         transaction = InventoryTransaction.objects.create(
             inventory=inventory,
@@ -316,6 +425,7 @@ def process_inventory_transaction(self, inventory_id: int, transaction_type: str
             inventory.quantity += abs(quantity)
         elif transaction_type == 'OUT':
             inventory.quantity -= abs(quantity)
+<<<<<<< HEAD
         
         # Ensure quantity doesn't go negative
         if inventory.quantity < 0:
@@ -328,21 +438,69 @@ def process_inventory_transaction(self, inventory_id: int, transaction_type: str
             check_inventory_levels_task.delay()
         
         logger.info(f"Inventory transaction processed successfully for inventory {inventory_id}")
+=======
+        elif transaction_type == 'ADJUSTMENT':
+            inventory.quantity = quantity
+        
+        inventory.save()
+        
+        # Check if stock level is now below minimum and send alert
+        if inventory.quantity <= inventory.minimum_stock_level:
+            check_inventory_levels_task.delay()
+        
+        logger.info(f"Inventory transaction processed successfully")
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
         return {
             "status": "success", 
             "transaction_id": transaction.id,
             "new_quantity": inventory.quantity
         }
         
+<<<<<<< HEAD
     except Exception as exc:
         logger.error(f"Inventory transaction failed: {str(exc)}")
         raise self.retry(exc=exc)
+=======
+    except Inventory.DoesNotExist:
+        logger.error(f"Inventory {inventory_id} not found")
+        return {"status": "failed", "error": "Inventory not found"}
+    except Exception as exc:
+        logger.error(f"Inventory transaction failed: {str(exc)}")
+        raise self.retry(exc=exc, countdown=60, max_retries=3)
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
 
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=300)
 def cleanup_old_notifications(self, days_old: int = 30):
     """
     Clean up old notifications to prevent database bloat.
+<<<<<<< HEAD
+=======
+    """
+    try:
+        logger.info(f"Cleaning up notifications older than {days_old} days")
+        
+        cutoff_date = timezone.now() - timedelta(days=days_old)
+        
+        # Delete old read notifications
+        deleted_count, _ = Notification.objects.filter(
+            created_at__lt=cutoff_date,
+            is_read=True
+        ).delete()
+        
+        logger.info(f"Cleaned up {deleted_count} old notifications")
+        return {"status": "success", "deleted_count": deleted_count}
+        
+    except Exception as exc:
+        logger.error(f"Notification cleanup failed: {str(exc)}")
+        raise self.retry(exc=exc, countdown=300, max_retries=3)
+
+
+@shared_task(bind=True, max_retries=3, default_retry_delay=300)
+def send_daily_inventory_report(self):
+    """
+    Send daily inventory report to administrators.
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
     """
     try:
         # Import models inside the task
@@ -419,12 +577,26 @@ def send_daily_inventory_report(self):
                 template_name='emails/daily_inventory_report.html',
                 context=report_data
             )
+<<<<<<< HEAD
+=======
+            
+            # Create in-app notifications for admins
+            for admin_id in User.objects.filter(is_staff=True).values_list('id', flat=True):
+                Notification.objects.create(
+                    user_id=admin_id,
+                    title=f"Daily Inventory Report - {timezone.now().date()}",
+                    message=f"Daily inventory report generated.",
+                    notification_type="INVENTORY_REPORT",
+                    reference_id="inventory_report"
+                )
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
         
         logger.info("Daily inventory report sent successfully")
         return {"status": "success", "report_data": report_data}
         
     except Exception as exc:
         logger.error(f"Daily inventory report failed: {str(exc)}")
+<<<<<<< HEAD
         raise self.retry(exc=exc)
 
 
@@ -478,6 +650,9 @@ def sync_payment_status_task(self, payment_id: int = None):
     except Exception as exc:
         logger.error(f"Payment status sync failed: {str(exc)}")
         raise self.retry(exc=exc)
+=======
+        raise self.retry(exc=exc, countdown=300, max_retries=3)
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
 
 
 @shared_task(bind=True, max_retries=3, default_retry_delay=300)
@@ -494,8 +669,15 @@ def send_abandoned_cart_reminders(self):
         
         logger.info("Sending abandoned cart reminders")
         
+<<<<<<< HEAD
         # Find carts abandoned for more than 1 hour with items
         cutoff_time = timezone.now() - timedelta(hours=1)
+=======
+        from apps.cart.models import Cart
+        
+        # Find carts abandoned for more than 24 hours with items
+        cutoff_time = timezone.now() - timedelta(hours=24)
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
         abandoned_carts = Cart.objects.filter(
             updated_at__lt=cutoff_time,
             items__isnull=False
@@ -511,13 +693,20 @@ def send_abandoned_cart_reminders(self):
                 ).exists()
                 
                 if not recent_orders:
+<<<<<<< HEAD
                     # Send reminder email
+=======
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
                     context = {
                         'user': cart.user,
                         'cart': cart,
                         'cart_items': cart.items.all()[:5],  # Show first 5 items
                         'total_items': cart.items.count(),
+<<<<<<< HEAD
                         'frontend_url': settings.FRONTEND_URL
+=======
+                        'frontend_url': getattr(settings, 'FRONTEND_URL', 'http://localhost:3000')
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
                     }
                     
                     send_email_task.delay(
@@ -541,10 +730,18 @@ def send_abandoned_cart_reminders(self):
                     
             except Exception as e:
                 logger.error(f"Failed to send reminder for cart {cart.id}: {str(e)}")
+<<<<<<< HEAD
+=======
+                continue
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e
         
         logger.info(f"Abandoned cart reminders sent: {reminder_count}")
         return {"status": "success", "reminder_count": reminder_count}
         
     except Exception as exc:
         logger.error(f"Abandoned cart reminders failed: {str(exc)}")
+<<<<<<< HEAD
         raise self.retry(exc=exc)
+=======
+        raise self.retry(exc=exc, countdown=300, max_retries=3)
+>>>>>>> ad691ad39e6130b959b8dc02b58d7c239fedf69e

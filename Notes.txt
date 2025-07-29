@@ -1,0 +1,535 @@
+1) Errors in this files
+
+Frontend:
+
+1) \src\app\admin\layout.tsx
+
+2) \src\app\checkout\page.tsx
+
+3) \src\app\products\page.tsx
+
+4) \src\app\seller\layout.tsx
+
+Done 5) \src\components\auth\LoginForm.tsx
+
+Done 6) \src\components\auth\LogoutButton.tsx
+
+Done 7) \src\components\auth\UserProfile.tsx
+
+Done 8) \src\components\auth\RegisterForm.tsx
+
+Done 9) \src\components\common\AccessibilityMenu.tsx
+
+Done 10) \src\components\customer\AddressManagement.tsx
+
+Done 11) \src\components\customer\CustomerPreferences.tsx
+
+Done 12) \src\components\customer\CustomerProfile.tsx
+
+24/7/2025
+
+
+C:\Local_ecom\frontend\src\app\products\page.tsx
+
+C:\Local_ecom\frontend\src\app\seller\layout.tsx
+
+C:\Local_ecom\frontend\src\components\orders\OrderDetails.tsx
+
+C:\Local_ecom\frontend\src\components\payments\CurrencySelector.tsx
+
+C:\Local_ecom\frontend\src\components\payments\GiftCardPayment.tsx
+
+C:\Local_ecom\frontend\src\components\payments\PaymentMethodSelector.tsx
+
+C:\Local_ecom\frontend\src\components\sellers\BankAccounts.tsx
+
+C:\Local_ecom\frontend\src\store\slices\orderSlice.ts
+
+C:\Local_ecom\frontend\src\utils\api.ts
+
+C:\Local_ecom\frontend\src\utils\typeGuards.ts
+
+
+
+Errors in Problems
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+1) 
+
+
+
+[{
+	"resource": "/c:/Local_ecom/frontend/src/app/products/page.tsx",
+	"owner": "typescript",
+	"code": "2741",
+	"severity": 8,
+	"message": "Property 'categories' is missing in type '{ selectedCategorySlug: string; }' but required in type 'CategoryNavigationProps'.",
+	"source": "ts",
+	"startLineNumber": 33,
+	"startColumn": 14,
+	"endLineNumber": 33,
+	"endColumn": 32,
+	"relatedInformation": [
+		{
+			"startLineNumber": 9,
+			"startColumn": 3,
+			"endLineNumber": 9,
+			"endColumn": 13,
+			"message": "'categories' is declared here.",
+			"resource": "/c:/Local_ecom/frontend/src/components/products/CategoryNavigation.tsx"
+		}
+	]
+}]
+------------------------------------------------------------------------------------------------------------------------------------------------------
+2) 
+
+[{
+	"resource": "/c:/Local_ecom/frontend/src/app/seller/layout.tsx",
+	"owner": "typescript",
+	"code": "2613",
+	"severity": 8,
+	"message": "Module '\"c:/Local_ecom/frontend/src/components/layout/SellerLayout\"' has no default export. Did you mean to use 'import { SellerLayout } from \"c:/Local_ecom/frontend/src/components/layout/SellerLayout\"' instead?",
+	"source": "ts",
+	"startLineNumber": 2,
+	"startColumn": 8,
+	"endLineNumber": 2,
+	"endColumn": 20
+}]
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+3) 
+[{
+	"resource": "/c:/Local_ecom/frontend/src/components/cart/__tests__/CartItem.test.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "Argument of type 'typeof import(\"c:/Local_ecom/frontend/node_modules/redux-thunk/dist/redux-thunk\")[]' is not assignable to parameter of type 'Middleware<{}, any, Dispatch<UnknownAction>>[]'.\n  Type 'typeof import(\"c:/Local_ecom/frontend/node_modules/redux-thunk/dist/redux-thunk\")' is not assignable to type 'Middleware<{}, any, Dispatch<UnknownAction>>'.\n    Type 'typeof import(\"c:/Local_ecom/frontend/node_modules/redux-thunk/dist/redux-thunk\")' provides no match for the signature '(api: MiddlewareAPI<Dispatch<UnknownAction>, any>): (next: (action: unknown) => unknown) => (action: unknown) => unknown'.",
+	"source": "ts",
+	"startLineNumber": 11,
+	"startColumn": 34,
+	"endLineNumber": 11,
+	"endColumn": 45
+}]
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+4) 
+
+[{
+	"resource": "/c:/Local_ecom/frontend/src/components/cart/__tests__/CouponSection.test.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "Argument of type 'typeof import(\"c:/Local_ecom/frontend/node_modules/redux-thunk/dist/redux-thunk\")[]' is not assignable to parameter of type 'Middleware<{}, any, Dispatch<UnknownAction>>[]'.\n  Type 'typeof import(\"c:/Local_ecom/frontend/node_modules/redux-thunk/dist/redux-thunk\")' is not assignable to type 'Middleware<{}, any, Dispatch<UnknownAction>>'.\n    Type 'typeof import(\"c:/Local_ecom/frontend/node_modules/redux-thunk/dist/redux-thunk\")' provides no match for the signature '(api: MiddlewareAPI<Dispatch<UnknownAction>, any>): (next: (action: unknown) => unknown) => (action: unknown) => unknown'.",
+	"source": "ts",
+	"startLineNumber": 11,
+	"startColumn": 34,
+	"endLineNumber": 11,
+	"endColumn": 45
+},{
+	"resource": "/c:/Local_ecom/frontend/src/components/cart/__tests__/CouponSection.test.tsx",
+	"owner": "typescript",
+	"code": "2304",
+	"severity": 8,
+	"message": "Cannot find name 'AppliedCoupon'.",
+	"source": "ts",
+	"startLineNumber": 20,
+	"startColumn": 29,
+	"endLineNumber": 20,
+	"endColumn": 42
+}]
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+5) 
+
+[{
+	"resource": "/c:/Local_ecom/frontend/src/components/orders/OrderDetails.tsx",
+	"owner": "typescript",
+	"code": "2322",
+	"severity": 8,
+	"message": "Type '{ events: OrderTracking[]; }' is not assignable to type 'IntrinsicAttributes & OrderTrackingProps'.\n  Property 'events' does not exist on type 'IntrinsicAttributes & OrderTrackingProps'.",
+	"source": "ts",
+	"startLineNumber": 297,
+	"startColumn": 35,
+	"endLineNumber": 297,
+	"endColumn": 41
+},{
+	"resource": "/c:/Local_ecom/frontend/src/components/orders/OrderDetails.tsx",
+	"owner": "typescript",
+	"code": "2304",
+	"severity": 8,
+	"message": "Cannot find name 'hasRefundAmount'.",
+	"source": "ts",
+	"startLineNumber": 326,
+	"startColumn": 18,
+	"endLineNumber": 326,
+	"endColumn": 33
+},{
+	"resource": "/c:/Local_ecom/frontend/src/components/orders/OrderDetails.tsx",
+	"owner": "typescript",
+	"code": "2304",
+	"severity": 8,
+	"message": "Cannot find name 'hasReturnTrackingNumber'.",
+	"source": "ts",
+	"startLineNumber": 331,
+	"startColumn": 18,
+	"endLineNumber": 331,
+	"endColumn": 41
+},{
+	"resource": "/c:/Local_ecom/frontend/src/components/orders/OrderDetails.tsx",
+	"owner": "typescript",
+	"code": "2304",
+	"severity": 8,
+	"message": "Cannot find name 'hasTrackingInfo'.",
+	"source": "ts",
+	"startLineNumber": 369,
+	"startColumn": 18,
+	"endLineNumber": 369,
+	"endColumn": 33
+},{
+	"resource": "/c:/Local_ecom/frontend/src/components/orders/OrderDetails.tsx",
+	"owner": "typescript",
+	"code": "2304",
+	"severity": 8,
+	"message": "Cannot find name 'hasShippingDate'.",
+	"source": "ts",
+	"startLineNumber": 374,
+	"startColumn": 18,
+	"endLineNumber": 374,
+	"endColumn": 33
+},{
+	"resource": "/c:/Local_ecom/frontend/src/components/orders/OrderDetails.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "Argument of type 'string | undefined' is not assignable to parameter of type 'string'.\n  Type 'undefined' is not assignable to type 'string'.",
+	"source": "ts",
+	"startLineNumber": 376,
+	"startColumn": 47,
+	"endLineNumber": 376,
+	"endColumn": 71
+},{
+	"resource": "/c:/Local_ecom/frontend/src/components/orders/OrderDetails.tsx",
+	"owner": "typescript",
+	"code": "2304",
+	"severity": 8,
+	"message": "Cannot find name 'hasDeliveryDate'.",
+	"source": "ts",
+	"startLineNumber": 379,
+	"startColumn": 18,
+	"endLineNumber": 379,
+	"endColumn": 33
+},{
+	"resource": "/c:/Local_ecom/frontend/src/components/orders/OrderDetails.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "Argument of type 'string | undefined' is not assignable to parameter of type 'string'.\n  Type 'undefined' is not assignable to type 'string'.",
+	"source": "ts",
+	"startLineNumber": 381,
+	"startColumn": 49,
+	"endLineNumber": 381,
+	"endColumn": 75
+}]
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+6) 
+[{
+	"resource": "/c:/Local_ecom/frontend/src/components/payments/CurrencySelector.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "Argument of type 'AsyncThunkAction<Currency[], void, AsyncThunkConfig>' is not assignable to parameter of type 'UnknownAction'.",
+	"source": "ts",
+	"startLineNumber": 29,
+	"startColumn": 14,
+	"endLineNumber": 29,
+	"endColumn": 31
+},{
+	"resource": "/c:/Local_ecom/frontend/src/components/payments/CurrencySelector.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "Argument of type 'AsyncThunkAction<CurrencyConversion, { from_currency: string; to_currency: string; amount: number; }, AsyncThunkConfig>' is not assignable to parameter of type 'UnknownAction'.",
+	"source": "ts",
+	"startLineNumber": 34,
+	"startColumn": 16,
+	"endLineNumber": 38,
+	"endColumn": 9
+}]
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+7) 
+
+
+[{
+	"resource": "/c:/Local_ecom/frontend/src/components/payments/GiftCardPayment.tsx",
+	"owner": "typescript",
+	"code": "2345",
+	"severity": 8,
+	"message": "Argument of type 'AsyncThunkAction<GiftCard, string, AsyncThunkConfig>' is not assignable to parameter of type 'UnknownAction'.",
+	"source": "ts",
+	"startLineNumber": 18,
+	"startColumn": 16,
+	"endLineNumber": 18,
+	"endColumn": 53
+}]
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+8) 
+
+
+[{
+	"resource": "/C:/Local_ecom/frontend/src/components/sellers/BankAccounts.tsx",
+	"owner": "typescript",
+	"code": "2339",
+	"severity": 8,
+	"message": "Property 'checked' does not exist on type 'EventTarget & (HTMLInputElement | HTMLSelectElement)'.",
+	"source": "ts",
+	"startLineNumber": 30,
+	"startColumn": 32,
+	"endLineNumber": 30,
+	"endColumn": 39
+}]
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+9)
+
+ 
+[{
+	"resource": "/c:/Local_ecom/frontend/src/store/slices/orderSlice.ts",
+	"owner": "typescript",
+	"code": "2322",
+	"severity": 8,
+	"message": "Type '{ id: string; product: { id: string; name: string; price: number; images: never[]; }; quantity: number; unit_price: number; total_price: number; status: \"PENDING\"; can_return: false; }[]' is not assignable to type 'OrderItem[]'.\n  Type '{ id: string; product: { id: string; name: string; price: number; images: never[]; }; quantity: number; unit_price: number; total_price: number; status: \"PENDING\"; can_return: false; }' is not assignable to type 'OrderItem'.\n    Types of property 'product' are incompatible.\n      Type '{ id: string; name: string; price: number; images: never[]; }' is missing the following properties from type 'Product': slug, description, short_description, category, and 6 more.",
+	"source": "ts",
+	"startLineNumber": 215,
+	"startColumn": 9,
+	"endLineNumber": 215,
+	"endColumn": 14,
+	"relatedInformation": [
+		{
+			"startLineNumber": 169,
+			"startColumn": 3,
+			"endLineNumber": 169,
+			"endColumn": 8,
+			"message": "The expected type comes from property 'items' which is declared here on type 'Order'",
+			"resource": "/c:/Local_ecom/frontend/src/types/index.ts"
+		}
+	]
+}]
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+10) 
+
+[{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "2305",
+	"severity": 8,
+	"message": "Module '\"axios\"' has no exported member 'AxiosInstance'.",
+	"source": "ts",
+	"startLineNumber": 3,
+	"startColumn": 17,
+	"endLineNumber": 3,
+	"endColumn": 30
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "2305",
+	"severity": 8,
+	"message": "Module '\"axios\"' has no exported member 'InternalAxiosRequestConfig'.",
+	"source": "ts",
+	"startLineNumber": 3,
+	"startColumn": 32,
+	"endLineNumber": 3,
+	"endColumn": 58
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "2305",
+	"severity": 8,
+	"message": "Module '\"axios\"' has no exported member 'AxiosResponse'.",
+	"source": "ts",
+	"startLineNumber": 3,
+	"startColumn": 60,
+	"endLineNumber": 3,
+	"endColumn": 73
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "2305",
+	"severity": 8,
+	"message": "Module '\"axios\"' has no exported member 'AxiosError'.",
+	"source": "ts",
+	"startLineNumber": 3,
+	"startColumn": 75,
+	"endLineNumber": 3,
+	"endColumn": 85
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 42,
+	"startColumn": 44,
+	"endLineNumber": 42,
+	"endColumn": 49
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 43,
+	"startColumn": 35,
+	"endLineNumber": 43,
+	"endColumn": 40
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 45,
+	"startColumn": 15,
+	"endLineNumber": 45,
+	"endColumn": 20
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 144,
+	"startColumn": 11,
+	"endLineNumber": 144,
+	"endColumn": 16
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 149,
+	"startColumn": 22,
+	"endLineNumber": 149,
+	"endColumn": 27
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 149,
+	"startColumn": 61,
+	"endLineNumber": 149,
+	"endColumn": 66
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 150,
+	"startColumn": 19,
+	"endLineNumber": 150,
+	"endColumn": 24
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 151,
+	"startColumn": 26,
+	"endLineNumber": 151,
+	"endColumn": 31
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 152,
+	"startColumn": 22,
+	"endLineNumber": 152,
+	"endColumn": 27
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 152,
+	"startColumn": 61,
+	"endLineNumber": 152,
+	"endColumn": 66
+},{
+	"resource": "/C:/Local_ecom/frontend/src/utils/api.ts",
+	"owner": "typescript",
+	"code": "18046",
+	"severity": 8,
+	"message": "'error' is of type 'unknown'.",
+	"source": "ts",
+	"startLineNumber": 155,
+	"startColumn": 18,
+	"endLineNumber": 155,
+	"endColumn": 23
+}]
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+10)
+
+ 
+[{
+	"resource": "/c:/Local_ecom/frontend/src/utils/errorHandling.ts",
+	"owner": "typescript",
+	"code": "2305",
+	"severity": 8,
+	"message": "Module '\"axios\"' has no exported member 'AxiosError'.",
+	"source": "ts",
+	"startLineNumber": 4,
+	"startColumn": 10,
+	"endLineNumber": 4,
+	"endColumn": 20
+}]
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+11) 
+
+[{
+	"resource": "/c:/Local_ecom/frontend/src/utils/typeGuards.ts",
+	"owner": "typescript",
+	"code": "2305",
+	"severity": 8,
+	"message": "Module '\"axios\"' has no exported member 'AxiosError'.",
+	"source": "ts",
+	"startLineNumber": 5,
+	"startColumn": 10,
+	"endLineNumber": 5,
+	"endColumn": 20
+}]
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
