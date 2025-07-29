@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Alert - {{ system_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #dc3545;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-top: none;
+        }
+        .alert-type {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .details {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #dc3545;
+        }
+        .footer {
+            background-color: #6c757d;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 0 0 5px 5px;
+            font-size: 12px;
+        }
+        .timestamp {
+            color: #6c757d;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚨 Security Alert</h1>
+        <h2>{{ system_name }}</h2>
+    </div>
+    
+    <div class="content">
+        <div class="alert-type">
+            <strong>Alert Type:</strong> {{ alert_type }}
+        </div>
+        
+        <p>A security event has been detected in the password reset system that requires your attention.</p>
+        
+        <div class="details">
+            <h3>Alert Details:</h3>
+            {% if details %}
+                <ul>
+                    {% for key, value in details.items %}
+                        <li><strong>{{ key|title }}:</strong> {{ value }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No additional details available.</p>
+            {% endif %}
+        </div>
+        
+        <h3>Recommended Actions:</h3>
+        <ul>
+            <li>Review the system logs for additional context</li>
+            <li>Check for any unusual patterns in password reset requests</li>
+            <li>Consider temporarily increasing monitoring sensitivity</li>
+            <li>Verify that rate limiting is functioning correctly</li>
+            <li>If necessary, consider invalidating active tokens for affected users</li>
+        </ul>
+        
+        <h3>Management Commands:</h3>
+        <p>You can use the following Django management commands to investigate and manage the situation:</p>
+        <ul>
+            <li><code>python manage.py password_reset_stats --detailed</code> - View detailed statistics</li>
+            <li><code>python manage.py cleanup_password_reset_tokens --dry-run</code> - Check cleanup status</li>
+            <li><code>python manage.py invalidate_password_reset_tokens --user-email [email]</code> - Invalidate user tokens</li>
+        </ul>
+        
+        <div class="timestamp">
+            <strong>Alert Generated:</strong> {{ timestamp|date:"Y-m-d H:i:s T" }}
+        </div>
+    </div>
+    
+    <div class="footer">
+        This is an automated security alert from {{ system_name }}.
+        <br>
+        Please do not reply to this email.
+    </div>
+</body>
+</html>

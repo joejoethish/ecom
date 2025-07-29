@@ -21,7 +21,7 @@ from .serializers import (
     CustomerActivitySerializer, CustomerAnalyticsSerializer,
     CustomerListSerializer, CustomerDetailSerializer, CustomerSearchSerializer
 )
-from .services import CustomerService, AddressService, WishlistService, CustomerActivityService
+from .services import CustomerService, AddressService, WishlistService, CustomerAnalyticsService
 from apps.products.models import Product
 from core.permissions import IsOwnerOrAdmin
 from core.pagination import StandardResultsSetPagination

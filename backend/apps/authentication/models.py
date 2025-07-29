@@ -4,6 +4,8 @@ Authentication models for the ecommerce platform.
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.core.validators import RegexValidator
+from django.utils import timezone
+from datetime import timedelta
 from core.models import TimestampedModel
 
 
@@ -161,3 +163,70 @@ class UserSession(TimestampedModel):
 
     def __str__(self):
         return f"{self.user.email} - {self.session_key[:8]}..."
+
+
+class PasswordResetToken(TimestampedModel):
+    """
+    Model to store password reset tokens for secure password reset functionality.
+    Tokens are hashed before storage for security.
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='password_reset_tokens')
+    token_hash = models.CharField(max_length=64, unique=True)  # SHA-256 hash of the token
+    expires_at = models.DateTimeField()
+    is_used = models.BooleanField(default=False)
+    ip_address = models.GenericIPAddressField()
+    
+    class Meta:
+        verbose_name = 'Password Reset Token'
+        verbose_name_plural = 'Password Reset Tokens'
+        indexes = [
+            models.Index(fields=['token_hash']),
+            models.Index(fields=['expires_at']),
+            models.Index(fields=['user', 'is_used']),
+            models.Index(fields=['created_at']),
+        ]
+        
+    def __str__(self):
+        return f"Reset token for {self.user.email} - {'Used' if self.is_used else 'Active'}"
+    
+    @property
+    def is_expired(self):
+        """Check if the token has expired."""
+        return timezone.now() > self.expires_at
+    
+    @property
+    def is_valid(self):
+        """Check if the token is valid (not used and not expired)."""
+        return not self.is_used and not self.is_expired
+    
+    def save(self, *args, **kwargs):
+        """Override save to set expiration time if not provided."""
+        if not self.expires_at:
+            # Set expiration to 1 hour from creation as per requirements
+            self.expires_at = timezone.now() + timedelta(hours=1)
+        super().save(*args, **kwargs)
+
+
+class PasswordResetAttempt(TimestampedModel):
+    """
+    Model to track password reset attempts for rate limiting and security monitoring.
+    Used to implement rate limiting of 5 requests per hour per IP address.
+    """
+    ip_address = models.GenericIPAddressField()
+    email = models.EmailField()
+    success = models.BooleanField(default=False)
+    user_agent = models.TextField(blank=True)
+    
+    class Meta:
+        verbose_name = 'Password Reset Attempt'
+        verbose_name_plural = 'Password Reset Attempts'
+        indexes = [
+            models.Index(fields=['ip_address', 'created_at']),
+            models.Index(fields=['email', 'created_at']),
+            models.Index(fields=['created_at']),
+            models.Index(fields=['ip_address', 'success']),
+        ]
+        
+    def __str__(self):
+        status = "Success" if self.success else "Failed"
+        return f"{status} reset attempt for {self.email} from {self.ip_address}"

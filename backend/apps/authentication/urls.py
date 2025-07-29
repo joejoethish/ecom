@@ -14,10 +14,16 @@ urlpatterns = [
     # Profile management
     path('profile/', views.ProfileView.as_view(), name='profile'),
     
-    # Password management
+    # Password management (legacy endpoints)
     path('password/change/', views.PasswordChangeView.as_view(), name='password_change'),
     path('password/reset/', views.PasswordResetRequestView.as_view(), name='password_reset_request'),
     path('password/reset/confirm/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    
+    # New secure password reset API endpoints
+    path('forgot-password/', views.ForgotPasswordAPIView.as_view(), name='forgot_password_api'),
+    path('reset-password/', views.ResetPasswordAPIView.as_view(), name='reset_password_api'),
+    path('validate-reset-token/<str:token>/', views.ValidateResetTokenAPIView.as_view(), name='validate_reset_token_api'),
+    path('csrf-token/', views.CSRFTokenView.as_view(), name='csrf_token'),
     
     # Email verification
     path('verify-email/', views.VerifyEmailView.as_view(), name='verify_email'),

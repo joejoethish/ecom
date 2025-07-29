@@ -16,14 +16,19 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from django.conf import settings
 from django.db import transaction
+from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
+from django.utils.decorators import method_decorator
+from django.middleware.csrf import get_token
 import logging
 
 from .models import User, UserProfile, UserSession
+from .services import PasswordResetService
 from .serializers import (
     UserRegistrationSerializer, UserSerializer, UserUpdateSerializer,
     CustomTokenObtainPairSerializer, PasswordChangeSerializer,
     PasswordResetRequestSerializer, PasswordResetConfirmSerializer,
-    UserSessionSerializer
+    UserSessionSerializer, ForgotPasswordSerializer, ResetPasswordSerializer,
+    ValidateResetTokenSerializer
 )
 
 logger = logging.getLogger(__name__)
@@ -417,3 +422,262 @@ class ResendVerificationView(APIView):
             'message': 'Verification email sent',
             'success': True
         })
+
+
+# New Password Reset API Views using secure token system
+
+@method_decorator(csrf_protect, name='post')
+class ForgotPasswordAPIView(APIView):
+    """
+    API endpoint for requesting password reset using secure token system.
+    POST /api/v1/auth/forgot-password/
+    
+    Requirements: 1.2, 1.3 - Request password reset with email validation
+    Requirements: 1.1, 4.2, 4.3, 5.6 - Enhanced validation and security
+    """
+    permission_classes = [AllowAny]
+
+    def _get_client_ip(self, request):
+        """Get client IP address from request."""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
+
+    def post(self, request):
+        """Handle password reset request."""
+        serializer = ForgotPasswordSerializer(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'VALIDATION_ERROR',
+                    'message': 'Invalid input data',
+                    'details': serializer.errors
+                }
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        email = serializer.validated_data['email']
+        ip_address = self._get_client_ip(request)
+        user_agent = request.META.get('HTTP_USER_AGENT', '')
+
+        try:
+            # Use the password reset service to handle the request
+            success, message, token = PasswordResetService.request_password_reset(
+                email=email,
+                ip_address=ip_address,
+                user_agent=user_agent
+            )
+
+            if not success:
+                # Check if it's a rate limit error
+                if "Too many requests" in message:
+                    return Response({
+                        'success': False,
+                        'error': {
+                            'code': 'RATE_LIMIT_EXCEEDED',
+                            'message': message
+                        }
+                    }, status=status.HTTP_429_TOO_MANY_REQUESTS)
+                else:
+                    return Response({
+                        'success': False,
+                        'error': {
+                            'code': 'REQUEST_FAILED',
+                            'message': message
+                        }
+                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            # Always return success message to prevent email enumeration
+            return Response({
+                'success': True,
+                'message': message
+            }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            logger.error(f"Forgot password API error: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'INTERNAL_ERROR',
+                    'message': 'An error occurred processing your request'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@method_decorator(csrf_protect, name='post')
+class ResetPasswordAPIView(APIView):
+    """
+    API endpoint for resetting password using secure token.
+    POST /api/v1/auth/reset-password/
+    
+    Requirements: 3.1, 3.2, 3.3 - Reset password with token validation
+    Requirements: 3.4, 3.5, 5.6 - Enhanced password validation and CSRF protection
+    """
+    permission_classes = [AllowAny]
+
+    def _get_client_ip(self, request):
+        """Get client IP address from request."""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
+
+    def post(self, request):
+        """Handle password reset with token."""
+        serializer = ResetPasswordSerializer(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'VALIDATION_ERROR',
+                    'message': 'Invalid input data',
+                    'details': serializer.errors
+                }
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        token = serializer.validated_data['token']
+        new_password = serializer.validated_data['password']
+        ip_address = self._get_client_ip(request)
+        user_agent = request.META.get('HTTP_USER_AGENT', '')
+
+        try:
+            # Use the password reset service to reset the password
+            success, message = PasswordResetService.reset_password(
+                token=token,
+                new_password=new_password,
+                ip_address=ip_address,
+                user_agent=user_agent
+            )
+
+            if not success:
+                # Determine error code based on message
+                error_code = 'RESET_FAILED'
+                status_code = status.HTTP_400_BAD_REQUEST
+                
+                if 'expired' in message.lower():
+                    error_code = 'TOKEN_EXPIRED'
+                elif 'invalid' in message.lower():
+                    error_code = 'TOKEN_INVALID'
+                elif 'used' in message.lower():
+                    error_code = 'TOKEN_USED'
+
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': error_code,
+                        'message': message
+                    }
+                }, status=status_code)
+
+            return Response({
+                'success': True,
+                'message': message
+            }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            logger.error(f"Reset password API error: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'INTERNAL_ERROR',
+                    'message': 'An error occurred processing your request'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class ValidateResetTokenAPIView(APIView):
+    """
+    API endpoint for validating password reset token.
+    GET /api/v1/auth/validate-reset-token/<token>/
+    
+    Requirements: 3.1, 3.2 - Validate token exists and is not expired
+    """
+    permission_classes = [AllowAny]
+
+    def get(self, request, token):
+        """Validate password reset token."""
+        try:
+            if not token:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'TOKEN_REQUIRED',
+                        'message': 'Token is required'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+            # Use the password reset service to validate the token
+            reset_token, error_message = PasswordResetService.validate_reset_token(token)
+
+            if not reset_token:
+                # Determine error code based on message
+                error_code = 'TOKEN_INVALID'
+                if 'expired' in error_message.lower():
+                    error_code = 'TOKEN_EXPIRED'
+                elif 'used' in error_message.lower():
+                    error_code = 'TOKEN_USED'
+
+                return Response({
+                    'success': False,
+                    'data': {
+                        'valid': False,
+                        'expired': 'expired' in error_message.lower()
+                    },
+                    'error': {
+                        'code': error_code,
+                        'message': error_message
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response({
+                'success': True,
+                'data': {
+                    'valid': True,
+                    'expired': False
+                }
+            }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            logger.error(f"Validate reset token API error: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'INTERNAL_ERROR',
+                    'message': 'An error occurred validating the token'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@method_decorator(ensure_csrf_cookie, name='get')
+class CSRFTokenView(APIView):
+    """
+    API endpoint to get CSRF token for password reset forms.
+    GET /api/v1/auth/csrf-token/
+    
+    Requirements: 5.6 - Provide CSRF token for frontend forms
+    """
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        """Return CSRF token for frontend forms."""
+        try:
+            csrf_token = get_token(request)
+            return Response({
+                'success': True,
+                'csrf_token': csrf_token
+            }, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.error(f"CSRF token generation error: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'CSRF_ERROR',
+                    'message': 'Failed to generate CSRF token'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

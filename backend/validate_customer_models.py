@@ -15,12 +15,19 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 if not settings.configured:
     settings.configure(
         DEBUG=True,
-        DATABASES={
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': ':memory:',
-            }
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ecommerce_db',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',   # Or 'localhost'
+        'PORT': '3307',        # Default MySQL port
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
+    }
+},
         INSTALLED_APPS=[
             'django.contrib.auth',
             'django.contrib.contenttypes',

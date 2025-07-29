@@ -41,6 +41,27 @@ CELERY_BEAT_SCHEDULE = {
         'options': {'queue': 'marketing'}
     },
     
+    # Clean up expired password reset tokens every 6 hours
+    'cleanup-password-reset-tokens': {
+        'task': 'apps.authentication.tasks.cleanup_expired_password_reset_tokens',
+        'schedule': crontab(minute=0, hour='*/6'),  # Every 6 hours
+        'options': {'queue': 'maintenance'}
+    },
+    
+    # Clean up old password reset attempts daily at 3 AM
+    'cleanup-password-reset-attempts': {
+        'task': 'apps.authentication.tasks.cleanup_old_password_reset_attempts',
+        'schedule': crontab(hour=3, minute=0),  # Daily at 3 AM
+        'options': {'queue': 'maintenance'}
+    },
+    
+    # Monitor password reset token performance daily at 6 AM
+    'monitor-password-reset-performance': {
+        'task': 'apps.authentication.tasks.monitor_password_reset_token_performance',
+        'schedule': crontab(hour=6, minute=0),  # Daily at 6 AM
+        'options': {'queue': 'monitoring'}
+    },
+    
     # Check inventory expiry dates weekly on Monday at 9 AM
     'check-inventory-expiry': {
         'task': 'tasks.inventory_monitoring.check_inventory_expiry_task',
@@ -101,6 +122,12 @@ CELERY_TASK_ROUTES = {
     # Order tasks
     'tasks.order_monitoring.monitor_order_fulfillment_task': {'queue': 'orders'},
     
+    # Authentication tasks
+    'apps.authentication.tasks.cleanup_expired_password_reset_tokens': {'queue': 'maintenance'},
+    'apps.authentication.tasks.cleanup_old_password_reset_attempts': {'queue': 'maintenance'},
+    'apps.authentication.tasks.monitor_password_reset_token_performance': {'queue': 'monitoring'},
+    'apps.authentication.tasks.send_password_reset_security_alert': {'queue': 'security'},
+    
     # Search tasks
     'apps.search.signals.update_document': {'queue': 'search'},
     'apps.search.signals.delete_document': {'queue': 'search'},
@@ -148,5 +175,13 @@ CELERY_TASK_QUEUES = {
     'search': {
         'exchange': 'search',
         'routing_key': 'search',
+    },
+    'monitoring': {
+        'exchange': 'monitoring',
+        'routing_key': 'monitoring',
+    },
+    'security': {
+        'exchange': 'security',
+        'routing_key': 'security',
     },
 }

@@ -2,6 +2,13 @@
 API v1 URL configuration.
 """
 from django.urls import path, include
+from .categories import (
+    CategoryListCreateView, 
+    CategoryDetailView, 
+    get_category_tree, 
+    get_featured_categories,
+    bulk_update_categories
+)
 
 urlpatterns = [
     path('auth/', include('apps.authentication.urls')),
@@ -19,4 +26,11 @@ urlpatterns = [
     # path('analytics/', include('apps.analytics.urls')),
     # path('content/', include('apps.content.urls')),
     path('notifications/', include('apps.notifications.urls')),
+    
+    # Categories API
+    path('categories/', CategoryListCreateView.as_view(), name='category-list-create'),
+    path('categories/tree/', get_category_tree, name='category-tree'),
+    path('categories/featured/', get_featured_categories, name='featured-categories'),
+    path('categories/bulk-update/', bulk_update_categories, name='bulk-update-categories'),
+    path('categories/<slug:slug>/', CategoryDetailView.as_view(), name='category-detail'),
 ]
