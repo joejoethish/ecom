@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { loginUser } from '@/store/slices/authSlice';
@@ -10,7 +10,7 @@ import { ROUTES } from '@/constants';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
-export function LoginForm() {
+function LoginFormContent() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -157,5 +157,13 @@ export function LoginForm() {
         </form>
       </div>
     </div>
+  );
+}
+
+export function LoginForm() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginFormContent />
+    </Suspense>
   );
 }

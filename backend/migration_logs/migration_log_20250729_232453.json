@@ -1,0 +1,65 @@
+{
+  "migration_timestamp": "20250729_232453",
+  "sqlite_path": "C:\\Users\\user\\AppData\\Local\\Temp\\tmpwk7nx38q.db",
+  "mysql_config": {
+    "host": "localhost",
+    "port": 3307,
+    "user": "root",
+    "database": "ecommerce_db",
+    "charset": "utf8mb4",
+    "use_unicode": true,
+    "autocommit": false,
+    "raise_on_warnings": true
+  },
+  "migration_progress": {
+    "categories": {
+      "table_name": "categories",
+      "total_records": 3,
+      "migrated_records": 3,
+      "start_time": "2025-07-29 23:24:53.649398",
+      "end_time": "2025-07-29 23:24:53.664146",
+      "status": "completed",
+      "error_message": null,
+      "data_hash": "0e520f9e69e388582f5417f6d91d03d7"
+    },
+    "products": {
+      "table_name": "products",
+      "total_records": 5,
+      "migrated_records": 0,
+      "start_time": "2025-07-29 23:24:53.665623",
+      "end_time": "2025-07-29 23:24:53.670828",
+      "status": "failed",
+      "error_message": "1146 (42S02): Table 'ecommerce_db.products' doesn't exist",
+      "data_hash": null
+    },
+    "users": {
+      "table_name": "users",
+      "total_records": 3,
+      "migrated_records": 0,
+      "start_time": "2025-07-29 23:24:53.674169",
+      "end_time": "2025-07-29 23:24:53.679895",
+      "status": "failed",
+      "error_message": "1146 (42S02): Table 'ecommerce_db.users' doesn't exist",
+      "data_hash": null
+    }
+  },
+  "validation_results": {
+    "categories": {
+      "table_name": "categories",
+      "source_count": 3,
+      "target_count": 3,
+      "is_valid": true,
+      "missing_records": [],
+      "extra_records": [],
+      "data_mismatches": [],
+      "validation_time": "2025-07-29 23:24:53.681910"
+    }
+  },
+  "rollback_data": {
+    "categories": {
+      "backup_table": "categories_rollback_1753811693",
+      "created_at": "2025-07-29T23:24:53.802448",
+      "original_table": "categories"
+    }
+  }
+}

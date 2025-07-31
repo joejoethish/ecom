@@ -543,9 +543,6 @@ class ContentManagementViewSet(viewsets.ViewSet):
             return Response(
                 {'error': f'Failed to schedule content activation: {str(e)}'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )      
-          {'error': f'Failed to get category content: {str(e)}'},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
     @action(detail=False, methods=['get'])

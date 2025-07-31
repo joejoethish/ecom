@@ -1,0 +1,143 @@
+ERROR 2025-07-31 14:04:11,863 monitoring 2324 19148 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+ERROR 2025-07-31 14:04:11,863 monitoring 2324 19148 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+ERROR 2025-07-31 14:04:11,869 monitoring 2324 19148 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+ERROR 2025-07-31 14:04:11,890 monitoring 2324 19148 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+ERROR 2025-07-31 14:04:11,894 monitoring 2324 19148 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+ERROR 2025-07-31 14:04:11,981 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:11,981 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,981 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,981 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,981 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:11,981 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,981 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,981 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,981 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:11,981 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,981 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,981 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,989 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:11,991 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,991 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,993 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,993 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:11,995 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,995 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,997 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,997 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:11,997 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:11,999 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:11,999 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:11,999 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:11,999 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,007 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,007 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,009 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,009 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,011 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,012 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,012 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,012 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,014 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,014 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,014 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,014 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,016 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,016 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,016 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,018 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,018 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,018 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,018 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,018 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,023 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,023 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,025 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,025 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,028 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,028 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,028 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,028 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,028 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,040 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,040 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,040 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,044 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,044 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,046 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,046 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,046 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,046 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,046 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,066 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,066 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,068 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,068 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,070 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,070 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,070 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,072 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,076 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,078 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,080 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,080 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,080 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,082 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,082 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,082 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,084 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,084 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,084 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,084 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,086 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,086 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,086 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,088 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,090 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,090 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,092 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,092 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,096 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,096 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,096 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,096 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,098 signals 2324 19148 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-07-31 14:04:12,098 monitoring 2324 19148 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,101 monitoring 2324 19148 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:12,101 monitoring 2324 19148 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-07-31 14:04:15,057 read_replica_setup 2324 18488 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-07-31 14:04:15,059 replica_health_monitor 2324 18488 Replica read_replica is unhealthy (failure 1/3)

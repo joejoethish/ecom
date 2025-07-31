@@ -1,0 +1,8 @@
+{
+  "stage": "cutover",
+  "timestamp": "2025-07-30T20:36:14.374831",
+  "status": "in_progress",
+  "validation_results": {},
+  "error_message": null,
+  "rollback_data": null
+}

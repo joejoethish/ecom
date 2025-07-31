@@ -54,12 +54,12 @@ export default function Home() {
     { name: "Mobiles", icon: "📱", href: "/category/mobiles" },
     { name: "Fashion", icon: "👗", href: "/category/fashion" },
     { name: "Electronics", icon: "💻", href: "/category/electronics" },
-    { name: "Home & Furniture", icon: "🏠", href: "/category/home-furniture" },
+    { name: "Home & Kitchen", icon: "🏠", href: "/category/home-kitchen" },
     { name: "Appliances", icon: "🔌", href: "/category/appliances" },
     { name: "Travel", icon: "✈️", href: "/category/travel" },
-    { name: "Beauty, Toys & More", icon: "💄", href: "/category/beauty-toys" },
-    { name: "Two Wheelers", icon: "🏍️", href: "/category/two-wheelers" },
-    { name: "Grocery", icon: "🛒", href: "/category/grocery" }
+    { name: "Beauty", icon: "💄", href: "/category/beauty" },
+    { name: "Sports", icon: "⚽", href: "/category/sports" },
+    { name: "Books", icon: "📚", href: "/category/books" }
   ];
 
   const topOffers = [

@@ -63,7 +63,7 @@ const createMockStore = (initialState: any = {}) => {
         loading: false,
         error: null,
         isAuthenticated: false,
-        ...(initialState.auth || {}),
+        ...(initialState && 'auth' in initialState ? initialState.auth : {}),
       },
     },
   });

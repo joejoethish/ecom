@@ -1,0 +1,14 @@
+{
+  "stage": "cutover",
+  "timestamp": "2025-07-30T20:36:16.389308",
+  "status": "passed",
+  "validation_results": {
+    "cutover_time": "2025-07-30T20:36:14.376074",
+    "application_stopped": true,
+    "final_sync_completed": true,
+    "database_switched": true,
+    "application_restarted": true
+  },
+  "error_message": null,
+  "rollback_data": null
+}

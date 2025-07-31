@@ -20,8 +20,8 @@ class LogsConfig(AppConfig):
         import apps.logs.signals  # noqa
         
         # Configure logging system
-        from backend.logs.config import configure_logging
-        configure_logging()
+        # from apps.logs.config import configure_logging
+        # configure_logging()
         
         # Start system monitoring if enabled
         from django.conf import settings

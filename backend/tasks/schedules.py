@@ -89,6 +89,122 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(hour=7, minute=0),  # Daily at 7 AM
         'options': {'queue': 'marketing'}
     },
+    
+    # Database maintenance tasks
+    
+    # Daily database maintenance at 1 AM
+    'daily-database-maintenance': {
+        'task': 'tasks.database_maintenance_tasks.run_daily_maintenance_task',
+        'schedule': crontab(hour=1, minute=0),  # Daily at 1 AM
+        'options': {'queue': 'maintenance'}
+    },
+    
+    # Analyze tables every 6 hours
+    'analyze-database-tables': {
+        'task': 'tasks.database_maintenance_tasks.analyze_tables_task',
+        'schedule': crontab(minute=0, hour='*/6'),  # Every 6 hours
+        'options': {'queue': 'maintenance'}
+    },
+    
+    # Optimize fragmented tables daily at 2:30 AM
+    'optimize-fragmented-tables': {
+        'task': 'tasks.database_maintenance_tasks.optimize_fragmented_tables_task',
+        'schedule': crontab(hour=2, minute=30),  # Daily at 2:30 AM
+        'options': {'queue': 'maintenance'}
+    },
+    
+    # Clean up old data daily at 3:30 AM
+    'cleanup-old-data': {
+        'task': 'tasks.database_maintenance_tasks.cleanup_old_data_task',
+        'schedule': crontab(hour=3, minute=30),  # Daily at 3:30 AM
+        'options': {'queue': 'maintenance'}
+    },
+    
+    # Collect database statistics every 4 hours
+    'collect-database-statistics': {
+        'task': 'tasks.database_maintenance_tasks.collect_database_statistics_task',
+        'schedule': crontab(minute=0, hour='*/4'),  # Every 4 hours
+        'options': {'queue': 'monitoring'}
+    },
+    
+    # Generate maintenance recommendations daily at 8:30 AM
+    'generate-maintenance-recommendations': {
+        'task': 'tasks.database_maintenance_tasks.generate_maintenance_recommendations_task',
+        'schedule': crontab(hour=8, minute=30),  # Daily at 8:30 AM
+        'options': {'queue': 'monitoring'}
+    },
+    
+    # Archive old orders weekly on Sunday at 4 AM
+    'archive-old-orders': {
+        'task': 'tasks.database_maintenance_tasks.archive_old_orders_task',
+        'schedule': crontab(hour=4, minute=0, day_of_week=0),  # Sunday at 4 AM
+        'options': {'queue': 'maintenance'}
+    },
+    
+    # Rebuild indexes weekly on Saturday at 5 AM
+    'rebuild-database-indexes': {
+        'task': 'tasks.database_maintenance_tasks.rebuild_indexes_task',
+        'schedule': crontab(hour=5, minute=0, day_of_week=6),  # Saturday at 5 AM
+        'options': {'queue': 'maintenance'}
+    },
+    
+    # Weekly comprehensive maintenance on Sunday at 6 AM
+    'weekly-database-maintenance': {
+        'task': 'tasks.database_maintenance_tasks.weekly_maintenance_task',
+        'schedule': crontab(hour=6, minute=0, day_of_week=0),  # Sunday at 6 AM
+        'options': {'queue': 'maintenance'}
+    },
+    
+    # Performance monitoring tasks
+    
+    # Collect performance metrics every 5 minutes
+    'collect-performance-metrics': {
+        'task': 'tasks.performance_monitoring_tasks.collect_performance_metrics',
+        'schedule': crontab(minute='*/5'),
+        'options': {'queue': 'monitoring'}
+    },
+    
+    # Analyze query performance every 15 minutes
+    'analyze-query-performance': {
+        'task': 'tasks.performance_monitoring_tasks.analyze_query_performance',
+        'schedule': crontab(minute='*/15'),
+        'options': {'queue': 'monitoring'}
+    },
+    
+    # Detect performance regressions every 10 minutes
+    'detect-performance-regressions': {
+        'task': 'tasks.performance_monitoring_tasks.detect_performance_regressions',
+        'schedule': crontab(minute='*/10'),
+        'options': {'queue': 'monitoring'}
+    },
+    
+    # Generate capacity recommendations every 30 minutes
+    'generate-capacity-recommendations': {
+        'task': 'tasks.performance_monitoring_tasks.generate_capacity_recommendations',
+        'schedule': crontab(minute='*/30'),
+        'options': {'queue': 'monitoring'}
+    },
+    
+    # Daily performance report at 7 AM
+    'daily-performance-report': {
+        'task': 'tasks.performance_monitoring_tasks.generate_daily_performance_report',
+        'schedule': crontab(hour=7, minute=0),
+        'options': {'queue': 'reports'}
+    },
+    
+    # Clean up old performance data daily at 2 AM
+    'cleanup-performance-data': {
+        'task': 'tasks.performance_monitoring_tasks.cleanup_old_performance_data',
+        'schedule': crontab(hour=2, minute=0),
+        'options': {'queue': 'maintenance'}
+    },
+    
+    # Update performance baselines weekly on Mondays at 3 AM
+    'update-performance-baselines': {
+        'task': 'tasks.performance_monitoring_tasks.update_performance_baselines',
+        'schedule': crontab(hour=3, minute=0, day_of_week=1),
+        'options': {'queue': 'monitoring'}
+    },
 }
 
 # Task routing configuration
@@ -131,6 +247,29 @@ CELERY_TASK_ROUTES = {
     # Search tasks
     'apps.search.signals.update_document': {'queue': 'search'},
     'apps.search.signals.delete_document': {'queue': 'search'},
+    
+    # Database maintenance tasks
+    'tasks.database_maintenance_tasks.run_daily_maintenance_task': {'queue': 'maintenance'},
+    'tasks.database_maintenance_tasks.analyze_tables_task': {'queue': 'maintenance'},
+    'tasks.database_maintenance_tasks.optimize_fragmented_tables_task': {'queue': 'maintenance'},
+    'tasks.database_maintenance_tasks.cleanup_old_data_task': {'queue': 'maintenance'},
+    'tasks.database_maintenance_tasks.collect_database_statistics_task': {'queue': 'monitoring'},
+    'tasks.database_maintenance_tasks.rebuild_indexes_task': {'queue': 'maintenance'},
+    'tasks.database_maintenance_tasks.archive_old_orders_task': {'queue': 'maintenance'},
+    'tasks.database_maintenance_tasks.generate_maintenance_recommendations_task': {'queue': 'monitoring'},
+    'tasks.database_maintenance_tasks.weekly_maintenance_task': {'queue': 'maintenance'},
+    'tasks.database_maintenance_tasks.send_maintenance_report': {'queue': 'reports'},
+    
+    # Performance monitoring tasks
+    'tasks.performance_monitoring_tasks.collect_performance_metrics': {'queue': 'monitoring'},
+    'tasks.performance_monitoring_tasks.analyze_query_performance': {'queue': 'monitoring'},
+    'tasks.performance_monitoring_tasks.detect_performance_regressions': {'queue': 'monitoring'},
+    'tasks.performance_monitoring_tasks.generate_capacity_recommendations': {'queue': 'monitoring'},
+    'tasks.performance_monitoring_tasks.generate_daily_performance_report': {'queue': 'reports'},
+    'tasks.performance_monitoring_tasks.cleanup_old_performance_data': {'queue': 'maintenance'},
+    'tasks.performance_monitoring_tasks.update_performance_baselines': {'queue': 'monitoring'},
+    'tasks.database_maintenance_tasks.send_maintenance_alert': {'queue': 'alerts'},
+    'tasks.database_maintenance_tasks.send_weekly_maintenance_report': {'queue': 'reports'},
 }
 
 # Queue configuration
@@ -183,5 +322,9 @@ CELERY_TASK_QUEUES = {
     'security': {
         'exchange': 'security',
         'routing_key': 'security',
+    },
+    'alerts': {
+        'exchange': 'alerts',
+        'routing_key': 'alerts',
     },
 }

@@ -1,0 +1,225 @@
+MySQL Schema Optimization Report
+==================================================
+
+Optimized Tables:
+--------------------
+
+auth_user:
+  Rows: 0
+  Size: 0.09 MB
+  Index Size: 0.08 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+products_category:
+  Rows: 0
+  Size: 0.06 MB
+  Index Size: 0.05 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+products_product:
+  Rows: 0
+  Size: 0.13 MB
+  Index Size: 0.11 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+products_productimage:
+  Rows: 0
+  Size: 0.05 MB
+  Index Size: 0.03 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+products_productrating:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+
+customers_customerprofile:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+
+customers_address:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+
+customers_wishlist:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+  Recommendations: Consider adding more indexes for query optimization
+
+customers_wishlistitem:
+  Rows: 0
+  Size: 0.05 MB
+  Index Size: 0.03 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+customers_customeractivity:
+  Rows: 0
+  Size: 0.06 MB
+  Index Size: 0.05 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+orders_order:
+  Rows: 0
+  Size: 0.05 MB
+  Index Size: 0.03 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+orders_orderitem:
+  Rows: 0
+  Size: 0.05 MB
+  Index Size: 0.03 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+orders_ordertracking:
+  Rows: 0
+  Size: 0.05 MB
+  Index Size: 0.03 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+orders_returnrequest:
+  Rows: 0
+  Size: 0.06 MB
+  Index Size: 0.05 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+orders_replacement:
+  Rows: 0
+  Size: 0.09 MB
+  Index Size: 0.08 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+orders_invoice:
+  Rows: 0
+  Size: 0.05 MB
+  Index Size: 0.03 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+reviews_review:
+  Rows: 0
+  Size: 0.08 MB
+  Index Size: 0.06 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+reviews_reviewhelpfulness:
+  Rows: 0
+  Size: 0.05 MB
+  Index Size: 0.03 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+reviews_reviewimage:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+
+reviews_reviewreport:
+  Rows: 0
+  Size: 0.06 MB
+  Index Size: 0.05 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+inventory_supplier:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+  Recommendations: Consider adding more indexes for query optimization
+
+inventory_warehouse:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+  Recommendations: Consider adding more indexes for query optimization
+
+inventory_inventory:
+  Rows: 0
+  Size: 0.08 MB
+  Index Size: 0.06 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+inventory_inventorytransaction:
+  Rows: 0
+  Size: 0.09 MB
+  Index Size: 0.08 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+inventory_purchaseorder:
+  Rows: 0
+  Size: 0.09 MB
+  Index Size: 0.08 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+inventory_purchaseorderitem:
+  Rows: 0
+  Size: 0.05 MB
+  Index Size: 0.03 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+notifications_notificationtemplate:
+  Rows: 0
+  Size: 0.00 MB
+  Index Size: 0.00 MB
+
+notifications_notificationpreference:
+  Rows: 0
+  Size: 0.00 MB
+  Index Size: 0.00 MB
+
+notifications_notification:
+  Rows: 0
+  Size: 0.00 MB
+  Index Size: 0.00 MB
+
+notifications_notificationlog:
+  Rows: 0
+  Size: 0.00 MB
+  Index Size: 0.00 MB
+
+notifications_notificationbatch:
+  Rows: 0
+  Size: 0.00 MB
+  Index Size: 0.00 MB
+
+notifications_notificationanalytics:
+  Rows: 0
+  Size: 0.00 MB
+  Index Size: 0.00 MB
+
+shipping_shippingpartner:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+  Recommendations: Consider adding more indexes for query optimization
+
+shipping_serviceablearea:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+
+shipping_deliveryslot:
+  Rows: 0
+  Size: 0.02 MB
+  Index Size: 0.00 MB
+  Recommendations: Consider adding more indexes for query optimization
+
+shipping_shipment:
+  Rows: 0
+  Size: 0.08 MB
+  Index Size: 0.06 MB
+  Recommendations: Review index usage - index size exceeds data size
+
+shipping_shipmenttracking:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+  Recommendations: Consider adding more indexes for query optimization
+
+shipping_shippingrate:
+  Rows: 0
+  Size: 0.03 MB
+  Index Size: 0.02 MB
+  Recommendations: Consider adding more indexes for query optimization
+
+Optimization completed successfully!
+Report generated: mysql_optimization_report.txt

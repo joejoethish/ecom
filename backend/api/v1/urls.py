@@ -3,11 +3,15 @@ API v1 URL configuration.
 """
 from django.urls import path, include
 from .categories import (
-    CategoryListCreateView, 
-    CategoryDetailView, 
-    get_category_tree, 
     get_featured_categories,
-    bulk_update_categories
+    get_all_categories,
+    get_category_details,
+    get_category_filters
+)
+from .products import (
+    get_featured_products,
+    get_products_by_category,
+    search_products
 )
 
 urlpatterns = [
@@ -28,9 +32,13 @@ urlpatterns = [
     path('notifications/', include('apps.notifications.urls')),
     
     # Categories API
-    path('categories/', CategoryListCreateView.as_view(), name='category-list-create'),
-    path('categories/tree/', get_category_tree, name='category-tree'),
+    path('categories/', get_all_categories, name='all-categories'),
     path('categories/featured/', get_featured_categories, name='featured-categories'),
-    path('categories/bulk-update/', bulk_update_categories, name='bulk-update-categories'),
-    path('categories/<slug:slug>/', CategoryDetailView.as_view(), name='category-detail'),
+    path('categories/<slug:category_slug>/', get_category_details, name='category-details'),
+    path('categories/<slug:category_slug>/filters/', get_category_filters, name='category-filters'),
+    
+    # Products API
+    path('products/featured/', get_featured_products, name='featured-products'),
+    path('products/category/<slug:category_slug>/', get_products_by_category, name='products-by-category'),
+    path('products/search/', search_products, name='search-products'),
 ]

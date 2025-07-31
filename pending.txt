@@ -1,0 +1,10 @@
+1) In Footer, When i click "Help Center" is not working,  i think code is missing.
+2) In footer, when i click "Contact us" is not working,  i think code is missing.
+3) In Footer, when i click "privacy policy" is not working,  i think code is missing.
+4) In Footer, when i click "Terms and services" is not working,  i think code is missing.
+5) In Footer, when i click "Deals" is redirected to http://localhost:3000/deals but it shows like 404 page not found
+6) In Footer, when i click "Become a Seller" is not working,  i think code is missing.
+7) In Footer, when i click "Advertise" is not working,  i think code is missing.
+8) In Footer, when i click "Gift Cards" is not working,  i think code is missing.
+9) In Header, when i click "More" drop down, there is no listing under the "more" dropdown.
+10) 

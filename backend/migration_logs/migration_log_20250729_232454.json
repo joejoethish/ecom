@@ -1,0 +1,23 @@
+{
+  "migration_timestamp": "20250729_232454",
+  "sqlite_path": "C:\\Users\\user\\AppData\\Local\\Temp\\tmpyaaoa0q9.db",
+  "mysql_config": {
+    "host": "localhost",
+    "port": 3307,
+    "user": "root",
+    "database": "ecommerce_db",
+    "charset": "utf8mb4",
+    "use_unicode": true,
+    "autocommit": false,
+    "raise_on_warnings": true
+  },
+  "migration_progress": {},
+  "validation_results": {},
+  "rollback_data": {
+    "categories": {
+      "backup_table": "categories_rollback_1753811694",
+      "created_at": "2025-07-29T23:24:54.242827",
+      "original_table": "categories"
+    }
+  }
+}

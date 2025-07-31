@@ -1,0 +1,555 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Database User Management{% endblock %}
+
+{% block extrahead %}
+<style>
+    .user-management-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0;
+    }
+    
+    .management-card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .management-card h3 {
+        margin-top: 0;
+        color: #333;
+        border-bottom: 2px solid #007cba;
+        padding-bottom: 10px;
+    }
+    
+    .user-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+    }
+    
+    .user-table th,
+    .user-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .user-table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .user-table tr:hover {
+        background-color: #f5f5f5;
+    }
+    
+    .privilege-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        margin: 2px;
+    }
+    
+    .privilege-read {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    
+    .privilege-write {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+    
+    .privilege-admin {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    
+    .ssl-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 5px;
+    }
+    
+    .ssl-enabled { background-color: #28a745; }
+    .ssl-disabled { background-color: #dc3545; }
+    
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    .checkbox-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        margin: 10px 0;
+    }
+    
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+    }
+    
+    .checkbox-item input {
+        margin-right: 8px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        margin: 5px;
+        background-color: #007cba;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .btn:hover {
+        background-color: #005a87;
+    }
+    
+    .btn-success {
+        background-color: #28a745;
+    }
+    
+    .btn-success:hover {
+        background-color: #218838;
+    }
+    
+    .btn-danger {
+        background-color: #dc3545;
+    }
+    
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+    
+    .btn-small {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+    
+    .alert {
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 4px;
+    }
+    
+    .alert-success {
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+    }
+    
+    .alert-danger {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+    }
+    
+    .stat-number {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #007cba;
+        display: block;
+    }
+    
+    .stat-label {
+        color: #666;
+        font-size: 0.9em;
+        margin-top: 5px;
+    }
+    
+    .password-expired {
+        color: #dc3545;
+        font-weight: bold;
+    }
+    
+    .password-valid {
+        color: #28a745;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Database User Management</h1>
+
+{% if error %}
+<div class="alert alert-danger">
+    <strong>Error:</strong> {{ error }}
+</div>
+{% endif %}
+
+<!-- User Statistics -->
+<div class="stats-grid">
+    <div class="stat-item">
+        <span class="stat-number">{{ total_users }}</span>
+        <div class="stat-label">Total Users</div>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">{{ admin_users }}</span>
+        <div class="stat-label">Admin Users</div>
+    </div>
+    <div class="stat-item">
+        <span class="stat-number">{{ ssl_users }}</span>
+        <div class="stat-label">SSL Users</div>
+    </div>
+</div>
+
+<div class="user-management-container">
+    <!-- Existing Users -->
+    <div class="management-card">
+        <h3>Existing Database Users</h3>
+        
+        {% if database_users %}
+        <div style="max-height: 400px; overflow-y: auto;">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>User@Host</th>
+                        <th>Privileges</th>
+                        <th>SSL</th>
+                        <th>Max Conn</th>
+                        <th>Password</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in database_users %}
+                    <tr>
+                        <td>{{ user.User }}@{{ user.Host }}</td>
+                        <td>
+                            {% with username=user.User|add:"@"|add:user.Host %}
+                            {% if privilege_summary|lookup:username.read %}
+                                <span class="privilege-badge privilege-read">READ</span>
+                            {% endif %}
+                            {% if privilege_summary|lookup:username.write %}
+                                <span class="privilege-badge privilege-write">WRITE</span>
+                            {% endif %}
+                            {% if privilege_summary|lookup:username.admin %}
+                                <span class="privilege-badge privilege-admin">ADMIN</span>
+                            {% endif %}
+                            {% endwith %}
+                        </td>
+                        <td>
+                            <span class="ssl-indicator {% if user.ssl_type %}ssl-enabled{% else %}ssl-disabled{% endif %}"></span>
+                            {% if user.ssl_type %}Yes{% else %}No{% endif %}
+                        </td>
+                        <td>{{ user.max_connections }}</td>
+                        <td>
+                            {% if user.password_expired == 'Y' %}
+                                <span class="password-expired">Expired</span>
+                            {% else %}
+                                <span class="password-valid">Valid</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <button onclick="editUser('{{ user.User }}', '{{ user.Host }}')" class="btn btn-small">Edit</button>
+                            <button onclick="deleteUser('{{ user.User }}', '{{ user.Host }}')" class="btn btn-danger btn-small">Delete</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No database users found.</p>
+        {% endif %}
+        
+        <div style="margin-top: 15px;">
+            <button onclick="refreshUsers()" class="btn">Refresh Users</button>
+            <button onclick="exportUsers()" class="btn">Export User List</button>
+        </div>
+    </div>
+    
+    <!-- Create New User -->
+    <div class="management-card">
+        <h3>Create New Database User</h3>
+        
+        <form id="createUserForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="host">Host:</label>
+                    <select id="host" name="host">
+                        <option value="%">Any Host (%)</option>
+                        <option value="localhost">Localhost</option>
+                        <option value="127.0.0.1">127.0.0.1</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="maxConnections">Max Connections:</label>
+                    <input type="number" id="maxConnections" name="max_connections" value="10" min="1" max="1000">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Privileges:</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="privSelect" name="privileges" value="SELECT">
+                        <label for="privSelect">SELECT</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="privInsert" name="privileges" value="INSERT">
+                        <label for="privInsert">INSERT</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="privUpdate" name="privileges" value="UPDATE">
+                        <label for="privUpdate">UPDATE</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="privDelete" name="privileges" value="DELETE">
+                        <label for="privDelete">DELETE</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="privCreate" name="privileges" value="CREATE">
+                        <label for="privCreate">CREATE</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="privDrop" name="privileges" value="DROP">
+                        <label for="privDrop">DROP</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="privAlter" name="privileges" value="ALTER">
+                        <label for="privAlter">ALTER</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="privIndex" name="privileges" value="INDEX">
+                        <label for="privIndex">INDEX</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="requireSSL" name="require_ssl" checked>
+                    <label for="requireSSL">Require SSL Connection</label>
+                </div>
+            </div>
+            
+            <div style="text-align: right;">
+                <button type="button" onclick="generatePassword()" class="btn">Generate Password</button>
+                <button type="submit" class="btn btn-success">Create User</button>
+            </div>
+        </form>
+        
+        <div id="createUserResult"></div>
+    </div>
+</div>
+
+<!-- User Templates -->
+<div class="management-card" style="margin-top: 20px;">
+    <h3>User Templates</h3>
+    <p>Quick create users with predefined privilege sets:</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+        <button onclick="createTemplateUser('read_only')" class="btn">Read-Only User</button>
+        <button onclick="createTemplateUser('application')" class="btn">Application User</button>
+        <button onclick="createTemplateUser('backup')" class="btn">Backup User</button>
+        <button onclick="createTemplateUser('monitor')" class="btn">Monitor User</button>
+    </div>
+</div>
+
+<script>
+document.getElementById('createUserForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    createUser();
+});
+
+function createUser() {
+    const formData = new FormData(document.getElementById('createUserForm'));
+    const privileges = [];
+    
+    // Collect selected privileges
+    const privilegeCheckboxes = document.querySelectorAll('input[name="privileges"]:checked');
+    privilegeCheckboxes.forEach(checkbox => {
+        privileges.push(checkbox.value);
+    });
+    
+    const data = {
+        username: formData.get('username'),
+        password: formData.get('password'),
+        host: formData.get('host'),
+        max_connections: parseInt(formData.get('max_connections')),
+        privileges: privileges,
+        require_ssl: document.getElementById('requireSSL').checked
+    };
+    
+    fetch('{% url "admin:create_user_api" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showResult('success', data.message);
+            document.getElementById('createUserForm').reset();
+            setTimeout(() => location.reload(), 2000);
+        } else {
+            showResult('error', data.error || 'User creation failed');
+        }
+    })
+    .catch(error => {
+        showResult('error', 'Network error: ' + error.message);
+    });
+}
+
+function generatePassword() {
+    const length = 16;
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+    let password = "";
+    for (let i = 0; i < length; i++) {
+        password += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+    document.getElementById('password').value = password;
+}
+
+function createTemplateUser(template) {
+    const templates = {
+        'read_only': {
+            username: 'readonly_user',
+            privileges: ['SELECT'],
+            max_connections: 50
+        },
+        'application': {
+            username: 'app_user',
+            privileges: ['SELECT', 'INSERT', 'UPDATE', 'DELETE'],
+            max_connections: 30
+        },
+        'backup': {
+            username: 'backup_user',
+            privileges: ['SELECT', 'LOCK TABLES', 'SHOW VIEW'],
+            max_connections: 2
+        },
+        'monitor': {
+            username: 'monitor_user',
+            privileges: ['SELECT', 'PROCESS', 'REPLICATION CLIENT'],
+            max_connections: 10
+        }
+    };
+    
+    const config = templates[template];
+    if (!config) return;
+    
+    // Fill form with template data
+    document.getElementById('username').value = config.username;
+    document.getElementById('maxConnections').value = config.max_connections;
+    generatePassword();
+    
+    // Clear all privilege checkboxes first
+    document.querySelectorAll('input[name="privileges"]').forEach(cb => cb.checked = false);
+    
+    // Check appropriate privileges
+    config.privileges.forEach(priv => {
+        const checkbox = document.querySelector(`input[name="privileges"][value="${priv}"]`);
+        if (checkbox) checkbox.checked = true;
+    });
+}
+
+function editUser(username, host) {
+    alert(`Edit functionality for ${username}@${host} would be implemented here.`);
+}
+
+function deleteUser(username, host) {
+    if (confirm(`Are you sure you want to delete user ${username}@${host}?`)) {
+        alert(`Delete functionality for ${username}@${host} would be implemented here.`);
+    }
+}
+
+function refreshUsers() {
+    location.reload();
+}
+
+function exportUsers() {
+    window.open('{% url "admin:export_report_api" %}?type=users&format=csv', '_blank');
+}
+
+function showResult(type, message) {
+    const resultDiv = document.getElementById('createUserResult');
+    resultDiv.className = 'alert alert-' + (type === 'success' ? 'success' : 'danger');
+    resultDiv.innerHTML = '<strong>' + (type === 'success' ? 'Success:' : 'Error:') + '</strong> ' + message;
+    
+    setTimeout(() => {
+        resultDiv.innerHTML = '';
+        resultDiv.className = '';
+    }, 5000);
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+{% endblock %}

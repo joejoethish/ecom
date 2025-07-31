@@ -1,0 +1,397 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Performance Monitoring Dashboard{% endblock %}
+
+{% block extrahead %}
+<style>
+.performance-dashboard {
+    padding: 20px;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.metric-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.metric-card h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 18px;
+}
+
+.metric-value {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.metric-trend {
+    font-size: 14px;
+    color: #666;
+}
+
+.trend-up { color: #e74c3c; }
+.trend-down { color: #27ae60; }
+.trend-stable { color: #f39c12; }
+
+.recommendations-section {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.recommendation-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+}
+
+.recommendation-item:last-child {
+    border-bottom: none;
+}
+
+.priority-critical { border-left: 4px solid #e74c3c; padding-left: 15px; }
+.priority-high { border-left: 4px solid #f39c12; padding-left: 15px; }
+.priority-medium { border-left: 4px solid #3498db; padding-left: 15px; }
+.priority-low { border-left: 4px solid #95a5a6; padding-left: 15px; }
+
+.controls {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background: #007cba;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.btn:hover {
+    background: #005a87;
+}
+
+.btn-danger {
+    background: #e74c3c;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+}
+
+.status-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.status-healthy { background: #27ae60; }
+.status-warning { background: #f39c12; }
+.status-critical { background: #e74c3c; }
+
+.auto-refresh {
+    margin-left: auto;
+}
+
+#refreshInterval {
+    margin-left: 10px;
+    padding: 4px 8px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="performance-dashboard">
+    <h1>Performance Monitoring Dashboard</h1>
+    
+    <div class="controls">
+        <span class="status-indicator status-{% if monitoring_enabled %}healthy{% else %}critical{% endif %}"></span>
+        <strong>Monitoring Status:</strong> 
+        {% if monitoring_enabled %}
+            Active ({{ monitoring_interval }}s interval)
+        {% else %}
+            Inactive
+        {% endif %}
+        
+        <button id="toggleMonitoring" class="btn {% if monitoring_enabled %}btn-danger{% endif %}">
+            {% if monitoring_enabled %}Stop Monitoring{% else %}Start Monitoring{% endif %}
+        </button>
+        
+        <div class="auto-refresh">
+            <label>
+                <input type="checkbox" id="autoRefresh" checked> Auto-refresh
+                <select id="refreshInterval">
+                    <option value="30">30s</option>
+                    <option value="60" selected>1min</option>
+                    <option value="300">5min</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    
+    <div class="metrics-grid" id="metricsGrid">
+        <!-- Metrics will be loaded here -->
+    </div>
+    
+    <div class="recommendations-section">
+        <h2>Recent Optimization Recommendations</h2>
+        <div id="recommendationsList">
+            <!-- Recommendations will be loaded here -->
+        </div>
+    </div>
+    
+    <div class="recommendations-section">
+        <h2>Capacity Planning</h2>
+        <div id="capacityList">
+            <!-- Capacity recommendations will be loaded here -->
+        </div>
+    </div>
+    
+    <div class="recommendations-section">
+        <h2>Performance Regressions</h2>
+        <div id="regressionsList">
+            <!-- Regressions will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<script>
+let autoRefreshEnabled = true;
+let refreshInterval = 60000; // 1 minute
+let refreshTimer;
+
+// Initialize dashboard
+document.addEventListener('DOMContentLoaded', function() {
+    loadMetrics();
+    loadRecommendations();
+    loadCapacityRecommendations();
+    loadRegressions();
+    
+    setupEventListeners();
+    startAutoRefresh();
+});
+
+function setupEventListeners() {
+    // Toggle monitoring
+    document.getElementById('toggleMonitoring').addEventListener('click', toggleMonitoring);
+    
+    // Auto-refresh controls
+    document.getElementById('autoRefresh').addEventListener('change', function() {
+        autoRefreshEnabled = this.checked;
+        if (autoRefreshEnabled) {
+            startAutoRefresh();
+        } else {
+            stopAutoRefresh();
+        }
+    });
+    
+    document.getElementById('refreshInterval').addEventListener('change', function() {
+        refreshInterval = parseInt(this.value) * 1000;
+        if (autoRefreshEnabled) {
+            stopAutoRefresh();
+            startAutoRefresh();
+        }
+    });
+}
+
+function startAutoRefresh() {
+    if (autoRefreshEnabled) {
+        refreshTimer = setInterval(function() {
+            loadMetrics();
+            loadRecommendations();
+            loadCapacityRecommendations();
+            loadRegressions();
+        }, refreshInterval);
+    }
+}
+
+function stopAutoRefresh() {
+    if (refreshTimer) {
+        clearInterval(refreshTimer);
+    }
+}
+
+function toggleMonitoring() {
+    const btn = document.getElementById('toggleMonitoring');
+    const isCurrentlyEnabled = btn.textContent.includes('Stop');
+    
+    fetch('/admin/performance/api/monitoring/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            action: isCurrentlyEnabled ? 'stop' : 'start',
+            interval: 60
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            location.reload(); // Reload to update status
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to toggle monitoring');
+    });
+}
+
+function loadMetrics() {
+    fetch('/admin/performance/api/metrics/?database=default')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                displayMetrics(data.metrics);
+            }
+        })
+        .catch(error => console.error('Error loading metrics:', error));
+}
+
+function displayMetrics(metrics) {
+    const grid = document.getElementById('metricsGrid');
+    grid.innerHTML = '';
+    
+    for (const [metricName, data] of Object.entries(metrics)) {
+        const card = document.createElement('div');
+        card.className = 'metric-card';
+        
+        const trendClass = data.trend > 0.01 ? 'trend-up' : 
+                          data.trend < -0.01 ? 'trend-down' : 'trend-stable';
+        
+        card.innerHTML = `
+            <h3>${metricName.replace(/_/g, ' ').toUpperCase()}</h3>
+            <div class="metric-value">${data.current.toFixed(2)}</div>
+            <div class="metric-trend ${trendClass}">
+                10min avg: ${data.average_10min.toFixed(2)} 
+                (trend: ${data.trend > 0 ? '+' : ''}${data.trend.toFixed(4)})
+            </div>
+        `;
+        
+        grid.appendChild(card);
+    }
+}
+
+function loadRecommendations() {
+    fetch('/admin/performance/api/recommendations/?limit=5')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                displayRecommendations(data.recommendations);
+            }
+        })
+        .catch(error => console.error('Error loading recommendations:', error));
+}
+
+function displayRecommendations(recommendations) {
+    const list = document.getElementById('recommendationsList');
+    
+    if (recommendations.length === 0) {
+        list.innerHTML = '<p>No optimization recommendations available.</p>';
+        return;
+    }
+    
+    list.innerHTML = recommendations.map(rec => `
+        <div class="recommendation-item priority-${rec.priority}">
+            <strong>Priority: ${rec.priority.toUpperCase()}</strong> - 
+            Estimated improvement: ${rec.estimated_improvement}%
+            <br>
+            <small>Query: ${rec.query_text.substring(0, 100)}...</small>
+            <br>
+            <small>Implementation effort: ${rec.implementation_effort}</small>
+            <ul>
+                ${rec.recommendations.slice(0, 3).map(r => `<li>${r}</li>`).join('')}
+            </ul>
+        </div>
+    `).join('');
+}
+
+function loadCapacityRecommendations() {
+    fetch('/admin/performance/api/capacity/?limit=5')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                displayCapacityRecommendations(data.recommendations);
+            }
+        })
+        .catch(error => console.error('Error loading capacity recommendations:', error));
+}
+
+function displayCapacityRecommendations(recommendations) {
+    const list = document.getElementById('capacityList');
+    
+    if (recommendations.length === 0) {
+        list.innerHTML = '<p>No capacity issues detected.</p>';
+        return;
+    }
+    
+    list.innerHTML = recommendations.map(rec => `
+        <div class="recommendation-item priority-${rec.urgency}">
+            <strong>${rec.resource_type.toUpperCase()}</strong> - 
+            Current: ${rec.current_usage.toFixed(1)}%, 
+            Projected: ${rec.projected_usage.toFixed(1)}%
+            <br>
+            <strong>Urgency:</strong> ${rec.urgency.toUpperCase()}
+            <br>
+            <strong>Time to capacity:</strong> ${rec.time_to_capacity} days
+            <br>
+            <strong>Recommended action:</strong> ${rec.recommended_action}
+        </div>
+    `).join('');
+}
+
+function loadRegressions() {
+    fetch('/admin/performance/api/regressions/?limit=5')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                displayRegressions(data.regressions);
+            }
+        })
+        .catch(error => console.error('Error loading regressions:', error));
+}
+
+function displayRegressions(regressions) {
+    const list = document.getElementById('regressionsList');
+    
+    if (regressions.length === 0) {
+        list.innerHTML = '<p>No performance regressions detected.</p>';
+        return;
+    }
+    
+    list.innerHTML = regressions.map(reg => `
+        <div class="recommendation-item priority-${reg.severity}">
+            <strong>${reg.database_alias}</strong> - ${reg.metric_name}
+            <br>
+            <strong>Regression:</strong> ${reg.regression_percentage.toFixed(1)}% 
+            (${reg.baseline_value.toFixed(2)} → ${reg.current_value.toFixed(2)})
+            <br>
+            <strong>Severity:</strong> ${reg.severity.toUpperCase()}
+            <br>
+            <small>Detected: ${new Date(reg.detection_timestamp).toLocaleString()}</small>
+        </div>
+    `).join('');
+}
+</script>
+{% endblock %}

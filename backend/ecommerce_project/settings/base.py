@@ -41,6 +41,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
+    'core',  # Core utilities including migration tools
     'apps.authentication',
     'apps.products',
     'apps.orders',
@@ -56,6 +57,7 @@ LOCAL_APPS = [
     'apps.search',
     'apps.notifications',
     'apps.chat',
+    # 'apps.logs',  # Temporarily disabled due to import issues
     'tasks',
 ]
 
@@ -71,8 +73,10 @@ MIDDLEWARE = [
     'apps.authentication.middleware.CSRFPasswordResetMiddleware',
     'apps.authentication.middleware.PasswordResetRateLimitMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'core.middleware.APIVersionMiddleware',
-    'core.middleware.RequestLoggingMiddleware',
+    'core.middleware.database_security_middleware.DatabaseSecurityMiddleware',
+    'core.middleware.database_security_middleware.AuthenticationSecurityMiddleware',
+    # 'core.middleware.APIVersionMiddleware',  # Not implemented yet
+    # 'core.middleware.RequestLoggingMiddleware',  # Not implemented yet
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -98,26 +102,150 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ecommerce_project.wsgi.application'
 ASGI_APPLICATION = 'ecommerce_project.asgi.application'
 
-# Database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+# Database Configuration with Connection Pooling and Read Replicas
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ecommerce_db',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',   # Or 'localhost'
-        'PORT': '3307',        # Default MySQL port
+        'NAME': config('DB_NAME', default='ecommerce_db'),
+        'USER': config('DB_USER', default='root'),
+        'PASSWORD': config('DB_PASSWORD', default='root'),
+        'HOST': config('DB_HOST', default='127.0.0.1'),
+        'PORT': config('DB_PORT', default='3307'),
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4',
+            'use_unicode': True,
+            'autocommit': True,
+            'sql_mode': 'STRICT_TRANS_TABLES',
+            'isolation_level': 'read committed',
+            # SSL Configuration (use ssl_disabled only if SSL is configured)
+            # 'ssl_disabled': config('DB_SSL_DISABLED', default=True, cast=bool),
+            # Connection pool settings (handled by Django, not MySQL connector)
+            # 'pool_pre_ping': True,
+            # 'pool_recycle': 3600,
+            'connect_timeout': 10,
+            'read_timeout': 30,
+            'write_timeout': 30,
         },
+        'CONN_MAX_AGE': 3600,  # Connection pooling - 1 hour
+        'CONN_HEALTH_CHECKS': True,
+    },
+    # Read replica configuration
+    'read_replica': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('DB_READ_NAME', default=config('DB_NAME', default='ecommerce_db')),
+        'USER': config('DB_READ_USER', default='replica_user'),
+        'PASSWORD': config('DB_READ_PASSWORD', default='replica_password'),
+        'HOST': config('DB_READ_HOST', default='127.0.0.1'),
+        'PORT': config('DB_READ_PORT', default='3308'),
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4',
+            'use_unicode': True,
+            'autocommit': True,
+            'sql_mode': 'STRICT_TRANS_TABLES',
+            'isolation_level': 'read committed',
+            'connect_timeout': 10,
+            'read_timeout': 30,
+            'write_timeout': 30,
+        },
+        'CONN_MAX_AGE': 3600,
+        'CONN_HEALTH_CHECKS': True,
+        'READ_REPLICA': True,  # Mark as read replica
     }
 }
+
+# Database Router Configuration
+DATABASE_ROUTERS = ['core.database_router.DatabaseRouter']
+
+# Connection Pool Configuration
+CONNECTION_POOL_CONFIG = {
+    'default': {
+        'pool_name': 'ecommerce_pool',
+        'pool_size': config('DB_POOL_SIZE', default=20, cast=int),
+        'pool_reset_session': True,
+        'pool_pre_ping': True,
+        'max_overflow': config('DB_POOL_MAX_OVERFLOW', default=30, cast=int),
+        'pool_recycle': 3600,
+        'host': config('DB_HOST', default='127.0.0.1'),
+        'port': config('DB_PORT', default=3307, cast=int),
+        'database': config('DB_NAME', default='ecommerce_db'),
+        'user': config('DB_USER', default='root'),
+        'password': config('DB_PASSWORD', default='root'),
+        'charset': 'utf8mb4',
+        'use_unicode': True,
+        'autocommit': True,
+        'sql_mode': 'STRICT_TRANS_TABLES',
+        'connect_timeout': 10,
+        'read_timeout': 30,
+        'write_timeout': 30,
+    }
+}
+
+# Database Router Settings
+READ_ONLY_APPS = ['analytics', 'reports', 'search']
+WRITE_ONLY_APPS = ['admin', 'auth', 'contenttypes', 'sessions']
+READ_ONLY_MODELS = []
+REPLICA_LAG_THRESHOLD = config('REPLICA_LAG_THRESHOLD', default=5, cast=int)  # seconds
+
+# Connection Monitoring Settings (disabled during testing)
+CONNECTION_MONITORING_ENABLED = config('CONNECTION_MONITORING_ENABLED', default=False, cast=bool)
+CONNECTION_MONITORING_INTERVAL = config('CONNECTION_MONITORING_INTERVAL', default=30, cast=int)  # seconds
+
+# Replica Monitoring Settings
+REPLICA_MONITORING_ENABLED = config('REPLICA_MONITORING_ENABLED', default=True, cast=bool)
+REPLICA_CHECK_INTERVAL = config('REPLICA_CHECK_INTERVAL', default=30, cast=int)  # seconds
+REPLICA_MAX_FAILURES = config('REPLICA_MAX_FAILURES', default=3, cast=int)
+REPLICA_FAILURE_WINDOW = config('REPLICA_FAILURE_WINDOW', default=300, cast=int)  # 5 minutes
+REPLICA_ALERT_RECIPIENTS = config('REPLICA_ALERT_RECIPIENTS', default='', cast=lambda v: [s.strip() for s in v.split(',') if s.strip()])
+REPLICA_METRICS_RETENTION = config('REPLICA_METRICS_RETENTION', default=86400, cast=int)  # 24 hours
+
+# Backup System Settings (scheduler disabled during testing)
+BACKUP_SCHEDULER_ENABLED = config('BACKUP_SCHEDULER_ENABLED', default=False, cast=bool)
+BACKUP_DIR = config('BACKUP_DIR', default=os.path.join(BASE_DIR, 'backups'))
+BACKUP_ENCRYPTION_KEY = config('BACKUP_ENCRYPTION_KEY', default='change-this-key-in-production')
+BACKUP_RETENTION_DAYS = config('BACKUP_RETENTION_DAYS', default=30, cast=int)
+BACKUP_COMPRESSION_ENABLED = config('BACKUP_COMPRESSION_ENABLED', default=True, cast=bool)
+BACKUP_VERIFY_ENABLED = config('BACKUP_VERIFY_ENABLED', default=True, cast=bool)
+
+# Backup Schedule Settings
+BACKUP_FULL_HOUR = config('BACKUP_FULL_HOUR', default=2, cast=int)  # 2 AM
+BACKUP_FULL_MINUTE = config('BACKUP_FULL_MINUTE', default=0, cast=int)
+BACKUP_INCREMENTAL_INTERVAL = config('BACKUP_INCREMENTAL_INTERVAL', default=4, cast=int)  # hours
+BACKUP_CLEANUP_HOUR = config('BACKUP_CLEANUP_HOUR', default=3, cast=int)  # 3 AM
+BACKUP_CLEANUP_MINUTE = config('BACKUP_CLEANUP_MINUTE', default=0, cast=int)
+BACKUP_HEALTH_CHECK_INTERVAL = config('BACKUP_HEALTH_CHECK_INTERVAL', default=30, cast=int)  # minutes
+
+# Backup Alert Settings
+BACKUP_MAX_FAILURES = config('BACKUP_MAX_FAILURES', default=3, cast=int)
+BACKUP_ALERT_RECIPIENTS = config('BACKUP_ALERT_RECIPIENTS', default='', cast=lambda v: [s.strip() for s in v.split(',') if s.strip()])
+BACKUP_ALERT_ON_FAILURE = config('BACKUP_ALERT_ON_FAILURE', default=True, cast=bool)
+BACKUP_ALERT_ON_SUCCESS = config('BACKUP_ALERT_ON_SUCCESS', default=False, cast=bool)
+
+# Database Security Settings
+DB_SECURITY_ENABLED = config('DB_SECURITY_ENABLED', default=True, cast=bool)
+DB_AUDIT_ENABLED = config('DB_AUDIT_ENABLED', default=True, cast=bool)
+DB_THREAT_DETECTION_ENABLED = config('DB_THREAT_DETECTION_ENABLED', default=True, cast=bool)
+DB_SECURITY_MIDDLEWARE_ENABLED = config('DB_SECURITY_MIDDLEWARE_ENABLED', default=True, cast=bool)
+DB_SECURITY_LOG_ALL_QUERIES = config('DB_SECURITY_LOG_ALL_QUERIES', default=False, cast=bool)
+AUTH_SECURITY_MIDDLEWARE_ENABLED = config('AUTH_SECURITY_MIDDLEWARE_ENABLED', default=True, cast=bool)
+
+# Database Security Thresholds
+DB_MAX_FAILED_ATTEMPTS = config('DB_MAX_FAILED_ATTEMPTS', default=5, cast=int)
+DB_LOCKOUT_DURATION = config('DB_LOCKOUT_DURATION', default=3600, cast=int)  # 1 hour in seconds
+DB_SUSPICIOUS_QUERY_THRESHOLD = config('DB_SUSPICIOUS_QUERY_THRESHOLD', default=100, cast=int)  # queries per hour
+DB_RAPID_QUERY_THRESHOLD = config('DB_RAPID_QUERY_THRESHOLD', default=10, cast=int)  # queries per minute
+
+# Database SSL Configuration
+DB_SSL_ENABLED = config('DB_SSL_ENABLED', default=False, cast=bool)
+DB_SSL_CA = config('DB_SSL_CA', default='/etc/mysql/ssl/ca-cert.pem')
+DB_SSL_CERT = config('DB_SSL_CERT', default='/etc/mysql/ssl/client-cert.pem')
+DB_SSL_KEY = config('DB_SSL_KEY', default='/etc/mysql/ssl/client-key.pem')
+
+# Security Alert Settings
+SECURITY_ALERT_RECIPIENTS = config('SECURITY_ALERT_RECIPIENTS', default='', cast=lambda v: [s.strip() for s in v.split(',') if s.strip()])
+SECURITY_ALERT_ON_HIGH_SEVERITY = config('SECURITY_ALERT_ON_HIGH_SEVERITY', default=True, cast=bool)
+SECURITY_ALERT_ON_CRITICAL_SEVERITY = config('SECURITY_ALERT_ON_CRITICAL_SEVERITY', default=True, cast=bool)
 
 
 # Password validation
@@ -245,19 +373,16 @@ CORS_ALLOW_CREDENTIALS = True
 # Frontend URL for email links
 FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:3000')
 
-# Celery Configuration
-CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='redis://localhost:6379/0')
-CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='redis://localhost:6379/0')
+# Celery Configuration - Disabled for development
+CELERY_TASK_ALWAYS_EAGER = True  # Run tasks synchronously
+CELERY_TASK_EAGER_PROPAGATES = True
+CELERY_BROKER_URL = 'memory://'
+CELERY_RESULT_BACKEND = 'cache+memory://'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
 CELERY_ENABLE_UTC = True
-CELERY_TASK_TRACK_STARTED = True
-CELERY_TASK_TIME_LIMIT = 30 * 60  # 30 minutes
-CELERY_TASK_SOFT_TIME_LIMIT = 25 * 60  # 25 minutes
-CELERY_WORKER_PREFETCH_MULTIPLIER = 1
-CELERY_WORKER_MAX_TASKS_PER_CHILD = 1000
 
 # Email Configuration
 EMAIL_BACKEND = config('EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')

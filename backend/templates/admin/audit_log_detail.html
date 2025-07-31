@@ -1,0 +1,201 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+    .audit-detail {
+        padding: 20px;
+        max-width: 800px;
+    }
+
+    .detail-card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .detail-card h3 {
+        margin-top: 0;
+        color: #333;
+        border-bottom: 2px solid #007cba;
+        padding-bottom: 10px;
+    }
+
+    .detail-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .detail-table th,
+    .detail-table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        vertical-align: top;
+    }
+
+    .detail-table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+        width: 200px;
+    }
+
+    .status-success {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .status-failed {
+        color: #dc3545;
+        font-weight: bold;
+    }
+
+    .json-data {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 15px;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        white-space: pre-wrap;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    .back-button {
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="audit-detail">
+    <div class="back-button">
+        <a href="{% url 'admin:core_auditlogproxy_changelist' %}" class="button">&larr; Back to Audit Logs</a>
+    </div>
+
+    <h1>{{ title }}</h1>
+
+    <div class="detail-card">
+        <h3>Basic Information</h3>
+        <table class="detail-table">
+            <tr>
+                <th>ID</th>
+                <td>{{ log_data.id }}</td>
+            </tr>
+            <tr>
+                <th>Timestamp</th>
+                <td>{{ log_data.timestamp|date:"Y-m-d H:i:s.u" }}</td>
+            </tr>
+            <tr>
+                <th>Event Type</th>
+                <td><strong>{{ log_data.event_type }}</strong></td>
+            </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ log_data.user }}</td>
+            </tr>
+            <tr>
+                <th>Source IP</th>
+                <td>{{ log_data.source_ip }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>
+                    {% if log_data.success %}
+                    <span class="status-success">✓ Success</span>
+                    {% else %}
+                    <span class="status-failed">✗ Failed</span>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="detail-card">
+        <h3>Database Operation Details</h3>
+        <table class="detail-table">
+            <tr>
+                <th>Database</th>
+                <td>{{ log_data.database_name|default:"N/A" }}</td>
+            </tr>
+            <tr>
+                <th>Table</th>
+                <td>{{ log_data.table_name|default:"N/A" }}</td>
+            </tr>
+            <tr>
+                <th>Operation</th>
+                <td><strong>{{ log_data.operation|default:"N/A" }}</strong></td>
+            </tr>
+            <tr>
+                <th>Affected Rows</th>
+                <td>{{ log_data.affected_rows|default:0 }}</td>
+            </tr>
+            <tr>
+                <th>Query Hash</th>
+                <td><code>{{ log_data.query_hash|default:"N/A" }}</code></td>
+            </tr>
+        </table>
+    </div>
+
+    {% if log_data.error_message %}
+    <div class="detail-card">
+        <h3>Error Information</h3>
+        <div class="json-data">{{ log_data.error_message }}</div>
+    </div>
+    {% endif %}
+
+    {% if log_data.additional_data %}
+    <div class="detail-card">
+        <h3>Additional Data</h3>
+        <div class="json-data">{{ log_data.additional_data|pprint }}</div>
+    </div>
+    {% endif %}
+
+    <div class="detail-card">
+        <h3>Actions</h3>
+        <div style="display: flex; gap: 10px;">
+            <button onclick="window.print()" class="button">Print Details</button>
+            <button onclick="exportToJson()" class="button">Export as JSON</button>
+            {% if not log_data.success %}
+            <button onclick="investigateError()" class="button">Investigate Error</button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script>
+    function exportToJson() {
+        const jsonScript = document.getElementById('log-data-json');
+        const logData = JSON.parse(jsonScript.textContent);
+
+        const dataStr = JSON.stringify(logData, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(dataBlob);
+        link.download = `audit_log_${logData.id}.json`;
+        link.click();
+    }
+
+    function investigateError() {
+        const jsonScript = document.getElementById('log-data-json');
+        const logData = JSON.parse(jsonScript.textContent);
+
+        const queryHash = logData.query_hash || '';
+
+        if (confirm('Search for similar errors with the same query hash?')) {
+            const searchUrl = '{% url "admin:core_auditlogproxy_changelist" %}?q=' + encodeURIComponent(queryHash);
+            window.open(searchUrl, '_blank');
+        }
+    }
+</script>
+
+
+
+{% endblock %}

@@ -113,12 +113,46 @@ export function ProductFilters({
     setError(null);
     
     try {
-      const response = await apiClient.get(API_ENDPOINTS.SEARCH.FILTERS);
+      // Get category from search params to fetch category-specific filters
+      const category = searchParams.get('category');
       
-      if (response.success && response.data) {
-        setFilterOptions(response.data);
-      } else if (response.error) {
-        setError(response.error.message);
+      if (category) {
+        // Fetch category-specific filters
+        const response = await apiClient.get(`/categories/${category}/filters/`);
+        
+        if (response.success && response.data) {
+          setFilterOptions({
+            categories: [{ 
+              name: response.data.category.name, 
+              count: response.data.total_products 
+            }],
+            brands: response.data.brands,
+            price_ranges: response.data.price_ranges
+          });
+        } else {
+          setError(response.error?.message || 'Failed to load filter options');
+        }
+      } else {
+        // Fetch general filter options (you might want to create a general filters endpoint)
+        const response = await apiClient.get('/categories/');
+        
+        if (response.success && response.data) {
+          setFilterOptions({
+            categories: response.data.data.map((cat: any) => ({
+              name: cat.name,
+              count: cat.product_count
+            })),
+            brands: [], // Will be populated when a category is selected
+            price_ranges: [
+              { from: null, to: 100, count: 0, label: 'Under $100' },
+              { from: 100, to: 500, count: 0, label: '$100 - $500' },
+              { from: 500, to: 1000, count: 0, label: '$500 - $1000' },
+              { from: 1000, to: null, count: 0, label: '$1000+' }
+            ]
+          });
+        } else {
+          setError(response.error?.message || 'Failed to load filter options');
+        }
       }
     } catch (error) {
       console.error('Error fetching filter options:', error);

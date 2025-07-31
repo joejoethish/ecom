@@ -1,141 +1,51 @@
 """
-Categories API endpoints.
+Categories API endpoints for dynamic data.
 """
-from rest_framework import generics, status
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from apps.products.models import Category
-from apps.products.serializers import CategorySerializer, CategoryListSerializer
-
-
-class CategoryListCreateView(generics.ListCreateAPIView):
-    """
-    List all categories or create a new category.
-    """
-    queryset = Category.objects.filter(is_active=True).order_by('sort_order', 'name')
-    serializer_class = CategoryListSerializer
-    
-    def get_permissions(self):
-        """
-        Instantiates and returns the list of permissions that this view requires.
-        """
-        if self.request.method == 'POST':
-            permission_classes = [IsAuthenticated, IsAdminUser]
-        else:
-            permission_classes = []
-        return [permission() for permission in permission_classes]
-
-
-class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
-    """
-    Retrieve, update or delete a category.
-    """
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    lookup_field = 'slug'
-    
-    def get_permissions(self):
-        """
-        Instantiates and returns the list of permissions that this view requires.
-        """
-        if self.request.method in ['PUT', 'PATCH', 'DELETE']:
-            permission_classes = [IsAuthenticated, IsAdminUser]
-        else:
-            permission_classes = []
-        return [permission() for permission in permission_classes]
-
-
-@api_view(['GET'])
-def get_category_tree(request):
-    """
-    Get hierarchical category tree.
-    """
-    try:
-        # Get root categories (categories without parent)
-        root_categories = Category.objects.filter(
-            parent=None, 
-            is_active=True
-        ).order_by('sort_order', 'name')
-        
-        def build_category_tree(categories):
-            tree = []
-            for category in categories:
-                category_data = {
-                    'id': category.id,
-                    'name': category.name,
-                    'slug': category.slug,
-                    'description': category.description,
-                    'image': category.image.url if category.image else None,
-                    'sort_order': category.sort_order,
-                    'children': build_category_tree(
-                        category.children.filter(is_active=True).order_by('sort_order', 'name')
-                    )
-                }
-                tree.append(category_data)
-            return tree
-        
-        category_tree = build_category_tree(root_categories)
-        
-        return Response({
-            'success': True,
-            'data': category_tree
-        })
-        
-    except Exception as e:
-        return Response({
-            'success': False,
-            'error': {
-                'message': str(e),
-                'code': 'CATEGORY_TREE_ERROR'
-            }
-        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+from django.db.models import Count, Q
+from apps.products.models import Category, Product
 
 
 @api_view(['GET'])
 def get_featured_categories(request):
     """
-    Get featured categories for homepage.
+    Get featured categories for homepage with product counts.
     """
     try:
-        # Get categories that have featured products or are marked as featured
-        featured_categories = Category.objects.filter(
-            is_active=True,
-            products__is_featured=True
-        ).distinct().order_by('sort_order', 'name')[:9]  # Limit to 9 for homepage
+        # Get categories with product counts
+        categories = Category.objects.filter(
+            is_active=True
+        ).annotate(
+            product_count=Count('products', filter=Q(products__is_active=True))
+        ).order_by('-product_count')[:12]
         
         categories_data = []
-        for category in featured_categories:
-            # Get a representative icon/emoji for the category
-            category_icons = {
-                'mobiles': '📱',
-                'fashion': '👕',
-                'electronics': '💻',
-                'home-furniture': '🏠',
-                'appliances': '🔌',
-                'travel': '✈️',
-                'beauty-toys': '💄',
-                'two-wheelers': '🏍️',
-                'grocery': '🛒',
-                'books': '📚',
-                'sports': '⚽',
-                'health': '💊',
-                'automotive': '🚗',
-                'jewelry': '💍',
-                'baby-kids': '🧸'
+        for category in categories:
+            # Map category names to icons and hrefs
+            icon_mapping = {
+                'Electronics': '💻',
+                'Fashion': '👗', 
+                'Home & Kitchen': '🏠',
+                'Books': '📚',
+                'Sports': '⚽',
+                'Beauty': '💄',
+                'Mobiles': '📱',
+                'Appliances': '🔌',
+                'Travel': '✈️',
+                'Grocery': '🛒'
             }
-            
-            icon = category_icons.get(category.slug, '🛍️')
             
             categories_data.append({
                 'id': category.id,
                 'name': category.name,
                 'slug': category.slug,
-                'icon': icon,
+                'description': category.description,
+                'icon': icon_mapping.get(category.name, '📦'),
                 'href': f'/category/{category.slug}',
-                'image': category.image.url if category.image else None,
-                'products_count': category.products.filter(is_active=True).count()
+                'product_count': category.product_count,
+                'is_featured': True
             })
         
         return Response({
@@ -153,25 +63,34 @@ def get_featured_categories(request):
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated, IsAdminUser])
-def bulk_update_categories(request):
+@api_view(['GET'])
+def get_all_categories(request):
     """
-    Bulk update category sort orders.
+    Get all active categories with product counts.
     """
     try:
-        categories_data = request.data.get('categories', [])
+        categories = Category.objects.filter(
+            is_active=True
+        ).annotate(
+            product_count=Count('products', filter=Q(products__is_active=True))
+        ).order_by('name')
         
-        for category_data in categories_data:
-            category_id = category_data.get('id')
-            sort_order = category_data.get('sort_order')
-            
-            if category_id and sort_order is not None:
-                Category.objects.filter(id=category_id).update(sort_order=sort_order)
+        categories_data = []
+        for category in categories:
+            categories_data.append({
+                'id': category.id,
+                'name': category.name,
+                'slug': category.slug,
+                'description': category.description,
+                'product_count': category.product_count,
+                'created_at': category.created_at.isoformat(),
+                'updated_at': category.updated_at.isoformat()
+            })
         
         return Response({
             'success': True,
-            'message': 'Categories updated successfully'
+            'data': categories_data,
+            'total_count': len(categories_data)
         })
         
     except Exception as e:
@@ -179,6 +98,136 @@ def bulk_update_categories(request):
             'success': False,
             'error': {
                 'message': str(e),
-                'code': 'BULK_UPDATE_ERROR'
+                'code': 'ALL_CATEGORIES_ERROR'
+            }
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
+def get_category_details(request, category_slug):
+    """
+    Get detailed information about a specific category.
+    """
+    try:
+        category = Category.objects.get(slug=category_slug, is_active=True)
+        
+        # Get product count
+        product_count = Product.objects.filter(
+            category=category,
+            is_active=True
+        ).count()
+        
+        # Get top brands in this category
+        top_brands = Product.objects.filter(
+            category=category,
+            is_active=True
+        ).values('brand').annotate(
+            count=Count('brand')
+        ).order_by('-count')[:10]
+        
+        category_data = {
+            'id': category.id,
+            'name': category.name,
+            'slug': category.slug,
+            'description': category.description,
+            'product_count': product_count,
+            'top_brands': [{'name': brand['brand'], 'count': brand['count']} for brand in top_brands],
+            'created_at': category.created_at.isoformat(),
+            'updated_at': category.updated_at.isoformat()
+        }
+        
+        return Response({
+            'success': True,
+            'data': category_data
+        })
+        
+    except Category.DoesNotExist:
+        return Response({
+            'success': False,
+            'error': {
+                'message': 'Category not found',
+                'code': 'CATEGORY_NOT_FOUND'
+            }
+        }, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({
+            'success': False,
+            'error': {
+                'message': str(e),
+                'code': 'CATEGORY_DETAILS_ERROR'
+            }
+        }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
+def get_category_filters(request, category_slug):
+    """
+    Get available filters for a specific category.
+    """
+    try:
+        category = Category.objects.get(slug=category_slug, is_active=True)
+        
+        # Get all products in this category
+        products = Product.objects.filter(
+            category=category,
+            is_active=True
+        )
+        
+        # Get unique brands
+        brands = products.values('brand').annotate(
+            count=Count('brand')
+        ).order_by('brand')
+        
+        # Get price ranges
+        price_ranges = [
+            {'from': None, 'to': 100, 'label': 'Under $100'},
+            {'from': 100, 'to': 500, 'label': '$100 - $500'},
+            {'from': 500, 'to': 1000, 'label': '$500 - $1000'},
+            {'from': 1000, 'to': None, 'label': '$1000+'}
+        ]
+        
+        # Count products in each price range
+        for price_range in price_ranges:
+            if price_range['from'] is None:
+                count = products.filter(price__lt=price_range['to']).count()
+            elif price_range['to'] is None:
+                count = products.filter(price__gte=price_range['from']).count()
+            else:
+                count = products.filter(
+                    price__gte=price_range['from'],
+                    price__lt=price_range['to']
+                ).count()
+            price_range['count'] = count
+        
+        filters_data = {
+            'category': {
+                'id': category.id,
+                'name': category.name,
+                'slug': category.slug
+            },
+            'brands': [{'name': brand['brand'], 'count': brand['count']} for brand in brands],
+            'price_ranges': price_ranges,
+            'total_products': products.count()
+        }
+        
+        return Response({
+            'success': True,
+            'data': filters_data
+        })
+        
+    except Category.DoesNotExist:
+        return Response({
+            'success': False,
+            'error': {
+                'message': 'Category not found',
+                'code': 'CATEGORY_NOT_FOUND'
+            }
+        }, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({
+            'success': False,
+            'error': {
+                'message': str(e),
+                'code': 'CATEGORY_FILTERS_ERROR'
             }
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

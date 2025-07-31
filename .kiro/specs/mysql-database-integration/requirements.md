@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The MySQL Database Integration project involves migrating the current SQLite-based e-commerce platform to a production-ready MySQL database system. This migration includes data transfer, performance optimization, backup strategies, and enhanced security measures suitable for a scalable e-commerce environment.
+The MySQL Database Integration project involves setting up a MySQL database system to replace static data with dynamic data from the database. This includes configuring MySQL, migrating from SQLite to MySQL, populating the database with realistic sample data, implementing API endpoints to serve dynamic data, and updating the frontend to consume data from the backend APIs instead of using static data. The focus is on making the ecommerce platform fully dynamic with data stored in and retrieved from MySQL database.
 
 ## Requirements
 

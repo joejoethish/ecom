@@ -1,0 +1,23 @@
+{
+  "stage": "initial_data_sync",
+  "timestamp": "2025-07-30T20:36:16.446748",
+  "status": "passed",
+  "validation_results": {
+    "tables_migrated": 2,
+    "total_records_migrated": 300,
+    "sync_results": {
+      "users": {
+        "status": "success",
+        "records": 100,
+        "duration": 5.0
+      },
+      "products": {
+        "status": "success",
+        "records": 200,
+        "duration": 8.0
+      }
+    }
+  },
+  "error_message": null,
+  "rollback_data": null
+}

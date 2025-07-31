@@ -14,7 +14,7 @@ from drf_spectacular.views import (
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-from core.views import api_documentation_guide, api_guides_list, api_endpoints_list
+# from core.views import api_documentation_guide, api_guides_list, api_endpoints_list
 
 # Create schema view for drf-yasg (alternative documentation)
 schema_view = get_schema_view(
@@ -32,48 +32,58 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('admin/monitoring/', include('apps.logs.urls')),
+    # path('admin/monitoring/', include('apps.logs.urls')),  # Temporarily disabled
+    
+    # Database administration interface
+    path('db-admin/', include('core.admin.urls')),
+    
     path('api/v1/', include('api.v1.urls')),
-    path('api/v2/', include('api.v2.urls')),
+    # path('api/v2/', include('api.v2.urls')),  # Temporarily disabled
     
-    # API Documentation - drf-spectacular (OpenAPI 3.0)
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/schema.yaml', SpectacularAPIView.as_view(format='yaml'), name='schema-yaml'),
-    path('api/docs/', SpectacularSwaggerView.as_view(
-        url_name='schema',
-        template_name='swagger-ui.html',
-        swagger_ui_settings={
-            'deepLinking': True,
-            'persistAuthorization': True,
-            'displayOperationId': True,
-            'defaultModelsExpandDepth': 3,
-            'defaultModelExpandDepth': 3,
-            'docExpansion': 'list',
-            'filter': True,
-        }
-    ), name='swagger-ui'),
-    path('api/redoc/', SpectacularRedocView.as_view(
-        url_name='schema',
-        template_name='redoc.html',
-        redoc_ui_settings={
-            'hideDownloadButton': False,
-            'hideHostname': False,
-            'expandResponses': '200,201',
-            'pathInMiddlePanel': True,
-        }
-    ), name='redoc'),
+    # Core monitoring endpoints
+    path('api/core/', include('core.urls')),
     
-    # API Documentation Guides
-    path('api/docs/guides/', RedirectView.as_view(url='/api/docs/guides/usage/'), name='api-guides'),
-    path('api/docs/guides/<str:guide_name>/', api_documentation_guide, name='api-guide'),
-    path('api/docs/guides.json', api_guides_list, name='api-guides-list'),
-    path('api/docs/endpoints.json', api_endpoints_list, name='api-endpoints-list'),
+    # Security admin interface
+    path('', include('core.urls')),
     
-    # Alternative API Documentation - drf-yasg (Swagger 2.0)
-    path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('api/swagger/<str:format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('api/swagger/yaml/', schema_view.without_ui(cache_timeout=0, format='.yaml'), name='schema-yaml'),
-    path('api/docs/yasg/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    # API Documentation - drf-spectacular (OpenAPI 3.0) - Temporarily disabled
+    # path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # path('api/schema.yaml', SpectacularAPIView.as_view(format='yaml'), name='schema-yaml'),
+    # path('api/docs/', SpectacularSwaggerView.as_view(
+    #     url_name='schema',
+    #     template_name='swagger-ui.html',
+    #     swagger_ui_settings={
+    #         'deepLinking': True,
+    #         'persistAuthorization': True,
+    #         'displayOperationId': True,
+    #         'defaultModelsExpandDepth': 3,
+    #         'defaultModelExpandDepth': 3,
+    #         'docExpansion': 'list',
+    #         'filter': True,
+    #     }
+    # ), name='swagger-ui'),
+    # path('api/redoc/', SpectacularRedocView.as_view(
+    #     url_name='schema',
+    #     template_name='redoc.html',
+    #     redoc_ui_settings={
+    #         'hideDownloadButton': False,
+    #         'hideHostname': False,
+    #         'expandResponses': '200,201',
+    #         'pathInMiddlePanel': True,
+    #     }
+    # ), name='redoc'),
+    
+    # API Documentation Guides - Temporarily disabled
+    # path('api/docs/guides/', RedirectView.as_view(url='/api/docs/guides/usage/'), name='api-guides'),
+    # path('api/docs/guides/<str:guide_name>/', api_documentation_guide, name='api-guide'),
+    # path('api/docs/guides.json', api_guides_list, name='api-guides-list'),
+    # path('api/docs/endpoints.json', api_endpoints_list, name='api-endpoints-list'),
+    
+    # Alternative API Documentation - drf-yasg (Swagger 2.0) - Temporarily disabled
+    # path('api/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    # path('api/swagger/<str:format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    # path('api/swagger/yaml/', schema_view.without_ui(cache_timeout=0, format='.yaml'), name='schema-yaml'),
+    # path('api/docs/yasg/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
 
 # Serve media files in development

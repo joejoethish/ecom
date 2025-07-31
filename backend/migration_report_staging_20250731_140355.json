@@ -1,0 +1,31 @@
+{
+  "environment": "staging",
+  "start_time": "2025-07-31T14:03:55.576953",
+  "duration_seconds": 0.01812,
+  "migration_log": [
+    "[2025-07-31 14:03:55] INFO: Initializing migration components...",
+    "[2025-07-31 14:03:55] INFO: Components initialized successfully",
+    "[2025-07-31 14:03:55] INFO: Starting final migration cutover for staging",
+    "[2025-07-31 14:03:55] INFO: Starting pre-migration validation...",
+    "[2025-07-31 14:03:55] INFO: Validating database connectivity...",
+    "[2025-07-31 14:03:55] ERROR: Database connectivity validation failed: The connection 'mysql' doesn't exist.",
+    "[2025-07-31 14:03:55] INFO: Validating data integrity...",
+    "[2025-07-31 14:03:55] INFO: Data integrity validated - SQLite tables: 1",
+    "[2025-07-31 14:03:55] INFO: Validating system resources...",
+    "[2025-07-31 14:03:55] ERROR: System resource validation failed: [Errno 2] No such file or directory: '/proc/meminfo'",
+    "[2025-07-31 14:03:55] INFO: Validating backup availability...",
+    "[2025-07-31 14:03:55] INFO: Backup created and validated: test_backup.sqlite3",
+    "[2025-07-31 14:03:55] INFO: Validating application health...",
+    "[2025-07-31 14:03:55] INFO: Application health validated - Users: 0",
+    "[2025-07-31 14:03:55] ERROR: Migration failed: Pre-migration validation failed: ['database_connectivity', 'system_resources']"
+  ],
+  "rollback_data": {
+    "sqlite_counts": {
+      "auth_user": 10
+    },
+    "mysql_counts": {
+      "auth_user": 10
+    },
+    "backup_file": "test_backup.sqlite3"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "batch_size": 1000,
+  "create_rollback": true,
+  "max_retries": 3,
+  "retry_delay": 5,
+  "validation_sample_size": 100,
+  "parallel_tables": 1,
+  "skip_tables": [
+    "django_migrations",
+    "django_content_type",
+    "django_session",
+    "auth_permission"
+  ],
+  "priority_tables": [
+    "auth_user",
+    "products_category",
+    "products_product",
+    "customers_customer",
+    "orders_order"
+  ],
+  "log_level": "INFO",
+  "output_format": "text",
+  "save_progress": true,
+  "progress_file": "migration_progress.json",
+  "mysql_config": {
+    "connection_timeout": 60,
+    "read_timeout": 300,
+    "write_timeout": 300,
+    "pool_size": 10,
+    "pool_reset_session": true
+  },
+  "validation_config": {
+    "enable_detailed_validation": true,
+    "sample_validation_size": 100,
+    "validate_foreign_keys": true,
+    "validate_data_types": true
+  },
+  "backup_config": {
+    "create_pre_migration_backup": true,
+    "backup_retention_days": 7,
+    "compress_backups": true
+  }
+}

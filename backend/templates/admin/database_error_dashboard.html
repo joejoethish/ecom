@@ -1,0 +1,292 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Database Error Handling Dashboard{% endblock %}
+
+{% block extrahead %}
+<style>
+    .dashboard-container {
+        padding: 20px;
+    }
+    
+    .status-card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .status-healthy { border-left: 4px solid #28a745; }
+    .status-warning { border-left: 4px solid #ffc107; }
+    .status-critical { border-left: 4px solid #dc3545; }
+    
+    .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .metric-item {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 6px;
+        text-align: center;
+    }
+    
+    .metric-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .metric-label {
+        font-size: 12px;
+        color: #666;
+        text-transform: uppercase;
+    }
+    
+    .error-list {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    .error-item {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .error-item:last-child {
+        border-bottom: none;
+    }
+    
+    .error-severity-critical { background-color: #f8d7da; }
+    .error-severity-high { background-color: #fff3cd; }
+    .error-severity-medium { background-color: #d1ecf1; }
+    .error-severity-low { background-color: #d4edda; }
+    
+    .degradation-alert {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+    }
+    
+    .btn-reset {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    .btn-reset:hover {
+        background-color: #c82333;
+    }
+    
+    .refresh-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+    
+    .refresh-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1>Database Error Handling Dashboard</h1>
+    
+    <button class="refresh-btn" onclick="location.reload()">Refresh Dashboard</button>
+    
+    {% if degradation_mode %}
+    <div class="degradation-alert">
+        <h3>⚠️ System in Degradation Mode</h3>
+        <p>The system entered degradation mode at {{ degradation_start_time|date:"Y-m-d H:i:s" }}</p>
+        <button class="btn-reset" onclick="resetDegradationMode()">Reset Degradation Mode</button>
+    </div>
+    {% endif %}
+    
+    <!-- Database Status Overview -->
+    <div class="status-card">
+        <h2>Database Status Overview</h2>
+        <div class="metric-grid">
+            {% for db_alias, stats in database_stats.items %}
+            <div class="metric-item">
+                <div class="metric-value">{{ db_alias }}</div>
+                <div class="metric-label">Database</div>
+                <div style="margin-top: 10px;">
+                    <div class="metric-value" style="font-size: 18px; color: {% if stats.degradation_mode %}#dc3545{% else %}#28a745{% endif %}">
+                        {% if stats.degradation_mode %}DEGRADED{% else %}HEALTHY{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Error Statistics -->
+    <div class="status-card">
+        <h2>Error Statistics (Last 24 Hours)</h2>
+        <div class="metric-grid">
+            {% for db_alias, stats in database_stats.items %}
+            <div class="metric-item">
+                <div class="metric-value">{{ stats.recent_errors_24h }}</div>
+                <div class="metric-label">{{ db_alias }} Errors</div>
+            </div>
+            {% endfor %}
+            
+            <div class="metric-item">
+                <div class="metric-value">
+                    {% for stats in database_stats.values %}{{ stats.deadlock_statistics.recent_deadlocks_24h|add:0 }}{% endfor %}
+                </div>
+                <div class="metric-label">Deadlocks</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Connection Pool Status -->
+    {% if pool_status %}
+    <div class="status-card">
+        <h2>Connection Pool Status</h2>
+        <div class="metric-grid">
+            {% for pool_name, status in pool_status.items %}
+            <div class="metric-item">
+                <div class="metric-value" style="color: {% if status.healthy %}#28a745{% else %}#dc3545{% endif %}">
+                    {% if status.healthy %}✓{% else %}✗{% endif %}
+                </div>
+                <div class="metric-label">{{ pool_name }}</div>
+                <div style="margin-top: 5px; font-size: 12px;">
+                    {{ status.active_connections }}/{{ status.pool_size }} connections
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Recent Errors -->
+    <div class="status-card">
+        <h2>Recent Errors</h2>
+        <div class="error-list">
+            {% for error in recent_errors %}
+            <div class="error-item error-severity-{{ error.severity }}">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong>{{ error.error_type }}</strong> on {{ error.database_alias }}
+                        <div style="font-size: 12px; color: #666;">
+                            {{ error.timestamp|date:"Y-m-d H:i:s" }}
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="badge" style="background-color: 
+                            {% if error.severity == 'critical' %}#dc3545
+                            {% elif error.severity == 'high' %}#fd7e14
+                            {% elif error.severity == 'medium' %}#ffc107
+                            {% else %}#28a745{% endif %}; 
+                            color: white; padding: 2px 8px; border-radius: 12px; font-size: 11px;">
+                            {{ error.severity|upper }}
+                        </span>
+                    </div>
+                </div>
+                <div style="margin-top: 8px; font-size: 14px;">
+                    {{ error.error_message|truncatechars:100 }}
+                </div>
+                {% if error.recovery_action %}
+                <div style="margin-top: 5px; font-size: 12px; color: #666;">
+                    Recovery: {{ error.recovery_action }}
+                </div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <div class="error-item">
+                <div style="text-align: center; color: #666;">
+                    No recent errors found
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Error Type Distribution -->
+    <div class="status-card">
+        <h2>Error Type Distribution</h2>
+        {% for db_alias, stats in database_stats.items %}
+        <h3>{{ db_alias }}</h3>
+        <div class="metric-grid">
+            {% for error_type, count in stats.error_types.items %}
+            <div class="metric-item">
+                <div class="metric-value">{{ count }}</div>
+                <div class="metric-label">{{ error_type }}</div>
+            </div>
+            {% empty %}
+            <div class="metric-item">
+                <div class="metric-value">0</div>
+                <div class="metric-label">No Errors</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+function resetDegradationMode() {
+    if (confirm('Are you sure you want to reset degradation mode? This will re-enable all database operations.')) {
+        fetch('/admin/database-errors/api/reset-degradation/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Degradation mode has been reset successfully.');
+                location.reload();
+            } else {
+                alert('Failed to reset degradation mode: ' + data.error);
+            }
+        })
+        .catch(error => {
+            alert('Error: ' + error);
+        });
+    }
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Auto-refresh every 30 seconds
+setTimeout(function() {
+    location.reload();
+}, 30000);
+</script>
+{% endblock %}

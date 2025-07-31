@@ -1,0 +1,14 @@
+{
+  "stage": "rolled_back",
+  "timestamp": "2025-07-30T20:36:16.727404",
+  "status": "passed",
+  "validation_results": {
+    "rollback_results": {
+      "users": "success",
+      "products": "success"
+    },
+    "rollback_time": "2025-07-30T20:36:16.727404"
+  },
+  "error_message": null,
+  "rollback_data": null
+}

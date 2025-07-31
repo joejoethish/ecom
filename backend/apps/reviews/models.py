@@ -102,8 +102,17 @@ class Review(BaseModel):
         
         # Set moderated_at timestamp when status changes to approved/rejected
         if self.pk:
-            old_review = Review.objects.get(pk=self.pk)
-            if old_review.status != self.status and self.status in ['approved', 'rejected']:
+            try:
+                old_review = Review.objects.get(pk=self.pk)
+                if old_review.status != self.status and self.status in ['approved', 'rejected']:
+                    self.moderated_at = timezone.now()
+            except Review.DoesNotExist:
+                # This is a new review, set moderated_at if status is approved/rejected
+                if self.status in ['approved', 'rejected']:
+                    self.moderated_at = timezone.now()
+        else:
+            # This is a new review, set moderated_at if status is approved/rejected
+            if self.status in ['approved', 'rejected']:
                 self.moderated_at = timezone.now()
         
         super().save(*args, **kwargs)

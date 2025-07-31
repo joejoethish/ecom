@@ -1,0 +1,14 @@
+MySQL Compatibility Test Report
+Generated: 2025-07-31 12:11:48
+Database: ecommerce_db
+Host: localhost:3307
+
+custom_mysql_tests: ERROR
+orm_operations: FAILED: Product() got unexpected keyword arguments: 'seller', 'stock_quantity'
+data_consistency: FAILED: Product() got unexpected keyword arguments: 'seller', 'stock_quantity'
+api_endpoints:
+  /api/v1/products/: ERROR: type object 'BackupProxy' has no attribute '_meta'
+  /api/v1/categories/: ERROR: type object 'BackupProxy' has no attribute '_meta'
+  /api/v1/orders/: ERROR: type object 'BackupProxy' has no attribute '_meta'
+  /api/v1/cart/: ERROR: type object 'BackupProxy' has no attribute '_meta'
+  /admin/: ERROR: type object 'BackupProxy' has no attribute '_meta'

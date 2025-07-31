@@ -1,0 +1,28 @@
+{
+  "stage": "validation",
+  "timestamp": "2025-07-30T20:36:16.808034",
+  "status": "failed",
+  "validation_results": {
+    "total_tables": 2,
+    "passed_validations": 1,
+    "failed_validations": 1,
+    "validation_results": {
+      "users": {
+        "is_valid": false,
+        "source_count": 100,
+        "target_count": 95,
+        "missing_records": 5,
+        "extra_records": 0
+      },
+      "products": {
+        "is_valid": true,
+        "source_count": 200,
+        "target_count": 200,
+        "missing_records": 0,
+        "extra_records": 0
+      }
+    }
+  },
+  "error_message": null,
+  "rollback_data": null
+}
