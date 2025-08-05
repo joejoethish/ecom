@@ -50,9 +50,38 @@ describe('ProductFilters Component', () => {
     jest.clearAllMocks();
     (useRouter as jest.Mock).mockReturnValue(mockRouter);
     (useSearchParams as jest.Mock).mockReturnValue(mockSearchParams);
-    (apiClient.get as jest.Mock).mockResolvedValue({
-      success: true,
-      data: mockFilterOptions,
+    
+    // Mock API calls based on the endpoint
+    (apiClient.get as jest.Mock).mockImplementation((endpoint) => {
+      if (endpoint === '/categories/') {
+        return Promise.resolve({
+          success: true,
+          data: {
+            data: [
+              { name: 'Electronics', product_count: 42 },
+              { name: 'Clothing', product_count: 36 },
+              { name: 'Books', product_count: 28 },
+            ]
+          }
+        });
+      }
+      
+      if (endpoint.startsWith('/categories/') && endpoint.endsWith('/filters/')) {
+        return Promise.resolve({
+          success: true,
+          data: {
+            category: { name: 'Electronics' },
+            total_products: 42,
+            brands: mockFilterOptions.brands,
+            price_ranges: mockFilterOptions.price_ranges,
+          }
+        });
+      }
+      
+      return Promise.resolve({
+        success: false,
+        error: { message: 'Endpoint not found' }
+      });
     });
   });
 

@@ -11,7 +11,7 @@ interface AuthGuardProps {
   children: React.ReactNode;
   requireAuth?: boolean;
   requireGuest?: boolean;
-  allowedUserTypes?: ('customer' | 'seller' | 'admin')[];
+  allowedUserTypes?: ('customer' | 'seller' | 'admin' | 'inventory_manager' | 'warehouse_staff')[];
   redirectTo?: string;
   fallback?: React.ReactNode;
 }

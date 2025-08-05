@@ -141,28 +141,22 @@ class CelerySignalProcessor(RealTimeSignalProcessor):
         """
         Handle delete signal by dispatching a Celery task.
         """
-<<<<<<< HEAD
         from django.conf import settings
         
-        app_label = instance._meta.app_label
-        model_name = instance._meta.model_name
-        
-        # Skip Celery tasks during testing
-        if getattr(settings, 'CELERY_TASK_ALWAYS_EAGER', False):
-            # Run synchronously during tests
-            try:
-                delete_document(str(instance.id), app_label, model_name)
-            except Exception:
-                # Ignore Elasticsearch errors during testing
-                pass
-        else:
-            delete_document.delay(str(instance.id), app_label, model_name)
-=======
         try:
             app_label = instance._meta.app_label
             model_name = instance._meta.model_name
             
-            delete_document.delay(str(instance.id), app_label, model_name)
+            # Skip Celery tasks during testing
+            if getattr(settings, 'CELERY_TASK_ALWAYS_EAGER', False):
+                # Run synchronously during tests
+                try:
+                    delete_document(str(instance.id), app_label, model_name)
+                except Exception:
+                    # Ignore Elasticsearch errors during testing
+                    pass
+            else:
+                delete_document.delay(str(instance.id), app_label, model_name)
         except Exception as e:
             # Fallback to synchronous processing if Celery is not available
             try:
@@ -170,4 +164,3 @@ class CelerySignalProcessor(RealTimeSignalProcessor):
             except Exception as es_error:
                 # If Elasticsearch is also not available, just skip indexing
                 pass
->>>>>>> Task-10.3
