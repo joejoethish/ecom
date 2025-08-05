@@ -2562,6 +2562,7 @@ INFO 2025-07-19 18:25:33,980 signals 18000 5832 Profile created for user: test@e
 INFO 2025-07-19 18:26:00,906 signals 18000 5832 Profile created for user: test@example.com
 INFO 2025-07-19 18:26:14,194 signals 18000 5832 Profile created for user: test@example.com
 INFO 2025-07-19 18:26:31,474 signals 18000 5832 Profile created for user: test3@example.com
+<<<<<<< HEAD
 INFO 2025-07-19 18:27:00,924 signals 18000 5832 Profile created for user: test3@example.com
 INFO 2025-07-19 18:27:34,907 signals 18000 5832 Profile created for user: test3@example.com
 INFO 2025-07-19 18:28:08,753 signals 18000 5832 Profile created for user: test3@example.com
@@ -18584,3 +18585,5 @@ INFO 2025-08-05 12:09:21,318 basehttp 19880 14956 "OPTIONS /api/v1/auth/forgot-p
 WARNING 2025-08-05 12:09:21,432 log 19880 14956 Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/v1/auth/forgot-password/
 INFO 2025-08-05 12:09:21,914 database_security_middleware 19880 14956 Request completed: POST /api/v1/auth/forgot-password/ by anonymous from 127.0.0.1 in 0.574s with 0 queries (0 failed, 0 threats detected)
 WARNING 2025-08-05 12:09:21,916 basehttp 19880 14956 "POST /api/v1/auth/forgot-password/ HTTP/1.1" 403 15745
+=======
+>>>>>>> Task-10.3

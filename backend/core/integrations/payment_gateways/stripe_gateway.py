@@ -9,8 +9,13 @@ try:
     import stripe
     STRIPE_AVAILABLE = True
 except ImportError:
+<<<<<<< HEAD
     stripe = None
     STRIPE_AVAILABLE = False
+=======
+    STRIPE_AVAILABLE = False
+    stripe = None
+>>>>>>> Task-10.3
 
 from .base import BasePaymentGateway
 from core.exceptions import PaymentGatewayError
@@ -28,9 +33,15 @@ class StripeGateway(BasePaymentGateway):
         Initialize Stripe client with API key.
         """
         if not STRIPE_AVAILABLE:
+<<<<<<< HEAD
             logger.warning("Stripe package not installed. Payment gateway will not work.")
             return
             
+=======
+            logger.warning("Stripe package not installed. Install with: pip install stripe")
+            raise PaymentGatewayError("Stripe package not available")
+        
+>>>>>>> Task-10.3
         try:
             stripe.api_key = getattr(settings, 'STRIPE_SECRET_KEY', '')
             self.public_key = getattr(settings, 'STRIPE_PUBLIC_KEY', '')

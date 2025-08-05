@@ -115,24 +115,33 @@ class CelerySignalProcessor(RealTimeSignalProcessor):
         """
         from django.conf import settings
         
-        app_label = instance._meta.app_label
-        model_name = instance._meta.model_name
-        
-        # Skip Celery tasks during testing
-        if getattr(settings, 'CELERY_TASK_ALWAYS_EAGER', False):
-            # Run synchronously during tests
+        try:
+            app_label = instance._meta.app_label
+            model_name = instance._meta.model_name
+            
+            # Skip Celery tasks during testing
+            if getattr(settings, 'CELERY_TASK_ALWAYS_EAGER', False):
+                # Run synchronously during tests
+                try:
+                    update_document(app_label, model_name, str(instance.id), 'save')
+                except Exception:
+                    # Ignore Elasticsearch errors during testing
+                    pass
+            else:
+                update_document.delay(app_label, model_name, str(instance.id), 'save')
+        except Exception as e:
+            # Fallback to synchronous processing if Celery is not available
             try:
-                update_document(app_label, model_name, str(instance.id), 'save')
-            except Exception:
-                # Ignore Elasticsearch errors during testing
+                super().handle_save(sender, instance, **kwargs)
+            except Exception as es_error:
+                # If Elasticsearch is also not available, just skip indexing
                 pass
-        else:
-            update_document.delay(app_label, model_name, str(instance.id), 'save')
     
     def handle_delete(self, sender, instance, **kwargs):
         """
         Handle delete signal by dispatching a Celery task.
         """
+<<<<<<< HEAD
         from django.conf import settings
         
         app_label = instance._meta.app_label
@@ -148,3 +157,17 @@ class CelerySignalProcessor(RealTimeSignalProcessor):
                 pass
         else:
             delete_document.delay(str(instance.id), app_label, model_name)
+=======
+        try:
+            app_label = instance._meta.app_label
+            model_name = instance._meta.model_name
+            
+            delete_document.delay(str(instance.id), app_label, model_name)
+        except Exception as e:
+            # Fallback to synchronous processing if Celery is not available
+            try:
+                super().handle_delete(sender, instance, **kwargs)
+            except Exception as es_error:
+                # If Elasticsearch is also not available, just skip indexing
+                pass
+>>>>>>> Task-10.3

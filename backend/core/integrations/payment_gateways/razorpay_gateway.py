@@ -11,8 +11,13 @@ try:
     import razorpay
     RAZORPAY_AVAILABLE = True
 except ImportError:
+<<<<<<< HEAD
     razorpay = None
     RAZORPAY_AVAILABLE = False
+=======
+    RAZORPAY_AVAILABLE = False
+    razorpay = None
+>>>>>>> Task-10.3
 
 from .base import BasePaymentGateway
 from core.exceptions import PaymentGatewayError
@@ -30,10 +35,16 @@ class RazorpayGateway(BasePaymentGateway):
         Initialize Razorpay client with API credentials.
         """
         if not RAZORPAY_AVAILABLE:
+<<<<<<< HEAD
             logger.warning("Razorpay package not installed. Payment gateway will not work.")
             self.client = None
             return
             
+=======
+            logger.warning("Razorpay package not installed. Install with: pip install razorpay")
+            raise PaymentGatewayError("Razorpay package not available")
+        
+>>>>>>> Task-10.3
         try:
             self.client = razorpay.Client(
                 auth=(getattr(settings, 'RAZORPAY_KEY_ID', ''), 
