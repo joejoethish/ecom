@@ -8,7 +8,7 @@ export interface User {
   id: string;
   username: string;
   email: string;
-  user_type: 'customer' | 'seller' | 'admin';
+  user_type: 'customer' | 'seller' | 'admin' | 'inventory_manager' | 'warehouse_staff';
   phone_number?: string;
   is_verified: boolean;
   is_staff?: boolean;

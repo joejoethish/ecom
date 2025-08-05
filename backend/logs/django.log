@@ -18240,3 +18240,347 @@ INFO 2025-07-31 15:37:54,828 database_security 12856 8988 Audit tables created s
 INFO 2025-07-31 15:37:54,829 database_security 12856 8988 Database security monitoring initialized successfully
 INFO 2025-07-31 15:39:03,186 replica_health_monitor 8128 19240 Starting replica health monitoring...
 INFO 2025-07-31 15:39:03,186 apps 8128 19240 Replica health monitoring started
+INFO 2025-08-05 11:02:54,202 replica_health_monitor 19276 2772 Starting replica health monitoring...
+INFO 2025-08-05 11:02:54,204 apps 19276 2772 Replica health monitoring started
+ERROR 2025-08-05 11:02:58,364 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:02:58,385 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 1/3)
+INFO 2025-08-05 11:03:00,736 replica_health_monitor 15784 3128 Starting replica health monitoring...
+INFO 2025-08-05 11:03:00,739 apps 15784 3128 Replica health monitoring started
+INFO 2025-08-05 11:03:00,986 autoreload 15784 3128 Watching for file changes with StatReloader
+ERROR 2025-08-05 11:03:04,960 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:03:04,991 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 1/3)
+INFO 2025-08-05 11:03:07,305 database_security 15784 19324 Audit tables created successfully
+INFO 2025-08-05 11:03:07,310 database_security 15784 19324 Database security monitoring initialized successfully
+ERROR 2025-08-05 11:03:32,434 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:03:32,444 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 2/3)
+ERROR 2025-08-05 11:03:39,130 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:03:39,141 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 2/3)
+ERROR 2025-08-05 11:04:06,512 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:04:06,512 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 3/3)
+CRITICAL 2025-08-05 11:04:06,514 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:04:06,514 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:04:08,551 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:04:08,551 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:04:13,199 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:04:13,200 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 3/3)
+CRITICAL 2025-08-05 11:04:13,200 replica_health_monitor 15784 9564 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:04:13,200 read_replica_setup 15784 9564 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:04:15,246 read_replica_setup 15784 9564 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:04:15,247 replica_health_monitor 15784 9564 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:04:42,632 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:04:42,633 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 4/3)
+CRITICAL 2025-08-05 11:04:42,634 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:04:42,634 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:04:44,666 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:04:44,666 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:04:49,329 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:04:49,330 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 4/3)
+CRITICAL 2025-08-05 11:04:49,330 replica_health_monitor 15784 9564 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:04:49,331 read_replica_setup 15784 9564 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:04:51,366 read_replica_setup 15784 9564 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:04:51,366 replica_health_monitor 15784 9564 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:05:18,758 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:05:18,775 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 5/3)
+CRITICAL 2025-08-05 11:05:18,776 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:05:18,777 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:05:20,813 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:05:20,814 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:05:25,465 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:05:25,466 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 5/3)
+CRITICAL 2025-08-05 11:05:25,466 replica_health_monitor 15784 9564 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:05:25,466 read_replica_setup 15784 9564 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:05:27,484 read_replica_setup 15784 9564 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:05:27,485 replica_health_monitor 15784 9564 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:05:54,872 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:05:54,878 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 6/3)
+CRITICAL 2025-08-05 11:05:54,878 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:05:54,880 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:05:56,913 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:05:56,913 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:06:01,544 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:06:01,544 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 6/3)
+CRITICAL 2025-08-05 11:06:01,546 replica_health_monitor 15784 9564 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:06:01,546 read_replica_setup 15784 9564 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:06:03,582 read_replica_setup 15784 9564 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:06:03,582 replica_health_monitor 15784 9564 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:06:30,998 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:06:30,998 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 7/3)
+CRITICAL 2025-08-05 11:06:30,999 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:06:30,999 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:06:33,034 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:06:33,035 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:06:37,649 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:06:37,649 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 7/3)
+CRITICAL 2025-08-05 11:06:37,650 replica_health_monitor 15784 9564 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:06:37,651 read_replica_setup 15784 9564 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:06:39,680 read_replica_setup 15784 9564 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:06:39,680 replica_health_monitor 15784 9564 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:07:07,087 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:07:07,087 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 8/3)
+CRITICAL 2025-08-05 11:07:07,089 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:07:07,089 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:07:09,112 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:07:09,112 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:07:13,752 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:07:13,752 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 8/3)
+CRITICAL 2025-08-05 11:07:13,753 replica_health_monitor 15784 9564 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:07:13,753 read_replica_setup 15784 9564 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:07:15,785 read_replica_setup 15784 9564 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:07:15,786 replica_health_monitor 15784 9564 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:07:43,200 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:07:43,203 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:07:43,203 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:07:43,205 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:07:45,231 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:07:45,231 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:07:49,862 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:07:49,862 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:07:49,862 replica_health_monitor 15784 9564 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:07:49,862 read_replica_setup 15784 9564 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:07:51,890 read_replica_setup 15784 9564 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:07:51,890 replica_health_monitor 15784 9564 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:08:19,319 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:08:19,322 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:08:19,325 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:08:19,325 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:08:21,367 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:08:21,367 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:08:25,949 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:08:25,950 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:08:25,951 replica_health_monitor 15784 9564 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:08:25,952 read_replica_setup 15784 9564 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:08:27,985 read_replica_setup 15784 9564 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:08:27,985 replica_health_monitor 15784 9564 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:08:55,423 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:08:55,425 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:08:55,425 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:08:55,425 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:08:57,451 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:08:57,453 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:09:02,072 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:09:02,079 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:09:02,081 replica_health_monitor 15784 9564 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:09:02,087 read_replica_setup 15784 9564 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:09:04,117 read_replica_setup 15784 9564 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:09:04,117 replica_health_monitor 15784 9564 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:09:31,517 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:09:31,518 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:09:31,518 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:09:31,519 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:09:33,569 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:09:33,570 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:09:38,168 read_replica_setup 15784 9564 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:09:38,168 replica_health_monitor 15784 9564 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:09:38,168 replica_health_monitor 15784 9564 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:09:38,168 read_replica_setup 15784 9564 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:09:40,201 read_replica_setup 15784 9564 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:09:40,202 replica_health_monitor 15784 9564 Automatic failover failed for read_replica
+INFO 2025-08-05 11:09:50,339 autoreload 15784 3128 C:\Local_ecom\backend\core\backup_manager.py changed, reloading.
+INFO 2025-08-05 11:09:56,165 replica_health_monitor 17560 15144 Starting replica health monitoring...
+INFO 2025-08-05 11:09:56,172 apps 17560 15144 Replica health monitoring started
+INFO 2025-08-05 11:09:56,366 autoreload 17560 15144 Watching for file changes with StatReloader
+INFO 2025-08-05 11:09:58,106 database_security 17560 19144 Audit tables created successfully
+INFO 2025-08-05 11:09:58,106 database_security 17560 19144 Database security monitoring initialized successfully
+ERROR 2025-08-05 11:10:00,272 read_replica_setup 17560 8076 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:10:00,275 replica_health_monitor 17560 8076 Replica read_replica is unhealthy (failure 1/3)
+ERROR 2025-08-05 11:10:07,630 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:10:07,630 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:10:07,630 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:10:07,630 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:10:09,669 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:10:09,669 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+INFO 2025-08-05 11:10:19,011 autoreload 17560 15144 C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
+INFO 2025-08-05 11:10:24,554 autoreload 22492 6448 Watching for file changes with StatReloader
+INFO 2025-08-05 11:10:26,164 database_security 22492 22360 Audit tables created successfully
+INFO 2025-08-05 11:10:26,165 database_security 22492 22360 Database security monitoring initialized successfully
+INFO 2025-08-05 11:10:35,895 autoreload 22492 6448 C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
+INFO 2025-08-05 11:10:41,324 autoreload 12740 6644 Watching for file changes with StatReloader
+ERROR 2025-08-05 11:10:43,721 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:10:43,725 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:10:43,725 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:10:43,725 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+INFO 2025-08-05 11:10:44,357 database_security 12740 13068 Audit tables created successfully
+INFO 2025-08-05 11:10:44,358 database_security 12740 13068 Database security monitoring initialized successfully
+CRITICAL 2025-08-05 11:10:45,754 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:10:45,755 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+INFO 2025-08-05 11:11:09,433 autoreload 12740 6644 C:\Local_ecom\backend\core\apps.py changed, reloading.
+INFO 2025-08-05 11:11:13,444 autoreload 2916 8516 Watching for file changes with StatReloader
+INFO 2025-08-05 11:11:15,425 database_security 2916 7020 Audit tables created successfully
+INFO 2025-08-05 11:11:15,425 database_security 2916 7020 Database security monitoring initialized successfully
+ERROR 2025-08-05 11:11:19,849 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:11:19,849 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:11:19,850 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:11:19,850 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:11:21,882 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:11:21,882 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:11:55,958 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:11:55,964 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:11:55,975 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:11:55,986 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:11:58,040 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:11:58,041 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:12:32,080 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:12:32,080 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:12:32,080 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:12:32,080 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:12:34,128 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:12:34,128 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:13:08,192 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:13:08,194 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:13:08,196 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:13:08,196 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:13:10,233 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:13:10,233 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:13:44,323 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:13:44,324 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:13:44,325 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:13:44,325 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:13:46,351 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:13:46,351 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:14:20,431 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:14:20,436 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:14:20,437 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:14:20,441 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:14:22,477 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:14:22,477 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:14:56,552 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:14:56,559 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:14:56,561 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:14:56,561 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:14:58,591 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:14:58,593 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:15:32,640 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:15:32,641 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:15:32,643 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:15:32,643 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:15:34,659 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:15:34,660 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:16:08,726 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:16:08,726 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:16:08,728 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:16:08,728 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:16:10,756 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:16:10,758 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:16:44,838 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:16:44,840 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:16:44,841 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:16:44,841 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:16:46,872 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:16:46,872 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:17:20,931 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:17:20,935 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:17:20,938 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:17:20,939 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:17:22,959 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:17:22,961 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:17:57,041 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:17:57,093 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:17:57,095 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:17:57,097 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:17:59,127 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:17:59,128 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:18:33,189 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:18:33,191 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:18:33,191 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:18:33,193 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:18:35,231 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:18:35,231 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+INFO 2025-08-05 11:19:02,512 database_security 15344 15312 Audit tables created successfully
+INFO 2025-08-05 11:19:02,512 database_security 15344 15312 Database security monitoring initialized successfully
+ERROR 2025-08-05 11:19:09,319 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:19:09,319 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:19:09,319 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:19:09,319 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:19:11,366 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:19:11,366 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:19:45,427 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:19:45,428 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:19:45,428 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:19:45,429 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:19:47,454 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:19:47,454 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+INFO 2025-08-05 11:19:51,023 database_security 12812 12476 Audit tables created successfully
+INFO 2025-08-05 11:19:51,023 database_security 12812 12476 Database security monitoring initialized successfully
+ERROR 2025-08-05 11:20:21,509 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:20:21,510 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:20:21,510 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:20:21,511 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:20:23,542 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:20:23,548 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+INFO 2025-08-05 11:20:38,054 database_security 19020 18252 Audit tables created successfully
+INFO 2025-08-05 11:20:38,054 database_security 19020 18252 Database security monitoring initialized successfully
+ERROR 2025-08-05 11:20:57,620 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:20:57,620 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:20:57,620 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:20:57,620 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:20:59,670 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:20:59,670 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+INFO 2025-08-05 11:21:26,342 database_security 11584 7776 Audit tables created successfully
+INFO 2025-08-05 11:21:26,344 database_security 11584 7776 Database security monitoring initialized successfully
+ERROR 2025-08-05 11:21:33,726 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:21:33,728 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:21:33,728 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:21:33,728 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:21:35,777 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:21:35,777 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:22:09,879 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:22:09,879 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:22:09,880 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:22:09,880 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:22:11,903 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:22:11,904 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:22:45,977 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:22:45,979 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:22:45,979 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:22:45,979 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:22:48,008 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:22:48,010 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:23:22,080 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:23:22,082 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:23:22,082 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:23:22,082 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:23:24,095 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:23:24,095 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:23:58,145 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:23:58,145 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:23:58,145 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:23:58,145 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:24:00,169 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:24:00,171 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:24:34,279 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:24:34,280 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:24:34,280 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:24:34,280 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:24:36,311 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:24:36,313 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:25:10,376 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:25:10,376 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:25:10,376 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:25:10,380 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:25:12,417 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:25:12,420 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:25:46,500 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:25:46,502 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:25:46,505 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:25:46,508 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:25:48,539 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:25:48,554 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+ERROR 2025-08-05 11:26:22,614 read_replica_setup 19276 16056 Error checking lag for read_replica: 2003: Can't connect to MySQL server on 'localhost:3308' (Errno 10061: No connection could be made because the target machine actively refused it)
+WARNING 2025-08-05 11:26:22,614 replica_health_monitor 19276 16056 Replica read_replica is unhealthy (failure 9/3)
+CRITICAL 2025-08-05 11:26:22,614 replica_health_monitor 19276 16056 Performing automatic failover for replica: read_replica
+WARNING 2025-08-05 11:26:22,614 read_replica_setup 19276 16056 Initiating failover for failed replica: read_replica
+CRITICAL 2025-08-05 11:26:24,645 read_replica_setup 19276 16056 No healthy replicas available! All reads will be routed to master.
+ERROR 2025-08-05 11:26:24,646 replica_health_monitor 19276 16056 Automatic failover failed for read_replica
+INFO 2025-08-05 11:26:48,518 autoreload 6036 10860 Watching for file changes with StatReloader
+INFO 2025-08-05 11:26:49,496 database_security 6036 3228 Audit tables created successfully
+INFO 2025-08-05 11:26:49,496 database_security 6036 3228 Database security monitoring initialized successfully
+INFO 2025-08-05 11:28:16,507 database_security 2056 17484 Audit tables created successfully
+INFO 2025-08-05 11:28:16,523 database_security 2056 17484 Database security monitoring initialized successfully
+INFO 2025-08-05 11:30:00,214 database_security 14176 14608 Audit tables created successfully
+INFO 2025-08-05 11:30:00,214 database_security 14176 14608 Database security monitoring initialized successfully
+INFO 2025-08-05 11:30:26,154 database_security 19880 8644 Audit tables created successfully
+INFO 2025-08-05 11:30:26,154 database_security 19880 8644 Database security monitoring initialized successfully
+INFO 2025-08-05 12:09:21,318 basehttp 19880 14956 "OPTIONS /api/v1/auth/forgot-password/ HTTP/1.1" 200 0
+WARNING 2025-08-05 12:09:21,432 log 19880 14956 Forbidden (Origin checking failed - http://localhost:3000 does not match any trusted origins.): /api/v1/auth/forgot-password/
+INFO 2025-08-05 12:09:21,914 database_security_middleware 19880 14956 Request completed: POST /api/v1/auth/forgot-password/ by anonymous from 127.0.0.1 in 0.574s with 0 queries (0 failed, 0 threats detected)
+WARNING 2025-08-05 12:09:21,916 basehttp 19880 14956 "POST /api/v1/auth/forgot-password/ HTTP/1.1" 403 15745

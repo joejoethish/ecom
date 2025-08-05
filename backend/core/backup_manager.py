@@ -233,3 +233,112 @@ class BackupManager:
         except Exception as e:
             print(f"Error cleaning up old backups: {e}")
             return 0
+
+
+class MySQLBackupManager(BackupManager):
+    """Specialized backup manager for MySQL databases"""
+    
+    def __init__(self):
+        super().__init__()
+        self.db_config = settings.DATABASES['default']
+    
+    def create_backup(self):
+        """Create MySQL backup"""
+        return self.create_mysql_backup()
+    
+    def restore_backup(self, backup_file):
+        """Restore MySQL backup"""
+        return self.restore_mysql_backup(backup_file)
+    
+    def get_database_size(self):
+        """Get current database size"""
+        try:
+            import pymysql
+            
+            connection = pymysql.connect(
+                host=self.db_config.get('HOST', 'localhost'),
+                port=self.db_config.get('PORT', 3306),
+                user=self.db_config['USER'],
+                password=self.db_config['PASSWORD'],
+                database=self.db_config['NAME']
+            )
+            
+            with connection.cursor() as cursor:
+                cursor.execute("""
+                    SELECT 
+                        ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS 'DB Size in MB'
+                    FROM information_schema.tables 
+                    WHERE table_schema = %s
+                """, (self.db_config['NAME'],))
+                
+                result = cursor.fetchone()
+                return result[0] if result else 0
+                
+        except Exception as e:
+            print(f"Error getting database size: {e}")
+            return 0
+        finally:
+            if 'connection' in locals():
+                connection.close()
+    
+    def optimize_database(self):
+        """Optimize MySQL database tables"""
+        try:
+            import pymysql
+            
+            connection = pymysql.connect(
+                host=self.db_config.get('HOST', 'localhost'),
+                port=self.db_config.get('PORT', 3306),
+                user=self.db_config['USER'],
+                password=self.db_config['PASSWORD'],
+                database=self.db_config['NAME']
+            )
+            
+            with connection.cursor() as cursor:
+                # Get all tables
+                cursor.execute("SHOW TABLES")
+                tables = cursor.fetchall()
+                
+                optimized_tables = []
+                for table in tables:
+                    table_name = table[0]
+                    cursor.execute(f"OPTIMIZE TABLE `{table_name}`")
+                    optimized_tables.append(table_name)
+                
+                print(f"Optimized {len(optimized_tables)} tables")
+                return optimized_tables
+                
+        except Exception as e:
+            print(f"Error optimizing database: {e}")
+            return []
+        finally:
+            if 'connection' in locals():
+                connection.close()
+
+
+class BackupConfig:
+    """Configuration class for backup operations"""
+    
+    def __init__(self, **kwargs):
+        self.retention_days = kwargs.get('retention_days', 30)
+        self.backup_schedule = kwargs.get('backup_schedule', 'daily')
+        self.compression = kwargs.get('compression', True)
+        self.encryption = kwargs.get('encryption', False)
+        self.remote_storage = kwargs.get('remote_storage', False)
+        self.notification_email = kwargs.get('notification_email', None)
+    
+    def to_dict(self):
+        """Convert config to dictionary"""
+        return {
+            'retention_days': self.retention_days,
+            'backup_schedule': self.backup_schedule,
+            'compression': self.compression,
+            'encryption': self.encryption,
+            'remote_storage': self.remote_storage,
+            'notification_email': self.notification_email
+        }
+    
+    @classmethod
+    def from_dict(cls, config_dict):
+        """Create config from dictionary"""
+        return cls(**config_dict)

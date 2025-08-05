@@ -169,7 +169,8 @@ class DatabaseMetricsAdmin(admin.ModelAdmin):
     actions.short_description = 'Actions'
 
 
-@admin.register(BackupProxy)
+# BackupProxy is not a Django model, so we can't register it with admin
+# @admin.register(BackupProxy)
 class BackupAdmin(admin.ModelAdmin):
     """Admin interface for backup management."""
     
@@ -837,5 +838,6 @@ class DatabaseAdministrationSite(admin.AdminSite):
 db_admin_site = DatabaseAdministrationSite(name='db_admin')
 
 # Register models with the custom admin site
-db_admin_site.register(DatabaseMetricsProxy, DatabaseMetricsAdmin)
-db_admin_site.register(BackupProxy, BackupAdmin)
+# Note: Proxy classes are not Django models, so they can't be registered
+# db_admin_site.register(DatabaseMetricsProxy, DatabaseMetricsAdmin)
+# db_admin_site.register(BackupProxy, BackupAdmin)

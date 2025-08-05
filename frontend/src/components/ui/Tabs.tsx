@@ -44,7 +44,10 @@ export function Tabs({ children, defaultValue, className = '' }: TabsProps) {
 
 export function TabsList({ children, className = '' }: TabsListProps) {
   return (
-    <div className={`inline-flex h-10 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-500 ${className}`}>
+    <div 
+      className={`inline-flex min-h-[44px] items-center justify-center rounded-md bg-gray-100 p-1 text-gray-500 ${className}`}
+      role="tablist"
+    >
       {children}
     </div>
   );
@@ -60,11 +63,15 @@ export function TabsTrigger({ children, value, className = '' }: TabsTriggerProp
   return (
     <button
       onClick={() => setActiveTab(value)}
-      className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
+      className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-white transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 touch-manipulation min-h-[44px] ${
         isActive 
           ? 'bg-white text-gray-950 shadow-sm' 
           : 'hover:bg-gray-200 hover:text-gray-900'
       } ${className}`}
+      role="tab"
+      aria-selected={isActive}
+      aria-controls={`tabpanel-${value}`}
+      tabIndex={isActive ? 0 : -1}
     >
       {children}
     </button>
@@ -80,7 +87,13 @@ export function TabsContent({ children, value, className = '' }: TabsContentProp
   if (activeTab !== value) return null;
 
   return (
-    <div className={`mt-2 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${className}`}>
+    <div 
+      className={`mt-2 ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${className}`}
+      role="tabpanel"
+      id={`tabpanel-${value}`}
+      aria-labelledby={`tab-${value}`}
+      tabIndex={0}
+    >
       {children}
     </div>
   );

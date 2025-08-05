@@ -54,7 +54,8 @@ class SecurityEventProxy:
         verbose_name_plural = "Security Events"
 
 
-@admin.register(AuditLogProxy)
+# AuditLogProxy is not a Django model, so we can't register it with admin
+# @admin.register(AuditLogProxy)
 class AuditLogAdmin(admin.ModelAdmin):
     """Admin interface for viewing audit logs."""
     
@@ -180,7 +181,8 @@ class AuditLogAdmin(admin.ModelAdmin):
         return super().changelist_view(request, extra_context)
 
 
-@admin.register(SecurityEventProxy)
+# SecurityEventProxy is not a Django model, so we can't register it with admin
+# @admin.register(SecurityEventProxy)
 class SecurityEventAdmin(admin.ModelAdmin):
     """Admin interface for viewing security events."""
     
@@ -371,7 +373,8 @@ class SecurityDashboardAdmin(admin.ModelAdmin):
 
 
 # Register the security dashboard
-security_dashboard = SecurityDashboardAdmin(SecurityEventProxy, admin.site)
+# Note: SecurityEventProxy is not a Django model, so we can't use it with admin
+# security_dashboard = SecurityDashboardAdmin(SecurityEventProxy, admin.site)
 
 
 class SecurityReportsAdmin:
@@ -495,7 +498,7 @@ class SecurityAdminSite(admin.AdminSite):
         from django.urls import path
         urls = super().get_urls()
         custom_urls = [
-            path('security-dashboard/', security_dashboard.dashboard_view, name='security_dashboard'),
+            # path('security-dashboard/', security_dashboard.dashboard_view, name='security_dashboard'),
             path('export-audit-logs/', SecurityReportsAdmin.export_audit_logs, name='export_audit_logs'),
             path('security-report/', SecurityReportsAdmin.security_summary_report, name='security_report'),
         ]
@@ -506,8 +509,9 @@ class SecurityAdminSite(admin.AdminSite):
 security_admin_site = SecurityAdminSite(name='security_admin')
 
 # Register models with custom admin site
-security_admin_site.register(AuditLogProxy, AuditLogAdmin)
-security_admin_site.register(SecurityEventProxy, SecurityEventAdmin)
+# Note: Proxy classes are not Django models, so they can't be registered
+# security_admin_site.register(AuditLogProxy, AuditLogAdmin)
+# security_admin_site.register(SecurityEventProxy, SecurityEventAdmin)
 
 # Additional admin actions and views
 class SecurityActionsAdmin:
@@ -714,7 +718,7 @@ def get_security_admin_urls():
     from django.urls import path
     
     return [
-        path('security-dashboard/', security_dashboard.dashboard_view, name='security_dashboard'),
+        # path('security-dashboard/', security_dashboard.dashboard_view, name='security_dashboard'),
         path('export-audit-logs/', SecurityReportsAdmin.export_audit_logs, name='export_audit_logs'),
         path('security-report/', SecurityReportsAdmin.security_summary_report, name='security_report'),
         path('resolve-security-event/', SecurityActionsAdmin.resolve_security_event, name='resolve_security_event'),

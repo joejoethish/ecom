@@ -21,8 +21,9 @@ class CoreConfig(AppConfig):
         except ImportError:
             pass
         
-        # Start replica monitoring if enabled
-        if getattr(settings, 'REPLICA_MONITORING_ENABLED', True):
+        # Start replica monitoring if enabled and replica database exists
+        if (getattr(settings, 'REPLICA_MONITORING_ENABLED', False) and 
+            'read_replica' in getattr(settings, 'DATABASES', {})):
             self._start_replica_monitoring()
         
         # Initialize connection pool monitoring if enabled

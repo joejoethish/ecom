@@ -130,33 +130,33 @@ DATABASES = {
         'CONN_MAX_AGE': 3600,  # Connection pooling - 1 hour
         'CONN_HEALTH_CHECKS': True,
     },
-    # Read replica configuration
-    'read_replica': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_READ_NAME', default=config('DB_NAME', default='ecommerce_db')),
-        'USER': config('DB_READ_USER', default='replica_user'),
-        'PASSWORD': config('DB_READ_PASSWORD', default='replica_password'),
-        'HOST': config('DB_READ_HOST', default='127.0.0.1'),
-        'PORT': config('DB_READ_PORT', default='3308'),
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-            'charset': 'utf8mb4',
-            'use_unicode': True,
-            'autocommit': True,
-            'sql_mode': 'STRICT_TRANS_TABLES',
-            'isolation_level': 'read committed',
-            'connect_timeout': 10,
-            'read_timeout': 30,
-            'write_timeout': 30,
-        },
-        'CONN_MAX_AGE': 3600,
-        'CONN_HEALTH_CHECKS': True,
-        'READ_REPLICA': True,  # Mark as read replica
-    }
+    # Read replica configuration (disabled - no replica server available)
+    # 'read_replica': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': config('DB_READ_NAME', default=config('DB_NAME', default='ecommerce_db')),
+    #     'USER': config('DB_READ_USER', default='replica_user'),
+    #     'PASSWORD': config('DB_READ_PASSWORD', default='replica_password'),
+    #     'HOST': config('DB_READ_HOST', default='127.0.0.1'),
+    #     'PORT': config('DB_READ_PORT', default='3308'),
+    #     'OPTIONS': {
+    #         'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    #         'charset': 'utf8mb4',
+    #         'use_unicode': True,
+    #         'autocommit': True,
+    #         'sql_mode': 'STRICT_TRANS_TABLES',
+    #         'isolation_level': 'read committed',
+    #         'connect_timeout': 10,
+    #         'read_timeout': 30,
+    #         'write_timeout': 30,
+    #     },
+    #     'CONN_MAX_AGE': 3600,
+    #     'CONN_HEALTH_CHECKS': True,
+    #     'READ_REPLICA': True,  # Mark as read replica
+    # }
 }
 
-# Database Router Configuration
-DATABASE_ROUTERS = ['core.database_router.DatabaseRouter']
+# Database Router Configuration (disabled - no replica available)
+# DATABASE_ROUTERS = ['core.database_router.DatabaseRouter']
 
 # Connection Pool Configuration
 CONNECTION_POOL_CONFIG = {
@@ -193,7 +193,7 @@ CONNECTION_MONITORING_ENABLED = config('CONNECTION_MONITORING_ENABLED', default=
 CONNECTION_MONITORING_INTERVAL = config('CONNECTION_MONITORING_INTERVAL', default=30, cast=int)  # seconds
 
 # Replica Monitoring Settings
-REPLICA_MONITORING_ENABLED = config('REPLICA_MONITORING_ENABLED', default=True, cast=bool)
+REPLICA_MONITORING_ENABLED = config('REPLICA_MONITORING_ENABLED', default=False, cast=bool)
 REPLICA_CHECK_INTERVAL = config('REPLICA_CHECK_INTERVAL', default=30, cast=int)  # seconds
 REPLICA_MAX_FAILURES = config('REPLICA_MAX_FAILURES', default=3, cast=int)
 REPLICA_FAILURE_WINDOW = config('REPLICA_FAILURE_WINDOW', default=300, cast=int)  # 5 minutes

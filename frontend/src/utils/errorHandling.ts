@@ -1,175 +1,384 @@
 /**
- * Error handling utilities and types
+ * Enhanced error handling utilities for inventory management
  */
-import axios from 'axios';
+import toast from 'react-hot-toast';
 import { ApiResponse } from '@/types';
-import { isAxiosError, hasErrorResponse, hasErrorRequest, hasApiError } from './typeGuards';
 
-/**
- * Standard error interface for the application
- */
-export interface AppError {
+export interface ErrorDetails {
   message: string;
-  code: string;
+  code?: string;
   status_code?: number;
+  field_errors?: Record<string, string[]>;
   details?: any;
 }
 
-/**
- * Error codes used throughout the application
- */
-export const ERROR_CODES = {
-  NETWORK_ERROR: 'network_error',
-  API_ERROR: 'api_error',
-  VALIDATION_ERROR: 'validation_error',
-  AUTHENTICATION_ERROR: 'authentication_error',
-  AUTHORIZATION_ERROR: 'authorization_error',
-  NOT_FOUND_ERROR: 'not_found_error',
-  SERVER_ERROR: 'server_error',
-  UNKNOWN_ERROR: 'unknown_error',
-} as const;
+export interface NetworkError {
+  type: 'network';
+  message: string;
+}
+
+export interface ValidationError {
+  type: 'validation';
+  message: string;
+  field_errors: Record<string, string[]>;
+}
+
+export interface ServerError {
+  type: 'server';
+  message: string;
+  status_code: number;
+  code?: string;
+}
+
+export interface UnknownError {
+  type: 'unknown';
+  message: string;
+}
+
+export interface PermissionError {
+  type: 'permission';
+  message: string;
+}
+
+export type ErrorType = NetworkError | ValidationError | ServerError | UnknownError | PermissionError;
 
 /**
- * Extract error information from various error types
+ * Parse API response error into structured error type
  */
-export const extractErrorInfo = (error: unknown): AppError => {
-  // Handle AxiosError
-  if (isAxiosError(error)) {
-    if (hasErrorResponse(error)) {
-      return {
-        message: error.response.data?.error?.message || 
-                error.response.data?.message || 
-                'An error occurred',
-        code: error.response.data?.error?.code || ERROR_CODES.API_ERROR,
-        status_code: error.response.status,
-        details: error.response.data?.error?.details || error.response.data,
-      };
-    } else if (hasErrorRequest(error)) {
-      return {
-        message: 'Network error. Please check your connection.',
-        code: ERROR_CODES.NETWORK_ERROR,
-        status_code: 0,
-      };
+export const parseApiError = (response: ApiResponse<any>): ErrorType => {
+  if (!response.error) {
+    return {
+      type: 'unknown',
+      message: 'An unexpected error occurred'
+    };
+  }
+
+  const { error } = response;
+
+  // Network error
+  if (error.status_code === 0 || error.code === 'network_error') {
+    return {
+      type: 'network',
+      message: error.message || 'Network error. Please check your connection.'
+    };
+  }
+
+  // Validation error (400)
+  if (error.status_code === 400) {
+    const fieldErrors: Record<string, string[]> = {};
+    
+    // Parse Django REST framework validation errors
+    if (error.details && typeof error.details === 'object') {
+      Object.entries(error.details).forEach(([field, messages]) => {
+        if (Array.isArray(messages)) {
+          fieldErrors[field] = messages;
+        } else if (typeof messages === 'string') {
+          fieldErrors[field] = [messages];
+        }
+      });
     }
-  }
 
-  // Handle standard Error
-  if (error && typeof error === 'object' && 'message' in error) {
     return {
-      message: (error as Error).message,
-      code: ERROR_CODES.UNKNOWN_ERROR,
-      status_code: 0,
+      type: 'validation',
+      message: error.message || 'Please check your input and try again.',
+      field_errors: fieldErrors
     };
   }
 
-  // Handle string errors
-  if (typeof error === 'string') {
+  // Server error (500+)
+  if (error.status_code >= 500) {
     return {
-      message: error,
-      code: ERROR_CODES.UNKNOWN_ERROR,
-      status_code: 0,
+      type: 'server',
+      message: error.message || 'Server error. Please try again later.',
+      status_code: error.status_code,
+      code: error.code
     };
   }
 
-  // Fallback for unknown error types
+  // Permission errors (401, 403)
+  if (error.status_code === 401 || error.status_code === 403) {
+    return {
+      type: 'permission',
+      message: error.message || 'You do not have permission to perform this action.'
+    };
+  }
+
+  // Other client errors (404, etc.)
   return {
-    message: 'An unexpected error occurred',
-    code: ERROR_CODES.UNKNOWN_ERROR,
-    status_code: 0,
+    type: 'server',
+    message: error.message || 'An error occurred. Please try again.',
+    status_code: error.status_code,
+    code: error.code
   };
 };
 
 /**
- * Handle API response errors
+ * Display error message using toast notification
  */
-export const handleApiResponse = <T>(response: ApiResponse<T>): T => {
-  if (hasApiError(response)) {
-    throw new Error(response.error.message);
-  }
+export const showErrorToast = (error: ErrorType, customMessage?: string) => {
+  const message = customMessage || error.message;
   
-  if (!response.data) {
-    throw new Error('No data received from API');
-  }
-  
-  return response.data;
-};
-
-/**
- * Create a standardized error message for display to users
- */
-export const getDisplayErrorMessage = (error: unknown): string => {
-  const errorInfo = extractErrorInfo(error);
-  
-  switch (errorInfo.code) {
-    case ERROR_CODES.NETWORK_ERROR:
-      return 'Unable to connect to the server. Please check your internet connection and try again.';
-    case ERROR_CODES.AUTHENTICATION_ERROR:
-      return 'Please log in to continue.';
-    case ERROR_CODES.AUTHORIZATION_ERROR:
-      return 'You do not have permission to perform this action.';
-    case ERROR_CODES.NOT_FOUND_ERROR:
-      return 'The requested resource was not found.';
-    case ERROR_CODES.VALIDATION_ERROR:
-      return errorInfo.message || 'Please check your input and try again.';
-    case ERROR_CODES.SERVER_ERROR:
-      return 'A server error occurred. Please try again later.';
+  switch (error.type) {
+    case 'network':
+      toast.error(message, {
+        duration: 5000,
+        icon: '🌐',
+      });
+      break;
+    case 'validation':
+      toast.error(message, {
+        duration: 4000,
+        icon: '⚠️',
+      });
+      break;
+    case 'server':
+      toast.error(message, {
+        duration: 6000,
+        icon: '🚨',
+      });
+      break;
+    case 'permission':
+      toast.error(message, {
+        duration: 5000,
+        icon: '🔒',
+      });
+      break;
     default:
-      return errorInfo.message || 'An unexpected error occurred. Please try again.';
+      toast.error(message, {
+        duration: 4000,
+      });
   }
 };
 
 /**
- * Log error information for debugging
+ * Display success message using toast notification
  */
-export const logError = (error: unknown, context?: string): void => {
-  const errorInfo = extractErrorInfo(error);
-  
-  if (process.env.NODE_ENV === 'development') {
-    console.error('Error occurred:', {
-      context,
-      error: errorInfo,
-      originalError: error,
-    });
-  }
-  
-  // In production, you might want to send this to an error tracking service
-  // like Sentry, LogRocket, etc.
+export const showSuccessToast = (message: string, options?: { duration?: number; icon?: string }) => {
+  toast.success(message, {
+    duration: options?.duration || 3000,
+    icon: options?.icon || '✅',
+  });
 };
 
 /**
- * Retry function with exponential backoff
+ * Handle API response with automatic error display
  */
-export const retryWithBackoff = async <T>(
-  fn: () => Promise<T>,
+export const handleApiResponse = <T>(
+  response: ApiResponse<T>,
+  options?: {
+    successMessage?: string;
+    errorMessage?: string;
+    showSuccessToast?: boolean;
+    showErrorToast?: boolean;
+  }
+): { success: boolean; data?: T; error?: ErrorType } => {
+  const {
+    successMessage,
+    errorMessage,
+    showSuccessToast: showSuccess = false,
+    showErrorToast: showError = true
+  } = options || {};
+
+  if (response.success) {
+    if (showSuccess && successMessage) {
+      showSuccessToast(successMessage);
+    }
+    return { success: true, data: response.data };
+  } else {
+    const error = parseApiError(response);
+    if (showError) {
+      showErrorToast(error, errorMessage);
+    }
+    return { success: false, error };
+  }
+};
+
+/**
+ * Get user-friendly error message for specific operations
+ */
+export const getOperationErrorMessage = (operation: string, error: ErrorType): string => {
+  const baseMessages: Record<string, string> = {
+    create: 'Failed to create item',
+    update: 'Failed to update item',
+    delete: 'Failed to delete item',
+    fetch: 'Failed to load data',
+    search: 'Search failed',
+    export: 'Export failed',
+    adjust: 'Stock adjustment failed',
+    acknowledge: 'Failed to acknowledge alert'
+  };
+
+  const baseMessage = baseMessages[operation] || 'Operation failed';
+
+  switch (error.type) {
+    case 'network':
+      return `${baseMessage}. Please check your internet connection and try again.`;
+    case 'validation':
+      return `${baseMessage}. Please check your input and try again.`;
+    case 'server':
+      if (error.status_code === 404) {
+        return `${baseMessage}. The requested item was not found.`;
+      }
+      if (error.status_code === 403) {
+        return `${baseMessage}. You don't have permission to perform this action.`;
+      }
+      if (error.status_code === 409) {
+        return `${baseMessage}. This action conflicts with existing data.`;
+      }
+      return `${baseMessage}. Please try again later.`;
+    default:
+      return `${baseMessage}. Please try again.`;
+  }
+};
+
+/**
+ * Retry mechanism for failed operations
+ */
+export const withRetry = async <T>(
+  operation: () => Promise<T>,
   maxRetries: number = 3,
-  baseDelay: number = 1000
+  delay: number = 1000
 ): Promise<T> => {
-  let lastError: unknown;
-  
-  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+  let lastError: Error;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      return await fn();
+      return await operation();
     } catch (error) {
-      lastError = error;
+      lastError = error instanceof Error ? error : new Error('Unknown error');
       
       if (attempt === maxRetries) {
-        break;
+        throw lastError;
       }
-      
-      // Don't retry on certain error types
-      if (isAxiosError(error) && hasErrorResponse(error)) {
-        const status = error.response.status;
-        if (status >= 400 && status < 500 && status !== 429) {
-          // Don't retry client errors (except rate limiting)
-          break;
-        }
-      }
-      
-      // Exponential backoff with jitter
-      const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 1000;
-      await new Promise(resolve => setTimeout(resolve, delay));
+
+      // Wait before retrying
+      await new Promise(resolve => setTimeout(resolve, delay * attempt));
     }
   }
-  
-  throw lastError;
+
+  throw lastError!;
 };
+
+/**
+ * Debounce function for search operations
+ */
+export const debounce = <T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): ((...args: Parameters<T>) => void) => {
+  let timeout: NodeJS.Timeout;
+
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+};
+
+/**
+ * Format validation errors for display in forms
+ */
+export const formatValidationErrors = (error: ValidationError): Record<string, string> => {
+  const formattedErrors: Record<string, string> = {};
+  
+  Object.entries(error.field_errors).forEach(([field, messages]) => {
+    formattedErrors[field] = messages[0]; // Take first error message
+  });
+
+  return formattedErrors;
+};
+
+/**
+ * Check if error is recoverable (user can retry)
+ */
+export const isRecoverableError = (error: ErrorType): boolean => {
+  switch (error.type) {
+    case 'network':
+      return true;
+    case 'server':
+      // 5xx errors are usually temporary
+      return error.status_code >= 500;
+    case 'validation':
+      return false; // User needs to fix input
+    default:
+      return true;
+  }
+};
+
+/**
+ * Extract error information from various error types
+ */
+export const extractErrorInfo = (error: any): { message: string; code: string; status_code?: number } => {
+  if (!error) {
+    return {
+      message: 'An unexpected error occurred',
+      code: 'unknown_error'
+    };
+  }
+
+  // If it's already an ErrorType
+  if (error.type && error.message) {
+    return {
+      message: error.message,
+      code: error.code || error.type,
+      status_code: error.status_code
+    };
+  }
+
+  // If it's an API response error
+  if (error.message && error.code) {
+    return {
+      message: error.message,
+      code: error.code,
+      status_code: error.status_code
+    };
+  }
+
+  // If it's a standard Error object
+  if (error instanceof Error) {
+    return {
+      message: error.message,
+      code: 'error'
+    };
+  }
+
+  // If it's a string
+  if (typeof error === 'string') {
+    return {
+      message: error,
+      code: 'string_error'
+    };
+  }
+
+  // Fallback
+  return {
+    message: 'An unexpected error occurred',
+    code: 'unknown_error'
+  };
+};
+
+/**
+ * Get display-friendly error message
+ */
+export const getDisplayErrorMessage = (error: any): string => {
+  const errorInfo = extractErrorInfo(error);
+  return errorInfo.message;
+};
+
+/**
+ * Log error for debugging purposes
+ */
+export const logError = (error: any, context?: string, additionalData?: any): void => {
+  const errorInfo = extractErrorInfo(error);
+
+  console.error('Error logged:', {
+    context,
+    error: errorInfo,
+    additionalData,
+    timestamp: new Date().toISOString()
+  });
+};
+
+/**
+ * Retry with backoff (alias for withRetry for backward compatibility)
+ */
+export const retryWithBackoff = withRetry;
