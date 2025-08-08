@@ -1,10 +1,28 @@
 import React from 'react';
 
-interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
+interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange'> {
   label?: string;
   error?: string;
   helperText?: string;
   children: React.ReactNode;
+}
+
+interface SelectTriggerProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+interface SelectContentProps {
+  children: React.ReactNode;
+}
+
+interface SelectItemProps {
+  value: string;
+  children: React.ReactNode;
+}
+
+interface SelectValueProps {
+  placeholder?: string;
 }
 
 export function Select({
@@ -14,8 +32,13 @@ export function Select({
   className = '',
   id,
   children,
+  value,
+  onChange,
   ...props
-}: SelectProps) {
+}: SelectProps & { 
+  value?: string; 
+  onChange?: (value: string) => void;
+}) {
   const selectId = id || `select-${Math.random().toString(36).substr(2, 9)}`;
   const errorId = error ? `${selectId}-error` : undefined;
   const helperId = helperText ? `${selectId}-helper` : undefined;
@@ -39,6 +62,8 @@ export function Select({
         className={selectClasses}
         aria-invalid={error ? 'true' : 'false'}
         aria-describedby={[errorId, helperId].filter(Boolean).join(' ') || undefined}
+        value={value}
+        onChange={(e) => onChange?.(e.target.value)}
         {...props}
       >
         {children}
@@ -55,4 +80,20 @@ export function Select({
       )}
     </div>
   );
+}
+
+export function SelectTrigger({ children, className = '' }: SelectTriggerProps) {
+  return <div className={className}>{children}</div>;
+}
+
+export function SelectContent({ children }: SelectContentProps) {
+  return <>{children}</>;
+}
+
+export function SelectItem({ value, children }: SelectItemProps) {
+  return <option value={value}>{children}</option>;
+}
+
+export function SelectValue({ placeholder }: SelectValueProps) {
+  return <span>{placeholder}</span>;
 }

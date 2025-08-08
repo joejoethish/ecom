@@ -28,8 +28,10 @@ urlpatterns = [
     path('shipping/', include('apps.shipping.urls')),
     path('reviews/', include('apps.reviews.urls')),
     path('analytics/', include('apps.analytics.urls')),
+    path('customer-analytics/', include('apps.customer_analytics.urls')),
     path('content/', include('apps.content.urls')),
     path('notifications/', include('apps.notifications.urls')),
+    path('promotions/', include('apps.promotions.urls')),
     
     # Categories API
     path('categories/', get_all_categories, name='all-categories'),

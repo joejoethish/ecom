@@ -16,7 +16,7 @@ import {
   type Warehouse 
 } from '@/services/inventoryManagementApi';
 import { validateRequired, validateForm } from '@/utils/validation';
-import { handleApiResponse, parseApiError, formatValidationErrors, debounce } from '@/utils/errorHandling';
+import { handleApiResponse, formatValidationErrors, debounce } from '@/utils/errorHandling';
 
 interface InventoryFormProps {
   inventory?: InventoryItem | null;
@@ -416,7 +416,7 @@ export default function InventoryForm({ inventory, onClose, onSave }: InventoryF
               <Select
                 id="warehouse"
                 value={formData.warehouse}
-                onChange={(e) => handleInputChange('warehouse', e.target.value)}
+                onChange={(value) => handleInputChange('warehouse', value)}
                 disabled={warehousesLoading}
                 className="min-h-[44px]"
                 aria-describedby={errors.warehouse ? "warehouse-error" : undefined}

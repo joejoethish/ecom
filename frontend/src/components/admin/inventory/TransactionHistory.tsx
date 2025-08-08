@@ -272,7 +272,7 @@ export default function TransactionHistory({ className = '' }: TransactionHistor
             <Select
               id="warehouse-filter"
               value={filters.warehouse || ''}
-              onChange={(e) => handleFilterChange('warehouse', e.target.value)}
+              onChange={(value) => handleFilterChange('warehouse', value)}
               className="min-h-[44px]"
               aria-label="Filter by warehouse"
             >
@@ -291,7 +291,7 @@ export default function TransactionHistory({ className = '' }: TransactionHistor
             <Select
               id="transaction-type-filter"
               value={filters.transaction_type || ''}
-              onChange={(e) => handleFilterChange('transaction_type', e.target.value)}
+              onChange={(value) => handleFilterChange('transaction_type', value)}
               className="min-h-[44px]"
               aria-label="Filter by transaction type"
             >

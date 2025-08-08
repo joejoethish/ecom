@@ -37,6 +37,9 @@ urlpatterns = [
     # Database administration interface
     path('db-admin/', include('core.admin.urls')),
     
+    # Admin panel interface
+    path('admin-panel/', include('apps.admin_panel.urls')),
+    
     path('api/v1/', include('api.v1.urls')),
     # path('api/v2/', include('api.v2.urls')),  # Temporarily disabled
     

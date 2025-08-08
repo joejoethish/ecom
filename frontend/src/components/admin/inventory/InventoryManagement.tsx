@@ -513,8 +513,8 @@ function InventoryManagementComponent() {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Select
                   value={filters.warehouse || ''}
-                  onChange={(e) => 
-                    setFilters({ ...filters, warehouse: e.target.value })
+                  onChange={(value) => 
+                    setFilters({ ...filters, warehouse: value })
                   }
                   disabled={warehousesLoading || !!warehousesError}
                   className="min-w-0 sm:min-w-[160px] min-h-[44px]"
@@ -533,8 +533,8 @@ function InventoryManagementComponent() {
                 </Select>
                 <Select
                   value={filters.stock_status || ''}
-                  onChange={(e) => 
-                    setFilters({ ...filters, stock_status: e.target.value as 'in_stock' | 'low_stock' | 'out_of_stock' | undefined })
+                  onChange={(value) => 
+                    setFilters({ ...filters, stock_status: value as 'in_stock' | 'low_stock' | 'out_of_stock' | undefined })
                   }
                   className="min-w-0 sm:min-w-[140px] min-h-[44px]"
                   aria-label="Filter by stock status"

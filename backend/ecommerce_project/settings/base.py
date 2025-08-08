@@ -43,6 +43,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'core',  # Core utilities including migration tools
     'apps.authentication',
+    'apps.admin_panel',  # Comprehensive admin panel
     'apps.products',
     'apps.orders',
     'apps.cart',
@@ -52,11 +53,13 @@ LOCAL_APPS = [
     'apps.shipping',
     'apps.sellers',
     'apps.analytics',
+    'apps.customer_analytics',  # Customer analytics and segmentation
     'apps.content',
     'apps.reviews',
     'apps.search',
     'apps.notifications',
     'apps.chat',
+    'apps.promotions',  # Comprehensive promotion and coupon management
     # 'apps.logs',  # Temporarily disabled due to import issues
     'tasks',
 ]

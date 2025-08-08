@@ -6,18 +6,19 @@ from django.utils.html import format_html
 from django.urls import reverse
 from django.utils import timezone
 from .models import (
-    DailySalesReport, ProductPerformanceReport, CustomerAnalytics,
-    InventoryReport, SystemMetrics, ReportExport
+    SalesMetrics, ProductSalesAnalytics, CustomerAnalytics,
+    SalesForecast, SalesGoal, SalesCommission, SalesTerritory,
+    SalesPipeline, SalesReport, SalesAnomalyDetection
 )
 
-@admin.register(DailySalesReport)
-class DailySalesReportAdmin(admin.ModelAdmin):
+@admin.register(SalesMetrics)
+class SalesMetricsAdmin(admin.ModelAdmin):
     """
-    Admin interface for daily sales reports.
+    Admin interface for sales metrics.
     """
     list_display = [
-        'date', 'total_orders', 'total_revenue', 'total_profit',
-        'new_customers', 'returning_customers', 'created_at'
+        'date', 'total_orders', 'total_revenue', 'net_profit',
+        'new_customers', 'average_order_value', 'created_at'
     ]
     list_filter = ['date', 'created_at']
     search_fields = ['date']
@@ -31,21 +32,12 @@ class DailySalesReportAdmin(admin.ModelAdmin):
         }),
         ('Sales Metrics', {
             'fields': (
-                'total_orders', 'total_revenue', 'total_profit',
-                'total_discount', 'total_tax', 'total_shipping'
-            )
-        }),
-        ('Order Status', {
-            'fields': (
-                'pending_orders', 'confirmed_orders', 'shipped_orders',
-                'delivered_orders', 'cancelled_orders', 'returned_orders'
+                'total_orders', 'total_revenue', 'net_profit',
+                'gross_margin', 'average_order_value', 'conversion_rate'
             )
         }),
         ('Customer Metrics', {
-            'fields': ('new_customers', 'returning_customers')
-        }),
-        ('Product Metrics', {
-            'fields': ('total_products_sold', 'unique_products_sold')
+            'fields': ('total_customers', 'new_customers')
         }),
         ('Timestamps', {
             'fields': ('created_at', 'updated_at'),
@@ -53,44 +45,30 @@ class DailySalesReportAdmin(admin.ModelAdmin):
         })
     )
 
-@admin.register(ProductPerformanceReport)
-class ProductPerformanceReportAdmin(admin.ModelAdmin):
+@admin.register(ProductSalesAnalytics)
+class ProductSalesAnalyticsAdmin(admin.ModelAdmin):
     """
-    Admin interface for product performance reports.
+    Admin interface for product sales analytics.
     """
     list_display = [
         'product_name', 'date', 'units_sold', 'revenue',
-        'profit', 'conversion_rate', 'average_rating'
+        'profit', 'profit_margin', 'category_name'
     ]
-    list_filter = ['date', 'product__category', 'created_at']
-    search_fields = ['product__name', 'product__sku']
-    readonly_fields = ['created_at', 'updated_at']
+    list_filter = ['date', 'category_name', 'created_at']
+    search_fields = ['product_name', 'category_name']
+    readonly_fields = ['created_at']
     date_hierarchy = 'date'
     ordering = ['-date', '-revenue']
     
-    def product_name(self, obj):
-        """Display product name."""
-        return obj.product.name
-    product_name.short_description = 'Product'
-    
     fieldsets = (
         ('Product & Date', {
-            'fields': ('product', 'date')
+            'fields': ('product_id', 'product_name', 'category_id', 'category_name', 'date')
         }),
         ('Sales Metrics', {
-            'fields': ('units_sold', 'revenue', 'profit')
-        }),
-        ('Engagement Metrics', {
-            'fields': (
-                'page_views', 'unique_visitors', 'add_to_cart_count',
-                'wishlist_count', 'conversion_rate', 'cart_abandonment_rate'
-            )
-        }),
-        ('Review Metrics', {
-            'fields': ('new_reviews', 'average_rating')
+            'fields': ('units_sold', 'revenue', 'cost', 'profit', 'profit_margin')
         }),
         ('Timestamps', {
-            'fields': ('created_at', 'updated_at'),
+            'fields': ('created_at',),
             'classes': ('collapse',)
         })
     )
@@ -102,45 +80,30 @@ class CustomerAnalyticsAdmin(admin.ModelAdmin):
     """
     list_display = [
         'customer_email', 'total_orders', 'total_spent',
-        'average_order_value', 'lifecycle_stage', 'customer_segment'
+        'average_order_value', 'customer_segment', 'churn_probability'
     ]
     list_filter = [
-        'lifecycle_stage', 'customer_segment', 'last_order_date',
-        'last_activity_date', 'created_at'
+        'customer_segment', 'last_order_date', 'acquisition_date', 'created_at'
     ]
-    search_fields = ['customer__user__email', 'customer__user__first_name', 'customer__user__last_name']
+    search_fields = ['customer_email', 'customer_id']
     readonly_fields = ['created_at', 'updated_at']
     ordering = ['-total_spent', '-total_orders']
     
-    def customer_email(self, obj):
-        """Display customer email."""
-        return obj.customer.user.email
-    customer_email.short_description = 'Customer Email'
-    
     fieldsets = (
         ('Customer', {
-            'fields': ('customer',)
+            'fields': ('customer_id', 'customer_email')
+        }),
+        ('Acquisition', {
+            'fields': ('acquisition_date', 'acquisition_channel')
         }),
         ('Order Metrics', {
             'fields': (
                 'total_orders', 'total_spent', 'average_order_value',
-                'last_order_date'
+                'lifetime_value', 'last_order_date', 'days_since_last_order'
             )
-        }),
-        ('Activity Metrics', {
-            'fields': (
-                'total_sessions', 'total_page_views', 'average_session_duration',
-                'last_activity_date'
-            )
-        }),
-        ('Preferences', {
-            'fields': ('favorite_categories', 'favorite_brands')
         }),
         ('Segmentation', {
-            'fields': (
-                'lifecycle_stage', 'customer_segment', 'lifetime_value',
-                'predicted_churn_probability'
-            )
+            'fields': ('customer_segment', 'churn_probability')
         }),
         ('Timestamps', {
             'fields': ('created_at', 'updated_at'),
@@ -148,142 +111,120 @@ class CustomerAnalyticsAdmin(admin.ModelAdmin):
         })
     )
 
-@admin.register(InventoryReport)
-class InventoryReportAdmin(admin.ModelAdmin):
+@admin.register(SalesForecast)
+class SalesForecastAdmin(admin.ModelAdmin):
     """
-    Admin interface for inventory reports.
+    Admin interface for sales forecasts.
     """
     list_display = [
-        'date', 'total_products', 'in_stock_products',
-        'low_stock_products', 'out_of_stock_products',
-        'total_inventory_value', 'inventory_turnover_rate'
+        'forecast_date', 'forecast_type', 'predicted_revenue',
+        'predicted_orders', 'model_accuracy', 'created_at'
     ]
-    list_filter = ['date', 'created_at']
+    list_filter = ['forecast_type', 'forecast_date', 'created_at']
+    search_fields = ['forecast_date']
+    readonly_fields = ['created_at']
+    date_hierarchy = 'forecast_date'
+    ordering = ['-forecast_date']
+    
+    fieldsets = (
+        ('Forecast Details', {
+            'fields': ('forecast_date', 'forecast_type')
+        }),
+        ('Predictions', {
+            'fields': (
+                'predicted_revenue', 'predicted_orders',
+                'confidence_interval_lower', 'confidence_interval_upper'
+            )
+        }),
+        ('Model Performance', {
+            'fields': ('model_accuracy', 'seasonal_factor', 'trend_factor')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at',),
+            'classes': ('collapse',)
+        })
+    )
+
+@admin.register(SalesGoal)
+class SalesGoalAdmin(admin.ModelAdmin):
+    """
+    Admin interface for sales goals.
+    """
+    list_display = [
+        'name', 'goal_type', 'target_value', 'current_value',
+        'progress_percentage', 'is_achieved', 'end_date'
+    ]
+    list_filter = ['goal_type', 'is_active', 'start_date', 'end_date']
+    search_fields = ['name', 'department', 'region']
+    readonly_fields = ['created_at', 'updated_at', 'progress_percentage', 'is_achieved']
+    date_hierarchy = 'start_date'
+    ordering = ['-start_date']
+
+@admin.register(SalesCommission)
+class SalesCommissionAdmin(admin.ModelAdmin):
+    """
+    Admin interface for sales commissions.
+    """
+    list_display = [
+        'sales_rep', 'period_start', 'period_end', 'total_sales',
+        'commission_amount', 'status', 'created_at'
+    ]
+    list_filter = ['status', 'period_start', 'period_end']
+    search_fields = ['sales_rep__username', 'sales_rep__email']
+    readonly_fields = ['created_at']
+    date_hierarchy = 'period_start'
+    ordering = ['-period_start']
+
+@admin.register(SalesTerritory)
+class SalesTerritoryAdmin(admin.ModelAdmin):
+    """
+    Admin interface for sales territories.
+    """
+    list_display = [
+        'name', 'region', 'country', 'assigned_rep',
+        'target_revenue', 'current_revenue', 'revenue_achievement'
+    ]
+    list_filter = ['region', 'country', 'is_active']
+    search_fields = ['name', 'region', 'country']
+    readonly_fields = ['created_at', 'updated_at', 'revenue_achievement']
+
+@admin.register(SalesPipeline)
+class SalesPipelineAdmin(admin.ModelAdmin):
+    """
+    Admin interface for sales pipeline.
+    """
+    list_display = [
+        'opportunity_name', 'customer_name', 'sales_rep', 'stage',
+        'estimated_value', 'probability', 'expected_close_date'
+    ]
+    list_filter = ['stage', 'sales_rep', 'expected_close_date']
+    search_fields = ['opportunity_name', 'customer_name']
+    readonly_fields = ['created_at', 'updated_at', 'weighted_value', 'is_overdue']
+
+@admin.register(SalesReport)
+class SalesReportAdmin(admin.ModelAdmin):
+    """
+    Admin interface for sales reports.
+    """
+    list_display = [
+        'name', 'report_type', 'schedule', 'last_sent',
+        'next_send', 'is_active', 'created_by'
+    ]
+    list_filter = ['report_type', 'schedule', 'is_active']
+    search_fields = ['name', 'created_by__username']
+    readonly_fields = ['created_at']
+
+@admin.register(SalesAnomalyDetection)
+class SalesAnomalyDetectionAdmin(admin.ModelAdmin):
+    """
+    Admin interface for sales anomaly detection.
+    """
+    list_display = [
+        'date', 'metric_type', 'actual_value', 'expected_value',
+        'deviation_percentage', 'severity', 'is_resolved'
+    ]
+    list_filter = ['metric_type', 'severity', 'is_resolved', 'date']
     search_fields = ['date']
-    readonly_fields = ['created_at', 'updated_at']
+    readonly_fields = ['created_at']
     date_hierarchy = 'date'
-    ordering = ['-date']
-    
-    fieldsets = (
-        ('Report Date', {
-            'fields': ('date',)
-        }),
-        ('Stock Levels', {
-            'fields': (
-                'total_products', 'in_stock_products', 'low_stock_products',
-                'out_of_stock_products'
-            )
-        }),
-        ('Inventory Value', {
-            'fields': ('total_inventory_value', 'total_cost_value', 'dead_stock_value')
-        }),
-        ('Stock Movement', {
-            'fields': ('total_stock_in', 'total_stock_out', 'total_adjustments')
-        }),
-        ('Performance', {
-            'fields': ('inventory_turnover_rate',)
-        }),
-        ('Timestamps', {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
-        })
-    )
-
-@admin.register(SystemMetrics)
-class SystemMetricsAdmin(admin.ModelAdmin):
-    """
-    Admin interface for system metrics.
-    """
-    list_display = [
-        'timestamp', 'response_time_avg', 'requests_per_minute',
-        'error_rate', 'memory_usage_percent', 'cpu_usage_percent',
-        'active_users'
-    ]
-    list_filter = ['timestamp', 'created_at']
-    readonly_fields = ['created_at', 'updated_at']
-    date_hierarchy = 'timestamp'
-    ordering = ['-timestamp']
-    
-    fieldsets = (
-        ('Timestamp', {
-            'fields': ('timestamp',)
-        }),
-        ('Performance Metrics', {
-            'fields': (
-                'response_time_avg', 'response_time_95th', 'requests_per_minute',
-                'error_rate', 'total_errors'
-            )
-        }),
-        ('Database Metrics', {
-            'fields': ('db_connections', 'db_query_time_avg')
-        }),
-        ('System Resources', {
-            'fields': ('memory_usage_percent', 'cpu_usage_percent')
-        }),
-        ('User Activity', {
-            'fields': ('active_users', 'concurrent_sessions')
-        }),
-        ('Timestamps', {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
-        })
-    )
-
-@admin.register(ReportExport)
-class ReportExportAdmin(admin.ModelAdmin):
-    """
-    Admin interface for report exports.
-    """
-    list_display = [
-        'report_type', 'export_format', 'exported_by_email',
-        'export_status', 'file_size_human', 'download_count',
-        'created_at'
-    ]
-    list_filter = [
-        'report_type', 'export_format', 'export_status',
-        'created_at', 'expires_at'
-    ]
-    search_fields = ['exported_by__email', 'report_type']
-    readonly_fields = [
-        'file_path', 'file_size', 'file_size_human', 'download_count',
-        'is_expired', 'created_at', 'updated_at'
-    ]
-    ordering = ['-created_at']
-    
-    def exported_by_email(self, obj):
-        """Display exported by email."""
-        return obj.exported_by.email
-    exported_by_email.short_description = 'Exported By'
-    
-    def download_link(self, obj):
-        """Display download link if available."""
-        if obj.export_status == 'completed' and not obj.is_expired:
-            url = reverse('analytics:report-exports-download', args=[obj.pk])
-            return format_html('<a href="{}" target="_blank">Download</a>', url)
-        return '-'
-    download_link.short_description = 'Download'
-    
-    fieldsets = (
-        ('Export Details', {
-            'fields': ('report_type', 'export_format', 'exported_by')
-        }),
-        ('Date Range', {
-            'fields': ('date_from', 'date_to')
-        }),
-        ('Filters', {
-            'fields': ('filters',)
-        }),
-        ('File Information', {
-            'fields': (
-                'file_path', 'file_size', 'file_size_human',
-                'export_status', 'download_count'
-            )
-        }),
-        ('Expiration', {
-            'fields': ('expires_at', 'is_expired')
-        }),
-        ('Timestamps', {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
-        })
-    )
+    ordering = ['-date', '-severity']

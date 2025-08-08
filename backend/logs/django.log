@@ -18603,3 +18603,818 @@ INFO 2025-08-05 13:02:22,046 database_security 3160 4572 Audit tables created su
 INFO 2025-08-05 13:02:22,048 database_security 3160 4572 Database security monitoring initialized successfully
 INFO 2025-08-05 13:02:55,306 database_security 21436 17536 Audit tables created successfully
 INFO 2025-08-05 13:02:55,311 database_security 21436 17536 Database security monitoring initialized successfully
+INFO 2025-08-05 15:34:51,200 database_security 16608 20792 Audit tables created successfully
+INFO 2025-08-05 15:34:51,202 database_security 16608 20792 Database security monitoring initialized successfully
+INFO 2025-08-05 15:36:06,469 database_security 16260 21704 Audit tables created successfully
+INFO 2025-08-05 15:36:06,470 database_security 16260 21704 Database security monitoring initialized successfully
+INFO 2025-08-05 15:36:28,643 database_security 3288 1748 Audit tables created successfully
+INFO 2025-08-05 15:36:28,644 database_security 3288 1748 Database security monitoring initialized successfully
+INFO 2025-08-05 15:36:46,033 monitoring 3288 1748 Task delete_document (None) started
+ERROR 2025-08-05 15:36:46,033 monitoring 3288 1748 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:37:41,631 database_security 16440 13284 Audit tables created successfully
+INFO 2025-08-05 15:37:41,632 database_security 16440 13284 Database security monitoring initialized successfully
+INFO 2025-08-05 15:39:43,149 database_security 4248 13708 Audit tables created successfully
+INFO 2025-08-05 15:39:43,163 database_security 4248 13708 Database security monitoring initialized successfully
+INFO 2025-08-05 15:40:24,131 database_security 5240 10128 Audit tables created successfully
+INFO 2025-08-05 15:40:24,131 database_security 5240 10128 Database security monitoring initialized successfully
+INFO 2025-08-05 15:40:46,540 database_security 5076 1404 Audit tables created successfully
+INFO 2025-08-05 15:40:46,540 database_security 5076 1404 Database security monitoring initialized successfully
+INFO 2025-08-05 15:41:10,980 database_security 10656 12480 Audit tables created successfully
+INFO 2025-08-05 15:41:10,990 database_security 10656 12480 Database security monitoring initialized successfully
+INFO 2025-08-05 15:41:36,806 database_security 19884 20560 Audit tables created successfully
+INFO 2025-08-05 15:41:36,806 database_security 19884 20560 Database security monitoring initialized successfully
+INFO 2025-08-05 15:41:40,508 monitoring 19884 20560 Task delete_document (None) started
+ERROR 2025-08-05 15:41:40,509 monitoring 19884 20560 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:53,867 database_security 20220 7772 Audit tables created successfully
+INFO 2025-08-05 15:41:53,867 database_security 20220 7772 Database security monitoring initialized successfully
+INFO 2025-08-05 15:41:58,060 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,060 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,060 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,066 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,075 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,075 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,082 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,082 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,091 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,091 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,098 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,098 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,105 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,105 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,113 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,114 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,117 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,122 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,126 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,126 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,132 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,133 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,141 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,141 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,148 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,148 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,158 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,158 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,162 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,163 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,167 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,167 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,176 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,177 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,180 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,181 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,186 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,187 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,193 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,194 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,197 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,198 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,203 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,204 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,210 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,211 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,214 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,214 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,221 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,221 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,227 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,227 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,231 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,231 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,236 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,237 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,241 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,241 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,248 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,248 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,253 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,256 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,261 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,261 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,265 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,265 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,274 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,274 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,295 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,296 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,299 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,299 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,314 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,314 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,323 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,323 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,339 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,339 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,344 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,344 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,355 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,355 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,364 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,366 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,372 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,374 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,379 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,379 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,381 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,381 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,389 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,389 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,393 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,393 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,397 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,399 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,401 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,401 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,411 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,411 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,414 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,414 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,420 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,420 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,424 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,424 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,431 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,432 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,434 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,434 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,443 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,444 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,446 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,446 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,454 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,454 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,458 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,458 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,465 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,465 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,469 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,473 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,478 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,478 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,480 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,481 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,491 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,491 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,494 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,494 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,499 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,499 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,503 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,506 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,511 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,511 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,513 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,515 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,522 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,524 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,526 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,526 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,534 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,534 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,538 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,546 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,555 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,558 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,565 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,566 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,577 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,577 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,579 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,580 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,588 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,588 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:58,591 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:58,591 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:59,486 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:59,488 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:59,488 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:59,488 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 15:41:59,510 monitoring 20220 7772 Task delete_document (None) started
+ERROR 2025-08-05 15:41:59,510 monitoring 20220 7772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 18:37:07,457 autoreload 11360 11364 Watching for file changes with StatReloader
+INFO 2025-08-05 18:37:14,836 database_security 11360 19376 Audit tables created successfully
+INFO 2025-08-05 18:37:14,836 database_security 11360 19376 Database security monitoring initialized successfully
+ERROR 2025-08-05 18:37:55,383 exceptions 11360 8896 API Exception: Authentication credentials were not provided.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 421, in initial
+    self.check_permissions(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 339, in check_permissions
+    self.permission_denied(
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 180, in permission_denied
+    raise exceptions.NotAuthenticated()
+rest_framework.exceptions.NotAuthenticated: Authentication credentials were not provided.
+INFO 2025-08-05 18:37:55,876 database_security_middleware 11360 8896 Request completed: GET /api/v1/categories/featured/ by anonymous from 127.0.0.1 in 0.582s with 0 queries (0 failed, 0 threats detected)
+WARNING 2025-08-05 18:37:55,881 log 11360 8896 Unauthorized: /api/v1/categories/featured/
+WARNING 2025-08-05 18:37:55,882 basehttp 11360 8896 "GET /api/v1/categories/featured/ HTTP/1.1" 401 187
+ERROR 2025-08-05 18:38:12,402 exceptions 11360 8896 API Exception: Authentication credentials were not provided.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 421, in initial
+    self.check_permissions(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 339, in check_permissions
+    self.permission_denied(
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 180, in permission_denied
+    raise exceptions.NotAuthenticated()
+rest_framework.exceptions.NotAuthenticated: Authentication credentials were not provided.
+INFO 2025-08-05 18:38:12,512 database_security_middleware 11360 8896 Request completed: GET /api/v1/categories/featured/ by anonymous from 127.0.0.1 in 0.120s with 0 queries (0 failed, 0 threats detected)
+WARNING 2025-08-05 18:38:12,514 log 11360 8896 Unauthorized: /api/v1/categories/featured/
+WARNING 2025-08-05 18:38:12,518 basehttp 11360 8896 "GET /api/v1/categories/featured/ HTTP/1.1" 401 187
+ERROR 2025-08-05 18:38:12,530 exceptions 11360 8896 API Exception: Authentication credentials were not provided.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 421, in initial
+    self.check_permissions(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 339, in check_permissions
+    self.permission_denied(
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 180, in permission_denied
+    raise exceptions.NotAuthenticated()
+rest_framework.exceptions.NotAuthenticated: Authentication credentials were not provided.
+INFO 2025-08-05 18:38:12,598 database_security_middleware 11360 8896 Request completed: GET /api/v1/categories/featured/ by anonymous from 127.0.0.1 in 0.075s with 0 queries (0 failed, 0 threats detected)
+WARNING 2025-08-05 18:38:12,600 log 11360 8896 Unauthorized: /api/v1/categories/featured/
+WARNING 2025-08-05 18:38:12,601 basehttp 11360 8896 "GET /api/v1/categories/featured/ HTTP/1.1" 401 187
+INFO 2025-08-05 18:38:33,906 basehttp 11360 8896 "OPTIONS /api/v1/auth/login/ HTTP/1.1" 200 0
+INFO 2025-08-05 18:38:37,281 monitoring 11360 8896 Task delete_document (None) started
+ERROR 2025-08-05 18:38:37,285 monitoring 11360 8896 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-05 18:38:37,299 monitoring 11360 8896 Task delete_document (None) started
+ERROR 2025-08-05 18:38:37,301 monitoring 11360 8896 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+ERROR 2025-08-05 18:38:37,301 exceptions 11360 8896 API Exception: No active account found with the given credentials
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 512, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\Local_ecom\backend\apps\authentication\views.py", line 86, in post
+    serializer.is_valid(raise_exception=True)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\serializers.py", line 225, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\serializers.py", line 447, in run_validation
+    value = self.validate(value)
+  File "C:\Local_ecom\backend\apps\authentication\serializers.py", line 149, in validate
+    data = super().validate(attrs)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework_simplejwt\serializers.py", line 73, in validate
+    data = super().validate(attrs)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework_simplejwt\serializers.py", line 57, in validate
+    raise exceptions.AuthenticationFailed(
+rest_framework.exceptions.AuthenticationFailed: No active account found with the given credentials
+INFO 2025-08-05 18:38:37,789 database_security_middleware 11360 8896 Request completed: POST /api/v1/auth/login/ by anonymous from 127.0.0.1 in 3.875s with 0 queries (0 failed, 0 threats detected)
+WARNING 2025-08-05 18:38:37,789 log 11360 8896 Unauthorized: /api/v1/auth/login/
+WARNING 2025-08-05 18:38:37,791 basehttp 11360 8896 "POST /api/v1/auth/login/ HTTP/1.1" 401 197
+ERROR 2025-08-05 18:38:46,595 exceptions 11360 8896 API Exception: Authentication credentials were not provided.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 421, in initial
+    self.check_permissions(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 339, in check_permissions
+    self.permission_denied(
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 180, in permission_denied
+    raise exceptions.NotAuthenticated()
+rest_framework.exceptions.NotAuthenticated: Authentication credentials were not provided.
+INFO 2025-08-05 18:38:46,717 database_security_middleware 11360 8896 Request completed: GET /api/v1/categories/featured/ by anonymous from 127.0.0.1 in 0.131s with 0 queries (0 failed, 0 threats detected)
+WARNING 2025-08-05 18:38:46,717 log 11360 8896 Unauthorized: /api/v1/categories/featured/
+WARNING 2025-08-05 18:38:46,717 basehttp 11360 8896 "GET /api/v1/categories/featured/ HTTP/1.1" 401 187
+ERROR 2025-08-05 18:38:46,730 exceptions 11360 8896 API Exception: Authentication credentials were not provided.
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 503, in dispatch
+    self.initial(request, *args, **kwargs)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 421, in initial
+    self.check_permissions(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 339, in check_permissions
+    self.permission_denied(
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\rest_framework\views.py", line 180, in permission_denied
+    raise exceptions.NotAuthenticated()
+rest_framework.exceptions.NotAuthenticated: Authentication credentials were not provided.
+INFO 2025-08-05 18:38:46,886 database_security_middleware 11360 8896 Request completed: GET /api/v1/categories/featured/ by anonymous from 127.0.0.1 in 0.163s with 0 queries (0 failed, 0 threats detected)
+WARNING 2025-08-05 18:38:46,886 log 11360 8896 Unauthorized: /api/v1/categories/featured/
+WARNING 2025-08-05 18:38:46,886 basehttp 11360 8896 "GET /api/v1/categories/featured/ HTTP/1.1" 401 187
+INFO 2025-08-05 18:39:37,697 basehttp 11360 8896 "OPTIONS /api/v1/auth/register/ HTTP/1.1" 200 0
+ERROR 2025-08-05 18:39:38,294 views 11360 8896 Registration failed: (1364, "Field 'uuid' doesn't have a default value")
+INFO 2025-08-05 18:39:38,378 database_security_middleware 11360 8896 Request completed: POST /api/v1/auth/register/ by anonymous from 127.0.0.1 in 0.677s with 0 queries (0 failed, 0 threats detected)
+ERROR 2025-08-05 18:39:38,381 log 11360 8896 Internal Server Error: /api/v1/auth/register/
+ERROR 2025-08-05 18:39:38,381 basehttp 11360 8896 "POST /api/v1/auth/register/ HTTP/1.1" 500 66
+INFO 2025-08-05 18:40:06,282 database_security_middleware 11360 8896 Request completed: POST /api/v1/auth/register/ by anonymous from 127.0.0.1 in 0.056s with 0 queries (0 failed, 0 threats detected)
+WARNING 2025-08-05 18:40:06,283 log 11360 8896 Bad Request: /api/v1/auth/register/
+WARNING 2025-08-05 18:40:06,284 basehttp 11360 8896 "POST /api/v1/auth/register/ HTTP/1.1" 400 85
+ERROR 2025-08-05 18:40:41,997 views 11360 8896 Registration failed: (1364, "Field 'uuid' doesn't have a default value")
+INFO 2025-08-05 18:40:42,052 database_security_middleware 11360 8896 Request completed: POST /api/v1/auth/register/ by anonymous from 127.0.0.1 in 0.534s with 0 queries (0 failed, 0 threats detected)
+ERROR 2025-08-05 18:40:42,052 log 11360 8896 Internal Server Error: /api/v1/auth/register/
+ERROR 2025-08-05 18:40:42,052 basehttp 11360 8896 "POST /api/v1/auth/register/ HTTP/1.1" 500 66
+INFO 2025-08-06 10:56:53,106 database_security 14952 14888 Audit tables created successfully
+INFO 2025-08-06 10:56:53,106 database_security 14952 14888 Database security monitoring initialized successfully
+INFO 2025-08-06 10:57:15,114 database_security 3320 12976 Audit tables created successfully
+INFO 2025-08-06 10:57:15,116 database_security 3320 12976 Database security monitoring initialized successfully
+INFO 2025-08-06 10:57:22,473 monitoring 3320 12976 Task delete_document (None) started
+ERROR 2025-08-06 10:57:22,475 monitoring 3320 12976 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 11:18:48,256 database_security 2872 17132 Audit tables created successfully
+INFO 2025-08-06 11:18:48,256 database_security 2872 17132 Database security monitoring initialized successfully
+INFO 2025-08-06 11:19:49,389 database_security 5608 13788 Audit tables created successfully
+INFO 2025-08-06 11:19:49,389 database_security 5608 13788 Database security monitoring initialized successfully
+INFO 2025-08-06 11:20:08,555 database_security 6216 7352 Audit tables created successfully
+INFO 2025-08-06 11:20:08,555 database_security 6216 7352 Database security monitoring initialized successfully
+INFO 2025-08-06 11:20:14,739 monitoring 6216 7352 Task delete_document (None) started
+ERROR 2025-08-06 11:20:14,739 monitoring 6216 7352 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 11:20:14,744 monitoring 6216 7352 Task delete_document (None) started
+ERROR 2025-08-06 11:20:14,744 monitoring 6216 7352 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 11:20:15,774 monitoring 6216 7352 Task delete_document (None) started
+ERROR 2025-08-06 11:20:15,777 monitoring 6216 7352 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 11:20:15,779 monitoring 6216 7352 Task delete_document (None) started
+ERROR 2025-08-06 11:20:15,779 monitoring 6216 7352 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 11:20:43,628 database_security 8508 12132 Audit tables created successfully
+INFO 2025-08-06 11:20:43,708 database_security 8508 12132 Database security monitoring initialized successfully
+INFO 2025-08-06 11:26:45,444 database_security 9056 17288 Audit tables created successfully
+INFO 2025-08-06 11:26:45,445 database_security 9056 17288 Database security monitoring initialized successfully
+INFO 2025-08-06 11:33:12,659 database_security 4588 15672 Audit tables created successfully
+INFO 2025-08-06 11:33:12,660 database_security 4588 15672 Database security monitoring initialized successfully
+INFO 2025-08-06 11:33:45,540 database_security 13576 17884 Audit tables created successfully
+INFO 2025-08-06 11:33:45,540 database_security 13576 17884 Database security monitoring initialized successfully
+INFO 2025-08-06 11:34:29,859 database_security 13064 16724 Audit tables created successfully
+INFO 2025-08-06 11:34:29,859 database_security 13064 16724 Database security monitoring initialized successfully
+INFO 2025-08-06 12:34:28,365 database_security 18268 8732 Audit tables created successfully
+INFO 2025-08-06 12:34:28,379 database_security 18268 8732 Database security monitoring initialized successfully
+INFO 2025-08-06 12:34:56,636 database_security 8608 16860 Audit tables created successfully
+INFO 2025-08-06 12:34:56,636 database_security 8608 16860 Database security monitoring initialized successfully
+INFO 2025-08-06 12:35:37,100 database_security 16148 14396 Audit tables created successfully
+INFO 2025-08-06 12:35:37,100 database_security 16148 14396 Database security monitoring initialized successfully
+INFO 2025-08-06 12:36:50,498 database_security 7772 11504 Audit tables created successfully
+INFO 2025-08-06 12:36:50,498 database_security 7772 11504 Database security monitoring initialized successfully
+INFO 2025-08-06 12:37:32,247 database_security 13120 5272 Audit tables created successfully
+INFO 2025-08-06 12:37:32,247 database_security 13120 5272 Database security monitoring initialized successfully
+INFO 2025-08-06 12:37:56,588 database_security 17352 15636 Audit tables created successfully
+INFO 2025-08-06 12:37:56,588 database_security 17352 15636 Database security monitoring initialized successfully
+INFO 2025-08-06 12:43:44,930 database_security 11572 11724 Audit tables created successfully
+INFO 2025-08-06 12:43:44,930 database_security 11572 11724 Database security monitoring initialized successfully
+INFO 2025-08-06 12:44:10,669 database_security 4676 17136 Audit tables created successfully
+INFO 2025-08-06 12:44:10,669 database_security 4676 17136 Database security monitoring initialized successfully
+INFO 2025-08-06 12:44:25,144 database_security 16600 16932 Audit tables created successfully
+INFO 2025-08-06 12:44:25,150 database_security 16600 16932 Database security monitoring initialized successfully
+INFO 2025-08-06 12:58:46,290 database_security 6312 15736 Audit tables created successfully
+INFO 2025-08-06 12:58:46,290 database_security 6312 15736 Database security monitoring initialized successfully
+INFO 2025-08-06 12:59:20,092 database_security 17420 3248 Audit tables created successfully
+INFO 2025-08-06 12:59:20,093 database_security 17420 3248 Database security monitoring initialized successfully
+INFO 2025-08-06 12:59:34,025 database_security 10248 8076 Audit tables created successfully
+INFO 2025-08-06 12:59:34,025 database_security 10248 8076 Database security monitoring initialized successfully
+INFO 2025-08-06 12:59:47,849 database_security 15488 18004 Audit tables created successfully
+INFO 2025-08-06 12:59:47,849 database_security 15488 18004 Database security monitoring initialized successfully
+INFO 2025-08-06 12:59:51,306 monitoring 15488 18004 Task update_document (None) started
+INFO 2025-08-06 12:59:51,306 signals 15488 18004 Updating Elasticsearch document: migrations.migration ID: 49
+ERROR 2025-08-06 12:59:51,307 signals 15488 18004 Error updating Elasticsearch document: No installed app with label 'migrations'.
+WARNING 2025-08-06 12:59:51,307 monitoring 15488 18004 Retrying task tasks.monitoring.wrapper due to: No installed app with label 'migrations'.
+ERROR 2025-08-06 12:59:51,307 monitoring 15488 18004 Task retry failed: No installed app with label 'migrations'.
+ERROR 2025-08-06 12:59:51,307 monitoring 15488 18004 Task update_document (None) failed: No installed app with label 'migrations'.
+INFO 2025-08-06 13:00:03,666 database_security 17468 15548 Audit tables created successfully
+INFO 2025-08-06 13:00:03,666 database_security 17468 15548 Database security monitoring initialized successfully
+INFO 2025-08-06 13:00:06,916 monitoring 17468 15548 Task update_document (None) started
+INFO 2025-08-06 13:00:06,916 signals 17468 15548 Updating Elasticsearch document: migrations.migration ID: 50
+ERROR 2025-08-06 13:00:06,916 signals 17468 15548 Error updating Elasticsearch document: No installed app with label 'migrations'.
+WARNING 2025-08-06 13:00:06,916 monitoring 17468 15548 Retrying task tasks.monitoring.wrapper due to: No installed app with label 'migrations'.
+ERROR 2025-08-06 13:00:06,916 monitoring 17468 15548 Task retry failed: No installed app with label 'migrations'.
+ERROR 2025-08-06 13:00:06,916 monitoring 17468 15548 Task update_document (None) failed: No installed app with label 'migrations'.
+INFO 2025-08-06 13:07:10,392 database_security 15068 11704 Audit tables created successfully
+INFO 2025-08-06 13:07:10,392 database_security 15068 11704 Database security monitoring initialized successfully
+INFO 2025-08-06 13:08:55,942 database_security 16952 14808 Audit tables created successfully
+INFO 2025-08-06 13:08:55,942 database_security 16952 14808 Database security monitoring initialized successfully
+INFO 2025-08-06 13:09:06,713 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,715 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,721 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,723 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,729 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,731 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,737 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,737 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,745 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,745 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,802 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,802 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,808 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,810 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,818 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,818 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,824 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,824 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,830 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,832 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,838 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,840 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,846 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,846 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,856 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,856 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,869 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:06,869 signals 16952 14808 Deleting Elasticsearch document: admin_panel.ordersearchfilter ID: 0299cb76-83b0-404f-9a74-0088c1e100b4
+ERROR 2025-08-06 13:09:06,869 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:06,871 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,871 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,871 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:06,883 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,883 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,891 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:06,891 signals 16952 14808 Deleting Elasticsearch document: admin_panel.ordersearchfilter ID: a731064d-044b-4654-bb02-a28a94aabeb3
+ERROR 2025-08-06 13:09:06,891 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:06,893 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,893 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,893 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:06,899 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,899 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,905 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:06,905 signals 16952 14808 Deleting Elasticsearch document: admin_panel.orderworkflow ID: a4043828-bd88-4613-8e94-088d6d1ea733
+ERROR 2025-08-06 13:09:06,907 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:06,907 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,907 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,907 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:06,913 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,913 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,919 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:06,919 signals 16952 14808 Deleting Elasticsearch document: admin_panel.orderfraudscore ID: 829fb517-14a6-41ff-bf42-74542fc2fd5a
+ERROR 2025-08-06 13:09:06,919 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:06,921 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,921 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,921 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:06,925 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,925 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,933 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:06,933 signals 16952 14808 Deleting Elasticsearch document: admin_panel.ordernote ID: b89123d2-2d45-432d-9d14-4a84f96ab09e
+ERROR 2025-08-06 13:09:06,933 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:06,935 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,935 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,935 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:06,939 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,939 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,946 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:06,946 signals 16952 14808 Deleting Elasticsearch document: admin_panel.orderescalation ID: 87dd9651-f423-48cd-a93b-875706d25c64
+ERROR 2025-08-06 13:09:06,948 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:06,948 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,948 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,950 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:06,955 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,955 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,962 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:06,962 signals 16952 14808 Deleting Elasticsearch document: admin_panel.ordersla ID: d124131b-aa13-43fc-94ec-e9fea0ebc77b
+ERROR 2025-08-06 13:09:06,962 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:06,962 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,964 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,964 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:06,968 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,968 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,974 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:06,976 signals 16952 14808 Deleting Elasticsearch document: admin_panel.orderallocation ID: fc6e1962-6f46-4074-b450-912b2482801f
+ERROR 2025-08-06 13:09:06,976 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:06,976 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,976 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,978 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:06,982 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,982 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:06,988 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:06,988 signals 16952 14808 Deleting Elasticsearch document: admin_panel.orderprofitability ID: b9ff969e-cb9a-43da-9631-123b0d8ad175
+ERROR 2025-08-06 13:09:06,990 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:06,990 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,990 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:06,992 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:06,996 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:06,996 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:07,004 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,004 signals 16952 14808 Deleting Elasticsearch document: admin_panel.orderdocument ID: 57433984-c44e-4f7e-a7e0-74e8500ea6da
+ERROR 2025-08-06 13:09:07,004 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,004 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,004 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,006 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,010 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:07,012 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:07,018 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,018 signals 16952 14808 Deleting Elasticsearch document: admin_panel.orderqualitycontrol ID: 15de2e05-448d-4d53-8ba6-9f1ad6c02b26
+ERROR 2025-08-06 13:09:07,020 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,020 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,020 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,020 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,026 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:07,026 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:07,032 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,034 signals 16952 14808 Deleting Elasticsearch document: admin_panel.ordersubscription ID: 70ca792f-112a-4320-a501-140bb3fe6a95
+ERROR 2025-08-06 13:09:07,034 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,034 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,034 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,036 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,039 monitoring 16952 14808 Task delete_document (None) started
+ERROR 2025-08-06 13:09:07,039 monitoring 16952 14808 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 13:09:07,269 signals 16952 14808 Cleaned up data for user: test.admin@example.com
+INFO 2025-08-06 13:09:07,322 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,322 signals 16952 14808 Deleting Elasticsearch document: authentication.userprofile ID: 42
+ERROR 2025-08-06 13:09:07,324 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,324 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,324 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,324 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,328 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,330 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1312
+ERROR 2025-08-06 13:09:07,330 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,330 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,332 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,332 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,332 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,334 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1311
+ERROR 2025-08-06 13:09:07,334 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,334 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,334 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,336 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,336 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,336 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1310
+ERROR 2025-08-06 13:09:07,338 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,338 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,338 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,338 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,340 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,340 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1309
+ERROR 2025-08-06 13:09:07,342 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,342 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,342 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,342 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,344 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,344 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1308
+ERROR 2025-08-06 13:09:07,344 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,346 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,346 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,346 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,346 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,348 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1307
+ERROR 2025-08-06 13:09:07,348 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,348 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,350 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,350 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,350 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,352 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1306
+ERROR 2025-08-06 13:09:07,352 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,352 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,352 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,354 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,354 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,354 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1305
+ERROR 2025-08-06 13:09:07,356 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,356 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,356 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,356 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,358 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,358 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1304
+ERROR 2025-08-06 13:09:07,358 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,358 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,360 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,360 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,360 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,362 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1303
+ERROR 2025-08-06 13:09:07,362 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,362 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,364 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,364 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,364 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,364 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1302
+ERROR 2025-08-06 13:09:07,364 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,366 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,366 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,366 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,368 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,368 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1301
+ERROR 2025-08-06 13:09:07,368 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,368 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,370 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,370 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,370 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,372 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1300
+ERROR 2025-08-06 13:09:07,372 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,372 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,374 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,374 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,374 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,374 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1299
+ERROR 2025-08-06 13:09:07,374 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,376 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,376 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,376 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,378 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,378 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1298
+ERROR 2025-08-06 13:09:07,378 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,378 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,380 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,380 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,380 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,382 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1297
+ERROR 2025-08-06 13:09:07,382 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,382 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,382 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,384 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,384 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,384 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1296
+ERROR 2025-08-06 13:09:07,384 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,386 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,386 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,386 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,388 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,388 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1295
+ERROR 2025-08-06 13:09:07,388 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,390 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,390 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,390 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,390 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,392 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1294
+ERROR 2025-08-06 13:09:07,392 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,392 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,394 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,394 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,394 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,394 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1293
+ERROR 2025-08-06 13:09:07,396 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,396 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,396 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,396 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,398 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,398 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1292
+ERROR 2025-08-06 13:09:07,398 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,398 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,400 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,400 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,400 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,402 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1291
+ERROR 2025-08-06 13:09:07,402 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,402 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,403 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,403 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,403 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,403 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1290
+ERROR 2025-08-06 13:09:07,405 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,405 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,405 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,407 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,407 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,407 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1289
+ERROR 2025-08-06 13:09:07,409 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,409 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,409 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,409 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,411 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,411 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1288
+ERROR 2025-08-06 13:09:07,411 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,411 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,413 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,413 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,413 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,415 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1287
+ERROR 2025-08-06 13:09:07,415 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,415 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,415 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,417 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,417 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,417 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1286
+ERROR 2025-08-06 13:09:07,419 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,419 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,419 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,421 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,421 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,421 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1285
+ERROR 2025-08-06 13:09:07,421 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,423 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,423 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,423 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,423 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,425 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1284
+ERROR 2025-08-06 13:09:07,425 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,425 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,427 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,427 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,427 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,427 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1283
+ERROR 2025-08-06 13:09:07,429 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,429 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,429 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,429 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,431 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,431 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1282
+ERROR 2025-08-06 13:09:07,431 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,431 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,433 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,433 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:09:07,433 monitoring 16952 14808 Task delete_document (None) started
+INFO 2025-08-06 13:09:07,435 signals 16952 14808 Deleting Elasticsearch document: notifications.notificationpreference ID: 1281
+ERROR 2025-08-06 13:09:07,435 signals 16952 14808 Error deleting Elasticsearch document: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+WARNING 2025-08-06 13:09:07,435 monitoring 16952 14808 Retrying task tasks.monitoring.wrapper due to: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,435 monitoring 16952 14808 Task retry failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+ERROR 2025-08-06 13:09:07,437 monitoring 16952 14808 Task delete_document (None) failed: DocumentRegistry.delete() takes 2 positional arguments but 4 were given
+INFO 2025-08-06 13:33:32,281 database_security 7280 18812 Audit tables created successfully
+INFO 2025-08-06 13:33:32,282 database_security 7280 18812 Database security monitoring initialized successfully
+INFO 2025-08-06 13:38:21,385 database_security 5920 2732 Audit tables created successfully
+INFO 2025-08-06 13:38:21,385 database_security 5920 2732 Database security monitoring initialized successfully
+INFO 2025-08-06 13:52:59,453 database_security 2436 16348 Audit tables created successfully
+INFO 2025-08-06 13:52:59,453 database_security 2436 16348 Database security monitoring initialized successfully
+INFO 2025-08-06 13:53:22,289 database_security 17784 11328 Audit tables created successfully
+INFO 2025-08-06 13:53:22,289 database_security 17784 11328 Database security monitoring initialized successfully
+INFO 2025-08-06 14:31:55,360 database_security 18944 6624 Audit tables created successfully
+INFO 2025-08-06 14:31:55,365 database_security 18944 6624 Database security monitoring initialized successfully
+INFO 2025-08-06 14:32:20,999 monitoring 18944 6624 Task delete_document (None) started
+ERROR 2025-08-06 14:32:20,999 monitoring 18944 6624 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 14:32:21,005 monitoring 18944 6624 Task delete_document (None) started
+ERROR 2025-08-06 14:32:21,005 monitoring 18944 6624 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 14:33:08,667 monitoring 16620 17684 Task delete_document (None) started
+ERROR 2025-08-06 14:33:08,667 monitoring 16620 17684 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 14:33:08,680 monitoring 16620 17684 Task delete_document (None) started
+ERROR 2025-08-06 14:33:08,680 monitoring 16620 17684 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 14:33:09,216 monitoring 16620 17684 Task delete_document (None) started
+ERROR 2025-08-06 14:33:09,216 monitoring 16620 17684 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 14:33:09,216 monitoring 16620 17684 Task delete_document (None) started
+ERROR 2025-08-06 14:33:09,216 monitoring 16620 17684 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 14:33:09,263 monitoring 16620 17684 Task delete_document (None) started
+ERROR 2025-08-06 14:33:09,263 monitoring 16620 17684 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 14:33:09,286 monitoring 16620 17684 Task delete_document (None) started
+ERROR 2025-08-06 14:33:09,286 monitoring 16620 17684 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:13:34,190 monitoring 452 8396 Task delete_document (None) started
+ERROR 2025-08-06 15:13:34,192 monitoring 452 8396 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:13:34,208 monitoring 452 8396 Task delete_document (None) started
+ERROR 2025-08-06 15:13:34,210 monitoring 452 8396 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:13:34,303 monitoring 452 8396 Task delete_document (None) started
+ERROR 2025-08-06 15:13:34,305 monitoring 452 8396 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:42:12,987 database_security 16584 19260 Audit tables created successfully
+INFO 2025-08-06 15:42:12,987 database_security 16584 19260 Database security monitoring initialized successfully
+INFO 2025-08-06 15:49:54,472 database_security 20408 8172 Audit tables created successfully
+INFO 2025-08-06 15:49:54,472 database_security 20408 8172 Database security monitoring initialized successfully
+INFO 2025-08-06 15:50:20,270 database_security 17364 17664 Audit tables created successfully
+INFO 2025-08-06 15:50:20,272 database_security 17364 17664 Database security monitoring initialized successfully
+INFO 2025-08-06 15:50:37,979 database_security 18464 17384 Audit tables created successfully
+INFO 2025-08-06 15:50:37,979 database_security 18464 17384 Database security monitoring initialized successfully
+INFO 2025-08-06 15:50:55,147 database_security 824 17916 Audit tables created successfully
+INFO 2025-08-06 15:50:55,147 database_security 824 17916 Database security monitoring initialized successfully
+INFO 2025-08-06 15:51:11,004 database_security 18488 19180 Audit tables created successfully
+INFO 2025-08-06 15:51:11,006 database_security 18488 19180 Database security monitoring initialized successfully
+INFO 2025-08-06 15:51:17,451 monitoring 18488 19180 Task delete_document (None) started
+ERROR 2025-08-06 15:51:17,452 monitoring 18488 19180 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:51:17,465 monitoring 18488 19180 Task delete_document (None) started
+ERROR 2025-08-06 15:51:17,465 monitoring 18488 19180 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:56:29,246 database_security 19600 19772 Audit tables created successfully
+INFO 2025-08-06 15:56:29,246 database_security 19600 19772 Database security monitoring initialized successfully
+INFO 2025-08-06 15:56:33,100 monitoring 19600 19772 Task delete_document (None) started
+ERROR 2025-08-06 15:56:33,100 monitoring 19600 19772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:56:33,107 monitoring 19600 19772 Task delete_document (None) started
+ERROR 2025-08-06 15:56:33,107 monitoring 19600 19772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:56:33,738 monitoring 19600 19772 Task delete_document (None) started
+ERROR 2025-08-06 15:56:33,738 monitoring 19600 19772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:56:33,750 monitoring 19600 19772 Task delete_document (None) started
+ERROR 2025-08-06 15:56:33,750 monitoring 19600 19772 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:56:46,188 database_security 19428 15700 Audit tables created successfully
+INFO 2025-08-06 15:56:46,190 database_security 19428 15700 Database security monitoring initialized successfully
+INFO 2025-08-06 15:57:37,836 database_security 3184 18700 Audit tables created successfully
+INFO 2025-08-06 15:57:37,837 database_security 3184 18700 Database security monitoring initialized successfully
+INFO 2025-08-06 15:57:56,829 database_security 13292 18096 Audit tables created successfully
+INFO 2025-08-06 15:57:56,830 database_security 13292 18096 Database security monitoring initialized successfully
+INFO 2025-08-06 15:58:01,336 monitoring 13292 18096 Task delete_document (None) started
+ERROR 2025-08-06 15:58:01,337 monitoring 13292 18096 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:58:01,343 monitoring 13292 18096 Task delete_document (None) started
+ERROR 2025-08-06 15:58:01,344 monitoring 13292 18096 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:58:02,000 monitoring 13292 18096 Task delete_document (None) started
+ERROR 2025-08-06 15:58:02,000 monitoring 13292 18096 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 15:58:02,004 monitoring 13292 18096 Task delete_document (None) started
+ERROR 2025-08-06 15:58:02,006 monitoring 13292 18096 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-06 16:12:53,125 database_security 6840 3188 Audit tables created successfully
+INFO 2025-08-06 16:12:53,125 database_security 6840 3188 Database security monitoring initialized successfully
+INFO 2025-08-07 11:39:22,014 database_security 13244 17192 Audit tables created successfully
+INFO 2025-08-07 11:39:22,016 database_security 13244 17192 Database security monitoring initialized successfully
+INFO 2025-08-07 11:41:33,812 database_security 18832 5364 Audit tables created successfully
+INFO 2025-08-07 11:41:33,815 database_security 18832 5364 Database security monitoring initialized successfully
+INFO 2025-08-07 11:42:20,569 database_security 17884 7760 Audit tables created successfully
+INFO 2025-08-07 11:42:20,569 database_security 17884 7760 Database security monitoring initialized successfully
+INFO 2025-08-07 11:42:43,300 database_security 12068 19188 Audit tables created successfully
+INFO 2025-08-07 11:42:43,300 database_security 12068 19188 Database security monitoring initialized successfully
+INFO 2025-08-07 11:42:52,580 monitoring 12068 19188 Task update_document (None) started
+INFO 2025-08-07 11:42:52,580 signals 12068 19188 Updating Elasticsearch document: migrations.migration ID: 55
+ERROR 2025-08-07 11:42:52,585 signals 12068 19188 Error updating Elasticsearch document: No installed app with label 'migrations'.
+WARNING 2025-08-07 11:42:52,585 monitoring 12068 19188 Retrying task tasks.monitoring.wrapper due to: No installed app with label 'migrations'.
+ERROR 2025-08-07 11:42:52,585 monitoring 12068 19188 Task retry failed: No installed app with label 'migrations'.
+ERROR 2025-08-07 11:42:52,585 monitoring 12068 19188 Task update_document (None) failed: No installed app with label 'migrations'.
+INFO 2025-08-08 12:31:55,711 database_security 6044 16264 Audit tables created successfully
+INFO 2025-08-08 12:31:55,711 database_security 6044 16264 Database security monitoring initialized successfully
+INFO 2025-08-08 12:32:36,875 database_security 14796 20432 Audit tables created successfully
+INFO 2025-08-08 12:32:36,875 database_security 14796 20432 Database security monitoring initialized successfully
+INFO 2025-08-08 12:33:02,757 database_security 11316 8976 Audit tables created successfully
+INFO 2025-08-08 12:33:02,757 database_security 11316 8976 Database security monitoring initialized successfully
+INFO 2025-08-08 12:35:09,010 database_security 20412 14200 Audit tables created successfully
+INFO 2025-08-08 12:35:09,010 database_security 20412 14200 Database security monitoring initialized successfully
+INFO 2025-08-08 12:36:03,562 database_security 7080 6256 Audit tables created successfully
+INFO 2025-08-08 12:36:03,562 database_security 7080 6256 Database security monitoring initialized successfully
+INFO 2025-08-08 12:38:23,199 database_security 10256 18652 Audit tables created successfully
+INFO 2025-08-08 12:38:23,203 database_security 10256 18652 Database security monitoring initialized successfully
+INFO 2025-08-08 12:40:09,304 database_security 17660 3048 Audit tables created successfully
+INFO 2025-08-08 12:40:09,306 database_security 17660 3048 Database security monitoring initialized successfully
+INFO 2025-08-08 12:42:45,846 database_security 20404 2312 Audit tables created successfully
+INFO 2025-08-08 12:42:45,848 database_security 20404 2312 Database security monitoring initialized successfully
+INFO 2025-08-08 12:43:57,053 database_security 8028 5788 Audit tables created successfully
+INFO 2025-08-08 12:43:57,066 database_security 8028 5788 Database security monitoring initialized successfully
+INFO 2025-08-08 12:45:10,387 database_security 19688 8536 Audit tables created successfully
+INFO 2025-08-08 12:45:10,387 database_security 19688 8536 Database security monitoring initialized successfully
+INFO 2025-08-08 12:45:35,533 database_security 19744 1436 Audit tables created successfully
+INFO 2025-08-08 12:45:35,533 database_security 19744 1436 Database security monitoring initialized successfully
+INFO 2025-08-08 12:45:43,775 monitoring 19744 1436 Task update_document (None) started
+INFO 2025-08-08 12:45:43,775 signals 19744 1436 Updating Elasticsearch document: migrations.migration ID: 56
+ERROR 2025-08-08 12:45:43,776 signals 19744 1436 Error updating Elasticsearch document: No installed app with label 'migrations'.
+WARNING 2025-08-08 12:45:43,776 monitoring 19744 1436 Retrying task tasks.monitoring.wrapper due to: No installed app with label 'migrations'.
+ERROR 2025-08-08 12:45:43,776 monitoring 19744 1436 Task retry failed: No installed app with label 'migrations'.
+ERROR 2025-08-08 12:45:43,777 monitoring 19744 1436 Task update_document (None) failed: No installed app with label 'migrations'.
+INFO 2025-08-08 12:46:15,423 autoreload 11692 8356 Watching for file changes with StatReloader
+INFO 2025-08-08 12:46:17,280 database_security 11692 8144 Audit tables created successfully
+INFO 2025-08-08 12:46:17,282 database_security 11692 8144 Database security monitoring initialized successfully
+INFO 2025-08-08 13:04:31,626 autoreload 16192 20332 Watching for file changes with StatReloader
+INFO 2025-08-08 13:04:32,659 database_security 16192 11888 Audit tables created successfully
+INFO 2025-08-08 13:04:32,666 database_security 16192 11888 Database security monitoring initialized successfully

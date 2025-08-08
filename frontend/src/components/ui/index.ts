@@ -5,7 +5,7 @@ export { Input } from './Input';
 export { Loading, LoadingSpinner } from './Loading';
 export { WishlistButton } from './WishlistButton';
 export { Badge } from './Badge';
-export { Select } from './Select';
+export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './Select';
 export { Separator } from './Separator';
 export { ScrollArea } from './ScrollArea';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';

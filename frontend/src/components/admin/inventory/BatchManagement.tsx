@@ -2,19 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/card';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { 
   Plus, 
-  Search, 
   Edit, 
   Trash2, 
   Package, 
   AlertTriangle, 
-  Calendar,
   Clock,
   TrendingUp,
   Eye
@@ -22,9 +19,7 @@ import {
 import { 
   inventoryManagementApi, 
   type ProductBatch, 
-  type BatchFilters,
-  type CreateBatchRequest,
-  type UpdateBatchRequest
+  type BatchFilters
 } from '@/services/inventoryManagementApi';
 import BatchForm from './BatchForm';
 
@@ -305,8 +300,8 @@ export default function BatchManagement() {
         <div className="flex flex-col sm:flex-row gap-4 flex-1">
           <Select
             value={filters.warehouse || ''}
-            onChange={(e) => 
-              setFilters({ ...filters, warehouse: e.target.value })
+            onChange={(value) => 
+              setFilters({ ...filters, warehouse: value })
             }
           >
             <option value="">All Warehouses</option>
@@ -318,8 +313,8 @@ export default function BatchManagement() {
           </Select>
           <Select
             value={filters.status || ''}
-            onChange={(e) => 
-              setFilters({ ...filters, status: e.target.value as 'active' | 'expired' | 'recalled' | undefined })
+            onChange={(value) => 
+              setFilters({ ...filters, status: value as 'active' | 'expired' | 'recalled' | undefined })
             }
           >
             <option value="">All Status</option>

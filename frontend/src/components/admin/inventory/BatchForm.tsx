@@ -382,7 +382,7 @@ export default function BatchForm({ batch, onClose, onSave }: BatchFormProps) {
                         <Select
                             id="warehouse"
                             value={formData.warehouse}
-                            onChange={(e) => handleInputChange('warehouse', e.target.value)}
+                            onChange={(value) => handleInputChange('warehouse', value)}
                             disabled={isEditing}
                         >
                             <option value="">Select a warehouse</option>

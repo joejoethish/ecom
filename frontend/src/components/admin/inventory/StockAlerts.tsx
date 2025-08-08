@@ -273,7 +273,7 @@ export default function StockAlerts({ className = '' }: StockAlertsProps) {
         <div className="flex flex-col sm:flex-row gap-3 flex-1">
           <Select
             value={filters.alert_type || ''}
-            onChange={(e) => setFilters({ ...filters, alert_type: e.target.value as any })}
+            onChange={(value) => setFilters({ ...filters, alert_type: value as any })}
             className="min-w-[160px]"
           >
             <option value="">All Alert Types</option>
@@ -284,7 +284,7 @@ export default function StockAlerts({ className = '' }: StockAlertsProps) {
           
           <Select
             value={filters.priority || ''}
-            onChange={(e) => setFilters({ ...filters, priority: e.target.value as any })}
+            onChange={(value) => setFilters({ ...filters, priority: value as any })}
             className="min-w-[140px]"
           >
             <option value="">All Priorities</option>
@@ -296,7 +296,7 @@ export default function StockAlerts({ className = '' }: StockAlertsProps) {
           
           <Select
             value={filters.warehouse || ''}
-            onChange={(e) => setFilters({ ...filters, warehouse: e.target.value })}
+            onChange={(value) => setFilters({ ...filters, warehouse: value })}
             className="min-w-[160px]"
           >
             <option value="">All Warehouses</option>
@@ -309,9 +309,9 @@ export default function StockAlerts({ className = '' }: StockAlertsProps) {
           
           <Select
             value={filters.is_acknowledged?.toString() || ''}
-            onChange={(e) => setFilters({ 
+            onChange={(value) => setFilters({ 
               ...filters, 
-              is_acknowledged: e.target.value === '' ? undefined : e.target.value === 'true'
+              is_acknowledged: value === '' ? undefined : value === 'true'
             })}
             className="min-w-[140px]"
           >

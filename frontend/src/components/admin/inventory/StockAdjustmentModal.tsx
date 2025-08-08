@@ -349,7 +349,7 @@ export default function StockAdjustmentModal({ inventory, onClose, onSuccess }: 
                       </label>
                       <Select
                         value={adjustment.reason}
-                        onChange={(e) => updateAdjustment(index, 'reason', e.target.value)}
+                        onChange={(value) => updateAdjustment(index, 'reason', value)}
                         disabled={loading}
                         className="min-h-[44px]"
                         aria-label="Select reason for adjustment"
