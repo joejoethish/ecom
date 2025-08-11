@@ -615,7 +615,7 @@ class ProductAnalytics(TimestampedModel):
     """
     Product analytics with performance metrics, sales data, and profitability analysis.
     """
-    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name='analytics')
+    product = models.OneToOneField(Product, on_delete=models.CASCADE, related_name='admin_analytics')
     
     # Sales metrics
     total_sales = models.IntegerField(default=0)

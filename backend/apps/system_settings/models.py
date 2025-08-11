@@ -219,7 +219,7 @@ class SettingChangeHistory(models.Model):
     
     # Approval workflow
     requires_approval = models.BooleanField(default=False)
-    approved_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_changes')
+    approved_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_setting_changes')
     approved_at = models.DateTimeField(null=True, blank=True)
     approval_status = models.CharField(max_length=20, choices=[
         ('pending', 'Pending'),

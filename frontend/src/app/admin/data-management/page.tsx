@@ -1,16 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
-import { 
-  Upload, 
-  Download, 
-  Database, 
-  Sync, 
-  Shield, 
+import {
+  Upload,
+  Download,
+  Database,
+  RefreshCw,
+  Shield,
   FileText,
   BarChart3,
   Settings,
@@ -31,8 +31,7 @@ import DataManagementStats from './components/DataManagementStats';
 import { useDataManagement } from './hooks/useDataManagement';
 
 export default function DataManagementPage() {
-  const [activeTab, setActiveTab] = useState('overview');
-  const { stats, loading } = useDataManagement();
+  const { stats } = useDataManagement();
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -54,7 +53,7 @@ export default function DataManagementPage() {
       failed: 'destructive',
       pending: 'outline'
     };
-    
+
     return (
       <Badge variant={variants[status] || 'outline'} className="flex items-center gap-1">
         {getStatusIcon(status)}
@@ -84,7 +83,7 @@ export default function DataManagementPage() {
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs defaultValue="overview" className="space-y-6">
         <TabsList className="grid w-full grid-cols-9">
           <TabsTrigger value="overview" className="flex items-center gap-2">
             <BarChart3 className="h-4 w-4" />
@@ -103,7 +102,7 @@ export default function DataManagementPage() {
             Mappings
           </TabsTrigger>
           <TabsTrigger value="sync" className="flex items-center gap-2">
-            <Sync className="h-4 w-4" />
+            <RefreshCw className="h-4 w-4" />
             Sync
           </TabsTrigger>
           <TabsTrigger value="backups" className="flex items-center gap-2">
@@ -126,7 +125,7 @@ export default function DataManagementPage() {
 
         <TabsContent value="overview" className="space-y-6">
           <DataManagementStats />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -179,7 +178,7 @@ export default function DataManagementPage() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Sync Jobs</CardTitle>
-                <Sync className="h-4 w-4 text-muted-foreground" />
+                <RefreshCw className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{stats?.sync_jobs?.total || 0}</div>
@@ -211,7 +210,7 @@ export default function DataManagementPage() {
                     </div>
                     {getStatusBadge('completed')}
                   </div>
-                  
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <Download className="h-4 w-4 text-green-500" />
@@ -222,10 +221,10 @@ export default function DataManagementPage() {
                     </div>
                     {getStatusBadge('processing')}
                   </div>
-                  
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <Sync className="h-4 w-4 text-purple-500" />
+                      <RefreshCw className="h-4 w-4 text-purple-500" />
                       <div>
                         <p className="text-sm font-medium">Inventory Sync</p>
                         <p className="text-xs text-muted-foreground">10 minutes ago</p>
@@ -248,17 +247,17 @@ export default function DataManagementPage() {
                     <span className="text-sm">Import Queue</span>
                     <Badge variant="default">Healthy</Badge>
                   </div>
-                  
+
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Export Queue</span>
                     <Badge variant="default">Healthy</Badge>
                   </div>
-                  
+
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Sync Services</span>
                     <Badge variant="secondary">Warning</Badge>
                   </div>
-                  
+
                   <div className="flex items-center justify-between">
                     <span className="text-sm">Storage Usage</span>
                     <Badge variant="outline">75%</Badge>

@@ -52,7 +52,7 @@ class DocumentationTemplate(models.Model):
     metadata_schema = JSONField(default=dict)  # JSON schema for metadata
     category = models.ForeignKey(DocumentationCategory, on_delete=models.CASCADE, related_name='templates')
     is_default = models.BooleanField(default=False)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_templates')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_doc_templates')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

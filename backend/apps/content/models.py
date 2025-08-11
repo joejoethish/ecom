@@ -348,7 +348,7 @@ class ContentTemplate(BaseModel):
     preview_image = models.ImageField(upload_to='templates/previews/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_system_template = models.BooleanField(default=False)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_templates')
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_content_templates')
     usage_count = models.PositiveIntegerField(default=0)
     
     # Template configuration
