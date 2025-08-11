@@ -1,16 +1,18 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import ReviewSummary from '../ReviewSummary';
 import { ProductReviewSummary } from '../../../types';
 
 // Mock the StarRating component
 jest.mock('../../ui/StarRating', () => {
-  return function MockStarRating({ rating }: { rating: number }) {
+  return function MockStarRating({ rating }: any) {
     return <div data-testid="star-rating">Rating: {rating}</div>;
   };
 });
 
 describe('ReviewSummary', () => {
+  const mockSummary: ProductReviewSummary = {
     product_id: 'product-123',
     total_reviews: 100,
     average_rating: 4.2,
@@ -129,7 +131,7 @@ describe('ReviewSummary', () => {
     expect(screen.getByText('Show all reviews')).toBeInTheDocument();
   });
 
-  it('clears filter when &quot;Show all reviews&quot; is clicked', async () => {
+  it('clears filter when "Show all reviews" is clicked', async () => {
     const mockOnRatingFilter = jest.fn();
     const user = userEvent.setup();
 
@@ -148,6 +150,7 @@ describe('ReviewSummary', () => {
   });
 
   it('handles zero reviews correctly', () => {
+    const emptySummary: ProductReviewSummary = {
       ...mockSummary,
       total_reviews: 0,
       average_rating: 0,
@@ -169,6 +172,7 @@ describe('ReviewSummary', () => {
   });
 
   it('handles singular review count', () => {
+    const singleReviewSummary: ProductReviewSummary = {
       ...mockSummary,
       total_reviews: 1,
     };
@@ -179,6 +183,7 @@ describe('ReviewSummary', () => {
   });
 
   it('formats large numbers correctly', () => {
+    const largeSummary: ProductReviewSummary = {
       ...mockSummary,
       total_reviews: 1500,
       rating_distribution: {
@@ -214,6 +219,7 @@ describe('ReviewSummary', () => {
   });
 
   it('applies custom className', () => {
+    const { container } = render(
       <ReviewSummary {...defaultProps} className="custom-class" />
     );
 

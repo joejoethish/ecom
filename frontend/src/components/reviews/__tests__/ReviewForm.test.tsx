@@ -1,18 +1,12 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ReviewForm from '../ReviewForm';
 import { Review } from '../../../types';
 
-interface MockStarRatingProps {
-  rating: number;
-  interactive?: boolean;
-  onRatingChange?: (rating: number) => void;
-}
-
 // Mock the StarRating component
 jest.mock('../../ui/StarRating', () => {
-  return function MockStarRating({ rating, interactive, onRatingChange }: MockStarRatingProps) {
+  return function MockStarRating({ rating, interactive, onRatingChange }: any) {
     return (
       <div data-testid="star-rating">
         <span>Rating: {rating}</span>
@@ -50,6 +44,7 @@ describe('ReviewForm', () => {
   });
 
   it('renders edit mode when existingReview is provided', () => {
+    const existingReview: Partial<Review> = {
       id: 'review-123',
       rating: 4,
       title: 'Great product',

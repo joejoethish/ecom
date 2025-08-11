@@ -1,18 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ReviewList from '../ReviewList';
 import { Review } from '../../../types';
 
-interface MockReviewCardProps {
-  review: Review;
-  onVoteHelpful?: (reviewId: string, vote: 'helpful' | 'not_helpful') => Promise<void>;
-  onReport?: (reviewId: string) => void;
-}
-
 // Mock the ReviewCard component
 jest.mock('../ReviewCard', () => {
-  return function MockReviewCard({ review, onVoteHelpful, onReport }: MockReviewCardProps) {
+  return function MockReviewCard({ review, onVoteHelpful, onReport }: any) {
     return (
       <div data-testid={`review-card-${review.id}`}>
         <h3>{review.title}</h3>
@@ -33,6 +27,7 @@ jest.mock('../ReviewCard', () => {
 });
 
 describe('ReviewList', () => {
+  const mockReviews: Review[] = [
     {
       id: 'review-1',
       user: {
@@ -217,6 +212,7 @@ describe('ReviewList', () => {
   });
 
   it('shows active filter count', async () => {
+    const user = userEvent.setup();
     render(
       <ReviewList 
         {...defaultProps} 
@@ -225,11 +221,13 @@ describe('ReviewList', () => {
       />
     );
     
+    const filtersButton = screen.getByText('Filters');
     expect(screen.getByText('2')).toBeInTheDocument(); // Active filter count badge
   });
 
   it('clears all filters', async () => {
     const mockOnFiltersChange = jest.fn();
+    const user = userEvent.setup();
     
     render(
       <ReviewList 

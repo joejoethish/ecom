@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Eye, 
   Heart, 
@@ -95,7 +95,7 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
   const [tocItems, setTocItems] = useState<Array<{ id: string; text: string; level: number }>>([]);
   const [activeSection, setActiveSection] = useState('');
 
-  const fetchDocument = useCallback(async () => {
+  const fetchDocument = async () => {
     try {
       setLoading(true);
       const response = await fetch(`/api/documentation/documents/${documentId}/`);
@@ -107,9 +107,9 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
     } finally {
       setLoading(false);
     }
-  }, [documentId]);
+  };
 
-  const generateToc = useCallback(() => {
+  const generateToc = () => {
     if (!document) return;
 
     const parser = new DOMParser();
@@ -127,9 +127,9 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
     });
 
     setTocItems(items);
-  }, [document]);
+  };
 
-  const updateActiveSection = useCallback(() => {
+  const updateActiveSection = () => {
     const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
     let current = '';
 
@@ -141,9 +141,9 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
     });
 
     setActiveSection(current);
-  }, []);
+  };
 
-  const trackView = useCallback(async () => {
+  const trackView = async () => {
     try {
       await fetch(`/api/documentation/analytics/`, {
         method: 'POST',
@@ -162,18 +162,18 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
     } catch (error) {
       console.error('Error tracking view:', error);
     }
-  }, [documentId]);
+  };
 
   useEffect(() => {
     fetchDocument();
-  }, [fetchDocument]);
+  }, [documentId]);
 
   useEffect(() => {
     if (document) {
       generateToc();
       trackView();
     }
-  }, [document, generateToc, trackView]);
+  }, [document]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -182,7 +182,7 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [updateActiveSection]);
+  }, [tocItems]);
 
   const updateActiveSection = () => {
     const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
