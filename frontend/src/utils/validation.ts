@@ -47,7 +47,7 @@ import { VALIDATION } from '@/constants';
 };
 
   if (password !== confirmPassword) {
-    return &apos;Passwords do not match&apos;;
+    return 'Passwords do not match';
   }
   return null;
 };

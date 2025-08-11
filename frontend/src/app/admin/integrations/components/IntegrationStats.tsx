@@ -47,39 +47,39 @@ export default function IntegrationStats({ stats }: IntegrationStatsProps) {
 
   const syncSuccessRate = stats.total_syncs_today > 0 
     ? (stats.successful_syncs_today / stats.total_syncs_today * 100).toFixed(1)
-    : &apos;0&apos;;
+    : '0';
 
   const statCards = [
     {
-      title: &apos;Total Integrations&apos;,
+      title: 'Total Integrations',
       value: stats.total_integrations,
       icon: Activity,
-      color: &apos;text-blue-600&apos;,
-      bgColor: &apos;bg-blue-100&apos;,
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-100',
       subtitle: `${stats.active_integrations} active`,
     },
     {
-      title: &apos;Health Status&apos;,
+      title: 'Health Status',
       value: `${stats.active_integrations}/${stats.total_integrations}`,
       icon: stats.failed_integrations > 0 ? AlertCircle : CheckCircle,
-      color: stats.failed_integrations > 0 ? &apos;text-red-600&apos; : &apos;text-green-600&apos;,
-      bgColor: stats.failed_integrations > 0 ? &apos;bg-red-100&apos; : &apos;bg-green-100&apos;,
-      subtitle: stats.failed_integrations > 0 ? `${stats.failed_integrations} failed` : &apos;All healthy&apos;,
+      color: stats.failed_integrations > 0 ? 'text-red-600' : 'text-green-600',
+      bgColor: stats.failed_integrations > 0 ? 'bg-red-100' : 'bg-green-100',
+      subtitle: stats.failed_integrations > 0 ? `${stats.failed_integrations} failed` : 'All healthy',
     },
     {
-      title: &apos;Syncs Today&apos;,
+      title: 'Syncs Today',
       value: stats.total_syncs_today,
       icon: Zap,
-      color: &apos;text-purple-600&apos;,
-      bgColor: &apos;bg-purple-100&apos;,
+      color: 'text-purple-600',
+      bgColor: 'bg-purple-100',
       subtitle: `${syncSuccessRate}% success rate`,
     },
     {
-      title: &apos;API Calls&apos;,
+      title: 'API Calls',
       value: stats.total_api_calls_today,
       icon: TrendingUp,
-      color: &apos;text-orange-600&apos;,
-      bgColor: &apos;bg-orange-100&apos;,
+      color: 'text-orange-600',
+      bgColor: 'bg-orange-100',
       subtitle: `${stats.average_response_time}ms avg`,
     },
   ];
@@ -174,7 +174,7 @@ export default function IntegrationStats({ stats }: IntegrationStatsProps) {
       {/* Sync Performance */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Today&apos;s Sync Performance</CardTitle>
+          <CardTitle className="text-lg">Today's Sync Performance</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

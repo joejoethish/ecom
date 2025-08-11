@@ -14,7 +14,7 @@
   locale: string = 'en-US'
 ): string => {
   return new Intl.NumberFormat(locale, {
-    style: &apos;currency&apos;,
+    style: 'currency',
     currency: currencyCode,
   }).format(amount);
 };
@@ -25,10 +25,10 @@
  * @returns Formatted card number
  */
   // Remove all non-digit characters
-  const digits = cardNumber.replace(/\D/g, &apos;&apos;);
+  const digits = cardNumber.replace(/\D/g, '');
   
   // Add space after every 4 digits
-  let formatted = &apos;&apos;;
+  let formatted = '';
   for (let i = 0; i < digits.length; i += 4) {
     formatted += digits.slice(i, i + 4) + ' ';
   }
@@ -42,7 +42,7 @@
  * @returns Masked card number
  */
   // Remove all non-digit characters
-  const digits = cardNumber.replace(/\D/g, &apos;&apos;);
+  const digits = cardNumber.replace(/\D/g, '');
   
   if (digits.length <= 4) {
     return digits;
@@ -71,9 +71,9 @@
 ): string => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat(locale, {
-    year: &apos;numeric&apos;,
-    month: &apos;long&apos;,
-    day: &apos;numeric&apos;,
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   }).format(date);
 };
 
@@ -84,15 +84,15 @@
  * @returns Formatted date and time string
  */
   dateString: string,
-  locale: string = &apos;en-US&apos;
+  locale: string = 'en-US'
 ): string => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat(locale, {
-    year: &apos;numeric&apos;,
-    month: &apos;long&apos;,
-    day: &apos;numeric&apos;,
-    hour: &apos;2-digit&apos;,
-    minute: &apos;2-digit&apos;,
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
   }).format(date);
 };
 
@@ -101,13 +101,13 @@
  * @param status - The payment status
  * @returns Formatted payment status
  */
-    &apos;PENDING&apos;: &apos;Pending&apos;,
-    &apos;PROCESSING&apos;: &apos;Processing&apos;,
-    &apos;COMPLETED&apos;: &apos;Completed&apos;,
-    &apos;FAILED&apos;: &apos;Failed&apos;,
-    &apos;REFUNDED&apos;: &apos;Refunded&apos;,
-    &apos;PARTIALLY_REFUNDED&apos;: &apos;Partially Refunded&apos;,
-    &apos;CANCELLED&apos;: &apos;Cancelled&apos;,
+    'PENDING': 'Pending',
+    'PROCESSING': 'Processing',
+    'COMPLETED': 'Completed',
+    'FAILED': 'Failed',
+    'REFUNDED': 'Refunded',
+    'PARTIALLY_REFUNDED': 'Partially Refunded',
+    'CANCELLED': 'Cancelled',
   };
   
   return statusMap[status] || status;

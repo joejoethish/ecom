@@ -13,30 +13,30 @@ export interface ErrorDetails {
 }
 
 export interface NetworkError {
-  type: &apos;network&apos;;
+  type: 'network';
   message: string;
 }
 
 export interface ValidationError {
-  type: &apos;validation&apos;;
+  type: 'validation';
   message: string;
   field_errors: Record<string, string[]>;
 }
 
 export interface ServerError {
-  type: &apos;server&apos;;
+  type: 'server';
   message: string;
   status_code: number;
   code?: string;
 }
 
 export interface UnknownError {
-  type: &apos;unknown&apos;;
+  type: 'unknown';
   message: string;
 }
 
 export interface PermissionError {
-  type: &apos;permission&apos;;
+  type: 'permission';
   message: string;
 }
 
@@ -48,17 +48,17 @@ export type ErrorType = NetworkError | ValidationError | ServerError | UnknownEr
 export const parseApiError = (response: ApiResponse<unknown>): ErrorType => {
   if (!response.error) {
     return {
-      type: &apos;unknown&apos;,
-      message: &apos;An unexpected error occurred&apos;
+      type: 'unknown',
+      message: 'An unexpected error occurred'
     };
   }
 
 
   // Network error
-  if (error.status_code === 0 || error.code === &apos;network_error&apos;) {
+  if (error.status_code === 0 || error.code === 'network_error') {
     return {
-      type: &apos;network&apos;,
-      message: error.message || &apos;Network error. Please check your connection.&apos;
+      type: 'network',
+      message: error.message || 'Network error. Please check your connection.'
     };
   }
 
@@ -66,19 +66,19 @@ export const parseApiError = (response: ApiResponse<unknown>): ErrorType => {
   if (error.status_code === 400) {
     
     // Parse Django REST framework validation errors
-    if (error.details && typeof error.details === &apos;object&apos;) {
+    if (error.details && typeof error.details === 'object') {
       Object.entries(error.details).forEach(([field, messages]) => {
         if (Array.isArray(messages)) {
           fieldErrors[field] = messages;
-        } else if (typeof messages === &apos;string&apos;) {
+        } else if (typeof messages === 'string') {
           fieldErrors[field] = [messages];
         }
       });
     }
 
     return {
-      type: &apos;validation&apos;,
-      message: error.message || &apos;Please check your input and try again.&apos;,
+      type: 'validation',
+      message: error.message || 'Please check your input and try again.',
       field_errors: fieldErrors
     };
   }
@@ -86,8 +86,8 @@ export const parseApiError = (response: ApiResponse<unknown>): ErrorType => {
   // Server error (500+)
   if (error.status_code >= 500) {
     return {
-      type: &apos;server&apos;,
-      message: error.message || &apos;Server error. Please try again later.&apos;,
+      type: 'server',
+      message: error.message || 'Server error. Please try again later.',
       status_code: error.status_code,
       code: error.code
     };
@@ -96,15 +96,15 @@ export const parseApiError = (response: ApiResponse<unknown>): ErrorType => {
   // Permission errors (401, 403)
   if (error.status_code === 401 || error.status_code === 403) {
     return {
-      type: &apos;permission&apos;,
-      message: error.message || &apos;You do not have permission to perform this action.&apos;
+      type: 'permission',
+      message: error.message || 'You do not have permission to perform this action.'
     };
   }
 
   // Other client errors (404, etc.)
   return {
-    type: &apos;server&apos;,
-    message: error.message || &apos;An error occurred. Please try again.&apos;,
+    type: 'server',
+    message: error.message || 'An error occurred. Please try again.',
     status_code: error.status_code,
     code: error.code
   };
@@ -117,28 +117,28 @@ export const showErrorToast = (error: ErrorType, customMessage?: string) => {
   const message = customMessage || error.message;
   
   switch (error.type) {
-    case &apos;network&apos;:
+    case 'network':
       toast.error(message, {
         duration: 5000,
-        icon: &apos;🌐&apos;,
+        icon: '🌐',
       });
       break;
-    case &apos;validation&apos;:
+    case 'validation':
       toast.error(message, {
         duration: 4000,
-        icon: &apos;⚠️&apos;,
+        icon: '⚠️',
       });
       break;
-    case &apos;server&apos;:
+    case 'server':
       toast.error(message, {
         duration: 6000,
-        icon: &apos;🚨&apos;,
+        icon: '🚨',
       });
       break;
-    case &apos;permission&apos;:
+    case 'permission':
       toast.error(message, {
         duration: 5000,
-        icon: &apos;🔒&apos;,
+        icon: '🔒',
       });
       break;
     default:
@@ -154,7 +154,7 @@ export const showErrorToast = (error: ErrorType, customMessage?: string) => {
 export const showSuccessToast = (message: string, options?: { duration?: number; icon?: string }) => {
   toast.success(message, {
     duration: options?.duration || 3000,
-    icon: options?.icon || &apos;✅&apos;,
+    icon: options?.icon || '✅',
   });
 };
 
@@ -193,29 +193,29 @@ export const showSuccessToast = (message: string, options?: { duration?: number;
 /**
  * Get user-friendly error message for specific operations
  */
-    create: &apos;Failed to create item&apos;,
-    update: &apos;Failed to update item&apos;,
-    delete: &apos;Failed to delete item&apos;,
-    fetch: &apos;Failed to load data&apos;,
-    search: &apos;Search failed&apos;,
-    export: &apos;Export failed&apos;,
-    adjust: &apos;Stock adjustment failed&apos;,
-    acknowledge: &apos;Failed to acknowledge alert&apos;
+    create: 'Failed to create item',
+    update: 'Failed to update item',
+    delete: 'Failed to delete item',
+    fetch: 'Failed to load data',
+    search: 'Search failed',
+    export: 'Export failed',
+    adjust: 'Stock adjustment failed',
+    acknowledge: 'Failed to acknowledge alert'
   };
 
-  const baseMessage = baseMessages[operation] || &apos;Operation failed&apos;;
+  const baseMessage = baseMessages[operation] || 'Operation failed';
 
   switch (error.type) {
-    case &apos;network&apos;:
+    case 'network':
       return `${baseMessage}. Please check your internet connection and try again.`;
-    case &apos;validation&apos;:
+    case 'validation':
       return `${baseMessage}. Please check your input and try again.`;
-    case &apos;server&apos;:
+    case 'server':
       if (error.status_code === 404) {
         return `${baseMessage}. The requested item was not found.`;
       }
       if (error.status_code === 403) {
-        return `${baseMessage}. You don&apos;t have permission to perform this action.`;
+        return `${baseMessage}. You don't have permission to perform this action.`;
       }
       if (error.status_code === 409) {
         return `${baseMessage}. This action conflicts with existing data.`;

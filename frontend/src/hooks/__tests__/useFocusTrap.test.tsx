@@ -15,67 +15,67 @@ function TestComponent({ active = true }: { active?: boolean }) {
   );
 }
 
-describe(&apos;useFocusTrap&apos;, () => {
+describe('useFocusTrap', () => {
   beforeEach(() => {
     // Mock document.activeElement
-    Object.defineProperty(document, &apos;activeElement&apos;, {
+    Object.defineProperty(document, 'activeElement', {
       writable: true,
       value: document.body,
     });
   });
   
-  it(&apos;focuses the first focusable element when activated&apos;, () => {
+  it('focuses the first focusable element when activated', () => {
     render(<TestComponent />);
     
-    const button1 = screen.getByTestId(&apos;button-1&apos;);
+    const button1 = screen.getByTestId('button-1');
     expect(document.activeElement).toBe(button1);
   });
   
-  it(&apos;does not trap focus when inactive&apos;, () => {
+  it('does not trap focus when inactive', () => {
     render(<TestComponent active={false} />);
     
     // Should not focus any element
-    expect(document.activeElement).not.toBe(screen.getByTestId(&apos;button-1&apos;));
+    expect(document.activeElement).not.toBe(screen.getByTestId('button-1'));
   });
   
-  it(&apos;traps focus within the container using Tab key&apos;, () => {
+  it('traps focus within the container using Tab key', () => {
     render(<TestComponent />);
     
-    const button1 = screen.getByTestId(&apos;button-1&apos;);
-    const button2 = screen.getByTestId(&apos;button-2&apos;);
-    const button3 = screen.getByTestId(&apos;button-3&apos;);
+    const button1 = screen.getByTestId('button-1');
+    const button2 = screen.getByTestId('button-2');
+    const button3 = screen.getByTestId('button-3');
     
     // Initial focus should be on the first button
     expect(document.activeElement).toBe(button1);
     
     // Tab should move to the next button
-    fireEvent.keyDown(button1, { key: &apos;Tab&apos; });
+    fireEvent.keyDown(button1, { key: 'Tab' });
     expect(document.activeElement).toBe(button2);
     
     // Tab again should move to the last button
-    fireEvent.keyDown(button2, { key: &apos;Tab&apos; });
+    fireEvent.keyDown(button2, { key: 'Tab' });
     expect(document.activeElement).toBe(button3);
     
     // Tab from the last button should cycle back to the first
-    fireEvent.keyDown(button3, { key: &apos;Tab&apos; });
+    fireEvent.keyDown(button3, { key: 'Tab' });
     expect(document.activeElement).toBe(button1);
   });
   
-  it(&apos;handles Shift+Tab to move focus backwards&apos;, () => {
+  it('handles Shift+Tab to move focus backwards', () => {
     render(<TestComponent />);
     
-    const button1 = screen.getByTestId(&apos;button-1&apos;);
-    const button3 = screen.getByTestId(&apos;button-3&apos;);
+    const button1 = screen.getByTestId('button-1');
+    const button3 = screen.getByTestId('button-3');
     
     // Initial focus should be on the first button
     expect(document.activeElement).toBe(button1);
     
     // Shift+Tab from the first button should cycle to the last
-    fireEvent.keyDown(button1, { key: &apos;Tab&apos;, shiftKey: true });
+    fireEvent.keyDown(button1, { key: 'Tab', shiftKey: true });
     expect(document.activeElement).toBe(button3);
   });
   
-  it(&apos;focuses the initial element specified by ref&apos;, () => {
+  it('focuses the initial element specified by ref', () => {
     // Component with initialFocusRef
     function TestComponentWithInitialFocus() {
       const initialRef = React.useRef<HTMLButtonElement>(null);
@@ -93,10 +93,10 @@ describe(&apos;useFocusTrap&apos;, () => {
     render(<TestComponentWithInitialFocus />);
     
     // Initial focus should be on button 2
-    expect(document.activeElement).toBe(screen.getByTestId(&apos;button-2&apos;));
+    expect(document.activeElement).toBe(screen.getByTestId('button-2'));
   });
   
-  it(&apos;ignores non-Tab key events&apos;, () => {
+  it('ignores non-Tab key events', () => {
     render(<TestComponent />);
     
     const button1 = screen.getByTestId('button-1');

@@ -44,11 +44,11 @@ export function Loading({ size = 'md', text, className = '' }: LoadingProps) {
   );
 }
 
-export function LoadingSpinner({ size = &apos;md&apos;, className = &apos;&apos; }: { size?: &apos;sm&apos; | &apos;md&apos; | &apos;lg&apos;; className?: string }) {
+export function LoadingSpinner({ size = 'md', className = '' }: { size?: 'sm' | 'md' | 'lg'; className?: string }) {
   const sizeClasses = {
-    sm: &apos;h-4 w-4&apos;,
-    md: &apos;h-6 w-6&apos;,
-    lg: &apos;h-8 w-8&apos;,
+    sm: 'h-4 w-4',
+    md: 'h-6 w-6',
+    lg: 'h-8 w-8',
   };
   
   return (

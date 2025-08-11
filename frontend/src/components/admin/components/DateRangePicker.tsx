@@ -22,8 +22,8 @@ export default function DateRangePicker({ from, to, onChange }: DateRangePickerP
     const fromDate = new Date(toDate.getTime() - days * 24 * 60 * 60 * 1000);
     
     onChange(
-      fromDate.toISOString().split(&apos;T&apos;)[0],
-      toDate.toISOString().split(&apos;T&apos;)[0]
+      fromDate.toISOString().split('T')[0],
+      toDate.toISOString().split('T')[0]
     );
   };
 

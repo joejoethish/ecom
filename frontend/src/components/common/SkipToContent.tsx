@@ -17,7 +17,7 @@ export function SkipToContent({ contentId = 'main-content' }: SkipToContentProps
       
       // Remove tabIndex after focus to avoid leaving a tabIndex on the element
       setTimeout(() => {
-        contentElement.removeAttribute(&apos;tabIndex&apos;);
+        contentElement.removeAttribute('tabIndex');
       }, 100);
     }
   };

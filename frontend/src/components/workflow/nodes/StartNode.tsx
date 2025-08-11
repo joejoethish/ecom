@@ -14,7 +14,7 @@ import { Handle, Position, NodeProps } from 'reactflow';
           </svg>
         </div>
         <div className="text-sm font-medium">
-          {data.label || &apos;Start&apos;}
+          {data.label || 'Start'}
         </div>
       </div>
       

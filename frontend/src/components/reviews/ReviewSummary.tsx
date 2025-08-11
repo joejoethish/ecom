@@ -13,14 +13,14 @@ interface ReviewSummaryProps {
   summary,
   onRatingFilter,
   selectedRating,
-  className = &apos;&apos;,
+  className = '',
 }) => {
   const ratingLabels = {
-    5: &apos;Excellent&apos;,
-    4: &apos;Very Good&apos;,
-    3: &apos;Good&apos;,
-    2: &apos;Fair&apos;,
-    1: &apos;Poor&apos;,
+    5: 'Excellent',
+    4: 'Very Good',
+    3: 'Good',
+    2: 'Fair',
+    1: 'Poor',
   };
 
   const handleRatingClick = (rating: number) => {
@@ -48,7 +48,7 @@ interface ReviewSummaryProps {
                 className="justify-center lg:justify-start mb-2"
               />
               <p className="text-sm text-gray-600">
-                Based on {summary.total_reviews.toLocaleString()} review{summary.total_reviews !== 1 ? &apos;s&apos; : &apos;&apos;}
+                Based on {summary.total_reviews.toLocaleString()} review{summary.total_reviews !== 1 ? 's' : ''}
               </p>
             </div>
             
@@ -80,8 +80,8 @@ interface ReviewSummaryProps {
                 onClick={() => handleRatingClick(rating)}
                 className={`w-full flex items-center gap-3 p-2 rounded-md transition-colors ${
                   onRatingFilter 
-                    ? `hover:bg-gray-50 ${isSelected ? &apos;bg-blue-50 border border-blue-200&apos; : &apos;&apos;}` 
-                    : &apos;&apos;
+                    ? `hover:bg-gray-50 ${isSelected ? 'bg-blue-50 border border-blue-200' : ''}` 
+                    : ''
                 }`}
                 disabled={!onRatingFilter}
               >

@@ -5,7 +5,7 @@ import { Order, OrderItem, ReturnRequest, Replacement, Address, Product, ApiResp
 /**
  * Type guard to check if an error is an AxiosError
  */
-  return !!(error && typeof error === &apos;object&apos; && &apos;response&apos; in error && &apos;request&apos; in error);
+  return !!(error && typeof error === 'object' && 'response' in error && 'request' in error);
 };
 
 /**
@@ -30,7 +30,7 @@ import { Order, OrderItem, ReturnRequest, Replacement, Address, Product, ApiResp
  * Type guard to check if an API response has an error
  */
   success: false; 
-  error: NonNullable<ApiResponse<T>[&apos;error&apos;]> 
+  error: NonNullable<ApiResponse<T>['error']> 
 } => {
   return !response.success && !!response.error;
 };
@@ -38,13 +38,13 @@ import { Order, OrderItem, ReturnRequest, Replacement, Address, Product, ApiResp
 /**
  * Type guard to check if an error is a network error
  */
-  return error instanceof Error && &apos;code&apos; in error && error.code === &apos;network_error&apos;;
+  return error instanceof Error && 'code' in error && error.code === 'network_error';
 };
 
 /**
  * Type guard to check if an error is an API error
  */
-  return error instanceof Error && &apos;code&apos; in error && error.code === &apos;api_error&apos;;
+  return error instanceof Error && 'code' in error && error.code === 'api_error';
 };
 
 /**
@@ -56,7 +56,7 @@ import { Order, OrderItem, ReturnRequest, Replacement, Address, Product, ApiResp
 /**
  * Type guard to check if a string is not empty
  */
-  return typeof value === &apos;string&apos; && value.trim().length > 0;
+  return typeof value === 'string' && value.trim().length > 0;
 };
 
 /**
@@ -92,7 +92,7 @@ import { Order, OrderItem, ReturnRequest, Replacement, Address, Product, ApiResp
 /**
  * Type guard to check if an address has a second address line
  */
-  return !!address.address_line_2 && address.address_line_2.trim() !== &apos;&apos;;
+  return !!address.address_line_2 && address.address_line_2.trim() !== '';
 };
 
 /**
@@ -100,7 +100,7 @@ import { Order, OrderItem, ReturnRequest, Replacement, Address, Product, ApiResp
  */
   tracking_number: NonNullable<Replacement['tracking_number']> 
 } => {
-  return !!replacement.tracking_number && replacement.tracking_number.trim() !== &apos;&apos;;
+  return !!replacement.tracking_number && replacement.tracking_number.trim() !== '';
 };
 
 /**
@@ -124,7 +124,7 @@ import { Order, OrderItem, ReturnRequest, Replacement, Address, Product, ApiResp
  */
   refund_amount: NonNullable<ReturnRequest['refund_amount']> 
 } => {
-  return typeof request.refund_amount === &apos;number&apos; && request.refund_amount > 0;
+  return typeof request.refund_amount === 'number' && request.refund_amount > 0;
 };
 
 /**
@@ -132,7 +132,7 @@ import { Order, OrderItem, ReturnRequest, Replacement, Address, Product, ApiResp
  */
   return_tracking_number: NonNullable<ReturnRequest['return_tracking_number']> 
 } => {
-  return !!request.return_tracking_number && request.return_tracking_number.trim() !== &apos;&apos;;
+  return !!request.return_tracking_number && request.return_tracking_number.trim() !== '';
 };
 
 /**

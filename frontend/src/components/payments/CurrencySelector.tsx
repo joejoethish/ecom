@@ -31,7 +31,7 @@ interface CurrencySelectorProps {
   useEffect(() => {
     if (selectedCurrency && amount > 0) {
       dispatch(convertCurrency({
-        from_currency: &apos;USD&apos;, // Assuming base currency is USD
+        from_currency: 'USD', // Assuming base currency is USD
         to_currency: selectedCurrency,
         amount
       }));
@@ -97,7 +97,7 @@ interface CurrencySelectorProps {
         <div className="mt-2 text-sm">
           <span className="font-medium">
             {currencyConversion.amount?.toFixed(2)} USD =
-            {&apos; &apos;}{selectedCurrencyObj?.symbol}{currencyConversion.converted_amount?.toFixed(2)} {selectedCurrency}
+            {' '}{selectedCurrencyObj?.symbol}{currencyConversion.converted_amount?.toFixed(2)} {selectedCurrency}
           </span>
         </div>
       ) : null}

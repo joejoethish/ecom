@@ -37,7 +37,7 @@ interface UpdateChatMessagesPayload {
 };
 
 const chatSlice = createSlice({
-  name: &apos;chat&apos;,
+  name: 'chat',
   initialState,
   reducers: {
     setChatRooms: (state, action: PayloadAction<ChatRoom[]>) => {
@@ -69,11 +69,11 @@ const chatSlice = createSlice({
     updateChatMessages: (state, action: PayloadAction<UpdateChatMessagesPayload>) => {
       
       if (!state.rooms[roomId]) {
-        // Room doesn&apos;t exist yet, create it
+        // Room doesn't exist yet, create it
         state.rooms[roomId] = {
           id: roomId,
           name: `Room ${roomId}`,
-          roomType: &apos;UNKNOWN&apos;,
+          roomType: 'UNKNOWN',
           participants: [],
           messages: [],
           unreadCount: 0,

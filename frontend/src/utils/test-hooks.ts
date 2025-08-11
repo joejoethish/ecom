@@ -7,7 +7,7 @@ import { createTestStore } from './test-utils';
 import type { RootState } from '@/store';
 
 // Hook testing utilities with proper typing
-interface RenderHookWithStoreOptions<TProps> extends Omit<RenderHookOptions<TProps>, &apos;wrapper&apos;> {
+interface RenderHookWithStoreOptions<TProps> extends Omit<RenderHookOptions<TProps>, 'wrapper'> {
   preloadedState?: Partial<RootState>;
   store?: EnhancedStore;
 }
@@ -39,9 +39,9 @@ export function renderHookWithStore<TResult, TProps>(
   back: jest.fn(),
   forward: jest.fn(),
   refresh: jest.fn(),
-  pathname: &apos;/&apos;,
+  pathname: '/',
   query: {},
-  asPath: &apos;/&apos;,
+  asPath: '/',
   ...overrides,
 });
 
@@ -59,7 +59,7 @@ export function renderHookWithStore<TResult, TProps>(
   connect: jest.fn(),
   disconnect: jest.fn(),
   send: jest.fn(),
-  getConnectionState: jest.fn(() => &apos;CLOSED&apos;),
+  getConnectionState: jest.fn(() => 'CLOSED'),
   onConnectionStateChange: jest.fn(),
   offConnectionStateChange: jest.fn(),
   onMessage: jest.fn(),
@@ -79,7 +79,7 @@ export function renderHookWithStore<TResult, TProps>(
           ok: true,
           json: () => Promise.resolve(response),
           status: 200,
-          statusText: &apos;OK&apos;,
+          statusText: 'OK',
         });
       }
       return Promise.reject(new Error(`No mock response for ${url}`));

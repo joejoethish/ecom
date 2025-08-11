@@ -21,7 +21,7 @@ export function Pagination({ pagination, onPageChange }: PaginationProps) {
     let startPage = Math.max(2, current_page - Math.floor(maxPagesToShow / 2));
     let endPage = Math.min(total_pages - 1, startPage + maxPagesToShow - 2);
     
-    // Adjust if we&apos;re near the beginning
+    // Adjust if we're near the beginning
     if (startPage <= 2) {
       startPage = 2;
       endPage = Math.min(total_pages - 1, maxPagesToShow);
@@ -35,7 +35,7 @@ export function Pagination({ pagination, onPageChange }: PaginationProps) {
     
     // Add ellipsis after first page if needed
     if (startPage > 2) {
-      pages.push(&apos;ellipsis-start&apos;);
+      pages.push('ellipsis-start');
     }
     
     // Add middle pages
@@ -70,8 +70,8 @@ export function Pagination({ pagination, onPageChange }: PaginationProps) {
             disabled={current_page === 1}
             className={`px-3 py-2 rounded-md text-sm ${
               current_page === 1
-                ? &apos;text-gray-400 cursor-not-allowed&apos;
-                : &apos;text-gray-700 hover:bg-gray-100&apos;
+                ? 'text-gray-400 cursor-not-allowed'
+                : 'text-gray-700 hover:bg-gray-100'
             }`}
             aria-label=&quot;Previous page&quot;
           >
@@ -84,15 +84,15 @@ export function Pagination({ pagination, onPageChange }: PaginationProps) {
         {/* Page Numbers */}
         {getPageNumbers().map((page, index) => (
           <li key={`page-${page}-${index}`}>
-            {page === &apos;ellipsis-start&apos; || page === &apos;ellipsis-end&apos; ? (
+            {page === 'ellipsis-start' || page === 'ellipsis-end' ? (
               <span className="px-3 py-2 text-gray-500">...</span>
             ) : (
               <button
                 onClick={() => onPageChange(page as number)}
                 className={`px-3 py-2 rounded-md text-sm ${
                   current_page === page
-                    ? &apos;bg-blue-600 text-white&apos;
-                    : &apos;text-gray-700 hover:bg-gray-100&apos;
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-700 hover:bg-gray-100'
                 }`}
               >
                 {page}
@@ -108,8 +108,8 @@ export function Pagination({ pagination, onPageChange }: PaginationProps) {
             disabled={current_page === total_pages}
             className={`px-3 py-2 rounded-md text-sm ${
               current_page === total_pages
-                ? &apos;text-gray-400 cursor-not-allowed&apos;
-                : &apos;text-gray-700 hover:bg-gray-100&apos;
+                ? 'text-gray-400 cursor-not-allowed'
+                : 'text-gray-700 hover:bg-gray-100'
             }`}
             aria-label=&quot;Next page&quot;
           >

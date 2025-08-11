@@ -26,7 +26,7 @@ export function WishlistButton({
     toggleWishlist(productId, productName);
   };
 
-  if (variant === &apos;icon&apos;) {
+  if (variant === 'icon') {
     return (
       <button
         onClick={handleClick}
@@ -76,7 +76,7 @@ export function WishlistButton({
           d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
         />
       </svg>
-      {inWishlist ? &apos;Remove from Wishlist&apos; : &apos;Add to Wishlist&apos;}
+      {inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
     </Button>
   );
 }

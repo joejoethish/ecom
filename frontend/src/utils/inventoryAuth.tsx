@@ -75,7 +75,7 @@ export const hasInventoryPermission = (user: User | null, permission: InventoryP
   if (user.is_superuser) return true;
   
   // Check role-based permissions
-  const userRole = user.user_type || &apos;customer&apos;;
+  const userRole = user.user_type || 'customer';
   const rolePermissions = ROLE_PERMISSIONS[userRole] || [];
   
   return rolePermissions.includes(permission);
@@ -105,7 +105,7 @@ export const getUserInventoryPermissions = (user: User | null): InventoryPermiss
     return Object.values(InventoryPermission);
   }
   
-  const userRole = user.user_type || &apos;customer&apos;;
+  const userRole = user.user_type || 'customer';
   return ROLE_PERMISSIONS[userRole] || [];
 };
 
@@ -179,13 +179,13 @@ export const useInventoryAuth = () => {
     
     // Redirect to login if not authenticated
     if (!auth.isAuthenticated) {
-      if (typeof window !== &apos;undefined&apos;) {
+      if (typeof window !== 'undefined') {
         window.location.href = `/auth/login?redirect=${encodeURIComponent(window.location.pathname)}`;
       }
       return null;
     }
     
-    // Show access denied if user doesn&apos;t have required permissions
+    // Show access denied if user doesn't have required permissions
     if (!auth.checkAllPermissions(requiredPermissions)) {
       return (
         <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
@@ -196,7 +196,7 @@ export const useInventoryAuth = () => {
           </div>
           <h2 className="text-xl font-semibold text-gray-900 mb-2">Access Denied</h2>
           <p className="text-gray-600 mb-4">
-            You don&apos;t have permission to access this inventory management feature.
+            You don't have permission to access this inventory management feature.
           </p>
           <p className="text-sm text-gray-500">
             Contact your administrator if you believe this is an error.

@@ -8,60 +8,60 @@ interface NodeToolbarProps {
 
 const nodeCategories = [
   {
-    name: &apos;Flow Control&apos;,
+    name: 'Flow Control',
     nodes: [
       {
-        type: &apos;start&apos;,
-        name: &apos;Start&apos;,
-        icon: &apos;▶️&apos;,
-        description: &apos;Workflow entry point&apos;,
+        type: 'start',
+        name: 'Start',
+        icon: '▶️',
+        description: 'Workflow entry point',
       },
       {
-        type: &apos;end&apos;,
-        name: &apos;End&apos;,
-        icon: &apos;⏹️&apos;,
-        description: &apos;Workflow completion&apos;,
+        type: 'end',
+        name: 'End',
+        icon: '⏹️',
+        description: 'Workflow completion',
       },
       {
-        type: &apos;decision&apos;,
-        name: &apos;Decision&apos;,
-        icon: &apos;🔀&apos;,
-        description: &apos;Conditional branching&apos;,
+        type: 'decision',
+        name: 'Decision',
+        icon: '🔀',
+        description: 'Conditional branching',
       },
     ],
   },
   {
-    name: &apos;Actions&apos;,
+    name: 'Actions',
     nodes: [
       {
-        type: &apos;task&apos;,
-        name: &apos;Task&apos;,
-        icon: &apos;⚙️&apos;,
-        description: &apos;Execute custom task&apos;,
+        type: 'task',
+        name: 'Task',
+        icon: '⚙️',
+        description: 'Execute custom task',
       },
       {
-        type: &apos;approval&apos;,
-        name: &apos;Approval&apos;,
-        icon: &apos;✅&apos;,
-        description: &apos;Request approval&apos;,
+        type: 'approval',
+        name: 'Approval',
+        icon: '✅',
+        description: 'Request approval',
       },
       {
-        type: &apos;notification&apos;,
-        name: &apos;Notification&apos;,
-        icon: &apos;📧&apos;,
-        description: &apos;Send notification&apos;,
+        type: 'notification',
+        name: 'Notification',
+        icon: '📧',
+        description: 'Send notification',
       },
       {
-        type: &apos;integration&apos;,
-        name: &apos;Integration&apos;,
-        icon: &apos;🔗&apos;,
-        description: &apos;External system call&apos;,
+        type: 'integration',
+        name: 'Integration',
+        icon: '🔗',
+        description: 'External system call',
       },
       {
-        type: &apos;delay&apos;,
-        name: &apos;Delay&apos;,
-        icon: &apos;⏰&apos;,
-        description: &apos;Wait for specified time&apos;,
+        type: 'delay',
+        name: 'Delay',
+        icon: '⏰',
+        description: 'Wait for specified time',
       },
     ],
   },
@@ -112,9 +112,9 @@ const nodeCategories = [
           <div className="space-y-2">
             <button
               onClick={() => {
-                onAddNode(&apos;start&apos;);
-                onAddNode(&apos;task&apos;);
-                onAddNode(&apos;end&apos;);
+                onAddNode('start');
+                onAddNode('task');
+                onAddNode('end');
               }}
               className=&quot;w-full px-3 py-2 text-sm text-blue-600 border border-blue-300 rounded-md hover:bg-blue-50&quot;
             >
@@ -123,10 +123,10 @@ const nodeCategories = [
             
             <button
               onClick={() => {
-                onAddNode(&apos;start&apos;);
-                onAddNode(&apos;approval&apos;);
-                onAddNode(&apos;notification&apos;);
-                onAddNode(&apos;end&apos;);
+                onAddNode('start');
+                onAddNode('approval');
+                onAddNode('notification');
+                onAddNode('end');
               }}
               className=&quot;w-full px-3 py-2 text-sm text-green-600 border border-green-300 rounded-md hover:bg-green-50&quot;
             >

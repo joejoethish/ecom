@@ -7,7 +7,7 @@ interface SwitchProps {
   className?: string;
 }
 
-export function Switch({ checked, onCheckedChange, disabled = false, className = &apos;&apos; }: SwitchProps) {
+export function Switch({ checked, onCheckedChange, disabled = false, className = '' }: SwitchProps) {
   return (
     <button
       type="button"
@@ -16,7 +16,7 @@ export function Switch({ checked, onCheckedChange, disabled = false, className =
       disabled={disabled}
       onClick={() => onCheckedChange(!checked)}
       className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:cursor-not-allowed disabled:opacity-50 ${
-        checked ? &apos;bg-blue-600&apos; : &apos;bg-gray-200&apos;
+        checked ? 'bg-blue-600' : 'bg-gray-200'
       } ${className}`}
     >
       <span

@@ -36,16 +36,16 @@ export const fetchCart = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to fetch cart&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to fetch cart');
       }
     } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to fetch cart&apos;);
+      return rejectWithValue(error.message || 'Failed to fetch cart');
     }
   }
 );
 
 export const addToCart = createAsyncThunk(
-  &apos;cart/addToCart&apos;,
+  'cart/addToCart',
   async ({ productId, quantity }: { productId: string; quantity: number }, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<CartItem>(API_ENDPOINTS.CART.ADD, {
@@ -56,16 +56,16 @@ export const addToCart = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to add item to cart&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to add item to cart');
       }
     } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to add item to cart&apos;);
+      return rejectWithValue(error.message || 'Failed to add item to cart');
     }
   }
 );
 
 export const updateCartItem = createAsyncThunk(
-  &apos;cart/updateCartItem&apos;,
+  'cart/updateCartItem',
   async ({ itemId, quantity }: { itemId: string; quantity: number }, { rejectWithValue }) => {
     try {
       const response = await apiClient.patch<CartItem>(API_ENDPOINTS.CART.UPDATE(itemId), {
@@ -75,16 +75,16 @@ export const updateCartItem = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to update cart item&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to update cart item');
       }
     } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to update cart item&apos;);
+      return rejectWithValue(error.message || 'Failed to update cart item');
     }
   }
 );
 
 export const removeCartItem = createAsyncThunk(
-  &apos;cart/removeCartItem&apos;,
+  'cart/removeCartItem',
   async (itemId: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.delete(API_ENDPOINTS.CART.REMOVE(itemId));
@@ -92,16 +92,16 @@ export const removeCartItem = createAsyncThunk(
       if (response.success) {
         return itemId;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to remove item from cart&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to remove item from cart');
       }
     } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to remove item from cart&apos;);
+      return rejectWithValue(error.message || 'Failed to remove item from cart');
     }
   }
 );
 
 export const saveForLater = createAsyncThunk(
-  &apos;cart/saveForLater&apos;,
+  'cart/saveForLater',
   async (itemId: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<SavedItem>(`/cart/save-for-later/${itemId}/`);
@@ -109,16 +109,16 @@ export const saveForLater = createAsyncThunk(
       if (response.success && response.data) {
         return { savedItem: response.data, itemId };
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to save item for later&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to save item for later');
       }
     } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to save item for later&apos;);
+      return rejectWithValue(error.message || 'Failed to save item for later');
     }
   }
 );
 
 export const moveToCart = createAsyncThunk(
-  &apos;cart/moveToCart&apos;,
+  'cart/moveToCart',
   async (savedItemId: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<CartItem>(`/cart/move-to-cart/${savedItemId}/`);
@@ -126,16 +126,16 @@ export const moveToCart = createAsyncThunk(
       if (response.success && response.data) {
         return { cartItem: response.data, savedItemId };
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to move item to cart&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to move item to cart');
       }
     } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to move item to cart&apos;);
+      return rejectWithValue(error.message || 'Failed to move item to cart');
     }
   }
 );
 
 export const removeSavedItem = createAsyncThunk(
-  &apos;cart/removeSavedItem&apos;,
+  'cart/removeSavedItem',
   async (savedItemId: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.delete(`/cart/saved-items/${savedItemId}/`);
@@ -143,16 +143,16 @@ export const removeSavedItem = createAsyncThunk(
       if (response.success) {
         return savedItemId;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to remove saved item&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to remove saved item');
       }
     } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to remove saved item&apos;);
+      return rejectWithValue(error.message || 'Failed to remove saved item');
     }
   }
 );
 
 export const applyCoupon = createAsyncThunk(
-  &apos;cart/applyCoupon&apos;,
+  'cart/applyCoupon',
   async (couponCode: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<AppliedCoupon>('/cart/apply-coupon/', {

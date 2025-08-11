@@ -77,7 +77,7 @@ export const isRetryablePasswordResetError = (errorCode: string): boolean => {
 export const getPasswordResetErrorMessage = (error: unknown): string => {
   const errorInfo = extractErrorInfo(error);
   
-  // Check if it&apos;s a specific password reset error
+  // Check if it's a specific password reset error
   if (errorInfo.code in PASSWORD_RESET_ERROR_MESSAGES) {
     return PASSWORD_RESET_ERROR_MESSAGES[errorInfo.code as keyof typeof PASSWORD_RESET_ERROR_MESSAGES];
   }
@@ -97,8 +97,8 @@ export const logPasswordResetError = (
   const errorInfo = extractErrorInfo(error);
   
   // Enhanced logging for password reset errors
-  if (process.env.NODE_ENV === &apos;development&apos;) {
-    console.error(&apos;Password Reset Error:&apos;, {
+  if (process.env.NODE_ENV === 'development') {
+    console.error('Password Reset Error:', {
       context,
       error: errorInfo,
       additionalData,
@@ -115,7 +115,7 @@ export const logPasswordResetError = (
 /**
  * Handle password reset API response errors
  */
-  const errorCode = response.error?.code || &apos;unknown_error&apos;;
+  const errorCode = response.error?.code || 'unknown_error';
   const errorMessage = getPasswordResetErrorMessage(response.error);
   
   const error = new Error(errorMessage);
@@ -197,7 +197,7 @@ export const PASSWORD_RESET_RETRY_CONFIG = {
 /**
  * Security event logging for password reset operations
  */
-  event: &apos;request&apos; | &apos;validate&apos; | &apos;reset&apos; | &apos;suspicious&apos;,
+  event: 'request' | 'validate' | 'reset' | 'suspicious',
   details: {
     email?: string;
     token?: string;

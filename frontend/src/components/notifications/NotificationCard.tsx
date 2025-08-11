@@ -46,18 +46,18 @@ interface NotificationCardProps {
   compact = false,
   showActions = true
 }) => {
-  const isUnread = notification.status !== &apos;READ&apos;;
+  const isUnread = notification.status !== 'READ';
 
   // Get channel icon
   const getChannelIcon = (channel: string) => {
     switch (channel) {
-      case &apos;EMAIL&apos;:
+      case 'EMAIL':
         return <Mail size={16} className="text-blue-500" />;
-      case &apos;SMS&apos;:
+      case 'SMS':
         return <MessageSquare size={16} className="text-green-500" />;
-      case &apos;PUSH&apos;:
+      case 'PUSH':
         return <Smartphone size={16} className="text-purple-500" />;
-      case &apos;IN_APP&apos;:
+      case 'IN_APP':
         return <Monitor size={16} className="text-orange-500" />;
       default:
         return <Bell size={16} className="text-gray-500" />;
@@ -67,14 +67,14 @@ interface NotificationCardProps {
   // Get status icon
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case &apos;SENT&apos;:
-      case &apos;DELIVERED&apos;:
+      case 'SENT':
+      case 'DELIVERED':
         return <CheckCircle size={16} className="text-green-500" />;
-      case &apos;READ&apos;:
+      case 'READ':
         return <CheckCircle size={16} className="text-blue-500" />;
-      case &apos;FAILED&apos;:
+      case 'FAILED':
         return <XCircle size={16} className="text-red-500" />;
-      case &apos;PENDING&apos;:
+      case 'PENDING':
         return <Clock size={16} className="text-yellow-500" />;
       default:
         return <AlertCircle size={16} className="text-gray-500" />;
@@ -84,16 +84,16 @@ interface NotificationCardProps {
   // Get priority color
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case &apos;URGENT&apos;:
-        return &apos;bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200&apos;;
-      case &apos;HIGH&apos;:
-        return &apos;bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200&apos;;
-      case &apos;NORMAL&apos;:
-        return &apos;bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200&apos;;
-      case &apos;LOW&apos;:
-        return &apos;bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200&apos;;
+      case 'URGENT':
+        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+      case 'HIGH':
+        return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
+      case 'NORMAL':
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+      case 'LOW':
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
       default:
-        return &apos;bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200&apos;;
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
     }
   };
 
@@ -102,16 +102,16 @@ interface NotificationCardProps {
     if (!templateType) return null;
     
     switch (templateType) {
-      case &apos;ORDER_CONFIRMATION&apos;:
-      case &apos;ORDER_STATUS_UPDATE&apos;:
+      case 'ORDER_CONFIRMATION':
+      case 'ORDER_STATUS_UPDATE':
         return <Package size={16} className="text-blue-500" />;
-      case &apos;PAYMENT_SUCCESS&apos;:
-      case &apos;PAYMENT_FAILED&apos;:
+      case 'PAYMENT_SUCCESS':
+      case 'PAYMENT_FAILED':
         return <CreditCard size={16} className="text-green-500" />;
-      case &apos;SHIPPING_UPDATE&apos;:
-      case &apos;DELIVERY_CONFIRMATION&apos;:
+      case 'SHIPPING_UPDATE':
+      case 'DELIVERY_CONFIRMATION':
         return <Truck size={16} className="text-purple-500" />;
-      case &apos;REVIEW_REQUEST&apos;:
+      case 'REVIEW_REQUEST':
         return <Star size={16} className="text-yellow-500" />;
       default:
         return null;
@@ -170,7 +170,7 @@ interface NotificationCardProps {
                     </span>
                   </div>
                   
-                  {notification.priority !== &apos;NORMAL&apos; && (
+                  {notification.priority !== 'NORMAL' && (
                     <Badge 
                       variant="secondary" 
                       className={`text-xs ${getPriorityColor(notification.priority)}`}
@@ -197,7 +197,7 @@ interface NotificationCardProps {
             )}
 
             {/* Error message for failed notifications */}
-            {notification.status === &apos;FAILED&apos; && notification.error_message && (
+            {notification.status === 'FAILED' && notification.error_message && (
               <div className="mb-3 p-2 bg-red-50 dark:bg-red-950/20 rounded-md">
                 <p className="text-xs text-red-600 dark:text-red-400">
                   Error: {notification.error_message}
@@ -230,7 +230,7 @@ interface NotificationCardProps {
                   </Button>
                 )}
                 
-                {notification.can_retry && notification.status === &apos;FAILED&apos; && (
+                {notification.can_retry && notification.status === 'FAILED' && (
                   <Button
                     variant="outline"
                     size="sm"

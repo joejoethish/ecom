@@ -39,7 +39,7 @@ class ApiClient {
     this.client.interceptors.response.use(
       (response: unknown) => response,
       async (error: unknown) => {
-        if (error && typeof error === &apos;object&apos; && &apos;config&apos; in error && &apos;response&apos; in error) {
+        if (error && typeof error === 'object' && 'config' in error && 'response' in error) {
           const originalRequest = (error as any).config;
 
           if ((error as any).response?.status === 401 && !originalRequest._retry) {
@@ -61,8 +61,8 @@ class ApiClient {
             } catch (refreshError) {
               // Refresh failed, redirect to login
               removeStoredTokens();
-              if (typeof window !== &apos;undefined&apos;) {
-                window.location.href = &apos;/auth/login&apos;;
+              if (typeof window !== 'undefined') {
+                window.location.href = '/auth/login';
               }
             }
           }
@@ -74,7 +74,7 @@ class ApiClient {
   }
 
   private async refreshToken(refreshToken: string): Promise<unknown> {
-    return this.client.post(&apos;/auth/refresh/&apos;, {
+    return this.client.post('/auth/refresh/', {
       refresh: refreshToken,
     });
   }

@@ -40,7 +40,7 @@ import { Handle, Position, NodeProps } from 'reactflow';
             </svg>
           </div>
           <div className="text-xs font-medium text-yellow-800 whitespace-nowrap">
-            {data.label || &apos;Decision&apos;}
+            {data.label || 'Decision'}
           </div>
         </div>
       </div>

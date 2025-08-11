@@ -13,7 +13,7 @@ interface DatePickerWithRangeProps {
   className?: string;
 }
 
-export function DatePickerWithRange({ date, onDateChange, className = &apos;&apos; }: DatePickerWithRangeProps) {
+export function DatePickerWithRange({ date, onDateChange, className = '' }: DatePickerWithRangeProps) {
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
       <input

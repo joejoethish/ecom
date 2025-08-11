@@ -48,7 +48,7 @@ export const productsApi = {
    * Get featured products for homepage
    */
   getFeaturedProducts: async (): Promise<ApiResponse<Product[]>> => {
-    return apiClient.get(&apos;/products/featured/&apos;);
+    return apiClient.get('/products/featured/');
   },
 
   /**
@@ -60,17 +60,17 @@ export const productsApi = {
       min_price?: number;
       max_price?: number;
       brand?: string;
-      sort?: &apos;name&apos; | &apos;price_low&apos; | &apos;price_high&apos; | &apos;rating&apos; | &apos;newest&apos;;
+      sort?: 'name' | 'price_low' | 'price_high' | 'rating' | 'newest';
     }
   ): Promise<ApiResponse<CategoryProductsResponse>> => {
     const queryParams = new URLSearchParams();
     
-    if (params?.min_price) queryParams.append(&apos;min_price&apos;, params.min_price.toString());
-    if (params?.max_price) queryParams.append(&apos;max_price&apos;, params.max_price.toString());
-    if (params?.brand) queryParams.append(&apos;brand&apos;, params.brand);
-    if (params?.sort) queryParams.append(&apos;sort&apos;, params.sort);
+    if (params?.min_price) queryParams.append('min_price', params.min_price.toString());
+    if (params?.max_price) queryParams.append('max_price', params.max_price.toString());
+    if (params?.brand) queryParams.append('brand', params.brand);
+    if (params?.sort) queryParams.append('sort', params.sort);
     
-    const url = `/products/category/${categorySlug}/${queryParams.toString() ? `?${queryParams.toString()}` : &apos;&apos;}`;
+    const url = `/products/category/${categorySlug}/${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
     return apiClient.get(url);
   },
 

@@ -31,73 +31,73 @@ export const fetchShippingPartners = createAsyncThunk(
       const response = await shippingApi.getShippingPartners();
       return response.data;
     } catch (error: unknown) {
-      return rejectWithValue(error.response?.data?.message || &apos;Failed to fetch shipping partners&apos;);
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch shipping partners');
     }
   }
 );
 
 export const checkServiceability = createAsyncThunk(
-  &apos;shipping/checkServiceability&apos;,
+  'shipping/checkServiceability',
   async (data: ServiceabilityCheck, { rejectWithValue }) => {
     try {
       const response = await shippingApi.checkServiceability(data.pin_code);
       return response.data;
     } catch (error: unknown) {
-      return rejectWithValue(error.response?.data?.message || &apos;Failed to check serviceability&apos;);
+      return rejectWithValue(error.response?.data?.message || 'Failed to check serviceability');
     }
   }
 );
 
 export const fetchAvailableDeliverySlots = createAsyncThunk(
-  &apos;shipping/fetchAvailableSlots&apos;,
+  'shipping/fetchAvailableSlots',
   async (data: DeliverySlotAvailability, { rejectWithValue }) => {
     try {
       const response = await shippingApi.getAvailableDeliverySlots(data);
       return response.data;
     } catch (error: unknown) {
-      return rejectWithValue(error.response?.data?.message || &apos;Failed to fetch delivery slots&apos;);
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch delivery slots');
     }
   }
 );
 
 export const calculateShippingRates = createAsyncThunk(
-  &apos;shipping/calculateRates&apos;,
+  'shipping/calculateRates',
   async (data: ShippingRateCalculation, { rejectWithValue }) => {
     try {
       const response = await shippingApi.calculateShippingRates(data);
       return response.data;
     } catch (error: unknown) {
-      return rejectWithValue(error.response?.data?.message || &apos;Failed to calculate shipping rates&apos;);
+      return rejectWithValue(error.response?.data?.message || 'Failed to calculate shipping rates');
     }
   }
 );
 
 export const trackShipment = createAsyncThunk(
-  &apos;shipping/trackShipment&apos;,
+  'shipping/trackShipment',
   async (trackingNumber: string, { rejectWithValue }) => {
     try {
       const response = await shippingApi.trackShipment(trackingNumber);
       return response.data;
     } catch (error: unknown) {
-      return rejectWithValue(error.response?.data?.message || &apos;Failed to track shipment&apos;);
+      return rejectWithValue(error.response?.data?.message || 'Failed to track shipment');
     }
   }
 );
 
 export const fetchUserShipments = createAsyncThunk(
-  &apos;shipping/fetchUserShipments&apos;,
+  'shipping/fetchUserShipments',
   async (_, { rejectWithValue }) => {
     try {
       const response = await shippingApi.getUserShipments();
       return response.data;
     } catch (error: unknown) {
-      return rejectWithValue(error.response?.data?.message || &apos;Failed to fetch shipments&apos;);
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch shipments');
     }
   }
 );
 
 const shippingSlice = createSlice({
-  name: &apos;shipping&apos;,
+  name: 'shipping',
   initialState,
   reducers: {
     clearError: (state) => {

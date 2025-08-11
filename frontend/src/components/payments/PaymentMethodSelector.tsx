@@ -39,15 +39,15 @@ interface PaymentMethodSelectorProps {
     {} as Record<string, PaymentMethod[]>
   );
 
-    &apos;CARD&apos;: &apos;Credit/Debit Cards&apos;,
-    &apos;UPI&apos;: &apos;UPI Payment&apos;,
-    &apos;WALLET&apos;: &apos;Digital Wallets&apos;,
-    &apos;NETBANKING&apos;: &apos;Net Banking&apos;,
-    &apos;COD&apos;: &apos;Cash on Delivery&apos;,
-    &apos;GIFT_CARD&apos;: &apos;Gift Cards&apos;,
-    &apos;IMPS&apos;: &apos;IMPS Transfer&apos;,
-    &apos;RTGS&apos;: &apos;RTGS Transfer&apos;,
-    &apos;NEFT&apos;: &apos;NEFT Transfer&apos;,
+    'CARD': 'Credit/Debit Cards',
+    'UPI': 'UPI Payment',
+    'WALLET': 'Digital Wallets',
+    'NETBANKING': 'Net Banking',
+    'COD': 'Cash on Delivery',
+    'GIFT_CARD': 'Gift Cards',
+    'IMPS': 'IMPS Transfer',
+    'RTGS': 'RTGS Transfer',
+    'NEFT': 'NEFT Transfer',
   };
 
   if (loading) {

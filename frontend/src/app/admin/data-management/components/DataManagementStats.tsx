@@ -44,9 +44,9 @@ export default function DataManagementStats() {
   };
 
   const getStatusColor = (rate: number) => {
-    if (rate >= 90) return &apos;text-green-600&apos;;
-    if (rate >= 70) return &apos;text-yellow-600&apos;;
-    return &apos;text-red-600&apos;;
+    if (rate >= 90) return 'text-green-600';
+    if (rate >= 70) return 'text-yellow-600';
+    return 'text-red-600';
   };
 
   const importSuccessRate = calculateSuccessRate(
@@ -261,21 +261,21 @@ export default function DataManagementStats() {
             <div className="flex items-center justify-between">
               <span className="text-sm">Import Queue</span>
               <Badge variant={stats?.import_jobs?.processing ? 'secondary' : 'default'}>
-                {stats?.import_jobs?.processing ? &apos;Active&apos; : &apos;Idle&apos;}
+                {stats?.import_jobs?.processing ? 'Active' : 'Idle'}
               </Badge>
             </div>
             
             <div className="flex items-center justify-between">
               <span className="text-sm">Export Queue</span>
               <Badge variant={stats?.export_jobs?.processing ? 'secondary' : 'default'}>
-                {stats?.export_jobs?.processing ? &apos;Active&apos; : &apos;Idle&apos;}
+                {stats?.export_jobs?.processing ? 'Active' : 'Idle'}
               </Badge>
             </div>
             
             <div className="flex items-center justify-between">
               <span className="text-sm">Sync Services</span>
               <Badge variant={stats?.sync_jobs?.active ? 'default' : 'outline'}>
-                {stats?.sync_jobs?.active ? &apos;Running&apos; : &apos;Stopped&apos;}
+                {stats?.sync_jobs?.active ? 'Running' : 'Stopped'}
               </Badge>
             </div>
             

@@ -28,10 +28,10 @@ export function LogoutButton({
   const handleLogout = async () => {
     try {
       await dispatch(logoutUser()).unwrap();
-      toast.success(&apos;Logged out successfully&apos;);
+      toast.success('Logged out successfully');
       router.push(redirectTo);
     } catch (error: unknown) {
-      toast.error(&apos;Logout failed&apos;);
+      toast.error('Logout failed');
       // Even if logout API fails, we still redirect since tokens are cleared
       router.push(redirectTo);
     }

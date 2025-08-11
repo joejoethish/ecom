@@ -26,7 +26,7 @@ interface UpdateInventoryLevelPayload {
 };
 
 const inventorySlice = createSlice({
-  name: &apos;inventory&apos;,
+  name: 'inventory',
   initialState,
   reducers: {
     setInventoryItems: (state, action: PayloadAction<Record<string, InventoryItem>>) => {
