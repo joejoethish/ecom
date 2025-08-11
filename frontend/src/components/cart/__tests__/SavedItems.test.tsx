@@ -8,42 +8,41 @@ import { moveToCart, removeSavedItem } from '@/store/slices/cartSlice';
 import type { Middleware } from '@reduxjs/toolkit';
 
 // Mock the Redux store
-const middlewares: Middleware[] = [thunk];
 const mockStore = configureStore(middlewares);
 
 // Mock the Next.js Image component
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => {
+  default: (props: unknown) => {
     return <img {...props} />;
   },
 }));
 
 // Mock the Redux actions
-jest.mock('@/store/slices/cartSlice', () => ({
-  moveToCart: jest.fn(() => ({ type: 'mock-move-to-cart' })),
-  removeSavedItem: jest.fn(() => ({ type: 'mock-remove-saved-item' })),
+jest.mock(&apos;@/store/slices/cartSlice&apos;, () => ({
+  moveToCart: jest.fn(() => ({ type: &apos;mock-move-to-cart&apos; })),
+  removeSavedItem: jest.fn(() => ({ type: &apos;mock-remove-saved-item&apos; })),
 }));
 
-describe('SavedItems Component', () => {
+describe(&apos;SavedItems Component&apos;, () => {
   const mockSavedItems = [
     {
-      id: 's1',
+      id: &apos;s1&apos;,
       product: {
-        id: 'p1',
-        name: 'Saved Product',
-        slug: 'saved-product',
-        description: 'Test description',
-        short_description: 'Short description',
+        id: &apos;p1&apos;,
+        name: &apos;Saved Product&apos;,
+        slug: &apos;saved-product&apos;,
+        description: &apos;Test description&apos;,
+        short_description: &apos;Short description&apos;,
         category: {
-          id: 'c1',
-          name: 'Test Category',
-          slug: 'test-category',
+          id: &apos;c1&apos;,
+          name: &apos;Test Category&apos;,
+          slug: &apos;test-category&apos;,
           is_active: true,
-          created_at: '2023-01-01',
+          created_at: &apos;2023-01-01&apos;,
         },
-        brand: 'Test Brand',
-        sku: 'TST002',
+        brand: &apos;Test Brand&apos;,
+        sku: &apos;TST002&apos;,
         price: 1500,
         discount_price: 1200,
         is_active: true,
@@ -51,21 +50,21 @@ describe('SavedItems Component', () => {
         dimensions: {},
         images: [
           {
-            id: 'img1',
-            image: '/saved-image.jpg',
-            alt_text: 'Saved Image',
+            id: &apos;img1&apos;,
+            image: &apos;/saved-image.jpg&apos;,
+            alt_text: &apos;Saved Image&apos;,
             is_primary: true,
             order: 1,
           },
         ],
-        created_at: '2023-01-01',
-        updated_at: '2023-01-01',
+        created_at: &apos;2023-01-01&apos;,
+        updated_at: &apos;2023-01-01&apos;,
       },
-      saved_at: '2023-01-01',
+      saved_at: &apos;2023-01-01&apos;,
     },
   ];
 
-  let store: any;
+  let store: unknown;
 
   beforeEach(() => {
     store = mockStore({
@@ -75,46 +74,46 @@ describe('SavedItems Component', () => {
     });
   });
 
-  it('renders the saved items correctly', () => {
+  it(&apos;renders the saved items correctly&apos;, () => {
     render(
       <Provider store={store}>
         <SavedItems savedItems={mockSavedItems} />
       </Provider>
     );
 
-    expect(screen.getByText('Saved for Later (1)')).toBeInTheDocument();
-    expect(screen.getByText('Saved Product')).toBeInTheDocument();
-    expect(screen.getByText('Brand: Test Brand')).toBeInTheDocument();
-    expect(screen.getByText('₹1,200')).toBeInTheDocument();
-    expect(screen.getByText('₹1,500')).toBeInTheDocument();
-    expect(screen.getByText('20% off')).toBeInTheDocument();
-    expect(screen.getByText('Move to Cart')).toBeInTheDocument();
-    expect(screen.getByText('Remove')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Saved for Later (1)&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Saved Product&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Brand: Test Brand&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;₹1,200&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;₹1,500&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;20% off&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Move to Cart&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Remove&apos;)).toBeInTheDocument();
   });
 
-  it('shows empty state when no saved items', () => {
+  it(&apos;shows empty state when no saved items&apos;, () => {
     render(
       <Provider store={store}>
         <SavedItems savedItems={[]} />
       </Provider>
     );
 
-    expect(screen.getByText('No saved items')).toBeInTheDocument();
-    expect(screen.getByText('Items you save for later will appear here')).toBeInTheDocument();
+    expect(screen.getByText(&apos;No saved items&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Items you save for later will appear here&apos;)).toBeInTheDocument();
   });
 
-  it('dispatches moveToCart when move to cart button is clicked', () => {
+  it(&apos;dispatches moveToCart when move to cart button is clicked&apos;, () => {
     render(
       <Provider store={store}>
         <SavedItems savedItems={mockSavedItems} />
       </Provider>
     );
 
-    fireEvent.click(screen.getByText('Move to Cart'));
-    expect(moveToCart).toHaveBeenCalledWith('s1');
+    fireEvent.click(screen.getByText(&apos;Move to Cart&apos;));
+    expect(moveToCart).toHaveBeenCalledWith(&apos;s1&apos;);
   });
 
-  it('dispatches removeSavedItem when remove button is clicked', () => {
+  it(&apos;dispatches removeSavedItem when remove button is clicked&apos;, () => {
     render(
       <Provider store={store}>
         <SavedItems savedItems={mockSavedItems} />

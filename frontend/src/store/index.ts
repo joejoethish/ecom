@@ -34,11 +34,11 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these action types
-        ignoredActions: ['auth/setUser', 'auth/setToken'],
+        ignoredActions: [&apos;auth/setUser&apos;, &apos;auth/setToken&apos;],
         // Ignore these field paths in all actions
-        ignoredActionPaths: ['payload.data'],
+        ignoredActionPaths: [&apos;payload.data&apos;],
         // Ignore these paths in the state
-        ignoredPaths: ['auth.user', 'auth.token'],
+        ignoredPaths: [&apos;auth.user&apos;, &apos;auth.token&apos;],
       },
     }),
 });
@@ -55,6 +55,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+// Use throughout your app instead of plain `useDispatch` and `useSelector`

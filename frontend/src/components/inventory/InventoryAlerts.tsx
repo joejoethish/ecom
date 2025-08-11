@@ -12,8 +12,6 @@ const ExclamationTriangleIcon = ({ className }: { className?: string }) => (
  * Real-time inventory alerts component
  * Shows low stock alerts with real-time updates
  */
-const InventoryAlerts: React.FC = () => {
-  const { isConnected, lowStockAlerts, error } = useInventoryUpdates();
   
   if (error) {
     return (
@@ -30,7 +28,7 @@ const InventoryAlerts: React.FC = () => {
         <h3 className="text-lg font-medium text-gray-700">Inventory Alerts</h3>
         <div className="flex items-center">
           <span className={`h-3 w-3 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'} mr-2`}></span>
-          <span className="text-sm text-gray-500">{isConnected ? 'Live Updates' : 'Offline'}</span>
+          <span className="text-sm text-gray-500">{isConnected ? &apos;Live Updates&apos; : &apos;Offline&apos;}</span>
         </div>
       </div>
       

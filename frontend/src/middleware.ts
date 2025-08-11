@@ -2,7 +2,6 @@ import { NextRequest } from 'next/server';
 import { authMiddleware, shouldProcessAuth } from './middleware/auth';
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
   
   // Skip processing for certain paths
   if (!shouldProcessAuth(pathname)) {
@@ -13,7 +12,6 @@ export function middleware(request: NextRequest) {
   return authMiddleware(request);
 }
 
-export const config = {
   matcher: [
     /*
      * Match all request paths except for the ones starting with:

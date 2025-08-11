@@ -74,7 +74,7 @@ export interface Shipment {
   delivery_slot_display?: string;
   shipping_address: ShippingAddress;
   weight?: number;
-  dimensions: Record<string, any>;
+  dimensions: Record<string, unknown>;
   shipping_cost: number;
   created_at: string;
   updated_at: string;
@@ -117,7 +117,7 @@ export interface ShippingRateCalculation {
   source_pin_code: string;
   destination_pin_code: string;
   weight: number;
-  dimensions?: Record<string, any>;
+  dimensions?: Record<string, unknown>;
   shipping_partner_id?: string;
 }
 

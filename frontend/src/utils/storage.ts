@@ -4,8 +4,7 @@ import { STORAGE_KEYS } from '@/constants';
 import { AuthTokens, User } from '@/types';
 
 // Token management
-export const getStoredTokens = (): AuthTokens | null => {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === &apos;undefined&apos;) return null;
   
   try {
     const access = localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN);
@@ -15,70 +14,64 @@ export const getStoredTokens = (): AuthTokens | null => {
       return { access, refresh };
     }
   } catch (error) {
-    console.error('Error getting stored tokens:', error);
+    console.error(&apos;Error getting stored tokens:&apos;, error);
   }
   
   return null;
 };
 
-export const setStoredTokens = (tokens: AuthTokens): void => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === &apos;undefined&apos;) return;
   
   try {
     localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, tokens.access);
     localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, tokens.refresh);
   } catch (error) {
-    console.error('Error storing tokens:', error);
+    console.error(&apos;Error storing tokens:&apos;, error);
   }
 };
 
-export const removeStoredTokens = (): void => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === &apos;undefined&apos;) return;
   
   try {
     localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
     localStorage.removeItem(STORAGE_KEYS.REFRESH_TOKEN);
   } catch (error) {
-    console.error('Error removing tokens:', error);
+    console.error(&apos;Error removing tokens:&apos;, error);
   }
 };
 
 // User management
-export const getStoredUser = (): User | null => {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === &apos;undefined&apos;) return null;
   
   try {
     const userStr = localStorage.getItem(STORAGE_KEYS.USER);
     return userStr ? JSON.parse(userStr) : null;
   } catch (error) {
-    console.error('Error getting stored user:', error);
+    console.error(&apos;Error getting stored user:&apos;, error);
     return null;
   }
 };
 
-export const setStoredUser = (user: User): void => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === &apos;undefined&apos;) return;
   
   try {
     localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(user));
   } catch (error) {
-    console.error('Error storing user:', error);
+    console.error(&apos;Error storing user:&apos;, error);
   }
 };
 
-export const removeStoredUser = (): void => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === &apos;undefined&apos;) return;
   
   try {
     localStorage.removeItem(STORAGE_KEYS.USER);
   } catch (error) {
-    console.error('Error removing user:', error);
+    console.error(&apos;Error removing user:&apos;, error);
   }
 };
 
 // Generic storage functions
-export const getStoredItem = <T>(key: string): T | null => {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === &apos;undefined&apos;) return null;
   
   try {
     const item = localStorage.getItem(key);
@@ -89,7 +82,6 @@ export const getStoredItem = <T>(key: string): T | null => {
   }
 };
 
-export const setStoredItem = <T>(key: string, value: T): void => {
   if (typeof window === 'undefined') return;
   
   try {
@@ -99,7 +91,6 @@ export const setStoredItem = <T>(key: string, value: T): void => {
   }
 };
 
-export const removeStoredItem = (key: string): void => {
   if (typeof window === 'undefined') return;
   
   try {
@@ -110,7 +101,6 @@ export const removeStoredItem = (key: string): void => {
 };
 
 // Clear all stored data
-export const clearAllStoredData = (): void => {
   if (typeof window === 'undefined') return;
   
   try {

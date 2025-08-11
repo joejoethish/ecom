@@ -27,7 +27,6 @@ export interface TestStoreOptions {
 }
 
 export function createTestStore(options: TestStoreOptions = {}) {
-  const { preloadedState } = options;
   
   return configureStore({
     reducer: {
@@ -48,9 +47,9 @@ export function createTestStore(options: TestStoreOptions = {}) {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {
-          ignoredActions: ['auth/setUser', 'auth/setToken'],
-          ignoredActionPaths: ['payload.data'],
-          ignoredPaths: ['auth.user', 'auth.token'],
+          ignoredActions: [&apos;auth/setUser&apos;, &apos;auth/setToken&apos;],
+          ignoredActionPaths: [&apos;payload.data&apos;],
+          ignoredPaths: [&apos;auth.user&apos;, &apos;auth.token&apos;],
         },
       }),
   });
@@ -60,7 +59,7 @@ export function createTestStore(options: TestStoreOptions = {}) {
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
   preloadedState?: Partial<RootState>;
   store?: EnhancedStore;
-  theme?: 'light' | 'dark' | 'system';
+  theme?: &apos;light&apos; | &apos;dark&apos; | &apos;system&apos;;
 }
 
 export function renderWithProviders(
@@ -70,7 +69,7 @@ export function renderWithProviders(
   const {
     preloadedState,
     store = createTestStore({ preloadedState }),
-    theme = 'light',
+    theme = &apos;light&apos;,
     ...renderOptions
   } = options;
 
@@ -91,34 +90,33 @@ export function renderWithProviders(
 }
 
 // Mock data factories with proper typing
-export const mockUser = (overrides: Partial<RootState['auth']['user']> = {}) => ({
-  id: '1',
-  username: 'testuser',
-  email: 'test@example.com',
-  user_type: 'customer' as const,
-  phone_number: '+1234567890',
+  id: &apos;1&apos;,
+  username: &apos;testuser&apos;,
+  email: &apos;test@example.com&apos;,
+  user_type: &apos;customer&apos; as const,
+  phone_number: &apos;+1234567890&apos;,
   is_verified: true,
   is_staff: false,
   is_superuser: false,
-  created_at: '2023-01-01T00:00:00Z',
+  created_at: &apos;2023-01-01T00:00:00Z&apos;,
   ...overrides,
 });
 
-export const mockProduct = (overrides: Partial<any> = {}) => ({
-  id: '1',
-  name: 'Test Product',
-  slug: 'test-product',
-  description: 'Test description',
-  short_description: 'Short description',
+export const mockProduct = (overrides: Partial<unknown> = {}) => ({
+  id: &apos;1&apos;,
+  name: &apos;Test Product&apos;,
+  slug: &apos;test-product&apos;,
+  description: &apos;Test description&apos;,
+  short_description: &apos;Short description&apos;,
   category: {
-    id: 'c1',
-    name: 'Test Category',
-    slug: 'test-category',
+    id: &apos;c1&apos;,
+    name: &apos;Test Category&apos;,
+    slug: &apos;test-category&apos;,
     is_active: true,
-    created_at: '2023-01-01',
+    created_at: &apos;2023-01-01&apos;,
   },
-  brand: 'Test Brand',
-  sku: 'TST001',
+  brand: &apos;Test Brand&apos;,
+  sku: &apos;TST001&apos;,
   price: 99.99,
   discount_price: 79.99,
   is_active: true,
@@ -126,75 +124,72 @@ export const mockProduct = (overrides: Partial<any> = {}) => ({
   dimensions: {},
   images: [
     {
-      id: 'img1',
-      image: '/test-image.jpg',
-      alt_text: 'Test Image',
+      id: &apos;img1&apos;,
+      image: &apos;/test-image.jpg&apos;,
+      alt_text: &apos;Test Image&apos;,
       is_primary: true,
       order: 1,
     },
   ],
-  created_at: '2023-01-01',
-  updated_at: '2023-01-01',
+  created_at: &apos;2023-01-01&apos;,
+  updated_at: &apos;2023-01-01&apos;,
   ...overrides,
 });
 
-export const mockOrder = (overrides: Partial<any> = {}) => ({
-  id: '1',
-  order_number: 'ORD-20230101-12345',
-  status: 'DELIVERED' as const,
+  id: &apos;1&apos;,
+  order_number: &apos;ORD-20230101-12345&apos;,
+  status: &apos;DELIVERED&apos; as const,
   total_amount: 99.99,
   discount_amount: 10.00,
   tax_amount: 8.99,
   shipping_amount: 5.99,
   shipping_address: {
-    id: '1',
-    type: 'shipping' as const,
-    first_name: 'John',
-    last_name: 'Doe',
-    address_line_1: '123 Test St',
-    city: 'Test City',
-    state: 'Test State',
-    postal_code: '12345',
-    country: 'Test Country',
-    phone: '+1234567890',
+    id: &apos;1&apos;,
+    type: &apos;shipping&apos; as const,
+    first_name: &apos;John&apos;,
+    last_name: &apos;Doe&apos;,
+    address_line_1: &apos;123 Test St&apos;,
+    city: &apos;Test City&apos;,
+    state: &apos;Test State&apos;,
+    postal_code: &apos;12345&apos;,
+    country: &apos;Test Country&apos;,
+    phone: &apos;+1234567890&apos;,
     is_default: true,
   },
   billing_address: {
-    id: '2',
-    type: 'HOME' as const,
-    first_name: 'John',
-    last_name: 'Doe',
-    address_line_1: '123 Test St',
-    city: 'Test City',
-    state: 'Test State',
-    postal_code: '12345',
-    country: 'Test Country',
-    phone: '+1234567890',
+    id: &apos;2&apos;,
+    type: &apos;HOME&apos; as const,
+    first_name: &apos;John&apos;,
+    last_name: &apos;Doe&apos;,
+    address_line_1: &apos;123 Test St&apos;,
+    city: &apos;Test City&apos;,
+    state: &apos;Test State&apos;,
+    postal_code: &apos;12345&apos;,
+    country: &apos;Test Country&apos;,
+    phone: &apos;+1234567890&apos;,
     is_default: true,
   },
-  payment_method: 'credit_card',
-  payment_status: 'COMPLETED',
+  payment_method: &apos;credit_card&apos;,
+  payment_status: &apos;COMPLETED&apos;,
   items: [],
-  created_at: '2023-01-01T00:00:00Z',
-  updated_at: '2023-01-01T00:00:00Z',
+  created_at: &apos;2023-01-01T00:00:00Z&apos;,
+  updated_at: &apos;2023-01-01T00:00:00Z&apos;,
   ...overrides,
 });
 
-export const mockCartItem = (overrides: Partial<any> = {}) => ({
-  id: '1',
+  id: &apos;1&apos;,
   product: mockProduct(),
   quantity: 1,
-  added_at: '2023-01-01T00:00:00Z',
+  added_at: &apos;2023-01-01T00:00:00Z&apos;,
   ...overrides,
 });
 
-export const mockNotification = (overrides: Partial<any> = {}) => ({
-  id: '1',
-  title: 'Test Notification',
-  message: 'This is a test notification',
-  type: 'info' as const,
+  id: &apos;1&apos;,
+  title: &apos;Test Notification&apos;,
+  message: &apos;This is a test notification&apos;,
+  type: &apos;info&apos; as const,
   isRead: false,
-  created_at: '2023-01-01T00:00:00Z',
+  created_at: &apos;2023-01-01T00:00:00Z&apos;,
   ...overrides,
 });
 
@@ -208,11 +203,10 @@ export const createMockEvent = <T extends Event>(
   return event;
 };
 
-export const createMockKeyboardEvent = (
   key: string,
   properties: Partial<KeyboardEvent> = {}
 ): KeyboardEvent => {
-  return createMockEvent('keydown', {
+  return createMockEvent(&apos;keydown&apos;, {
     key,
     code: `Key${key.toUpperCase()}`,
     keyCode: key.charCodeAt(0),
@@ -221,8 +215,7 @@ export const createMockKeyboardEvent = (
   });
 };
 
-export const createMockMouseEvent = (
-  type: 'click' | 'mousedown' | 'mouseup' | 'mouseover' | 'mouseout' = 'click',
+  type: &apos;click&apos; | &apos;mousedown&apos; | &apos;mouseup&apos; | &apos;mouseover&apos; | &apos;mouseout&apos; = &apos;click&apos;,
   properties: Partial<MouseEvent> = {}
 ): MouseEvent => {
   return createMockEvent(type, {
@@ -235,9 +228,7 @@ export const createMockMouseEvent = (
 };
 
 // Async test helpers
-export const waitForNextTick = () => new Promise(resolve => setTimeout(resolve, 0));
 
-export const waitForCondition = async (
   condition: () => boolean,
   timeout = 5000,
   interval = 100

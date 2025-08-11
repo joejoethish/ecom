@@ -64,7 +64,7 @@ export interface PaymentResponse {
   amount: number;
   currency: string;
   payment_method: PaymentMethodType;
-  gateway_data?: any;
+  gateway_data?: unknown;
 }
 
 export interface WalletDetails {
@@ -90,14 +90,14 @@ export interface PaymentFormData {
   amount: number;
   currency_code: string;
   payment_method_id: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface PaymentVerificationData {
   payment_id: string;
   gateway_payment_id: string;
   gateway_signature: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 export interface CurrencyConversion {

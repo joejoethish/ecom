@@ -13,37 +13,37 @@ jest.mock('next/router', () => ({
 }));
 
 // Mock Redux async thunk
-jest.mock('@/store/slices/orderSlice', () => {
-  const originalModule = jest.requireActual('@/store/slices/orderSlice');
+jest.mock(&apos;@/store/slices/orderSlice&apos;, () => {
+  const originalModule = jest.requireActual(&apos;@/store/slices/orderSlice&apos;);
   return {
     ...originalModule,
     fetchOrders: jest.fn() as any,
   };
 });
 
-describe('OrderHistory Component', () => {
+describe(&apos;OrderHistory Component&apos;, () => {
   const mockRouter = {
     push: jest.fn(),
   };
   
   const mockOrders = [
     {
-      id: '1',
-      order_number: 'ORD-20230101-12345',
-      status: 'DELIVERED',
+      id: &apos;1&apos;,
+      order_number: &apos;ORD-20230101-12345&apos;,
+      status: &apos;DELIVERED&apos;,
       total_amount: 99.99,
-      payment_status: 'COMPLETED',
-      items: [{ id: '1', product: { name: 'Test Product' }, quantity: 1 }],
-      created_at: '2023-01-01T12:00:00Z',
+      payment_status: &apos;COMPLETED&apos;,
+      items: [{ id: &apos;1&apos;, product: { name: &apos;Test Product&apos; }, quantity: 1 }],
+      created_at: &apos;2023-01-01T12:00:00Z&apos;,
     },
     {
-      id: '2',
-      order_number: 'ORD-20230102-67890',
-      status: 'PROCESSING',
+      id: &apos;2&apos;,
+      order_number: &apos;ORD-20230102-67890&apos;,
+      status: &apos;PROCESSING&apos;,
       total_amount: 149.99,
-      payment_status: 'COMPLETED',
-      items: [{ id: '2', product: { name: 'Another Product' }, quantity: 2 }],
-      created_at: '2023-01-02T12:00:00Z',
+      payment_status: &apos;COMPLETED&apos;,
+      items: [{ id: &apos;2&apos;, product: { name: &apos;Another Product&apos; }, quantity: 2 }],
+      created_at: &apos;2023-01-02T12:00:00Z&apos;,
     },
   ];
   
@@ -59,7 +59,7 @@ describe('OrderHistory Component', () => {
   beforeEach(() => {
     (useRouter as jest.Mock).mockReturnValue(mockRouter);
     (fetchOrders as any).mockReturnValue({
-      type: 'orders/fetchOrders/fulfilled',
+      type: &apos;orders/fetchOrders/fulfilled&apos;,
       payload: {
         results: mockOrders,
         pagination: mockPagination,

@@ -9,8 +9,6 @@ interface OrderTrackingProps {
  * Real-time order tracking component
  * Shows order status and tracking events with live updates
  */
-const OrderTracking: React.FC<OrderTrackingProps> = ({ orderId }) => {
-  const { isConnected, trackingEvents, currentStatus, isLoading, error } = useOrderTracking(orderId);
   
   if (isLoading) {
     return (
@@ -32,24 +30,24 @@ const OrderTracking: React.FC<OrderTrackingProps> = ({ orderId }) => {
   // Helper function to get status color
   const getStatusColor = (status: string) => {
     switch (status.toUpperCase()) {
-      case 'PENDING':
-        return 'bg-yellow-500';
-      case 'CONFIRMED':
-        return 'bg-blue-500';
-      case 'PROCESSING':
-        return 'bg-purple-500';
-      case 'SHIPPED':
-        return 'bg-indigo-500';
-      case 'OUT_FOR_DELIVERY':
-        return 'bg-cyan-500';
-      case 'DELIVERED':
-        return 'bg-green-500';
-      case 'CANCELLED':
-        return 'bg-red-500';
-      case 'RETURNED':
-        return 'bg-orange-500';
+      case &apos;PENDING&apos;:
+        return &apos;bg-yellow-500&apos;;
+      case &apos;CONFIRMED&apos;:
+        return &apos;bg-blue-500&apos;;
+      case &apos;PROCESSING&apos;:
+        return &apos;bg-purple-500&apos;;
+      case &apos;SHIPPED&apos;:
+        return &apos;bg-indigo-500&apos;;
+      case &apos;OUT_FOR_DELIVERY&apos;:
+        return &apos;bg-cyan-500&apos;;
+      case &apos;DELIVERED&apos;:
+        return &apos;bg-green-500&apos;;
+      case &apos;CANCELLED&apos;:
+        return &apos;bg-red-500&apos;;
+      case &apos;RETURNED&apos;:
+        return &apos;bg-orange-500&apos;;
       default:
-        return 'bg-gray-500';
+        return &apos;bg-gray-500&apos;;
     }
   };
   
@@ -59,7 +57,7 @@ const OrderTracking: React.FC<OrderTrackingProps> = ({ orderId }) => {
         <h2 className="text-xl font-semibold">Order Tracking</h2>
         <div className="flex items-center">
           <span className={`h-3 w-3 rounded-full ${isConnected ? 'bg-green-500' : 'bg-red-500'} mr-2`}></span>
-          <span className="text-sm text-gray-500">{isConnected ? 'Live Updates' : 'Offline'}</span>
+          <span className="text-sm text-gray-500">{isConnected ? &apos;Live Updates&apos; : &apos;Offline&apos;}</span>
         </div>
       </div>
       

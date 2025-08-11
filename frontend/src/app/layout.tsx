@@ -5,7 +5,6 @@ import { Providers } from '@/components/providers/Providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
   title: 'Ecommerce Platform',
   description: 'Modern ecommerce platform with authentication',
 };

@@ -19,7 +19,7 @@ interface ApiResponse<T> {
     message: string;
     code: string;
     status_code: number;
-    details?: any;
+    details?: unknown;
   };
 }
 
@@ -40,7 +40,6 @@ interface SellerState {
 }
 
 // Initial state
-const initialState: SellerState = {
   profile: null,
   kycDocuments: [],
   bankAccounts: [],
@@ -52,19 +51,19 @@ const initialState: SellerState = {
 
 // Async thunks
 export const fetchSellerProfile = createAsyncThunk(
-  'seller/fetchProfile',
+  &apos;seller/fetchProfile&apos;,
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get<ApiResponse<SellerProfile>>('/api/v1/seller/profile/');
+      const response = await axios.get<ApiResponse<SellerProfile>>(&apos;/api/v1/seller/profile/&apos;);
       return response.data.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error?.message || 'Failed to fetch seller profile');
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data?.error?.message || &apos;Failed to fetch seller profile&apos;);
     }
   }
 );
 
 export const registerAsSeller = createAsyncThunk(
-  'seller/register',
+  &apos;seller/register&apos;,
   async (sellerData: SellerRegistrationData, { rejectWithValue }) => {
     try {
       // Create FormData for file uploads
@@ -77,20 +76,20 @@ export const registerAsSeller = createAsyncThunk(
         }
       });
 
-      const response = await axios.post<ApiResponse<SellerProfile>>('/api/v1/seller/register/', formData, {
+      const response = await axios.post<ApiResponse<SellerProfile>>(&apos;/api/v1/seller/register/&apos;, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          &apos;Content-Type&apos;: &apos;multipart/form-data&apos;,
         },
       });
       return response.data.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error?.message || 'Failed to register as seller');
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data?.error?.message || &apos;Failed to register as seller&apos;);
     }
   }
 );
 
 export const updateSellerProfile = createAsyncThunk(
-  'seller/updateProfile',
+  &apos;seller/updateProfile&apos;,
   async (profileData: Partial<SellerProfile>, { rejectWithValue }) => {
     try {
       // Create FormData for file uploads
@@ -103,32 +102,32 @@ export const updateSellerProfile = createAsyncThunk(
         }
       });
 
-      const response = await axios.put<ApiResponse<SellerProfile>>('/api/v1/seller/profile/', formData, {
+      const response = await axios.put<ApiResponse<SellerProfile>>(&apos;/api/v1/seller/profile/&apos;, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          &apos;Content-Type&apos;: &apos;multipart/form-data&apos;,
         },
       });
       return response.data.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error?.message || 'Failed to update seller profile');
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data?.error?.message || &apos;Failed to update seller profile&apos;);
     }
   }
 );
 
 export const fetchKYCDocuments = createAsyncThunk(
-  'seller/fetchKYCDocuments',
+  &apos;seller/fetchKYCDocuments&apos;,
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get<ApiResponse<SellerKYC[]>>('/api/v1/seller/kyc/');
+      const response = await axios.get<ApiResponse<SellerKYC[]>>(&apos;/api/v1/seller/kyc/&apos;);
       return response.data.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error?.message || 'Failed to fetch KYC documents');
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data?.error?.message || &apos;Failed to fetch KYC documents&apos;);
     }
   }
 );
 
 export const uploadKYCDocument = createAsyncThunk(
-  'seller/uploadKYCDocument',
+  &apos;seller/uploadKYCDocument&apos;,
   async (documentData: KYCDocumentData, { rejectWithValue }) => {
     try {
       // Create FormData for file uploads
@@ -141,32 +140,32 @@ export const uploadKYCDocument = createAsyncThunk(
         }
       });
 
-      const response = await axios.post<ApiResponse<SellerKYC>>('/api/v1/seller/kyc/', formData, {
+      const response = await axios.post<ApiResponse<SellerKYC>>(&apos;/api/v1/seller/kyc/&apos;, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          &apos;Content-Type&apos;: &apos;multipart/form-data&apos;,
         },
       });
       return response.data.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error?.message || 'Failed to upload KYC document');
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data?.error?.message || &apos;Failed to upload KYC document&apos;);
     }
   }
 );
 
 export const fetchBankAccounts = createAsyncThunk(
-  'seller/fetchBankAccounts',
+  &apos;seller/fetchBankAccounts&apos;,
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get<ApiResponse<SellerBankAccount[]>>('/api/v1/seller/bank-accounts/');
+      const response = await axios.get<ApiResponse<SellerBankAccount[]>>(&apos;/api/v1/seller/bank-accounts/&apos;);
       return response.data.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error?.message || 'Failed to fetch bank accounts');
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data?.error?.message || &apos;Failed to fetch bank accounts&apos;);
     }
   }
 );
 
 export const addBankAccount = createAsyncThunk(
-  'seller/addBankAccount',
+  &apos;seller/addBankAccount&apos;,
   async (accountData: BankAccountData, { rejectWithValue }) => {
     try {
       // Create FormData for file uploads
@@ -179,57 +178,57 @@ export const addBankAccount = createAsyncThunk(
         }
       });
 
-      const response = await axios.post<ApiResponse<SellerBankAccount>>('/api/v1/seller/bank-accounts/', formData, {
+      const response = await axios.post<ApiResponse<SellerBankAccount>>(&apos;/api/v1/seller/bank-accounts/&apos;, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          &apos;Content-Type&apos;: &apos;multipart/form-data&apos;,
         },
       });
       return response.data.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error?.message || 'Failed to add bank account');
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data?.error?.message || &apos;Failed to add bank account&apos;);
     }
   }
 );
 
 export const setPrimaryBankAccount = createAsyncThunk(
-  'seller/setPrimaryBankAccount',
+  &apos;seller/setPrimaryBankAccount&apos;,
   async (accountId: string, { rejectWithValue }) => {
     try {
       const response = await axios.post<ApiResponse<SellerBankAccount>>(`/api/v1/seller/bank-accounts/${accountId}/set_primary/`);
       return response.data.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error?.message || 'Failed to set primary bank account');
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data?.error?.message || &apos;Failed to set primary bank account&apos;);
     }
   }
 );
 
 export const fetchPayoutHistory = createAsyncThunk(
-  'seller/fetchPayoutHistory',
+  &apos;seller/fetchPayoutHistory&apos;,
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get<ApiResponse<SellerPayout[]>>('/api/v1/seller/payouts/');
+      const response = await axios.get<ApiResponse<SellerPayout[]>>(&apos;/api/v1/seller/payouts/&apos;);
       return response.data.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error?.message || 'Failed to fetch payout history');
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data?.error?.message || &apos;Failed to fetch payout history&apos;);
     }
   }
 );
 
 export const fetchSellerAnalytics = createAsyncThunk(
-  'seller/fetchAnalytics',
+  &apos;seller/fetchAnalytics&apos;,
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get<ApiResponse<SellerAnalytics>>('/api/v1/seller/analytics/');
+      const response = await axios.get<ApiResponse<SellerAnalytics>>(&apos;/api/v1/seller/analytics/&apos;);
       return response.data.data;
-    } catch (error: any) {
-      return rejectWithValue(error.response?.data?.error?.message || 'Failed to fetch seller analytics');
+    } catch (error: unknown) {
+      return rejectWithValue(error.response?.data?.error?.message || &apos;Failed to fetch seller analytics&apos;);
     }
   }
 );
 
 // Create the slice
 const sellerSlice = createSlice({
-  name: 'seller',
+  name: &apos;seller&apos;,
   initialState,
   reducers: {
     clearSellerError: (state) => {
@@ -383,5 +382,4 @@ const sellerSlice = createSlice({
   },
 });
 
-export const { clearSellerError } = sellerSlice.actions;
 export default sellerSlice.reducer;

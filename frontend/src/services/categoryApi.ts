@@ -18,20 +18,19 @@ export interface CategoryTree extends Category {
   children: CategoryTree[];
 }
 
-export const categoryApi = {
   // Get all categories
   getCategories: async (): Promise<ApiResponse<Category[]>> => {
-    return apiClient.get<Category[]>('/categories/');
+    return apiClient.get<Category[]>(&apos;/categories/&apos;);
   },
 
   // Get category tree (hierarchical)
   getCategoryTree: async (): Promise<ApiResponse<CategoryTree[]>> => {
-    return apiClient.get<CategoryTree[]>('/categories/tree/');
+    return apiClient.get<CategoryTree[]>(&apos;/categories/tree/&apos;);
   },
 
   // Get featured categories for homepage
   getFeaturedCategories: async (): Promise<ApiResponse<Category[]>> => {
-    return apiClient.get<Category[]>('/categories/featured/');
+    return apiClient.get<Category[]>(&apos;/categories/featured/&apos;);
   },
 
   // Get single category by slug
@@ -41,7 +40,7 @@ export const categoryApi = {
 
   // Create new category (admin only)
   createCategory: async (data: Partial<Category>): Promise<ApiResponse<Category>> => {
-    return apiClient.post<Category>('/categories/', data);
+    return apiClient.post<Category>(&apos;/categories/&apos;, data);
   },
 
   // Update category (admin only)

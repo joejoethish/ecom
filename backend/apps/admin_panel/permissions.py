@@ -731,3 +731,33 @@ class PermissionExportManager:
             results['errors'].append(f"Import error: {str(e)}")
         
         return results
+
+
+class AdminPanelPermission(BasePermission):
+    """
+    Permission class for admin panel access.
+    """
+    
+    def has_permission(self, request, view):
+        """Check if user has admin panel access."""
+        return (
+            request.user and 
+            request.user.is_authenticated and 
+            request.user.is_staff and
+            hasattr(request.user, 'adminuser')
+        )
+    
+    def has_object_permission(self, request, view, obj):
+        """Check object-level permissions."""
+        if not self.has_permission(request, view):
+            return False
+        
+        # Allow access if user is super admin
+        if hasattr(request.user, 'adminuser') and request.user.adminuser.role == 'super_admin':
+            return True
+        
+        # Check if user owns the object
+        if hasattr(obj, 'created_by') and obj.created_by == request.user:
+            return True
+        
+        return False

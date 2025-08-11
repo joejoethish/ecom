@@ -45,7 +45,6 @@ describe('useWebSocket', () => {
 
   it('should disconnect from WebSocket on unmount when reconnectOnUnmount is false', () => {
     const url = 'ws://localhost:8000/ws/test/';
-    const { unmount } = renderHook(() => useWebSocket({ url, reconnectOnUnmount: false }));
     
     unmount();
     
@@ -54,7 +53,6 @@ describe('useWebSocket', () => {
 
   it('should not disconnect from WebSocket on unmount when reconnectOnUnmount is true', () => {
     const url = 'ws://localhost:8000/ws/test/';
-    const { unmount } = renderHook(() => useWebSocket({ url, reconnectOnUnmount: true }));
     
     unmount();
     
@@ -63,7 +61,6 @@ describe('useWebSocket', () => {
 
   it('should register and unregister connection state handler', () => {
     const url = 'ws://localhost:8000/ws/test/';
-    const { unmount } = renderHook(() => useWebSocket({ url }));
     
     expect(websocketService.onConnectionStateChange).toHaveBeenCalled();
     
@@ -74,7 +71,6 @@ describe('useWebSocket', () => {
 
   it('should register and unregister message handler', () => {
     const url = 'ws://localhost:8000/ws/test/';
-    const { unmount } = renderHook(() => useWebSocket({ url }));
     
     expect(websocketService.onMessage).toHaveBeenCalled();
     
@@ -121,7 +117,6 @@ describe('useWebSocket', () => {
     const url = 'ws://localhost:8000/ws/test/';
     (websocketService.send as jest.Mock).mockReturnValue(true);
     
-    const { result } = renderHook(() => useWebSocket({ url }));
     
     const message = { type: 'test', data: 'test data' };
     const success = result.current.sendMessage(message);

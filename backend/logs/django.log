@@ -19418,3 +19418,327 @@ INFO 2025-08-08 12:46:17,282 database_security 11692 8144 Database security moni
 INFO 2025-08-08 13:04:31,626 autoreload 16192 20332 Watching for file changes with StatReloader
 INFO 2025-08-08 13:04:32,659 database_security 16192 11888 Audit tables created successfully
 INFO 2025-08-08 13:04:32,666 database_security 16192 11888 Database security monitoring initialized successfully
+INFO 2025-08-08 16:35:22,191 database_security 8080 17800 Audit tables created successfully
+INFO 2025-08-08 16:35:22,192 database_security 8080 17800 Database security monitoring initialized successfully
+INFO 2025-08-08 16:53:12,654 database_security 14720 19032 Audit tables created successfully
+INFO 2025-08-08 16:53:12,654 database_security 14720 19032 Database security monitoring initialized successfully
+INFO 2025-08-08 16:55:35,457 database_security 21256 5084 Audit tables created successfully
+INFO 2025-08-08 16:55:35,473 database_security 21256 5084 Database security monitoring initialized successfully
+INFO 2025-08-08 16:56:29,451 monitoring 4868 19908 Task update_document (None) started
+INFO 2025-08-08 16:56:29,451 signals 4868 19908 Updating Elasticsearch document: migrations.migration ID: 57
+ERROR 2025-08-08 16:56:29,451 signals 4868 19908 Error updating Elasticsearch document: No installed app with label 'migrations'.
+WARNING 2025-08-08 16:56:29,453 monitoring 4868 19908 Retrying task tasks.monitoring.wrapper due to: No installed app with label 'migrations'.
+ERROR 2025-08-08 16:56:29,453 monitoring 4868 19908 Task retry failed: No installed app with label 'migrations'.
+ERROR 2025-08-08 16:56:29,453 monitoring 4868 19908 Task update_document (None) failed: No installed app with label 'migrations'.
+INFO 2025-08-08 17:22:11,130 monitoring 15504 16264 Task update_document (None) started
+INFO 2025-08-08 17:22:11,134 signals 15504 16264 Updating Elasticsearch document: system_settings.settingcategory ID: 1
+INFO 2025-08-08 17:22:11,141 signals 15504 16264 Successfully updated document in Elasticsearch: system_settings.settingcategory ID: 1
+INFO 2025-08-08 17:22:11,141 monitoring 15504 16264 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:11,159 monitoring 15504 16264 Task update_document (None) started
+INFO 2025-08-08 17:22:11,159 signals 15504 16264 Updating Elasticsearch document: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:11,171 signals 15504 16264 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:11,171 monitoring 15504 16264 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:11,180 monitoring 15504 16264 Task update_document (None) started
+INFO 2025-08-08 17:22:11,180 signals 15504 16264 Updating Elasticsearch document: system_settings.systemsetting ID: 2
+INFO 2025-08-08 17:22:11,188 signals 15504 16264 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 2
+INFO 2025-08-08 17:22:11,188 monitoring 15504 16264 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:11,196 monitoring 15504 16264 Task update_document (None) started
+INFO 2025-08-08 17:22:11,197 signals 15504 16264 Updating Elasticsearch document: system_settings.systemsetting ID: 3
+INFO 2025-08-08 17:22:11,202 signals 15504 16264 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 3
+INFO 2025-08-08 17:22:11,203 monitoring 15504 16264 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:11,211 monitoring 15504 16264 Task update_document (None) started
+INFO 2025-08-08 17:22:11,212 signals 15504 16264 Updating Elasticsearch document: system_settings.systemsetting ID: 4
+INFO 2025-08-08 17:22:11,216 signals 15504 16264 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 4
+INFO 2025-08-08 17:22:11,218 monitoring 15504 16264 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:11,276 monitoring 15504 16264 Task update_document (None) started
+INFO 2025-08-08 17:22:11,276 signals 15504 16264 Updating Elasticsearch document: system_settings.settingchangehistory ID: 1
+INFO 2025-08-08 17:22:11,280 signals 15504 16264 Successfully updated document in Elasticsearch: system_settings.settingchangehistory ID: 1
+INFO 2025-08-08 17:22:11,280 monitoring 15504 16264 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:11,285 monitoring 15504 16264 Task update_document (None) started
+INFO 2025-08-08 17:22:11,286 signals 15504 16264 Updating Elasticsearch document: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:11,290 signals 15504 16264 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:11,290 monitoring 15504 16264 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:11,303 monitoring 15504 16264 Task update_document (None) started
+INFO 2025-08-08 17:22:11,304 signals 15504 16264 Updating Elasticsearch document: system_settings.settingauditlog ID: 1
+INFO 2025-08-08 17:22:11,309 signals 15504 16264 Successfully updated document in Elasticsearch: system_settings.settingauditlog ID: 1
+INFO 2025-08-08 17:22:11,309 monitoring 15504 16264 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,702 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,704 signals 20124 8148 Updating Elasticsearch document: system_settings.settingchangehistory ID: 2
+INFO 2025-08-08 17:22:34,711 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingchangehistory ID: 2
+INFO 2025-08-08 17:22:34,711 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,715 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,715 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:34,723 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:34,723 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,729 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,729 signals 20124 8148 Updating Elasticsearch document: system_settings.settingauditlog ID: 2
+INFO 2025-08-08 17:22:34,731 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingauditlog ID: 2
+INFO 2025-08-08 17:22:34,734 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,792 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,792 signals 20124 8148 Updating Elasticsearch document: system_settings.settingbackup ID: 1
+INFO 2025-08-08 17:22:34,794 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingbackup ID: 1
+INFO 2025-08-08 17:22:34,794 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,799 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,804 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:34,808 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:34,810 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,818 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,820 signals 20124 8148 Updating Elasticsearch document: system_settings.settingchangehistory ID: 3
+INFO 2025-08-08 17:22:34,824 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingchangehistory ID: 3
+INFO 2025-08-08 17:22:34,824 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,830 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,830 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 4
+INFO 2025-08-08 17:22:34,834 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 4
+INFO 2025-08-08 17:22:34,834 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,836 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,836 signals 20124 8148 Updating Elasticsearch document: system_settings.settingauditlog ID: 3
+INFO 2025-08-08 17:22:34,842 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingauditlog ID: 3
+INFO 2025-08-08 17:22:34,842 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,852 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,852 signals 20124 8148 Updating Elasticsearch document: system_settings.settingchangehistory ID: 4
+INFO 2025-08-08 17:22:34,858 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingchangehistory ID: 4
+INFO 2025-08-08 17:22:34,858 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,862 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,862 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:34,866 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:34,866 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,868 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,868 signals 20124 8148 Updating Elasticsearch document: system_settings.settingauditlog ID: 4
+INFO 2025-08-08 17:22:34,872 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingauditlog ID: 4
+INFO 2025-08-08 17:22:34,874 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,884 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,886 signals 20124 8148 Updating Elasticsearch document: system_settings.settingchangehistory ID: 5
+INFO 2025-08-08 17:22:34,888 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingchangehistory ID: 5
+INFO 2025-08-08 17:22:34,890 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,894 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,894 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 3
+INFO 2025-08-08 17:22:34,900 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 3
+INFO 2025-08-08 17:22:34,900 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,902 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,902 signals 20124 8148 Updating Elasticsearch document: system_settings.settingauditlog ID: 5
+INFO 2025-08-08 17:22:34,904 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingauditlog ID: 5
+INFO 2025-08-08 17:22:34,906 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,915 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,917 signals 20124 8148 Updating Elasticsearch document: system_settings.settingchangehistory ID: 6
+INFO 2025-08-08 17:22:34,920 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingchangehistory ID: 6
+INFO 2025-08-08 17:22:34,920 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,925 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,925 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 2
+INFO 2025-08-08 17:22:34,929 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 2
+INFO 2025-08-08 17:22:34,929 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,931 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,933 signals 20124 8148 Updating Elasticsearch document: system_settings.settingauditlog ID: 6
+INFO 2025-08-08 17:22:34,935 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingauditlog ID: 6
+INFO 2025-08-08 17:22:34,935 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,982 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,982 signals 20124 8148 Updating Elasticsearch document: system_settings.settingtemplate ID: 1
+INFO 2025-08-08 17:22:34,986 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingtemplate ID: 1
+INFO 2025-08-08 17:22:34,986 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:34,994 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:34,994 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:34,998 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:34,998 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,004 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,006 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 2
+INFO 2025-08-08 17:22:35,010 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 2
+INFO 2025-08-08 17:22:35,012 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,020 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,022 signals 20124 8148 Updating Elasticsearch document: system_settings.settingchangehistory ID: 7
+INFO 2025-08-08 17:22:35,026 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingchangehistory ID: 7
+INFO 2025-08-08 17:22:35,026 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,030 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,030 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 4
+INFO 2025-08-08 17:22:35,034 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 4
+INFO 2025-08-08 17:22:35,034 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,038 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,038 signals 20124 8148 Updating Elasticsearch document: system_settings.settingauditlog ID: 7
+INFO 2025-08-08 17:22:35,044 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingauditlog ID: 7
+INFO 2025-08-08 17:22:35,044 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,056 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,058 signals 20124 8148 Updating Elasticsearch document: system_settings.settingchangehistory ID: 8
+INFO 2025-08-08 17:22:35,062 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingchangehistory ID: 8
+INFO 2025-08-08 17:22:35,062 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,064 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,066 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:35,069 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 1
+INFO 2025-08-08 17:22:35,069 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,073 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,073 signals 20124 8148 Updating Elasticsearch document: system_settings.settingauditlog ID: 8
+INFO 2025-08-08 17:22:35,077 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingauditlog ID: 8
+INFO 2025-08-08 17:22:35,079 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,090 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,092 signals 20124 8148 Updating Elasticsearch document: system_settings.settingchangehistory ID: 9
+INFO 2025-08-08 17:22:35,096 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingchangehistory ID: 9
+INFO 2025-08-08 17:22:35,096 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,099 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,099 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 3
+INFO 2025-08-08 17:22:35,103 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 3
+INFO 2025-08-08 17:22:35,107 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,109 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,109 signals 20124 8148 Updating Elasticsearch document: system_settings.settingauditlog ID: 9
+INFO 2025-08-08 17:22:35,113 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingauditlog ID: 9
+INFO 2025-08-08 17:22:35,113 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,125 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,127 signals 20124 8148 Updating Elasticsearch document: system_settings.settingchangehistory ID: 10
+INFO 2025-08-08 17:22:35,129 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingchangehistory ID: 10
+INFO 2025-08-08 17:22:35,131 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,133 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,135 signals 20124 8148 Updating Elasticsearch document: system_settings.systemsetting ID: 2
+INFO 2025-08-08 17:22:35,139 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.systemsetting ID: 2
+INFO 2025-08-08 17:22:35,141 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,145 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,147 signals 20124 8148 Updating Elasticsearch document: system_settings.settingauditlog ID: 10
+INFO 2025-08-08 17:22:35,151 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingauditlog ID: 10
+INFO 2025-08-08 17:22:35,151 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:35,159 monitoring 20124 8148 Task update_document (None) started
+INFO 2025-08-08 17:22:35,159 signals 20124 8148 Updating Elasticsearch document: system_settings.settingtemplate ID: 1
+INFO 2025-08-08 17:22:35,163 signals 20124 8148 Successfully updated document in Elasticsearch: system_settings.settingtemplate ID: 1
+INFO 2025-08-08 17:22:35,163 monitoring 20124 8148 Task update_document (None) completed successfully
+INFO 2025-08-08 17:22:58,227 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,241 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,257 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,270 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,296 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,308 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,562 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,562 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,571 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,571 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,581 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,595 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,627 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,641 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,665 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,675 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,728 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,728 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,742 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,742 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,744 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,744 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,765 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,765 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,782 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,797 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,835 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,846 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,887 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,887 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,911 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,923 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:22:58,947 monitoring 20460 18460 Task delete_document (None) started
+ERROR 2025-08-08 17:22:58,962 monitoring 20460 18460 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,844 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,844 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,848 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,848 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,850 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,850 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,904 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,904 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,910 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,910 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,918 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,918 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,921 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,921 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,923 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,925 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,935 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,935 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,939 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,939 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,943 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,943 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,953 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,953 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,955 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,957 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,959 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,959 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,967 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,969 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,971 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,971 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:21,973 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:21,973 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,021 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,021 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,046 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,046 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,056 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,056 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,058 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,058 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,060 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,060 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,072 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,072 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,074 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,076 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,078 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,078 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,087 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,089 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,091 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,091 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,093 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,095 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,105 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,105 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,107 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,109 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,111 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,111 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,115 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,117 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,157 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,159 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,163 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,163 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,167 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,167 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,171 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,171 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,193 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,193 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,197 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,197 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,201 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,201 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,207 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,207 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-08 17:23:22,221 monitoring 7576 19340 Task delete_document (None) started
+ERROR 2025-08-08 17:23:22,223 monitoring 7576 19340 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-09 18:32:40,910 database_security 10248 8132 Audit tables created successfully
+INFO 2025-08-09 18:32:40,910 database_security 10248 8132 Database security monitoring initialized successfully
+INFO 2025-08-09 18:34:24,347 database_security 4036 11404 Audit tables created successfully
+INFO 2025-08-09 18:34:24,347 database_security 4036 11404 Database security monitoring initialized successfully
+INFO 2025-08-09 18:35:33,349 database_security 15504 12884 Audit tables created successfully
+INFO 2025-08-09 18:35:33,349 database_security 15504 12884 Database security monitoring initialized successfully
+INFO 2025-08-09 18:37:08,056 database_security 10732 12976 Audit tables created successfully
+INFO 2025-08-09 18:37:08,056 database_security 10732 12976 Database security monitoring initialized successfully
+INFO 2025-08-09 19:15:21,582 database_security 4532 13676 Audit tables created successfully
+INFO 2025-08-09 19:15:21,582 database_security 4532 13676 Database security monitoring initialized successfully
+INFO 2025-08-09 19:23:53,972 database_security 7820 15584 Audit tables created successfully
+INFO 2025-08-09 19:23:53,972 database_security 7820 15584 Database security monitoring initialized successfully
+INFO 2025-08-09 19:26:22,343 database_security 14564 14948 Audit tables created successfully
+INFO 2025-08-09 19:26:22,366 database_security 14564 14948 Database security monitoring initialized successfully
+INFO 2025-08-09 19:26:46,994 database_security 16356 13840 Audit tables created successfully
+INFO 2025-08-09 19:26:46,994 database_security 16356 13840 Database security monitoring initialized successfully
+INFO 2025-08-09 19:44:38,423 database_security 13696 14008 Audit tables created successfully
+INFO 2025-08-09 19:44:38,423 database_security 13696 14008 Database security monitoring initialized successfully
+INFO 2025-08-10 10:00:29,326 database_security 4560 10524 Audit tables created successfully
+INFO 2025-08-10 10:00:29,326 database_security 4560 10524 Database security monitoring initialized successfully
+INFO 2025-08-10 10:05:04,624 database_security 15016 5196 Audit tables created successfully
+INFO 2025-08-10 10:05:04,634 database_security 15016 5196 Database security monitoring initialized successfully
+INFO 2025-08-10 10:47:14,890 database_security 10928 18036 Audit tables created successfully
+INFO 2025-08-10 10:47:14,890 database_security 10928 18036 Database security monitoring initialized successfully
+INFO 2025-08-10 10:49:41,076 database_security 13744 12404 Audit tables created successfully
+INFO 2025-08-10 10:49:41,082 database_security 13744 12404 Database security monitoring initialized successfully
+INFO 2025-08-10 11:03:12,882 database_security 15472 10932 Audit tables created successfully
+INFO 2025-08-10 11:03:12,887 database_security 15472 10932 Database security monitoring initialized successfully
+INFO 2025-08-10 20:23:19,874 database_security 13260 1364 Audit tables created successfully
+INFO 2025-08-10 20:23:19,881 database_security 13260 1364 Database security monitoring initialized successfully
+INFO 2025-08-10 20:24:31,167 database_security 2796 2872 Audit tables created successfully
+INFO 2025-08-10 20:24:31,167 database_security 2796 2872 Database security monitoring initialized successfully

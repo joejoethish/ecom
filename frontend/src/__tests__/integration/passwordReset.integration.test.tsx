@@ -15,12 +15,12 @@ jest.mock('next/navigation', () => ({
 }));
 
 // Mock the authApi
-jest.mock('@/services/authApi');
+jest.mock(&apos;@/services/authApi&apos;);
 const mockAuthApi = authApi as jest.Mocked<typeof authApi>;
 
 // Mock error handling utilities
-jest.mock('@/utils/passwordResetErrors', () => ({
-  getPasswordResetErrorMessage: jest.fn((error) => error?.message || 'An error occurred'),
+jest.mock(&apos;@/utils/passwordResetErrors&apos;, () => ({
+  getPasswordResetErrorMessage: jest.fn((error) => error?.message || &apos;An error occurred&apos;),
   logPasswordResetError: jest.fn(),
   isRetryablePasswordResetError: jest.fn(() => true),
   isValidTokenFormat: jest.fn(() => true),
@@ -28,15 +28,14 @@ jest.mock('@/utils/passwordResetErrors', () => ({
 }));
 
 // Mock security monitoring
-jest.mock('@/utils/securityMonitoring', () => ({
+jest.mock(&apos;@/utils/securityMonitoring&apos;, () => ({
   withPerformanceMonitoring: jest.fn((operation, fn, details) => fn()),
 }));
 
-const TestWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div>{children}</div>
 );
 
-describe('Password Reset Integration Tests', () => {
+describe(&apos;Password Reset Integration Tests&apos;, () => {
   const mockRouter = {
     push: jest.fn(),
     replace: jest.fn(),
@@ -48,14 +47,14 @@ describe('Password Reset Integration Tests', () => {
     (useRouter as jest.Mock).mockReturnValue(mockRouter);
   });
 
-  describe('Complete Password Reset Flow', () => {
-    it('completes full password reset flow successfully', async () => {
+  describe(&apos;Complete Password Reset Flow&apos;, () => {
+    it(&apos;completes full password reset flow successfully&apos;, async () => {
       const user = userEvent.setup();
       
       // Mock API responses
       mockAuthApi.requestPasswordReset.mockResolvedValue({
         success: true,
-        data: { success: true, message: 'Reset email sent' }
+        data: { success: true, message: &apos;Reset email sent&apos; }
       });
       
       mockAuthApi.validateResetToken.mockResolvedValue({
@@ -65,11 +64,10 @@ describe('Password Reset Integration Tests', () => {
       
       mockAuthApi.resetPassword.mockResolvedValue({
         success: true,
-        data: { success: true, message: 'Password reset successful' }
+        data: { success: true, message: &apos;Password reset successful&apos; }
       });
 
       // Step 1: Request password reset
-      const { rerender } = render(
         <TestWrapper>
           <ForgotPasswordForm 
             onSuccess={jest.fn()}
@@ -78,22 +76,22 @@ describe('Password Reset Integration Tests', () => {
         </TestWrapper>
       );
 
-      const emailInput = screen.getByLabelText('Email Address');
-      const submitButton = screen.getByRole('button', { name: 'Send Reset Link' });
+      const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
+      const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; });
 
-      await user.type(emailInput, 'test@example.com');
+      await user.type(emailInput, &apos;test@example.com&apos;);
       await user.click(submitButton);
 
       // Should show success screen
       await waitFor(() => {
-        expect(screen.getByText('Check Your Email')).toBeInTheDocument();
-        expect(screen.getByText('test@example.com')).toBeInTheDocument();
+        expect(screen.getByText(&apos;Check Your Email&apos;)).toBeInTheDocument();
+        expect(screen.getByText(&apos;test@example.com&apos;)).toBeInTheDocument();
       });
 
-      expect(mockAuthApi.requestPasswordReset).toHaveBeenCalledWith('test@example.com');
+      expect(mockAuthApi.requestPasswordReset).toHaveBeenCalledWith(&apos;test@example.com&apos;);
 
       // Step 2: User clicks reset link (simulate with ResetPasswordForm)
-      const token = 'abcd1234567890abcd1234567890abcd';
+      const token = &apos;abcd1234567890abcd1234567890abcd&apos;;
       
       rerender(
         <TestWrapper>
@@ -111,37 +109,37 @@ describe('Password Reset Integration Tests', () => {
       });
 
       await waitFor(() => {
-        expect(screen.getByText('Reset Your Password')).toBeInTheDocument();
+        expect(screen.getByText(&apos;Reset Your Password&apos;)).toBeInTheDocument();
       });
 
       // Step 3: Reset password
-      const passwordInput = screen.getByLabelText('New Password');
-      const confirmInput = screen.getByLabelText('Confirm New Password');
-      const resetButton = screen.getByRole('button', { name: 'Reset Password' });
+      const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
+      const confirmInput = screen.getByLabelText(&apos;Confirm New Password&apos;);
+      const resetButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
 
-      await user.type(passwordInput, 'NewPassword123!');
-      await user.type(confirmInput, 'NewPassword123!');
+      await user.type(passwordInput, &apos;NewPassword123!&apos;);
+      await user.type(confirmInput, &apos;NewPassword123!&apos;);
       await user.click(resetButton);
 
       // Should complete password reset
       await waitFor(() => {
-        expect(mockAuthApi.resetPassword).toHaveBeenCalledWith(token, 'NewPassword123!');
+        expect(mockAuthApi.resetPassword).toHaveBeenCalledWith(token, &apos;NewPassword123!&apos;);
       });
 
       await waitFor(() => {
-        expect(screen.getByText('Password Reset Successful!')).toBeInTheDocument();
+        expect(screen.getByText(&apos;Password Reset Successful!&apos;)).toBeInTheDocument();
       });
     });
 
-    it('handles errors at each step of the flow', async () => {
+    it(&apos;handles errors at each step of the flow&apos;, async () => {
       const user = userEvent.setup();
 
       // Test error in password reset request
       mockAuthApi.requestPasswordReset.mockResolvedValue({
         success: false,
         error: {
-          message: 'Rate limit exceeded',
-          code: 'rate_limit_exceeded',
+          message: &apos;Rate limit exceeded&apos;,
+          code: &apos;rate_limit_exceeded&apos;,
           status_code: 429
         }
       });
@@ -155,18 +153,18 @@ describe('Password Reset Integration Tests', () => {
         </TestWrapper>
       );
 
-      const emailInput = screen.getByLabelText('Email Address');
-      const submitButton = screen.getByRole('button', { name: 'Send Reset Link' });
+      const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
+      const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; });
 
-      await user.type(emailInput, 'test@example.com');
+      await user.type(emailInput, &apos;test@example.com&apos;);
       await user.click(submitButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Rate limit exceeded')).toBeInTheDocument();
+        expect(screen.getByText(&apos;Rate limit exceeded&apos;)).toBeInTheDocument();
       });
     });
 
-    it('handles invalid token in reset flow', async () => {
+    it(&apos;handles invalid token in reset flow&apos;, async () => {
       mockAuthApi.validateResetToken.mockResolvedValue({
         success: true,
         data: { valid: false, expired: true }
@@ -183,11 +181,11 @@ describe('Password Reset Integration Tests', () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByText('Invalid Reset Link')).toBeInTheDocument();
+        expect(screen.getByText(&apos;Invalid Reset Link&apos;)).toBeInTheDocument();
       });
     });
 
-    it('handles password reset failure', async () => {
+    it(&apos;handles password reset failure&apos;, async () => {
       const user = userEvent.setup();
       
       mockAuthApi.validateResetToken.mockResolvedValue({
@@ -198,8 +196,8 @@ describe('Password Reset Integration Tests', () => {
       mockAuthApi.resetPassword.mockResolvedValue({
         success: false,
         error: {
-          message: 'Token expired during reset',
-          code: 'token_expired',
+          message: &apos;Token expired during reset&apos;,
+          code: &apos;token_expired&apos;,
           status_code: 400
         }
       });
@@ -215,25 +213,25 @@ describe('Password Reset Integration Tests', () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByText('Reset Your Password')).toBeInTheDocument();
+        expect(screen.getByText(&apos;Reset Your Password&apos;)).toBeInTheDocument();
       });
 
-      const passwordInput = screen.getByLabelText('New Password');
-      const confirmInput = screen.getByLabelText('Confirm New Password');
-      const resetButton = screen.getByRole('button', { name: 'Reset Password' });
+      const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
+      const confirmInput = screen.getByLabelText(&apos;Confirm New Password&apos;);
+      const resetButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
 
-      await user.type(passwordInput, 'NewPassword123!');
-      await user.type(confirmInput, 'NewPassword123!');
+      await user.type(passwordInput, &apos;NewPassword123!&apos;);
+      await user.type(confirmInput, &apos;NewPassword123!&apos;);
       await user.click(resetButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Token expired during reset')).toBeInTheDocument();
+        expect(screen.getByText(&apos;Token expired during reset&apos;)).toBeInTheDocument();
       });
     });
   });
 
-  describe('Form Validation Integration', () => {
-    it('validates email format in forgot password form', async () => {
+  describe(&apos;Form Validation Integration&apos;, () => {
+    it(&apos;validates email format in forgot password form&apos;, async () => {
       const user = userEvent.setup();
       
       render(
@@ -245,11 +243,11 @@ describe('Password Reset Integration Tests', () => {
         </TestWrapper>
       );
 
-      const emailInput = screen.getByLabelText('Email Address');
-      const submitButton = screen.getByRole('button', { name: 'Send Reset Link' });
+      const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
+      const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; });
 
       // Test various invalid email formats
-      const invalidEmails = ['invalid', 'invalid@', '@domain.com', 'invalid.email'];
+      const invalidEmails = [&apos;invalid&apos;, &apos;invalid@&apos;, &apos;@domain.com&apos;, &apos;invalid.email&apos;];
       
       for (const email of invalidEmails) {
         await user.clear(emailInput);
@@ -257,20 +255,20 @@ describe('Password Reset Integration Tests', () => {
         await user.click(submitButton);
 
         await waitFor(() => {
-          expect(screen.getByText('Please enter a valid email address')).toBeInTheDocument();
+          expect(screen.getByText(&apos;Please enter a valid email address&apos;)).toBeInTheDocument();
         });
       }
 
       // Test valid email
       await user.clear(emailInput);
-      await user.type(emailInput, 'valid@example.com');
+      await user.type(emailInput, &apos;valid@example.com&apos;);
       
       await waitFor(() => {
-        expect(screen.queryByText('Please enter a valid email address')).not.toBeInTheDocument();
+        expect(screen.queryByText(&apos;Please enter a valid email address&apos;)).not.toBeInTheDocument();
       });
     });
 
-    it('validates password strength in reset form', async () => {
+    it(&apos;validates password strength in reset form&apos;, async () => {
       const user = userEvent.setup();
       
       mockAuthApi.validateResetToken.mockResolvedValue({
@@ -289,19 +287,19 @@ describe('Password Reset Integration Tests', () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByLabelText('New Password')).toBeInTheDocument();
+        expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
       });
 
-      const passwordInput = screen.getByLabelText('New Password');
-      const submitButton = screen.getByRole('button', { name: 'Reset Password' });
+      const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
+      const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
 
       // Test weak passwords
       const weakPasswords = [
-        'weak',
-        'password',
-        'PASSWORD',
-        'password123',
-        'Password123'
+        &apos;weak&apos;,
+        &apos;password&apos;,
+        &apos;PASSWORD&apos;,
+        &apos;password123&apos;,
+        &apos;Password123&apos;
       ];
 
       for (const password of weakPasswords) {
@@ -316,7 +314,7 @@ describe('Password Reset Integration Tests', () => {
 
       // Test strong password
       await user.clear(passwordInput);
-      await user.type(passwordInput, 'StrongPassword123!');
+      await user.type(passwordInput, &apos;StrongPassword123!&apos;);
       
       // Should not show validation error for strong password
       await waitFor(() => {
@@ -324,7 +322,7 @@ describe('Password Reset Integration Tests', () => {
       });
     });
 
-    it('validates password confirmation matching', async () => {
+    it(&apos;validates password confirmation matching&apos;, async () => {
       const user = userEvent.setup();
       
       mockAuthApi.validateResetToken.mockResolvedValue({
@@ -343,37 +341,37 @@ describe('Password Reset Integration Tests', () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByLabelText('New Password')).toBeInTheDocument();
+        expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
       });
 
-      const passwordInput = screen.getByLabelText('New Password');
-      const confirmInput = screen.getByLabelText('Confirm New Password');
-      const submitButton = screen.getByRole('button', { name: 'Reset Password' });
+      const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
+      const confirmInput = screen.getByLabelText(&apos;Confirm New Password&apos;);
+      const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
 
-      await user.type(passwordInput, 'StrongPassword123!');
-      await user.type(confirmInput, 'DifferentPassword123!');
+      await user.type(passwordInput, &apos;StrongPassword123!&apos;);
+      await user.type(confirmInput, &apos;DifferentPassword123!&apos;);
       await user.click(submitButton);
 
       await waitFor(() => {
-        expect(screen.getByText('Passwords do not match')).toBeInTheDocument();
+        expect(screen.getByText(&apos;Passwords do not match&apos;)).toBeInTheDocument();
       });
 
       // Test matching passwords
       await user.clear(confirmInput);
-      await user.type(confirmInput, 'StrongPassword123!');
+      await user.type(confirmInput, &apos;StrongPassword123!&apos;);
       
       await waitFor(() => {
-        expect(screen.queryByText('Passwords do not match')).not.toBeInTheDocument();
+        expect(screen.queryByText(&apos;Passwords do not match&apos;)).not.toBeInTheDocument();
       });
     });
   });
 
-  describe('Loading States Integration', () => {
-    it('shows loading states throughout the flow', async () => {
+  describe(&apos;Loading States Integration&apos;, () => {
+    it(&apos;shows loading states throughout the flow&apos;, async () => {
       const user = userEvent.setup();
       
       // Mock delayed API responses
-      let resolveRequest: (value: any) => void;
+      let resolveRequest: (value: unknown) => void;
       const requestPromise = new Promise((resolve) => {
         resolveRequest = resolve;
       });
@@ -388,38 +386,38 @@ describe('Password Reset Integration Tests', () => {
         </TestWrapper>
       );
 
-      const emailInput = screen.getByLabelText('Email Address');
-      const submitButton = screen.getByRole('button', { name: 'Send Reset Link' });
+      const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
+      const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; });
 
-      await user.type(emailInput, 'test@example.com');
+      await user.type(emailInput, &apos;test@example.com&apos;);
       await user.click(submitButton);
 
       // Should show loading state
-      expect(screen.getByText('Sending Reset Link...')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Sending Reset Link...&apos;)).toBeInTheDocument();
       expect(submitButton).toBeDisabled();
 
       // Resolve the request
       resolveRequest!({
         success: true,
-        data: { success: true, message: 'Reset email sent' }
+        data: { success: true, message: &apos;Reset email sent&apos; }
       });
 
       await waitFor(() => {
-        expect(screen.getByText('Check Your Email')).toBeInTheDocument();
+        expect(screen.getByText(&apos;Check Your Email&apos;)).toBeInTheDocument();
       });
     });
   });
 
-  describe('Error Recovery Integration', () => {
-    it('allows retry after network errors', async () => {
+  describe(&apos;Error Recovery Integration&apos;, () => {
+    it(&apos;allows retry after network errors&apos;, async () => {
       const user = userEvent.setup();
       
       // First call fails, second succeeds
       mockAuthApi.requestPasswordReset
-        .mockRejectedValueOnce(new Error('Network error'))
+        .mockRejectedValueOnce(new Error(&apos;Network error&apos;))
         .mockResolvedValueOnce({
           success: true,
-          data: { success: true, message: 'Reset email sent' }
+          data: { success: true, message: &apos;Reset email sent&apos; }
         });
 
       render(

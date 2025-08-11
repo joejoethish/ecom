@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'onChange'> {
+interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, &apos;onChange&apos;> {
   label?: string;
   error?: string;
   helperText?: string;
@@ -29,7 +29,7 @@ export function Select({
   label,
   error,
   helperText,
-  className = '',
+  className = &apos;&apos;,
   id,
   children,
   value,
@@ -43,10 +43,10 @@ export function Select({
   const errorId = error ? `${selectId}-error` : undefined;
   const helperId = helperText ? `${selectId}-helper` : undefined;
   
-  const baseClasses = 'block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-0 sm:text-sm transition-colors touch-manipulation bg-white';
-  const normalClasses = 'border-gray-300 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400';
-  const errorClasses = 'border-red-300 focus:ring-red-500 focus:border-red-500';
-  const disabledClasses = 'disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed disabled:border-gray-200';
+  const baseClasses = &apos;block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-0 sm:text-sm transition-colors touch-manipulation bg-white&apos;;
+  const normalClasses = &apos;border-gray-300 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400&apos;;
+  const errorClasses = &apos;border-red-300 focus:ring-red-500 focus:border-red-500&apos;;
+  const disabledClasses = &apos;disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed disabled:border-gray-200&apos;;
   
   const selectClasses = `${baseClasses} ${error ? errorClasses : normalClasses} ${disabledClasses} ${className}`;
   
@@ -82,7 +82,7 @@ export function Select({
   );
 }
 
-export function SelectTrigger({ children, className = '' }: SelectTriggerProps) {
+export function SelectTrigger({ children, className = &apos;&apos; }: SelectTriggerProps) {
   return <div className={className}>{children}</div>;
 }
 

@@ -5,14 +5,14 @@ import { Pagination } from '../Pagination';
 describe('Pagination', () => {
   const mockPagination = {
     count: 100,
-    next: 'http://example.com/page/2',
+    next: &apos;http://example.com/page/2&apos;,
     previous: null,
     page_size: 20,
     total_pages: 5,
     current_page: 1,
   };
 
-  it('renders pagination correctly', () => {
+  it(&apos;renders pagination correctly&apos;, () => {
     const handlePageChange = jest.fn();
     render(
       <Pagination 
@@ -22,14 +22,14 @@ describe('Pagination', () => {
     );
 
     // Check if page numbers are rendered
-    expect(screen.getByText('1')).toBeInTheDocument();
-    expect(screen.getByText('2')).toBeInTheDocument();
-    expect(screen.getByText('3')).toBeInTheDocument();
-    expect(screen.getByText('4')).toBeInTheDocument();
-    expect(screen.getByText('5')).toBeInTheDocument();
+    expect(screen.getByText(&apos;1&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;2&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;3&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;4&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;5&apos;)).toBeInTheDocument();
   });
 
-  it('highlights current page', () => {
+  it(&apos;highlights current page&apos;, () => {
     const handlePageChange = jest.fn();
     render(
       <Pagination 
@@ -39,12 +39,12 @@ describe('Pagination', () => {
     );
 
     // Check if current page has the correct styling
-    const currentPage = screen.getByText('1').closest('button');
-    expect(currentPage).toHaveClass('bg-blue-600');
-    expect(currentPage).toHaveClass('text-white');
+    const currentPage = screen.getByText(&apos;1&apos;).closest(&apos;button&apos;);
+    expect(currentPage).toHaveClass(&apos;bg-blue-600&apos;);
+    expect(currentPage).toHaveClass(&apos;text-white&apos;);
   });
 
-  it('calls onPageChange when a page number is clicked', () => {
+  it(&apos;calls onPageChange when a page number is clicked&apos;, () => {
     const handlePageChange = jest.fn();
     render(
       <Pagination 
@@ -54,13 +54,13 @@ describe('Pagination', () => {
     );
 
     // Click on page 2
-    fireEvent.click(screen.getByText('2'));
+    fireEvent.click(screen.getByText(&apos;2&apos;));
     
     // Check if onPageChange was called with the correct page number
     expect(handlePageChange).toHaveBeenCalledWith(2);
   });
 
-  it('disables previous button on first page', () => {
+  it(&apos;disables previous button on first page&apos;, () => {
     const handlePageChange = jest.fn();
     render(
       <Pagination 
@@ -70,17 +70,17 @@ describe('Pagination', () => {
     );
 
     // Find previous button
-    const prevButton = screen.getByLabelText('Previous page');
+    const prevButton = screen.getByLabelText(&apos;Previous page&apos;);
     
-    // Check if it's disabled
+    // Check if it&apos;s disabled
     expect(prevButton).toBeDisabled();
-    expect(prevButton).toHaveClass('text-gray-400');
-    expect(prevButton).toHaveClass('cursor-not-allowed');
+    expect(prevButton).toHaveClass(&apos;text-gray-400&apos;);
+    expect(prevButton).toHaveClass(&apos;cursor-not-allowed&apos;);
   });
 
-  it('enables previous button when not on first page', () => {
+  it(&apos;enables previous button when not on first page&apos;, () => {
     const handlePageChange = jest.fn();
-    const pagination = { ...mockPagination, current_page: 2, previous: 'http://example.com/page/1' };
+    const pagination = { ...mockPagination, current_page: 2, previous: &apos;http://example.com/page/1&apos; };
     
     render(
       <Pagination 
@@ -90,12 +90,12 @@ describe('Pagination', () => {
     );
 
     // Find previous button
-    const prevButton = screen.getByLabelText('Previous page');
+    const prevButton = screen.getByLabelText(&apos;Previous page&apos;);
     
-    // Check if it's enabled
+    // Check if it&apos;s enabled
     expect(prevButton).not.toBeDisabled();
-    expect(prevButton).not.toHaveClass('text-gray-400');
-    expect(prevButton).not.toHaveClass('cursor-not-allowed');
+    expect(prevButton).not.toHaveClass(&apos;text-gray-400&apos;);
+    expect(prevButton).not.toHaveClass(&apos;cursor-not-allowed&apos;);
     
     // Click previous button
     fireEvent.click(prevButton);
@@ -104,7 +104,7 @@ describe('Pagination', () => {
     expect(handlePageChange).toHaveBeenCalledWith(1);
   });
 
-  it('disables next button on last page', () => {
+  it(&apos;disables next button on last page&apos;, () => {
     const handlePageChange = jest.fn();
     const pagination = { ...mockPagination, current_page: 5, next: null };
     
@@ -116,15 +116,15 @@ describe('Pagination', () => {
     );
 
     // Find next button
-    const nextButton = screen.getByLabelText('Next page');
+    const nextButton = screen.getByLabelText(&apos;Next page&apos;);
     
-    // Check if it's disabled
+    // Check if it&apos;s disabled
     expect(nextButton).toBeDisabled();
-    expect(nextButton).toHaveClass('text-gray-400');
-    expect(nextButton).toHaveClass('cursor-not-allowed');
+    expect(nextButton).toHaveClass(&apos;text-gray-400&apos;);
+    expect(nextButton).toHaveClass(&apos;cursor-not-allowed&apos;);
   });
 
-  it('enables next button when not on last page', () => {
+  it(&apos;enables next button when not on last page&apos;, () => {
     const handlePageChange = jest.fn();
     
     render(
@@ -135,12 +135,12 @@ describe('Pagination', () => {
     );
 
     // Find next button
-    const nextButton = screen.getByLabelText('Next page');
+    const nextButton = screen.getByLabelText(&apos;Next page&apos;);
     
-    // Check if it's enabled
+    // Check if it&apos;s enabled
     expect(nextButton).not.toBeDisabled();
-    expect(nextButton).not.toHaveClass('text-gray-400');
-    expect(nextButton).not.toHaveClass('cursor-not-allowed');
+    expect(nextButton).not.toHaveClass(&apos;text-gray-400&apos;);
+    expect(nextButton).not.toHaveClass(&apos;cursor-not-allowed&apos;);
     
     // Click next button
     fireEvent.click(nextButton);
@@ -149,11 +149,10 @@ describe('Pagination', () => {
     expect(handlePageChange).toHaveBeenCalledWith(2);
   });
 
-  it('does not render pagination when there is only one page', () => {
+  it(&apos;does not render pagination when there is only one page&apos;, () => {
     const handlePageChange = jest.fn();
     const pagination = { ...mockPagination, count: 10, total_pages: 1 };
     
-    const { container } = render(
       <Pagination 
         pagination={pagination} 
         onPageChange={handlePageChange} 

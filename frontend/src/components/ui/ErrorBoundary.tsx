@@ -31,8 +31,8 @@ export class ErrorBoundary extends Component<Props, State> {
     this.setState({ errorInfo });
     
     // Log error to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.error('ErrorBoundary caught an error:', error, errorInfo);
+    if (process.env.NODE_ENV === &apos;development&apos;) {
+      console.error(&apos;ErrorBoundary caught an error:&apos;, error, errorInfo);
     }
 
     // Call custom error handler if provided
@@ -78,14 +78,14 @@ export class ErrorBoundary extends Component<Props, State> {
               <Button
                 variant="outline"
                 onClick={() => window.location.reload()}
-                className="mx-auto block"
+                className=&quot;mx-auto block&quot;
               >
                 Refresh Page
               </Button>
             </div>
 
             {/* Show error details in development */}
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+            {process.env.NODE_ENV === &apos;development&apos; && this.state.error && (
               <details className="mt-8 text-left">
                 <summary className="cursor-pointer text-sm font-medium text-gray-700 mb-2">
                   Error Details (Development Only)
@@ -140,7 +140,7 @@ export function withErrorBoundary<P extends object>(
 export function ErrorDisplay({ 
   error, 
   onRetry, 
-  className = '' 
+  className = &apos;&apos; 
 }: { 
   error: string; 
   onRetry?: () => void; 
@@ -174,7 +174,7 @@ export function ErrorDisplay({
  */
 export function NetworkErrorDisplay({ 
   onRetry, 
-  className = '' 
+  className = &apos;&apos; 
 }: { 
   onRetry?: () => void; 
   className?: string; 
@@ -196,7 +196,7 @@ export function EmptyState({
   title,
   description,
   action,
-  className = ''
+  className = &apos;&apos;
 }: {
   icon?: React.ComponentType<{ className?: string }>;
   title: string;

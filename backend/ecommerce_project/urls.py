@@ -40,6 +40,21 @@ urlpatterns = [
     # Admin panel interface
     path('admin-panel/', include('apps.admin_panel.urls')),
     
+    # System settings management
+    path('', include('apps.system_settings.urls')),
+    
+    # Integration management
+    path('', include('apps.integrations.urls')),
+    
+    # Workflow automation system
+    path('', include('apps.workflow.urls')),
+    
+    # Multi-tenant architecture
+    path('', include('apps.tenants.urls')),
+    
+    # Internationalization system
+    path('', include('apps.internationalization.urls')),
+    
     path('api/v1/', include('api.v1.urls')),
     # path('api/v2/', include('api.v2.urls')),  # Temporarily disabled
     

@@ -6,94 +6,92 @@ import { Review } from '../../../types';
 
 // Mock the StarRating component
 jest.mock('../../ui/StarRating', () => {
-  return function MockStarRating({ rating }: any) {
+  return function MockStarRating({ rating }: { rating: number }) {
     return <div data-testid="star-rating">Rating: {rating}</div>;
   };
 });
 
 // Mock date-fns
-jest.mock('date-fns', () => ({
-  formatDistanceToNow: () => '2 days ago',
+jest.mock(&apos;date-fns&apos;, () => ({
+  formatDistanceToNow: () => &apos;2 days ago&apos;,
 }));
 
-describe('ReviewCard', () => {
-  const mockReview: Review = {
-    id: 'review-123',
+describe(&apos;ReviewCard&apos;, () => {
+    id: &apos;review-123&apos;,
     user: {
-      id: 'user-123',
-      username: 'johndoe',
-      full_name: 'John Doe',
-      avatar_url: 'https://example.com/avatar.jpg',
+      id: &apos;user-123&apos;,
+      username: &apos;johndoe&apos;,
+      full_name: &apos;John Doe&apos;,
+      avatar_url: &apos;https://example.com/avatar.jpg&apos;,
     },
     product: {
-      id: 'product-123',
-      name: 'Test Product',
-      slug: 'test-product',
+      id: &apos;product-123&apos;,
+      name: &apos;Test Product&apos;,
+      slug: &apos;test-product&apos;,
     },
     rating: 4,
-    title: 'Great product!',
-    comment: 'I really enjoyed using this product. It exceeded my expectations.',
-    pros: 'Good quality, fast delivery',
-    cons: 'A bit expensive',
+    title: &apos;Great product!&apos;,
+    comment: &apos;I really enjoyed using this product. It exceeded my expectations.&apos;,
+    pros: &apos;Good quality, fast delivery&apos;,
+    cons: &apos;A bit expensive&apos;,
     is_verified_purchase: true,
-    status: 'approved',
+    status: &apos;approved&apos;,
     helpful_count: 5,
     not_helpful_count: 1,
     helpfulness_score: 83.3,
     images: [
       {
-        id: 'img-1',
-        image: 'https://example.com/review-image.jpg',
-        caption: 'Product in use',
+        id: &apos;img-1&apos;,
+        image: &apos;https://example.com/review-image.jpg&apos;,
+        caption: &apos;Product in use&apos;,
         sort_order: 0,
-        created_at: '2024-01-01T00:00:00Z',
+        created_at: &apos;2024-01-01T00:00:00Z&apos;,
       },
     ],
     user_vote: undefined,
     can_moderate: false,
-    created_at: '2024-01-01T00:00:00Z',
+    created_at: &apos;2024-01-01T00:00:00Z&apos;,
   };
 
   const defaultProps = {
     review: mockReview,
-    currentUserId: 'user-456',
+    currentUserId: &apos;user-456&apos;,
   };
 
-  it('renders review information correctly', () => {
+  it(&apos;renders review information correctly&apos;, () => {
     render(<ReviewCard {...defaultProps} />);
     
-    expect(screen.getByText('John Doe')).toBeInTheDocument();
-    expect(screen.getByText('Great product!')).toBeInTheDocument();
-    expect(screen.getByText('I really enjoyed using this product. It exceeded my expectations.')).toBeInTheDocument();
-    expect(screen.getByText('2 days ago')).toBeInTheDocument();
-    expect(screen.getByTestId('star-rating')).toBeInTheDocument();
+    expect(screen.getByText(&apos;John Doe&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Great product!&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;I really enjoyed using this product. It exceeded my expectations.&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;2 days ago&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId(&apos;star-rating&apos;)).toBeInTheDocument();
   });
 
-  it('shows verified purchase badge', () => {
+  it(&apos;shows verified purchase badge&apos;, () => {
     render(<ReviewCard {...defaultProps} />);
-    expect(screen.getByText('Verified Purchase')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Verified Purchase&apos;)).toBeInTheDocument();
   });
 
-  it('displays pros and cons when available', () => {
-    render(<ReviewCard {...defaultProps} />);
-    
-    expect(screen.getByText('Pros:')).toBeInTheDocument();
-    expect(screen.getByText('Good quality, fast delivery')).toBeInTheDocument();
-    expect(screen.getByText('Cons:')).toBeInTheDocument();
-    expect(screen.getByText('A bit expensive')).toBeInTheDocument();
-  });
-
-  it('shows review images', () => {
+  it(&apos;displays pros and cons when available&apos;, () => {
     render(<ReviewCard {...defaultProps} />);
     
-    const image = screen.getByAltText('Product in use');
+    expect(screen.getByText(&apos;Pros:&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Good quality, fast delivery&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Cons:&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;A bit expensive&apos;)).toBeInTheDocument();
+  });
+
+  it(&apos;shows review images&apos;, () => {
+    render(<ReviewCard {...defaultProps} />);
+    
+    const image = screen.getByAltText(&apos;Product in use&apos;);
     expect(image).toBeInTheDocument();
-    expect(image).toHaveAttribute('src', 'https://example.com/review-image.jpg');
+    expect(image).toHaveAttribute(&apos;src&apos;, &apos;https://example.com/review-image.jpg&apos;);
   });
 
-  it('displays status badges correctly', () => {
-    const { rerender } = render(<ReviewCard {...defaultProps} />);
-    expect(screen.getByText('Approved')).toBeInTheDocument();
+  it(&apos;displays status badges correctly&apos;, () => {
+    expect(screen.getByText(&apos;Approved&apos;)).toBeInTheDocument();
 
     rerender(
       <ReviewCard 
@@ -101,7 +99,7 @@ describe('ReviewCard', () => {
         review={{ ...mockReview, status: 'pending' }} 
       />
     );
-    expect(screen.getByText('Pending Review')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Pending Review&apos;)).toBeInTheDocument();
 
     rerender(
       <ReviewCard 
@@ -109,10 +107,10 @@ describe('ReviewCard', () => {
         review={{ ...mockReview, status: 'flagged' }} 
       />
     );
-    expect(screen.getByText('Flagged')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Flagged&apos;)).toBeInTheDocument();
   });
 
-  it('shows helpfulness voting for non-own reviews', async () => {
+  it(&apos;shows helpfulness voting for non-own reviews&apos;, async () => {
     const mockOnVoteHelpful = jest.fn().mockResolvedValue(undefined);
     const user = userEvent.setup();
     
@@ -123,15 +121,15 @@ describe('ReviewCard', () => {
       />
     );
     
-    expect(screen.getByText('Was this helpful?')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Was this helpful?&apos;)).toBeInTheDocument();
     
-    const helpfulButton = screen.getByRole('button', { name: /5/ }); // helpful count
+    const helpfulButton = screen.getByRole(&apos;button&apos;, { name: /5/ }); // helpful count
     await user.click(helpfulButton);
     
-    expect(mockOnVoteHelpful).toHaveBeenCalledWith('review-123', 'helpful');
+    expect(mockOnVoteHelpful).toHaveBeenCalledWith(&apos;review-123&apos;, &apos;helpful&apos;);
   });
 
-  it('does not show helpfulness voting for own reviews', () => {
+  it(&apos;does not show helpfulness voting for own reviews&apos;, () => {
     render(
       <ReviewCard 
         {...defaultProps} 
@@ -140,10 +138,10 @@ describe('ReviewCard', () => {
       />
     );
     
-    expect(screen.queryByText('Was this helpful?')).not.toBeInTheDocument();
+    expect(screen.queryByText(&apos;Was this helpful?&apos;)).not.toBeInTheDocument();
   });
 
-  it('shows edit and delete options for own reviews', async () => {
+  it(&apos;shows edit and delete options for own reviews&apos;, async () => {
     const user = userEvent.setup();
     render(
       <ReviewCard 
@@ -155,14 +153,14 @@ describe('ReviewCard', () => {
       />
     );
     
-    const moreButton = screen.getByRole('button', { name: '' }); // MoreVertical icon
+    const moreButton = screen.getByRole(&apos;button&apos;, { name: &apos;&apos; }); // MoreVertical icon
     await user.click(moreButton);
     
-    expect(screen.getByText('Edit')).toBeInTheDocument();
-    expect(screen.getByText('Delete')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Edit&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Delete&apos;)).toBeInTheDocument();
   });
 
-  it('shows report option for other users reviews', async () => {
+  it(&apos;shows report option for other users reviews&apos;, async () => {
     const user = userEvent.setup();
     render(
       <ReviewCard 
@@ -171,13 +169,13 @@ describe('ReviewCard', () => {
       />
     );
     
-    const moreButton = screen.getByRole('button', { name: '' }); // MoreVertical icon
+    const moreButton = screen.getByRole(&apos;button&apos;, { name: &apos;&apos; }); // MoreVertical icon
     await user.click(moreButton);
     
-    expect(screen.getByText('Report')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Report&apos;)).toBeInTheDocument();
   });
 
-  it('calls onEdit when edit is clicked', async () => {
+  it(&apos;calls onEdit when edit is clicked&apos;, async () => {
     const mockOnEdit = jest.fn();
     const user = userEvent.setup();
     
@@ -190,16 +188,16 @@ describe('ReviewCard', () => {
       />
     );
     
-    const moreButton = screen.getByRole('button', { name: '' });
+    const moreButton = screen.getByRole(&apos;button&apos;, { name: &apos;&apos; });
     await user.click(moreButton);
     
-    const editButton = screen.getByText('Edit');
+    const editButton = screen.getByText(&apos;Edit&apos;);
     await user.click(editButton);
     
     expect(mockOnEdit).toHaveBeenCalledWith(mockReview);
   });
 
-  it('calls onDelete when delete is clicked', async () => {
+  it(&apos;calls onDelete when delete is clicked&apos;, async () => {
     const mockOnDelete = jest.fn().mockResolvedValue(undefined);
     const user = userEvent.setup();
     
@@ -211,16 +209,16 @@ describe('ReviewCard', () => {
       />
     );
     
-    const moreButton = screen.getByRole('button', { name: '' });
+    const moreButton = screen.getByRole(&apos;button&apos;, { name: &apos;&apos; });
     await user.click(moreButton);
     
-    const deleteButton = screen.getByText('Delete');
+    const deleteButton = screen.getByText(&apos;Delete&apos;);
     await user.click(deleteButton);
     
-    expect(mockOnDelete).toHaveBeenCalledWith('review-123');
+    expect(mockOnDelete).toHaveBeenCalledWith(&apos;review-123&apos;);
   });
 
-  it('calls onReport when report is clicked', async () => {
+  it(&apos;calls onReport when report is clicked&apos;, async () => {
     const mockOnReport = jest.fn();
     const user = userEvent.setup();
     
@@ -231,16 +229,16 @@ describe('ReviewCard', () => {
       />
     );
     
-    const moreButton = screen.getByRole('button', { name: '' });
+    const moreButton = screen.getByRole(&apos;button&apos;, { name: &apos;&apos; });
     await user.click(moreButton);
     
-    const reportButton = screen.getByText('Report');
+    const reportButton = screen.getByText(&apos;Report&apos;);
     await user.click(reportButton);
     
-    expect(mockOnReport).toHaveBeenCalledWith('review-123');
+    expect(mockOnReport).toHaveBeenCalledWith(&apos;review-123&apos;);
   });
 
-  it('shows moderation actions when enabled', async () => {
+  it(&apos;shows moderation actions when enabled&apos;, async () => {
     const mockOnModerate = jest.fn().mockResolvedValue(undefined);
     const user = userEvent.setup();
     
@@ -253,22 +251,22 @@ describe('ReviewCard', () => {
       />
     );
     
-    expect(screen.getByText('Approve')).toBeInTheDocument();
-    expect(screen.getByText('Reject')).toBeInTheDocument();
-    expect(screen.getByText('Flag')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Approve&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Reject&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Flag&apos;)).toBeInTheDocument();
     
-    const approveButton = screen.getByText('Approve');
+    const approveButton = screen.getByText(&apos;Approve&apos;);
     await user.click(approveButton);
     
-    expect(mockOnModerate).toHaveBeenCalledWith('review-123', 'approve');
+    expect(mockOnModerate).toHaveBeenCalledWith(&apos;review-123&apos;, &apos;approve&apos;);
   });
 
-  it('shows helpfulness score when available', () => {
+  it(&apos;shows helpfulness score when available&apos;, () => {
     render(<ReviewCard {...defaultProps} />);
-    expect(screen.getByText('83.3% found this helpful')).toBeInTheDocument();
+    expect(screen.getByText(&apos;83.3% found this helpful&apos;)).toBeInTheDocument();
   });
 
-  it('highlights user vote', () => {
+  it(&apos;highlights user vote&apos;, () => {
     render(
       <ReviewCard 
         {...defaultProps} 
@@ -277,11 +275,11 @@ describe('ReviewCard', () => {
       />
     );
     
-    const helpfulButton = screen.getByRole('button', { name: /5/ });
-    expect(helpfulButton).toHaveClass('bg-green-100', 'text-green-700');
+    const helpfulButton = screen.getByRole(&apos;button&apos;, { name: /5/ });
+    expect(helpfulButton).toHaveClass(&apos;bg-green-100&apos;, &apos;text-green-700&apos;);
   });
 
-  it('closes dropdown when clicking outside', async () => {
+  it(&apos;closes dropdown when clicking outside&apos;, async () => {
     const user = userEvent.setup();
     render(
       <ReviewCard 

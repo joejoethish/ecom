@@ -12,9 +12,7 @@ interface PaymentMethodSelectorProps {
   onMethodSelect?: (methodId: string) => void;
 }
 
-const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({ onMethodSelect }) => {
   const dispatch = useAppDispatch();
-  const { paymentMethods, selectedPaymentMethod, loading, error } = useSelector(
     (state: RootState) => state.payments
   );
 
@@ -30,7 +28,6 @@ const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({ onMethodS
   };
 
   // Group payment methods by type for better organization
-  const groupedMethods: Record<string, PaymentMethod[]> = paymentMethods.reduce(
     (acc, method) => {
       const type = method.method_type;
       if (!acc[type]) {
@@ -42,16 +39,15 @@ const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({ onMethodS
     {} as Record<string, PaymentMethod[]>
   );
 
-  const methodTypeLabels: Record<string, string> = {
-    'CARD': 'Credit/Debit Cards',
-    'UPI': 'UPI Payment',
-    'WALLET': 'Digital Wallets',
-    'NETBANKING': 'Net Banking',
-    'COD': 'Cash on Delivery',
-    'GIFT_CARD': 'Gift Cards',
-    'IMPS': 'IMPS Transfer',
-    'RTGS': 'RTGS Transfer',
-    'NEFT': 'NEFT Transfer',
+    &apos;CARD&apos;: &apos;Credit/Debit Cards&apos;,
+    &apos;UPI&apos;: &apos;UPI Payment&apos;,
+    &apos;WALLET&apos;: &apos;Digital Wallets&apos;,
+    &apos;NETBANKING&apos;: &apos;Net Banking&apos;,
+    &apos;COD&apos;: &apos;Cash on Delivery&apos;,
+    &apos;GIFT_CARD&apos;: &apos;Gift Cards&apos;,
+    &apos;IMPS&apos;: &apos;IMPS Transfer&apos;,
+    &apos;RTGS&apos;: &apos;RTGS Transfer&apos;,
+    &apos;NEFT&apos;: &apos;NEFT Transfer&apos;,
   };
 
   if (loading) {
@@ -139,7 +135,7 @@ const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({ onMethodS
                       type="radio"
                       checked={selectedPaymentMethod === method.id}
                       onChange={() => handleMethodSelect(method.id)}
-                      className="h-5 w-5 text-blue-600"
+                      className=&quot;h-5 w-5 text-blue-600&quot;
                     />
                   </div>
                 </div>

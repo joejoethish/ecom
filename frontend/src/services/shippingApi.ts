@@ -13,10 +13,9 @@ import {
   PaginatedResponse
 } from '../types';
 
-export const shippingApi = {
   // Shipping Partners
   getShippingPartners: (): Promise<ApiResponse<ShippingPartner[]>> => {
-    return apiClient.get('/shipping/partners/');
+    return apiClient.get(&apos;/shipping/partners/&apos;);
   },
 
   getShippingPartner: (id: string): Promise<ApiResponse<ShippingPartner>> => {
@@ -64,12 +63,12 @@ export const shippingApi = {
   },
 
   getAvailableDeliverySlots: (data: DeliverySlotAvailability): Promise<ApiResponse<DeliverySlot[]>> => {
-    return apiClient.post('/shipping/delivery-slots/available_slots/', data);
+    return apiClient.post(&apos;/shipping/delivery-slots/available_slots/&apos;, data);
   },
 
   // Shipping Rates
   calculateShippingRates: (data: ShippingRateCalculation): Promise<ApiResponse<ShippingRateResult[]>> => {
-    return apiClient.post('/shipping/shipping-rates/calculate/', data);
+    return apiClient.post(&apos;/shipping/shipping-rates/calculate/&apos;, data);
   },
 
   getShippingRates: (params?: {
@@ -111,7 +110,7 @@ export const shippingApi = {
   },
 
   createShipment: (data: Partial<Shipment>): Promise<ApiResponse<Shipment>> => {
-    return apiClient.post('/shipping/shipments/', data);
+    return apiClient.post(&apos;/shipping/shipments/&apos;, data);
   },
 
   updateShipment: (id: string, data: Partial<Shipment>): Promise<ApiResponse<Shipment>> => {
@@ -142,7 +141,7 @@ export const shippingApi = {
     description?: string;
     location?: string;
   }): Promise<ApiResponse<{ message: string; updated_count: number }>> => {
-    return apiClient.post('/shipping/shipments/bulk_update_status/', data);
+    return apiClient.post(&apos;/shipping/shipments/bulk_update_status/&apos;, data);
   },
 
   // Analytics (admin only)
@@ -151,8 +150,8 @@ export const shippingApi = {
     date_to: string;
     shipping_partner_id?: string;
     status?: string;
-  }): Promise<ApiResponse<any>> => {
-    return apiClient.post('/shipping/shipments/analytics/', data);
+  }): Promise<ApiResponse<unknown>> => {
+    return apiClient.post(&apos;/shipping/shipments/analytics/&apos;, data);
   },
 
   // Webhooks (for shipping partners)
@@ -162,7 +161,7 @@ export const shippingApi = {
     description?: string;
     location?: string;
     timestamp: string;
-    partner_data?: Record<string, any>;
+    partner_data?: Record<string, unknown>;
   }): Promise<ApiResponse<{ status: string; message: string }>> => {
     return apiClient.post('/shipping/shipments/webhook/', data);
   },

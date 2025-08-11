@@ -14,27 +14,27 @@ describe('securityMonitoring', () => {
     jest.clearAllMocks();
   });
 
-  describe('logSecurityEvent', () => {
-    it('logs security events with correct structure', () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+  describe(&apos;logSecurityEvent&apos;, () => {
+    it(&apos;logs security events with correct structure&apos;, () => {
+      const consoleSpy = jest.spyOn(console, &apos;log&apos;).mockImplementation();
       
       logSecurityEvent(
-        'password_reset',
-        'test_event',
-        'medium',
-        { testData: 'value' },
-        { ipAddress: '192.168.1.1', userAgent: 'test-agent' }
+        &apos;password_reset&apos;,
+        &apos;test_event&apos;,
+        &apos;medium&apos;,
+        { testData: &apos;value&apos; },
+        { ipAddress: &apos;192.168.1.1&apos;, userAgent: &apos;test-agent&apos; }
       );
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        '[SECURITY] password_reset:test_event',
+        &apos;[SECURITY] password_reset:test_event&apos;,
         expect.objectContaining({
-          type: 'password_reset',
-          event: 'test_event',
-          severity: 'medium',
-          details: expect.objectContaining({ testData: 'value' }),
-          ipAddress: '192.168.1.1',
-          userAgent: 'test-agent',
+          type: &apos;password_reset&apos;,
+          event: &apos;test_event&apos;,
+          severity: &apos;medium&apos;,
+          details: expect.objectContaining({ testData: &apos;value&apos; }),
+          ipAddress: &apos;192.168.1.1&apos;,
+          userAgent: &apos;test-agent&apos;,
           timestamp: expect.any(String)
         })
       );
@@ -42,35 +42,35 @@ describe('securityMonitoring', () => {
       consoleSpy.mockRestore();
     });
 
-    it('sanitizes sensitive data from logs', () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+    it(&apos;sanitizes sensitive data from logs&apos;, () => {
+      const consoleSpy = jest.spyOn(console, &apos;log&apos;).mockImplementation();
       
       logSecurityEvent(
-        'password_reset',
-        'test_event',
-        'low',
+        &apos;password_reset&apos;,
+        &apos;test_event&apos;,
+        &apos;low&apos;,
         { 
-          email: 'user@example.com',
-          token: 'abcd1234567890abcd1234567890abcd',
-          password: 'secret123'
+          email: &apos;user@example.com&apos;,
+          token: &apos;abcd1234567890abcd1234567890abcd&apos;,
+          password: &apos;secret123&apos;
         }
       );
 
       const loggedEvent = consoleSpy.mock.calls[0][1];
-      expect(loggedEvent.details.email).toBe('us***@example.com');
-      expect(loggedEvent.details.token).toBe('abcd1234...');
+      expect(loggedEvent.details.email).toBe(&apos;us***@example.com&apos;);
+      expect(loggedEvent.details.token).toBe(&apos;abcd1234...&apos;);
       expect(loggedEvent.details.password).toBeUndefined();
 
       consoleSpy.mockRestore();
     });
   });
 
-  describe('getSecurityMetrics', () => {
-    it('returns metrics for recent events', () => {
+  describe(&apos;getSecurityMetrics&apos;, () => {
+    it(&apos;returns metrics for recent events&apos;, () => {
       // Log some test events
-      logSecurityEvent('password_reset', 'request', 'low', {}, { ipAddress: '192.168.1.1' });
-      logSecurityEvent('password_reset', 'validate', 'medium', {}, { ipAddress: '192.168.1.2' });
-      logSecurityEvent('suspicious_activity', 'pattern_detected', 'high', {});
+      logSecurityEvent(&apos;password_reset&apos;, &apos;request&apos;, &apos;low&apos;, {}, { ipAddress: &apos;192.168.1.1&apos; });
+      logSecurityEvent(&apos;password_reset&apos;, &apos;validate&apos;, &apos;medium&apos;, {}, { ipAddress: &apos;192.168.1.2&apos; });
+      logSecurityEvent(&apos;suspicious_activity&apos;, &apos;pattern_detected&apos;, &apos;high&apos;, {});
 
       const metrics = getSecurityMetrics();
 
@@ -81,10 +81,10 @@ describe('securityMonitoring', () => {
       expect(metrics.recentAlerts).toBeDefined();
     });
 
-    it('counts events by type and severity correctly', () => {
-      logSecurityEvent('password_reset', 'request', 'low');
-      logSecurityEvent('password_reset', 'request', 'medium');
-      logSecurityEvent('password_reset', 'validate', 'high');
+    it(&apos;counts events by type and severity correctly&apos;, () => {
+      logSecurityEvent(&apos;password_reset&apos;, &apos;request&apos;, &apos;low&apos;);
+      logSecurityEvent(&apos;password_reset&apos;, &apos;request&apos;, &apos;medium&apos;);
+      logSecurityEvent(&apos;password_reset&apos;, &apos;validate&apos;, &apos;high&apos;);
 
       const metrics = getSecurityMetrics();
 
@@ -96,47 +96,47 @@ describe('securityMonitoring', () => {
     });
   });
 
-  describe('shouldBlockIP', () => {
-    it('blocks IP with recent high-severity events', () => {
-      const testIP = '192.168.1.100';
+  describe(&apos;shouldBlockIP&apos;, () => {
+    it(&apos;blocks IP with recent high-severity events&apos;, () => {
+      const testIP = &apos;192.168.1.100&apos;;
       
-      logSecurityEvent('suspicious_activity', 'pattern_detected', 'high', {}, { ipAddress: testIP });
+      logSecurityEvent(&apos;suspicious_activity&apos;, &apos;pattern_detected&apos;, &apos;high&apos;, {}, { ipAddress: testIP });
       
       expect(shouldBlockIP(testIP)).toBe(true);
     });
 
-    it('does not block IP with only low-severity events', () => {
-      const testIP = '192.168.1.101';
+    it(&apos;does not block IP with only low-severity events&apos;, () => {
+      const testIP = &apos;192.168.1.101&apos;;
       
-      logSecurityEvent('password_reset', 'request', 'low', {}, { ipAddress: testIP });
+      logSecurityEvent(&apos;password_reset&apos;, &apos;request&apos;, &apos;low&apos;, {}, { ipAddress: testIP });
       
       expect(shouldBlockIP(testIP)).toBe(false);
     });
   });
 
-  describe('recordPerformanceMetric', () => {
-    it('records performance metrics correctly', () => {
+  describe(&apos;recordPerformanceMetric&apos;, () => {
+    it(&apos;records performance metrics correctly&apos;, () => {
       const startTime = Date.now() - 1000; // 1 second ago
       
-      recordPerformanceMetric('test_operation', startTime, true, { extra: 'data' });
+      recordPerformanceMetric(&apos;test_operation&apos;, startTime, true, { extra: &apos;data&apos; });
       
       const metrics = getPerformanceMetrics();
       expect(metrics).toBeDefined();
     });
 
-    it('logs slow operations as security events', () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+    it(&apos;logs slow operations as security events&apos;, () => {
+      const consoleSpy = jest.spyOn(console, &apos;log&apos;).mockImplementation();
       const startTime = Date.now() - 6000; // 6 seconds ago (slow)
       
-      recordPerformanceMetric('slow_operation', startTime, true);
+      recordPerformanceMetric(&apos;slow_operation&apos;, startTime, true);
       
       // Should log a security event for slow operation
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('[SECURITY]'),
+        expect.stringContaining(&apos;[SECURITY]&apos;),
         expect.objectContaining({
-          event: 'slow_operation',
+          event: &apos;slow_operation&apos;,
           details: expect.objectContaining({
-            operation: 'slow_operation',
+            operation: &apos;slow_operation&apos;,
             duration: expect.any(Number)
           })
         })
@@ -146,12 +146,12 @@ describe('securityMonitoring', () => {
     });
   });
 
-  describe('getPerformanceMetrics', () => {
-    it('returns performance metrics for tracked operations', () => {
+  describe(&apos;getPerformanceMetrics&apos;, () => {
+    it(&apos;returns performance metrics for tracked operations&apos;, () => {
       const startTime = Date.now() - 100;
       
-      recordPerformanceMetric('email_send', startTime, true);
-      recordPerformanceMetric('token_validation', startTime, false);
+      recordPerformanceMetric(&apos;email_send&apos;, startTime, true);
+      recordPerformanceMetric(&apos;token_validation&apos;, startTime, false);
       
       const metrics = getPerformanceMetrics();
       
@@ -164,45 +164,45 @@ describe('securityMonitoring', () => {
     });
   });
 
-  describe('withPerformanceMonitoring', () => {
-    it('wraps async operations with performance monitoring', async () => {
-      const mockOperation = jest.fn().mockResolvedValue('success');
+  describe(&apos;withPerformanceMonitoring&apos;, () => {
+    it(&apos;wraps async operations with performance monitoring&apos;, async () => {
+      const mockOperation = jest.fn().mockResolvedValue(&apos;success&apos;);
       
       const result = await withPerformanceMonitoring(
-        'test_operation',
+        &apos;test_operation&apos;,
         mockOperation,
-        { context: 'test' }
+        { context: &apos;test&apos; }
       );
       
-      expect(result).toBe('success');
+      expect(result).toBe(&apos;success&apos;);
       expect(mockOperation).toHaveBeenCalled();
     });
 
-    it('records performance metrics for successful operations', async () => {
-      const mockOperation = jest.fn().mockResolvedValue('success');
+    it(&apos;records performance metrics for successful operations&apos;, async () => {
+      const mockOperation = jest.fn().mockResolvedValue(&apos;success&apos;);
       
-      await withPerformanceMonitoring('test_success', mockOperation);
+      await withPerformanceMonitoring(&apos;test_success&apos;, mockOperation);
       
       const metrics = getPerformanceMetrics();
       expect(metrics.test_success).toBeDefined();
     });
 
-    it('records performance metrics for failed operations', async () => {
-      const mockOperation = jest.fn().mockRejectedValue(new Error('Test error'));
+    it(&apos;records performance metrics for failed operations&apos;, async () => {
+      const mockOperation = jest.fn().mockRejectedValue(new Error(&apos;Test error&apos;));
       
       await expect(
-        withPerformanceMonitoring('test_failure', mockOperation)
-      ).rejects.toThrow('Test error');
+        withPerformanceMonitoring(&apos;test_failure&apos;, mockOperation)
+      ).rejects.toThrow(&apos;Test error&apos;);
       
       const metrics = getPerformanceMetrics();
       expect(metrics.test_failure).toBeDefined();
     });
   });
 
-  describe('SUSPICIOUS_PATTERNS', () => {
-    it('defines expected suspicious activity patterns', () => {
+  describe(&apos;SUSPICIOUS_PATTERNS&apos;, () => {
+    it(&apos;defines expected suspicious activity patterns&apos;, () => {
       expect(SUSPICIOUS_PATTERNS.RAPID_RESET_REQUESTS).toBeDefined();
-      expect(SUSPICIOUS_PATTERNS.RAPID_RESET_REQUESTS.type).toBe('rapid_requests');
+      expect(SUSPICIOUS_PATTERNS.RAPID_RESET_REQUESTS.type).toBe(&apos;rapid_requests&apos;);
       expect(SUSPICIOUS_PATTERNS.RAPID_RESET_REQUESTS.threshold).toBeGreaterThan(0);
       expect(SUSPICIOUS_PATTERNS.RAPID_RESET_REQUESTS.timeWindow).toBeGreaterThan(0);
 
@@ -212,10 +212,10 @@ describe('securityMonitoring', () => {
     });
   });
 
-  describe('suspicious activity detection', () => {
-    it('detects rapid password reset requests', () => {
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
-      const testIP = '192.168.1.200';
+  describe(&apos;suspicious activity detection&apos;, () => {
+    it(&apos;detects rapid password reset requests&apos;, () => {
+      const consoleSpy = jest.spyOn(console, &apos;warn&apos;).mockImplementation();
+      const testIP = &apos;192.168.1.200&apos;;
       
       // Simulate rapid requests exceeding threshold
       for (let i = 0; i < 6; i++) {
@@ -242,8 +242,8 @@ describe('securityMonitoring', () => {
     });
 
     it('detects invalid token attempts', () => {
-      const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
-      const testIP = '192.168.1.201';
+      const consoleSpy = jest.spyOn(console, &apos;warn&apos;).mockImplementation();
+      const testIP = &apos;192.168.1.201&apos;;
       
       // Simulate multiple invalid token attempts
       for (let i = 0; i < 11; i++) {

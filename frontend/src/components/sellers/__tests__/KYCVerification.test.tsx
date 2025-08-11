@@ -9,40 +9,39 @@ import type { Middleware } from '@reduxjs/toolkit';
 
 // Mock the dispatch function
 jest.mock('react-redux', () => ({
-  ...jest.requireActual('react-redux'),
+  ...jest.requireActual(&apos;react-redux&apos;),
   useDispatch: () => jest.fn().mockReturnValue(() => Promise.resolve()),
 }));
 
 // Create mock store
-const middlewares: Middleware[] = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('KYCVerification Component', () => {
-  let store: any;
+describe(&apos;KYCVerification Component&apos;, () => {
+  let store: unknown;
 
   beforeEach(() => {
     store = mockStore({
       seller: {
         kycDocuments: [
           {
-            id: '1',
-            document_type: 'ID_PROOF',
-            document_type_display: 'ID Proof',
-            document_number: 'ABC123',
-            document_name: 'Aadhar Card',
-            verification_status: 'PENDING',
-            verification_status_display: 'Pending',
-            created_at: '2023-01-01T00:00:00Z',
+            id: &apos;1&apos;,
+            document_type: &apos;ID_PROOF&apos;,
+            document_type_display: &apos;ID Proof&apos;,
+            document_number: &apos;ABC123&apos;,
+            document_name: &apos;Aadhar Card&apos;,
+            verification_status: &apos;PENDING&apos;,
+            verification_status_display: &apos;Pending&apos;,
+            created_at: &apos;2023-01-01T00:00:00Z&apos;,
           },
           {
-            id: '2',
-            document_type: 'ADDRESS_PROOF',
-            document_type_display: 'Address Proof',
-            document_number: 'XYZ456',
-            document_name: 'Utility Bill',
-            verification_status: 'VERIFIED',
-            verification_status_display: 'Verified',
-            created_at: '2023-01-02T00:00:00Z',
+            id: &apos;2&apos;,
+            document_type: &apos;ADDRESS_PROOF&apos;,
+            document_type_display: &apos;Address Proof&apos;,
+            document_number: &apos;XYZ456&apos;,
+            document_name: &apos;Utility Bill&apos;,
+            verification_status: &apos;VERIFIED&apos;,
+            verification_status_display: &apos;Verified&apos;,
+            created_at: &apos;2023-01-02T00:00:00Z&apos;,
           },
         ],
         loading: false,
@@ -51,7 +50,7 @@ describe('KYCVerification Component', () => {
     });
   });
 
-  test('renders the component correctly', () => {
+  test(&apos;renders the component correctly&apos;, () => {
     render(
       <Provider store={store}>
         <KYCVerification />
@@ -59,17 +58,17 @@ describe('KYCVerification Component', () => {
     );
 
     // Check if component elements are displayed
-    expect(screen.getByText('KYC Verification')).toBeInTheDocument();
-    expect(screen.getByText('Upload KYC Document')).toBeInTheDocument();
-    expect(screen.getByText('Uploaded Documents')).toBeInTheDocument();
+    expect(screen.getByText(&apos;KYC Verification&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Upload KYC Document&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Uploaded Documents&apos;)).toBeInTheDocument();
     expect(screen.getByLabelText(/Document Type/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Document Name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Document Number/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Document File/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Upload Document/i })).toBeInTheDocument();
+    expect(screen.getByRole(&apos;button&apos;, { name: /Upload Document/i })).toBeInTheDocument();
   });
 
-  test('displays uploaded documents', () => {
+  test(&apos;displays uploaded documents&apos;, () => {
     render(
       <Provider store={store}>
         <KYCVerification />
@@ -77,23 +76,23 @@ describe('KYCVerification Component', () => {
     );
 
     // Check if uploaded documents are displayed
-    expect(screen.getByText('ID Proof')).toBeInTheDocument();
-    expect(screen.getByText('Aadhar Card')).toBeInTheDocument();
-    expect(screen.getByText('ABC123')).toBeInTheDocument();
-    expect(screen.getByText('Pending')).toBeInTheDocument();
+    expect(screen.getByText(&apos;ID Proof&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Aadhar Card&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;ABC123&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Pending&apos;)).toBeInTheDocument();
     
-    expect(screen.getByText('Address Proof')).toBeInTheDocument();
-    expect(screen.getByText('Utility Bill')).toBeInTheDocument();
-    expect(screen.getByText('XYZ456')).toBeInTheDocument();
-    expect(screen.getByText('Verified')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Address Proof&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Utility Bill&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;XYZ456&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Verified&apos;)).toBeInTheDocument();
   });
 
-  test('displays error message when there is an error', () => {
+  test(&apos;displays error message when there is an error&apos;, () => {
     const errorStore = mockStore({
       seller: {
         kycDocuments: [],
         loading: false,
-        error: 'Failed to load KYC documents',
+        error: &apos;Failed to load KYC documents&apos;,
       },
     });
 
@@ -104,10 +103,10 @@ describe('KYCVerification Component', () => {
     );
 
     // Check if error message is displayed
-    expect(screen.getByText('Failed to load KYC documents')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Failed to load KYC documents&apos;)).toBeInTheDocument();
   });
 
-  test('displays success message after document upload', async () => {
+  test(&apos;displays success message after document upload&apos;, async () => {
     // Mock successful document upload
     const successStore = mockStore({
       seller: {
@@ -125,31 +124,31 @@ describe('KYCVerification Component', () => {
 
     // Fill out the form
     fireEvent.change(screen.getByLabelText(/Document Type/i), {
-      target: { value: 'ID_PROOF' },
+      target: { value: &apos;ID_PROOF&apos; },
     });
     fireEvent.change(screen.getByLabelText(/Document Name/i), {
-      target: { value: 'Aadhar Card' },
+      target: { value: &apos;Aadhar Card&apos; },
     });
     fireEvent.change(screen.getByLabelText(/Document Number/i), {
-      target: { value: 'ABC123' },
+      target: { value: &apos;ABC123&apos; },
     });
 
     // Create a mock file
-    const file = new File(['dummy content'], 'document.pdf', { type: 'application/pdf' });
+    const file = new File([&apos;dummy content&apos;], &apos;document.pdf&apos;, { type: &apos;application/pdf&apos; });
     fireEvent.change(screen.getByLabelText(/Document File/i), {
       target: { files: [file] },
     });
 
     // Submit the form
-    fireEvent.click(screen.getByRole('button', { name: /Upload Document/i }));
+    fireEvent.click(screen.getByRole(&apos;button&apos;, { name: /Upload Document/i }));
 
     // Wait for the success message to appear
     await waitFor(() => {
-      expect(screen.getByText('Document uploaded successfully!')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Document uploaded successfully!&apos;)).toBeInTheDocument();
     });
   });
 
-  test('disables submit button when loading', () => {
+  test(&apos;disables submit button when loading&apos;, () => {
     const loadingStore = mockStore({
       seller: {
         kycDocuments: [],

@@ -1,18 +1,24 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ReviewList from '../ReviewList';
 import { Review } from '../../../types';
 
+interface MockReviewCardProps {
+  review: Review;
+  onVoteHelpful?: (reviewId: string, vote: 'helpful' | 'not_helpful') => Promise<void>;
+  onReport?: (reviewId: string) => void;
+}
+
 // Mock the ReviewCard component
-jest.mock('../ReviewCard', () => {
-  return function MockReviewCard({ review, onVoteHelpful, onReport }: any) {
+jest.mock(&apos;../ReviewCard&apos;, () => {
+  return function MockReviewCard({ review, onVoteHelpful, onReport }: MockReviewCardProps) {
     return (
       <div data-testid={`review-card-${review.id}`}>
         <h3>{review.title}</h3>
         <p>{review.comment}</p>
         {onVoteHelpful && (
-          <button onClick={() => onVoteHelpful(review.id, 'helpful')}>
+          <button onClick={() => onVoteHelpful(review.id, &apos;helpful&apos;)}>
             Vote Helpful
           </button>
         )}
@@ -26,57 +32,56 @@ jest.mock('../ReviewCard', () => {
   };
 });
 
-describe('ReviewList', () => {
-  const mockReviews: Review[] = [
+describe(&apos;ReviewList&apos;, () => {
     {
-      id: 'review-1',
+      id: &apos;review-1&apos;,
       user: {
-        id: 'user-1',
-        username: 'user1',
-        full_name: 'User One',
-        avatar_url: '',
+        id: &apos;user-1&apos;,
+        username: &apos;user1&apos;,
+        full_name: &apos;User One&apos;,
+        avatar_url: &apos;&apos;,
       },
       product: {
-        id: 'product-1',
-        name: 'Product 1',
-        slug: 'product-1',
+        id: &apos;product-1&apos;,
+        name: &apos;Product 1&apos;,
+        slug: &apos;product-1&apos;,
       },
       rating: 5,
-      title: 'Excellent product',
-      comment: 'Really great quality',
+      title: &apos;Excellent product&apos;,
+      comment: &apos;Really great quality&apos;,
       is_verified_purchase: true,
-      status: 'approved',
+      status: &apos;approved&apos;,
       helpful_count: 10,
       not_helpful_count: 1,
       helpfulness_score: 90.9,
       images: [],
       can_moderate: false,
-      created_at: '2024-01-01T00:00:00Z',
+      created_at: &apos;2024-01-01T00:00:00Z&apos;,
     },
     {
-      id: 'review-2',
+      id: &apos;review-2&apos;,
       user: {
-        id: 'user-2',
-        username: 'user2',
-        full_name: 'User Two',
-        avatar_url: '',
+        id: &apos;user-2&apos;,
+        username: &apos;user2&apos;,
+        full_name: &apos;User Two&apos;,
+        avatar_url: &apos;&apos;,
       },
       product: {
-        id: 'product-1',
-        name: 'Product 1',
-        slug: 'product-1',
+        id: &apos;product-1&apos;,
+        name: &apos;Product 1&apos;,
+        slug: &apos;product-1&apos;,
       },
       rating: 3,
-      title: 'Average product',
-      comment: 'It was okay',
+      title: &apos;Average product&apos;,
+      comment: &apos;It was okay&apos;,
       is_verified_purchase: false,
-      status: 'approved',
+      status: &apos;approved&apos;,
       helpful_count: 2,
       not_helpful_count: 3,
       helpfulness_score: 40.0,
       images: [],
       can_moderate: false,
-      created_at: '2024-01-02T00:00:00Z',
+      created_at: &apos;2024-01-02T00:00:00Z&apos;,
     },
   ];
 
@@ -85,39 +90,39 @@ describe('ReviewList', () => {
     totalCount: 2,
   };
 
-  it('renders reviews correctly', () => {
+  it(&apos;renders reviews correctly&apos;, () => {
     render(<ReviewList {...defaultProps} />);
     
-    expect(screen.getByText('Reviews (2)')).toBeInTheDocument();
-    expect(screen.getByTestId('review-card-review-1')).toBeInTheDocument();
-    expect(screen.getByTestId('review-card-review-2')).toBeInTheDocument();
-    expect(screen.getByText('Excellent product')).toBeInTheDocument();
-    expect(screen.getByText('Average product')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Reviews (2)&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId(&apos;review-card-review-1&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId(&apos;review-card-review-2&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Excellent product&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Average product&apos;)).toBeInTheDocument();
   });
 
-  it('shows loading state', () => {
+  it(&apos;shows loading state&apos;, () => {
     render(<ReviewList {...defaultProps} loading />);
     
     // Should show skeleton loaders
-    const skeletons = screen.getAllByRole('generic');
-    expect(skeletons.some(el => el.classList.contains('animate-pulse'))).toBe(true);
+    const skeletons = screen.getAllByRole(&apos;generic&apos;);
+    expect(skeletons.some(el => el.classList.contains(&apos;animate-pulse&apos;))).toBe(true);
   });
 
-  it('shows error state', () => {
-    const errorMessage = 'Failed to load reviews';
+  it(&apos;shows error state&apos;, () => {
+    const errorMessage = &apos;Failed to load reviews&apos;;
     render(<ReviewList {...defaultProps} error={errorMessage} />);
     
     expect(screen.getByText(errorMessage)).toBeInTheDocument();
   });
 
-  it('shows empty state when no reviews', () => {
+  it(&apos;shows empty state when no reviews&apos;, () => {
     render(<ReviewList {...defaultProps} reviews={[]} totalCount={0} />);
     
-    expect(screen.getByText('No reviews yet')).toBeInTheDocument();
-    expect(screen.getByText('No reviews match your current filters.')).toBeInTheDocument();
+    expect(screen.getByText(&apos;No reviews yet&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;No reviews match your current filters.&apos;)).toBeInTheDocument();
   });
 
-  it('shows empty state with product-specific message', () => {
+  it(&apos;shows empty state with product-specific message&apos;, () => {
     render(
       <ReviewList 
         {...defaultProps} 
@@ -127,21 +132,21 @@ describe('ReviewList', () => {
       />
     );
     
-    expect(screen.getByText('Be the first to review this product!')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Be the first to review this product!&apos;)).toBeInTheDocument();
   });
 
-  it('renders filter panel when showFilters is true', async () => {
+  it(&apos;renders filter panel when showFilters is true&apos;, async () => {
     const user = userEvent.setup();
     render(<ReviewList {...defaultProps} showFilters />);
     
-    const filtersButton = screen.getByText('Filters');
+    const filtersButton = screen.getByText(&apos;Filters&apos;);
     await user.click(filtersButton);
     
-    expect(screen.getByText('Rating')).toBeInTheDocument();
-    expect(screen.getByText('Purchase Status')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Rating&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Purchase Status&apos;)).toBeInTheDocument();
   });
 
-  it('handles sort option changes', async () => {
+  it(&apos;handles sort option changes&apos;, async () => {
     const mockOnFiltersChange = jest.fn();
     const user = userEvent.setup();
     
@@ -153,15 +158,15 @@ describe('ReviewList', () => {
       />
     );
     
-    const sortSelect = screen.getByDisplayValue('Most Helpful');
-    await user.selectOptions(sortSelect, 'Newest First');
+    const sortSelect = screen.getByDisplayValue(&apos;Most Helpful&apos;);
+    await user.selectOptions(sortSelect, &apos;Newest First&apos;);
     
     expect(mockOnFiltersChange).toHaveBeenCalledWith({
-      ordering: '-created_at',
+      ordering: &apos;-created_at&apos;,
     });
   });
 
-  it('handles rating filter changes', async () => {
+  it(&apos;handles rating filter changes&apos;, async () => {
     const mockOnFiltersChange = jest.fn();
     const user = userEvent.setup();
     
@@ -174,19 +179,19 @@ describe('ReviewList', () => {
     );
     
     // Open filter panel
-    const filtersButton = screen.getByText('Filters');
+    const filtersButton = screen.getByText(&apos;Filters&apos;);
     await user.click(filtersButton);
     
     // Change rating filter
-    const ratingSelect = screen.getByDisplayValue('All Ratings');
-    await user.selectOptions(ratingSelect, '5 Stars');
+    const ratingSelect = screen.getByDisplayValue(&apos;All Ratings&apos;);
+    await user.selectOptions(ratingSelect, &apos;5 Stars&apos;);
     
     expect(mockOnFiltersChange).toHaveBeenCalledWith({
       rating: 5,
     });
   });
 
-  it('handles verified purchase filter', async () => {
+  it(&apos;handles verified purchase filter&apos;, async () => {
     const mockOnFiltersChange = jest.fn();
     const user = userEvent.setup();
     
@@ -199,7 +204,7 @@ describe('ReviewList', () => {
     );
     
     // Open filter panel
-    const filtersButton = screen.getByText('Filters');
+    const filtersButton = screen.getByText(&apos;Filters&apos;);
     await user.click(filtersButton);
     
     // Toggle verified purchase filter
@@ -211,8 +216,7 @@ describe('ReviewList', () => {
     });
   });
 
-  it('shows active filter count', async () => {
-    const user = userEvent.setup();
+  it(&apos;shows active filter count&apos;, async () => {
     render(
       <ReviewList 
         {...defaultProps} 
@@ -221,13 +225,11 @@ describe('ReviewList', () => {
       />
     );
     
-    const filtersButton = screen.getByText('Filters');
-    expect(screen.getByText('2')).toBeInTheDocument(); // Active filter count badge
+    expect(screen.getByText(&apos;2&apos;)).toBeInTheDocument(); // Active filter count badge
   });
 
-  it('clears all filters', async () => {
+  it(&apos;clears all filters&apos;, async () => {
     const mockOnFiltersChange = jest.fn();
-    const user = userEvent.setup();
     
     render(
       <ReviewList 
@@ -239,19 +241,19 @@ describe('ReviewList', () => {
     );
     
     // Open filter panel
-    const filtersButton = screen.getByText('Filters');
+    const filtersButton = screen.getByText(&apos;Filters&apos;);
     await user.click(filtersButton);
     
     // Clear filters
-    const clearButton = screen.getByText('Clear all filters');
+    const clearButton = screen.getByText(&apos;Clear all filters&apos;);
     await user.click(clearButton);
     
     expect(mockOnFiltersChange).toHaveBeenCalledWith({
-      ordering: '-helpful_count',
+      ordering: &apos;-helpful_count&apos;,
     });
   });
 
-  it('shows moderation status filter for admin users', async () => {
+  it(&apos;shows moderation status filter for admin users&apos;, async () => {
     const user = userEvent.setup();
     render(
       <ReviewList 
@@ -262,14 +264,14 @@ describe('ReviewList', () => {
     );
     
     // Open filter panel
-    const filtersButton = screen.getByText('Filters');
+    const filtersButton = screen.getByText(&apos;Filters&apos;);
     await user.click(filtersButton);
     
-    expect(screen.getByText('Status')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('Approved')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Status&apos;)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(&apos;Approved&apos;)).toBeInTheDocument();
   });
 
-  it('passes callbacks to ReviewCard components', () => {
+  it(&apos;passes callbacks to ReviewCard components&apos;, () => {
     const mockOnVoteHelpful = jest.fn();
     const mockOnReport = jest.fn();
     
@@ -281,14 +283,14 @@ describe('ReviewList', () => {
       />
     );
     
-    const voteButtons = screen.getAllByText('Vote Helpful');
-    const reportButtons = screen.getAllByText('Report');
+    const voteButtons = screen.getAllByText(&apos;Vote Helpful&apos;);
+    const reportButtons = screen.getAllByText(&apos;Report&apos;);
     
     expect(voteButtons).toHaveLength(2);
     expect(reportButtons).toHaveLength(2);
   });
 
-  it('handles review actions correctly', async () => {
+  it(&apos;handles review actions correctly&apos;, async () => {
     const mockOnVoteHelpful = jest.fn();
     const mockOnReport = jest.fn();
     const user = userEvent.setup();
@@ -302,17 +304,17 @@ describe('ReviewList', () => {
     );
     
     // Test vote helpful
-    const voteButton = screen.getAllByText('Vote Helpful')[0];
+    const voteButton = screen.getAllByText(&apos;Vote Helpful&apos;)[0];
     await user.click(voteButton);
-    expect(mockOnVoteHelpful).toHaveBeenCalledWith('review-1', 'helpful');
+    expect(mockOnVoteHelpful).toHaveBeenCalledWith(&apos;review-1&apos;, &apos;helpful&apos;);
     
     // Test report
-    const reportButton = screen.getAllByText('Report')[0];
+    const reportButton = screen.getAllByText(&apos;Report&apos;)[0];
     await user.click(reportButton);
-    expect(mockOnReport).toHaveBeenCalledWith('review-1');
+    expect(mockOnReport).toHaveBeenCalledWith(&apos;review-1&apos;);
   });
 
-  it('shows clear filters option in empty state', async () => {
+  it(&apos;shows clear filters option in empty state&apos;, async () => {
     const mockOnFiltersChange = jest.fn();
     const user = userEvent.setup();
     

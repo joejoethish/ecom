@@ -3,76 +3,70 @@
  */
 
 // Main routes
-export const MAIN_ROUTES = {
   HOME: '/',
   PRODUCTS: '/products',
   PRODUCT_DETAIL: (slug: string) => `/products/${slug}`,
-  CART: '/cart',
-  CHECKOUT: '/checkout',
-  SEARCH: '/search',
-  ABOUT: '/about',
-  CONTACT: '/contact',
-  TERMS: '/terms',
-  PRIVACY: '/privacy',
-  FAQ: '/faq',
+  CART: &apos;/cart&apos;,
+  CHECKOUT: &apos;/checkout&apos;,
+  SEARCH: &apos;/search&apos;,
+  ABOUT: &apos;/about&apos;,
+  CONTACT: &apos;/contact&apos;,
+  TERMS: &apos;/terms&apos;,
+  PRIVACY: &apos;/privacy&apos;,
+  FAQ: &apos;/faq&apos;,
 } as const;
 
 // Authentication routes
-export const AUTH_ROUTES = {
-  LOGIN: '/auth/login',
-  REGISTER: '/auth/register',
-  FORGOT_PASSWORD: '/auth/forgot-password',
-  RESET_PASSWORD: '/auth/reset-password',
-  VERIFY_EMAIL: '/auth/verify-email',
+  LOGIN: &apos;/auth/login&apos;,
+  REGISTER: &apos;/auth/register&apos;,
+  FORGOT_PASSWORD: &apos;/auth/forgot-password&apos;,
+  RESET_PASSWORD: &apos;/auth/reset-password&apos;,
+  VERIFY_EMAIL: &apos;/auth/verify-email&apos;,
 } as const;
 
 // User profile routes
-export const PROFILE_ROUTES = {
-  DASHBOARD: '/profile',
-  ORDERS: '/profile/orders',
+  DASHBOARD: &apos;/profile&apos;,
+  ORDERS: &apos;/profile/orders&apos;,
   ORDER_DETAIL: (id: string) => `/profile/orders/${id}`,
-  ADDRESSES: '/profile/addresses',
-  WISHLIST: '/profile/wishlist',
-  SETTINGS: '/profile/settings',
-  NOTIFICATIONS: '/profile/notifications',
+  ADDRESSES: &apos;/profile/addresses&apos;,
+  WISHLIST: &apos;/profile/wishlist&apos;,
+  SETTINGS: &apos;/profile/settings&apos;,
+  NOTIFICATIONS: &apos;/profile/notifications&apos;,
 } as const;
 
 // Admin routes
-export const ADMIN_ROUTES = {
-  DASHBOARD: '/admin',
-  ANALYTICS: '/admin/analytics',
-  ORDERS: '/admin/orders',
+  DASHBOARD: &apos;/admin&apos;,
+  ANALYTICS: &apos;/admin/analytics&apos;,
+  ORDERS: &apos;/admin/orders&apos;,
   ORDER_DETAIL: (id: string) => `/admin/orders/${id}`,
-  PRODUCTS: '/admin/products',
+  PRODUCTS: &apos;/admin/products&apos;,
   PRODUCT_EDIT: (id: string) => `/admin/products/${id}/edit`,
-  PRODUCT_CREATE: '/admin/products/create',
-  CUSTOMERS: '/admin/customers',
+  PRODUCT_CREATE: &apos;/admin/products/create&apos;,
+  CUSTOMERS: &apos;/admin/customers&apos;,
   CUSTOMER_DETAIL: (id: string) => `/admin/customers/${id}`,
-  CONTENT: '/admin/content',
-  REPORTS: '/admin/reports',
-  SYSTEM: '/admin/system',
-  NOTIFICATIONS: '/admin/notifications',
-  SETTINGS: '/admin/settings',
+  CONTENT: &apos;/admin/content&apos;,
+  REPORTS: &apos;/admin/reports&apos;,
+  SYSTEM: &apos;/admin/system&apos;,
+  NOTIFICATIONS: &apos;/admin/notifications&apos;,
+  SETTINGS: &apos;/admin/settings&apos;,
 } as const;
 
 // Seller routes
-export const SELLER_ROUTES = {
-  DASHBOARD: '/seller/dashboard',
-  PRODUCTS: '/seller/products',
+  DASHBOARD: &apos;/seller/dashboard&apos;,
+  PRODUCTS: &apos;/seller/products&apos;,
   PRODUCT_EDIT: (id: string) => `/seller/products/${id}/edit`,
-  PRODUCT_CREATE: '/seller/products/create',
-  ORDERS: '/seller/orders',
+  PRODUCT_CREATE: &apos;/seller/products/create&apos;,
+  ORDERS: &apos;/seller/orders&apos;,
   ORDER_DETAIL: (id: string) => `/seller/orders/${id}`,
-  PROFILE: '/seller/profile',
-  KYC: '/seller/kyc',
-  BANK_ACCOUNTS: '/seller/bank-accounts',
-  PAYOUTS: '/seller/payouts',
-  ANALYTICS: '/seller/analytics',
-  SETTINGS: '/seller/settings',
+  PROFILE: &apos;/seller/profile&apos;,
+  KYC: &apos;/seller/kyc&apos;,
+  BANK_ACCOUNTS: &apos;/seller/bank-accounts&apos;,
+  PAYOUTS: &apos;/seller/payouts&apos;,
+  ANALYTICS: &apos;/seller/analytics&apos;,
+  SETTINGS: &apos;/seller/settings&apos;,
 } as const;
 
 // Human-readable labels for routes
-export const ROUTE_LABELS: Record<string, string> = {
   '/': 'Home',
   '/products': 'Products',
   '/cart': 'Shopping Cart',

@@ -41,7 +41,7 @@ export const categoriesApi = {
    * Get featured categories for homepage
    */
   getFeaturedCategories: async (): Promise<ApiResponse<Category[]>> => {
-    return apiClient.get('/categories/featured/');
+    return apiClient.get(&apos;/categories/featured/&apos;);
   },
 
   /**
@@ -51,7 +51,7 @@ export const categoriesApi = {
     data: Category[];
     total_count: number;
   }>> => {
-    return apiClient.get('/categories/');
+    return apiClient.get(&apos;/categories/&apos;);
   },
 
   /**

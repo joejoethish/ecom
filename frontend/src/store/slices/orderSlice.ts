@@ -31,11 +31,10 @@ interface UpdateOrderStatusPayload {
   orderId: string;
   status: string;
   message: string;
-  trackingData: any;
+  trackingData: unknown;
   timestamp: string;
 }
 
-const initialState: OrderState = {
   orders: [],
   currentOrder: null,
   loading: false,
@@ -74,7 +73,6 @@ const orderSlice = createSlice({
       state.loading = false;
     },
     updateOrderStatus: (state, action: PayloadAction<UpdateOrderStatusPayload>) => {
-      const { orderId, status, message, trackingData, timestamp } = action.payload;
       
       // Update in orders list
       const orderIndex = state.orders.findIndex((order) => order.id === orderId);
@@ -82,7 +80,6 @@ const orderSlice = createSlice({
         state.orders[orderIndex].status = status as any;
         
         // Add tracking event
-        const trackingEvent: OrderTracking = {
           id: Date.now().toString(),
           status,
           description: message,
@@ -102,7 +99,6 @@ const orderSlice = createSlice({
         state.currentOrder.status = status as any;
         
         // Add tracking event
-        const trackingEvent: OrderTracking = {
           id: Date.now().toString(),
           status,
           description: message,
@@ -137,34 +133,32 @@ export const {
 
 // Async thunk actions
 export const fetchOrders = createAsyncThunk<Order[], number | undefined, { state: RootState }>(
-  'orders/fetchOrders',
+  &apos;orders/fetchOrders&apos;,
   async (page: number | undefined, { dispatch }) => {
     try {
       dispatch(setLoading(true));
       // API call would go here
       // Use page parameter for pagination if provided
-      const orders: Order[] = [];
       dispatch(setOrders(orders));
       return orders;
     } catch (error) {
-      dispatch(setError(error instanceof Error ? error.message : 'Failed to fetch orders'));
+      dispatch(setError(error instanceof Error ? error.message : &apos;Failed to fetch orders&apos;));
       throw error;
     }
   }
 );
 
 export const fetchOrderById = createAsyncThunk<Order, string, { state: RootState }>(
-  'orders/fetchOrderById',
+  &apos;orders/fetchOrderById&apos;,
   async (orderId: string, { dispatch }) => {
     try {
       dispatch(setLoading(true));
       // API call would go here
       // Use orderId to fetch the specific order
-      const order: Order = {} as Order;
       dispatch(setCurrentOrder(order));
       return order;
     } catch (error) {
-      dispatch(setError(error instanceof Error ? error.message : 'Failed to fetch order'));
+      dispatch(setError(error instanceof Error ? error.message : &apos;Failed to fetch order&apos;));
       throw error;
     }
   }
@@ -175,7 +169,7 @@ interface CancelOrderResponse {
 }
 
 export const cancelOrder = createAsyncThunk<CancelOrderResponse, string, { state: RootState }>(
-  'orders/cancelOrder',
+  &apos;orders/cancelOrder&apos;,
   async (orderId: string, { dispatch }) => {
     try {
       dispatch(setLoading(true));
@@ -184,15 +178,15 @@ export const cancelOrder = createAsyncThunk<CancelOrderResponse, string, { state
       // Update order status after cancellation
       return { success: true };
     } catch (error) {
-      dispatch(setError(error instanceof Error ? error.message : 'Failed to cancel order'));
+      dispatch(setError(error instanceof Error ? error.message : &apos;Failed to cancel order&apos;));
       throw error;
     }
   }
 );
 
 interface CreateOrderData {
-  shipping_address: any;
-  billing_address: any;
+  shipping_address: unknown;
+  billing_address: unknown;
   shipping_method: string;
   items: Array<{
     product_id: string;
@@ -201,13 +195,12 @@ interface CreateOrderData {
 }
 
 export const createOrder = createAsyncThunk<Order, CreateOrderData, { state: RootState }>(
-  'orders/createOrder',
+  &apos;orders/createOrder&apos;,
   async (orderData: CreateOrderData, { dispatch }) => {
     try {
       dispatch(setLoading(true));
       // API call would go here
-      const order: Order = {
-        id: 'new-order-id',
+        id: &apos;new-order-id&apos;,
         order_number: `ORD-${Date.now()}`,
         status: ORDER_STATUS.PENDING,
         created_at: new Date().toISOString(),
@@ -216,19 +209,19 @@ export const createOrder = createAsyncThunk<Order, CreateOrderData, { state: Roo
           id: `item-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
           product: {
             id: item.product_id,
-            name: 'Product Name',
-            slug: 'product-name',
-            description: 'Product description',
-            short_description: 'Short description',
+            name: &apos;Product Name&apos;,
+            slug: &apos;product-name&apos;,
+            description: &apos;Product description&apos;,
+            short_description: &apos;Short description&apos;,
             category: {
-              id: 'cat-1',
-              name: 'Category',
-              slug: 'category',
+              id: &apos;cat-1&apos;,
+              name: &apos;Category&apos;,
+              slug: &apos;category&apos;,
               is_active: true,
               created_at: new Date().toISOString(),
             },
-            brand: 'Brand',
-            sku: 'SKU001',
+            brand: &apos;Brand&apos;,
+            sku: &apos;SKU001&apos;,
             price: 100,
             is_active: true,
             is_featured: false,
@@ -245,8 +238,8 @@ export const createOrder = createAsyncThunk<Order, CreateOrderData, { state: Roo
         })),
         shipping_address: orderData.shipping_address,
         billing_address: orderData.billing_address,
-        payment_method: 'credit_card',
-        payment_status: 'pending',
+        payment_method: &apos;credit_card&apos;,
+        payment_status: &apos;pending&apos;,
         shipping_amount: 10,
         tax_amount: 20,
         discount_amount: 0,
@@ -257,7 +250,7 @@ export const createOrder = createAsyncThunk<Order, CreateOrderData, { state: Roo
       dispatch(setCurrentOrder(order));
       return order;
     } catch (error) {
-      dispatch(setError(error instanceof Error ? error.message : 'Failed to create order'));
+      dispatch(setError(error instanceof Error ? error.message : &apos;Failed to create order&apos;));
       throw error;
     }
   }

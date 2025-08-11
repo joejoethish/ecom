@@ -1,0 +1,473 @@
+# GitHub Actions workflow for comprehensive testing
+name: Comprehensive Test Suite
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+env:
+  NODE_VERSION: '18'
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  # Backend Testing
+  backend-tests:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Cache Python dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install Python dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements/development.txt
+        pip install coverage pytest-cov pytest-xdist
+    
+    - name: Set up environment variables
+      run: |
+        cd backend
+        cp .env.example .env
+        echo "DATABASE_URL=postgresql://postgres:postgres@localhost:5432/test_db" >> .env
+        echo "REDIS_URL=redis://localhost:6379/0" >> .env
+        echo "TESTING=True" >> .env
+    
+    - name: Run database migrations
+      run: |
+        cd backend
+        python manage.py migrate --settings=backend.settings.test
+    
+    - name: Run unit tests
+      run: |
+        cd backend
+        pytest tests/unit/ -v --cov=. --cov-report=xml --cov-report=html --maxfail=5 -n auto
+    
+    - name: Run integration tests
+      run: |
+        cd backend
+        pytest tests/integration/ -v --maxfail=3
+    
+    - name: Run security tests
+      run: |
+        cd backend
+        pytest tests/security/ -v -m security
+    
+    - name: Run performance tests
+      run: |
+        cd backend
+        pytest tests/performance/ -v -m "not slow" --maxfail=1
+    
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./backend/coverage.xml
+        flags: backend
+        name: backend-coverage
+    
+    - name: Generate test report
+      if: always()
+      run: |
+        cd backend
+        pytest --html=test-report.html --self-contained-html tests/
+    
+    - name: Upload test report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: backend-test-report
+        path: backend/test-report.html
+
+  # Frontend Testing
+  frontend-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Run linting
+      run: |
+        cd frontend
+        npm run lint
+    
+    - name: Run type checking
+      run: |
+        cd frontend
+        npm run type-check
+    
+    - name: Run unit tests
+      run: |
+        cd frontend
+        npm run test:coverage
+    
+    - name: Run component tests
+      run: |
+        cd frontend
+        npm run test:components
+    
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./frontend/coverage/lcov.info
+        flags: frontend
+        name: frontend-coverage
+    
+    - name: Build application
+      run: |
+        cd frontend
+        npm run build
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: frontend-build
+        path: frontend/.next
+
+  # End-to-End Testing
+  e2e-tests:
+    runs-on: ubuntu-latest
+    needs: [backend-tests, frontend-tests]
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: e2e_test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Install Python dependencies
+      run: |
+        cd backend
+        pip install -r requirements/development.txt
+        pip install selenium pytest-django
+    
+    - name: Install Node.js dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Set up Chrome
+      uses: browser-actions/setup-chrome@latest
+    
+    - name: Set up ChromeDriver
+      uses: nanasess/setup-chromedriver@v2
+    
+    - name: Start backend server
+      run: |
+        cd backend
+        python manage.py migrate --settings=backend.settings.test
+        python manage.py runserver 8000 --settings=backend.settings.test &
+        sleep 10
+    
+    - name: Start frontend server
+      run: |
+        cd frontend
+        npm run build
+        npm run start &
+        sleep 15
+    
+    - name: Run E2E tests
+      run: |
+        cd backend
+        pytest tests/e2e/ -v --maxfail=3
+    
+    - name: Upload E2E test screenshots
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: e2e-screenshots
+        path: backend/test_screenshots/
+
+  # Performance Testing
+  performance-tests:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || contains(github.event.head_commit.message, '[perf-test]')
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: perf_test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install dependencies
+      run: |
+        cd backend
+        pip install -r requirements/development.txt
+        pip install locust pytest-benchmark
+    
+    - name: Run performance tests
+      run: |
+        cd backend
+        pytest tests/performance/ -v -m performance --benchmark-only
+    
+    - name: Run load tests
+      run: |
+        cd backend
+        python manage.py runserver 8000 &
+        sleep 10
+        locust -f tests/performance/locustfile.py --headless -u 50 -r 10 -t 60s --host=http://localhost:8000
+    
+    - name: Upload performance reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-reports
+        path: backend/performance-reports/
+
+  # Security Testing
+  security-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install security testing tools
+      run: |
+        pip install bandit safety semgrep
+        cd backend
+        pip install -r requirements/development.txt
+    
+    - name: Run Bandit security scan
+      run: |
+        cd backend
+        bandit -r . -f json -o bandit-report.json || true
+    
+    - name: Run Safety check
+      run: |
+        cd backend
+        safety check --json --output safety-report.json || true
+    
+    - name: Run Semgrep security scan
+      run: |
+        semgrep --config=auto --json --output=semgrep-report.json backend/ || true
+    
+    - name: Run custom security tests
+      run: |
+        cd backend
+        pytest tests/security/ -v -m security
+    
+    - name: Upload security reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-reports
+        path: |
+          backend/bandit-report.json
+          backend/safety-report.json
+          semgrep-report.json
+
+  # Accessibility Testing
+  accessibility-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci
+        npm install -g @axe-core/cli pa11y
+    
+    - name: Build application
+      run: |
+        cd frontend
+        npm run build
+        npm run start &
+        sleep 15
+    
+    - name: Run Axe accessibility tests
+      run: |
+        axe http://localhost:3000 --save axe-report.json
+    
+    - name: Run Pa11y accessibility tests
+      run: |
+        pa11y http://localhost:3000 --reporter json > pa11y-report.json
+    
+    - name: Upload accessibility reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: accessibility-reports
+        path: |
+          axe-report.json
+          pa11y-report.json
+
+  # Mobile Testing
+  mobile-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Install dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Run mobile responsive tests
+      run: |
+        cd frontend
+        npm run test:mobile
+    
+    - name: Test PWA functionality
+      run: |
+        cd frontend
+        npm run test:pwa
+
+  # Test Results Summary
+  test-summary:
+    runs-on: ubuntu-latest
+    needs: [backend-tests, frontend-tests, e2e-tests]
+    if: always()
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v3
+    
+    - name: Generate test summary
+      run: |
+        echo "# Test Results Summary" > test-summary.md
+        echo "" >> test-summary.md
+        echo "## Backend Tests" >> test-summary.md
+        echo "Status: ${{ needs.backend-tests.result }}" >> test-summary.md
+        echo "" >> test-summary.md
+        echo "## Frontend Tests" >> test-summary.md
+        echo "Status: ${{ needs.frontend-tests.result }}" >> test-summary.md
+        echo "" >> test-summary.md
+        echo "## E2E Tests" >> test-summary.md
+        echo "Status: ${{ needs.e2e-tests.result }}" >> test-summary.md
+    
+    - name: Comment PR with test results
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          const summary = fs.readFileSync('test-summary.md', 'utf8');
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: summary
+          });
+
+  # Cleanup
+  cleanup:
+    runs-on: ubuntu-latest
+    needs: [test-summary]
+    if: always()
+    
+    steps:
+    - name: Clean up test artifacts
+      run: |
+        echo "Cleaning up test artifacts..."
+        # Add cleanup commands here

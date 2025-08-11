@@ -43,8 +43,8 @@ const createMockStore = (initialState = {}) => {
   });
 };
 
-describe('NotificationBell', () => {
-  it('renders without crashing', () => {
+describe(&apos;NotificationBell&apos;, () => {
+  it(&apos;renders without crashing&apos;, () => {
     const store = createMockStore();
     
     render(
@@ -53,10 +53,10 @@ describe('NotificationBell', () => {
       </Provider>
     );
     
-    expect(screen.getByRole('button')).toBeInTheDocument();
+    expect(screen.getByRole(&apos;button&apos;)).toBeInTheDocument();
   });
 
-  it('shows unread count badge when there are unread notifications', () => {
+  it(&apos;shows unread count badge when there are unread notifications&apos;, () => {
     const store = createMockStore({
       unreadCount: 5,
     });
@@ -67,10 +67,10 @@ describe('NotificationBell', () => {
       </Provider>
     );
     
-    expect(screen.getByText('5')).toBeInTheDocument();
+    expect(screen.getByText(&apos;5&apos;)).toBeInTheDocument();
   });
 
-  it('does not show badge when showBadge is false', () => {
+  it(&apos;does not show badge when showBadge is false&apos;, () => {
     const store = createMockStore({
       unreadCount: 5,
     });
@@ -81,10 +81,10 @@ describe('NotificationBell', () => {
       </Provider>
     );
     
-    expect(screen.queryByText('5')).not.toBeInTheDocument();
+    expect(screen.queryByText(&apos;5&apos;)).not.toBeInTheDocument();
   });
 
-  it('shows 99+ when unread count exceeds 99', () => {
+  it(&apos;shows 99+ when unread count exceeds 99&apos;, () => {
     const store = createMockStore({
       unreadCount: 150,
     });
@@ -95,10 +95,10 @@ describe('NotificationBell', () => {
       </Provider>
     );
     
-    expect(screen.getByText('99+')).toBeInTheDocument();
+    expect(screen.getByText(&apos;99+&apos;)).toBeInTheDocument();
   });
 
-  it('toggles notification center when clicked', () => {
+  it(&apos;toggles notification center when clicked&apos;, () => {
     const store = createMockStore();
     
     render(
@@ -107,7 +107,7 @@ describe('NotificationBell', () => {
       </Provider>
     );
     
-    const button = screen.getByRole('button');
+    const button = screen.getByRole(&apos;button&apos;);
     fireEvent.click(button);
     
     // Check if the notification center state changed
@@ -115,7 +115,7 @@ describe('NotificationBell', () => {
     expect(state.notifications.isNotificationCenterOpen).toBe(true);
   });
 
-  it('has correct accessibility attributes', () => {
+  it(&apos;has correct accessibility attributes&apos;, () => {
     const store = createMockStore({
       unreadCount: 3,
     });
@@ -126,21 +126,20 @@ describe('NotificationBell', () => {
       </Provider>
     );
     
-    const button = screen.getByRole('button');
-    expect(button).toHaveAttribute('aria-label', 'Notifications (3 unread)');
+    const button = screen.getByRole(&apos;button&apos;);
+    expect(button).toHaveAttribute(&apos;aria-label&apos;, &apos;Notifications (3 unread)&apos;);
   });
 
-  it('applies correct size classes', () => {
+  it(&apos;applies correct size classes&apos;, () => {
     const store = createMockStore();
     
-    const { rerender } = render(
       <Provider store={store}>
         <NotificationBell size="sm" />
       </Provider>
     );
     
-    let button = screen.getByRole('button');
-    expect(button).toHaveClass('h-8', 'w-8');
+    let button = screen.getByRole(&apos;button&apos;);
+    expect(button).toHaveClass(&apos;h-8&apos;, &apos;w-8&apos;);
     
     rerender(
       <Provider store={store}>

@@ -24,7 +24,6 @@ import {
   ServiceabilityCheck
 } from '../types/shipping';
 
-export const useShipping = () => {
   const dispatch = useAppDispatch();
   const shippingState = useSelector((state: RootState) => state.shipping);
 
@@ -74,7 +73,7 @@ export const useShipping = () => {
     return dispatch(fetchUserShipments());
   }, [dispatch]);
 
-  const selectCurrentShipment = useCallback((shipment: any) => {
+  const selectCurrentShipment = useCallback((shipment: unknown) => {
     dispatch(setCurrentShipment(shipment));
   }, [dispatch]);
 

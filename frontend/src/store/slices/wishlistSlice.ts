@@ -11,7 +11,6 @@ interface WishlistState {
   error: string | null;
 }
 
-const initialState: WishlistState = {
   wishlist: null,
   loading: false,
   error: null,
@@ -29,7 +28,7 @@ export const fetchWishlist = createAsyncThunk(
       } else {
         return rejectWithValue(response.error?.message || 'Failed to fetch wishlist');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       return rejectWithValue(error.message || 'Failed to fetch wishlist');
     }
   }
@@ -48,7 +47,7 @@ export const addToWishlist = createAsyncThunk(
       } else {
         return rejectWithValue(response.error?.message || 'Failed to add to wishlist');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       return rejectWithValue(error.message || 'Failed to add to wishlist');
     }
   }
@@ -65,7 +64,7 @@ export const removeFromWishlist = createAsyncThunk(
       } else {
         return rejectWithValue(response.error?.message || 'Failed to remove from wishlist');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       return rejectWithValue(error.message || 'Failed to remove from wishlist');
     }
   }
@@ -82,7 +81,7 @@ export const clearWishlist = createAsyncThunk(
       } else {
         return rejectWithValue(response.error?.message || 'Failed to clear wishlist');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       return rejectWithValue(error.message || 'Failed to clear wishlist');
     }
   }
@@ -174,5 +173,4 @@ const wishlistSlice = createSlice({
   },
 });
 
-export const { clearError } = wishlistSlice.actions;
 export default wishlistSlice.reducer;

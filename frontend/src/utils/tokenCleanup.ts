@@ -19,7 +19,6 @@ export interface StoredTokenInfo {
 /**
  * Default configuration for token cleanup
  */
-export const DEFAULT_CLEANUP_CONFIG: TokenCleanupConfig = {
   maxTokenAge: 60 * 60 * 1000, // 1 hour
   cleanupInterval: 15 * 60 * 1000, // 15 minutes
   maxStoredTokens: 100, // Maximum tokens to keep in local storage
@@ -96,7 +95,7 @@ export class TokenCleanupManager {
       }
 
     } catch (error) {
-      console.error('Error during token cleanup:', error);
+      console.error(&apos;Error during token cleanup:&apos;, error);
     }
   }
 
@@ -111,7 +110,6 @@ export class TokenCleanupManager {
       const filteredTokens = tokens.filter(t => t.token !== token);
       
       // Add new token info
-      const tokenInfo: StoredTokenInfo = {
         token,
         timestamp: Date.now(),
         used: false,
@@ -128,7 +126,7 @@ export class TokenCleanupManager {
       this.setStoredTokens(limitedTokens);
       
     } catch (error) {
-      console.error('Error storing token:', error);
+      console.error(&apos;Error storing token:&apos;, error);
     }
   }
 
@@ -146,7 +144,7 @@ export class TokenCleanupManager {
       }
       
     } catch (error) {
-      console.error('Error marking token as used:', error);
+      console.error(&apos;Error marking token as used:&apos;, error);
     }
   }
 
@@ -183,7 +181,7 @@ export class TokenCleanupManager {
       const tokens = this.getStoredTokens();
       return tokens.find(t => t.token === token) || null;
     } catch (error) {
-      console.error('Error getting token info:', error);
+      console.error(&apos;Error getting token info:&apos;, error);
       return null;
     }
   }
@@ -239,7 +237,7 @@ export class TokenCleanupManager {
       };
       
     } catch (error) {
-      console.error('Error getting cleanup stats:', error);
+      console.error(&apos;Error getting cleanup stats:&apos;, error);
       return {
         totalTokens: 0,
         validTokens: 0,
@@ -257,9 +255,9 @@ export class TokenCleanupManager {
   clearAllTokens(): void {
     try {
       this.setStoredTokens([]);
-      console.log('All password reset tokens cleared');
+      console.log(&apos;All password reset tokens cleared&apos;);
     } catch (error) {
-      console.error('Error clearing all tokens:', error);
+      console.error(&apos;Error clearing all tokens:&apos;, error);
     }
   }
 
@@ -267,7 +265,7 @@ export class TokenCleanupManager {
    * Get stored tokens from local storage
    */
   private getStoredTokens(): StoredTokenInfo[] {
-    if (typeof window === 'undefined') {
+    if (typeof window === &apos;undefined&apos;) {
       return [];
     }
     
@@ -275,7 +273,7 @@ export class TokenCleanupManager {
       const stored = localStorage.getItem(TOKEN_STORAGE_KEY);
       return stored ? JSON.parse(stored) : [];
     } catch (error) {
-      console.error('Error reading stored tokens:', error);
+      console.error(&apos;Error reading stored tokens:&apos;, error);
       return [];
     }
   }
@@ -284,14 +282,14 @@ export class TokenCleanupManager {
    * Set stored tokens in local storage
    */
   private setStoredTokens(tokens: StoredTokenInfo[]): void {
-    if (typeof window === 'undefined') {
+    if (typeof window === &apos;undefined&apos;) {
       return;
     }
     
     try {
       localStorage.setItem(TOKEN_STORAGE_KEY, JSON.stringify(tokens));
     } catch (error) {
-      console.error('Error storing tokens:', error);
+      console.error(&apos;Error storing tokens:&apos;, error);
     }
   }
 }
@@ -304,7 +302,6 @@ export const tokenCleanupManager = new TokenCleanupManager();
 /**
  * Initialize token cleanup on app start
  */
-export const initializeTokenCleanup = (config?: Partial<TokenCleanupConfig>): void => {
   if (config) {
     const mergedConfig = { ...DEFAULT_CLEANUP_CONFIG, ...config };
     tokenCleanupManager.stopCleanup();
@@ -314,8 +311,8 @@ export const initializeTokenCleanup = (config?: Partial<TokenCleanupConfig>): vo
   tokenCleanupManager.startCleanup();
   
   // Cleanup on page unload
-  if (typeof window !== 'undefined') {
-    window.addEventListener('beforeunload', () => {
+  if (typeof window !== &apos;undefined&apos;) {
+    window.addEventListener(&apos;beforeunload&apos;, () => {
       tokenCleanupManager.performCleanup();
     });
   }
@@ -378,7 +375,6 @@ export const tokenUtils = {
 /**
  * Hook for React components to use token cleanup
  */
-export const useTokenCleanup = () => {
   return {
     storeToken: tokenUtils.storeResetToken,
     markTokenUsed: tokenUtils.markTokenUsed,
@@ -392,13 +388,12 @@ export const useTokenCleanup = () => {
 /**
  * Admin utilities for token management
  */
-export const adminTokenUtils = {
   /**
    * Get detailed token information for admin dashboard
    */
   getDetailedStats: () => {
     const stats = tokenCleanupManager.getCleanupStats();
-    const config = tokenCleanupManager['config'];
+    const config = tokenCleanupManager[&apos;config&apos;];
     
     return {
       ...stats,
@@ -407,7 +402,7 @@ export const adminTokenUtils = {
         cleanupInterval: config.cleanupInterval,
         maxStoredTokens: config.maxStoredTokens
       },
-      nextCleanup: tokenCleanupManager['cleanupTimer'] ? 
+      nextCleanup: tokenCleanupManager[&apos;cleanupTimer&apos;] ? 
         Date.now() + config.cleanupInterval : null
     };
   },

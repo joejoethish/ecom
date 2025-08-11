@@ -12,6 +12,13 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from datetime import timedelta
 from core.models import TimestampedModel
 
+# Import chart models
+from .chart_models import (
+    ChartTemplate, Chart, ChartVersion, ChartAnnotation,
+    ChartComment, ChartShare, ChartPerformanceMetric,
+    ChartDataCache, ChartExport
+)
+
 
 class AdminUser(AbstractUser, TimestampedModel):
     """

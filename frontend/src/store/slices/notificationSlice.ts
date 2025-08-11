@@ -4,7 +4,7 @@ export interface Notification {
   id: string;
   type: string;
   message: string;
-  data: any;
+  data: unknown;
   timestamp: string;
   isRead: boolean;
 }
@@ -15,7 +15,6 @@ interface NotificationState {
   isNotificationCenterOpen: boolean;
 }
 
-const initialState: NotificationState = {
   notifications: [],
   unreadCount: 0,
   isNotificationCenterOpen: false,

@@ -12,7 +12,6 @@ interface CurrencySelectorProps {
   onCurrencyChange?: (currency: string, convertedAmount: number) => void;
 }
 
-const CurrencySelector: React.FC<CurrencySelectorProps> = ({
   amount,
   onCurrencyChange
 }) => {
@@ -32,7 +31,7 @@ const CurrencySelector: React.FC<CurrencySelectorProps> = ({
   useEffect(() => {
     if (selectedCurrency && amount > 0) {
       dispatch(convertCurrency({
-        from_currency: 'USD', // Assuming base currency is USD
+        from_currency: &apos;USD&apos;, // Assuming base currency is USD
         to_currency: selectedCurrency,
         amount
       }));
@@ -98,7 +97,7 @@ const CurrencySelector: React.FC<CurrencySelectorProps> = ({
         <div className="mt-2 text-sm">
           <span className="font-medium">
             {currencyConversion.amount?.toFixed(2)} USD =
-            {' '}{selectedCurrencyObj?.symbol}{currencyConversion.converted_amount?.toFixed(2)} {selectedCurrency}
+            {&apos; &apos;}{selectedCurrencyObj?.symbol}{currencyConversion.converted_amount?.toFixed(2)} {selectedCurrency}
           </span>
         </div>
       ) : null}

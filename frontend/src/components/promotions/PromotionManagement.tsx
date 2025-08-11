@@ -51,7 +51,7 @@ const PromotionManagement: React.FC = () => {
     setEditingPromotion(null);
   };
 
-  const handleSubmitPromotion = async (formData: any) => {
+  const handleSubmitPromotion = async (formData: Record<string, unknown>) => {
     try {
       const url = editingPromotion 
         ? `/api/v1/promotions/promotions/${editingPromotion.id}/`

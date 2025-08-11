@@ -10,7 +10,6 @@ interface AppInitializerProps {
 /**
  * Component that initializes app-level services and utilities
  */
-export const AppInitializer: React.FC<AppInitializerProps> = ({ children }) => {
   useEffect(() => {
     // Initialize the password reset system and other app services
     initializeApp();

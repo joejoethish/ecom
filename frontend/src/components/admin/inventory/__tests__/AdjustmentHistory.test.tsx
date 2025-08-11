@@ -13,30 +13,30 @@ jest.mock('@/services/inventoryManagementApi', () => ({
 }));
 
 const mockTransaction = {
-  id: '1',
+  id: &apos;1&apos;,
   inventory_item: {
-    id: '1',
+    id: &apos;1&apos;,
     product_variant: {
-      sku: 'TEST-SKU-001',
+      sku: &apos;TEST-SKU-001&apos;,
       product: {
-        name: 'Test Product',
+        name: &apos;Test Product&apos;,
       },
     },
     warehouse: {
-      name: 'Main Warehouse',
+      name: &apos;Main Warehouse&apos;,
     },
   },
-  transaction_type: 'adjustment' as const,
+  transaction_type: &apos;adjustment&apos; as const,
   quantity_change: 10,
   previous_quantity: 100,
   new_quantity: 110,
-  reason: 'Inventory Count Correction',
-  reference_id: 'ADJ-001',
+  reason: &apos;Inventory Count Correction&apos;,
+  reference_id: &apos;ADJ-001&apos;,
   user: {
-    id: '1',
-    username: 'admin',
+    id: &apos;1&apos;,
+    username: &apos;admin&apos;,
   },
-  created_at: '2024-01-01T10:00:00Z',
+  created_at: &apos;2024-01-01T10:00:00Z&apos;,
 };
 
 const mockApiResponse = {
@@ -49,98 +49,98 @@ const mockApiResponse = {
   },
 };
 
-describe('AdjustmentHistory', () => {
+describe(&apos;AdjustmentHistory&apos;, () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (inventoryManagementApi.getTransactions as jest.Mock).mockResolvedValue(mockApiResponse);
   });
 
-  it('renders adjustment history correctly', async () => {
+  it(&apos;renders adjustment history correctly&apos;, async () => {
     render(<AdjustmentHistory />);
     
-    expect(screen.getByText('Stock Adjustment History')).toBeInTheDocument();
-    expect(screen.getByText('Export CSV')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Stock Adjustment History&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Export CSV&apos;)).toBeInTheDocument();
     
     await waitFor(() => {
-      expect(screen.getByText('Test Product')).toBeInTheDocument();
-      expect(screen.getByText('SKU: TEST-SKU-001')).toBeInTheDocument();
-      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
-      expect(screen.getByText('+10')).toBeInTheDocument();
-      expect(screen.getByText('100 → 110')).toBeInTheDocument();
-      expect(screen.getByText('Inventory Count Correction')).toBeInTheDocument();
-      expect(screen.getByText('admin')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;SKU: TEST-SKU-001&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;+10&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;100 → 110&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Inventory Count Correction&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;admin&apos;)).toBeInTheDocument();
     });
   });
 
-  it('renders without title when inventoryId is provided', async () => {
+  it(&apos;renders without title when inventoryId is provided&apos;, async () => {
     render(<AdjustmentHistory inventoryId="1" />);
     
-    expect(screen.queryByText('Stock Adjustment History')).not.toBeInTheDocument();
-    expect(screen.queryByText('Export CSV')).not.toBeInTheDocument();
+    expect(screen.queryByText(&apos;Stock Adjustment History&apos;)).not.toBeInTheDocument();
+    expect(screen.queryByText(&apos;Export CSV&apos;)).not.toBeInTheDocument();
     
     await waitFor(() => {
       expect(inventoryManagementApi.getTransactions).toHaveBeenCalledWith(
         expect.objectContaining({
-          inventory_item: '1',
-          transaction_type: 'adjustment',
+          inventory_item: &apos;1&apos;,
+          transaction_type: &apos;adjustment&apos;,
         })
       );
     });
   });
 
-  it('applies date filters correctly', async () => {
+  it(&apos;applies date filters correctly&apos;, async () => {
     render(<AdjustmentHistory />);
     
-    const dateFromInput = screen.getByLabelText('Date From');
-    const dateToInput = screen.getByLabelText('Date To');
+    const dateFromInput = screen.getByLabelText(&apos;Date From&apos;);
+    const dateToInput = screen.getByLabelText(&apos;Date To&apos;);
     
-    fireEvent.change(dateFromInput, { target: { value: '2024-01-01' } });
-    fireEvent.change(dateToInput, { target: { value: '2024-01-31' } });
+    fireEvent.change(dateFromInput, { target: { value: &apos;2024-01-01&apos; } });
+    fireEvent.change(dateToInput, { target: { value: &apos;2024-01-31&apos; } });
     
     await waitFor(() => {
       expect(inventoryManagementApi.getTransactions).toHaveBeenCalledWith(
         expect.objectContaining({
-          date_from: '2024-01-01',
-          date_to: '2024-01-31',
+          date_from: &apos;2024-01-01&apos;,
+          date_to: &apos;2024-01-31&apos;,
         })
       );
     });
   });
 
-  it('applies product search filter correctly', async () => {
+  it(&apos;applies product search filter correctly&apos;, async () => {
     render(<AdjustmentHistory />);
     
-    const productSearchInput = screen.getByPlaceholderText('Search products...');
-    fireEvent.change(productSearchInput, { target: { value: 'Test Product' } });
+    const productSearchInput = screen.getByPlaceholderText(&apos;Search products...&apos;);
+    fireEvent.change(productSearchInput, { target: { value: &apos;Test Product&apos; } });
     
     await waitFor(() => {
       expect(inventoryManagementApi.getTransactions).toHaveBeenCalledWith(
         expect.objectContaining({
-          product: 'Test Product',
+          product: &apos;Test Product&apos;,
         })
       );
     });
   });
 
-  it('applies warehouse filter correctly', async () => {
+  it(&apos;applies warehouse filter correctly&apos;, async () => {
     render(<AdjustmentHistory />);
     
-    const warehouseInput = screen.getByPlaceholderText('Warehouse name...');
-    fireEvent.change(warehouseInput, { target: { value: 'Main Warehouse' } });
+    const warehouseInput = screen.getByPlaceholderText(&apos;Warehouse name...&apos;);
+    fireEvent.change(warehouseInput, { target: { value: &apos;Main Warehouse&apos; } });
     
     await waitFor(() => {
       expect(inventoryManagementApi.getTransactions).toHaveBeenCalledWith(
         expect.objectContaining({
-          warehouse: 'Main Warehouse',
+          warehouse: &apos;Main Warehouse&apos;,
         })
       );
     });
   });
 
-  it('displays correct adjustment type colors', async () => {
+  it(&apos;displays correct adjustment type colors&apos;, async () => {
     const negativeTransaction = {
       ...mockTransaction,
-      id: '2',
+      id: &apos;2&apos;,
       quantity_change: -5,
       previous_quantity: 100,
       new_quantity: 95,
@@ -160,25 +160,25 @@ describe('AdjustmentHistory', () => {
     render(<AdjustmentHistory />);
     
     await waitFor(() => {
-      expect(screen.getByText('+10')).toBeInTheDocument();
-      expect(screen.getByText('-5')).toBeInTheDocument();
+      expect(screen.getByText(&apos;+10&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;-5&apos;)).toBeInTheDocument();
     });
   });
 
-  it('handles export functionality', async () => {
-    const mockBlob = new Blob(['csv content'], { type: 'text/csv' });
+  it(&apos;handles export functionality&apos;, async () => {
+    const mockBlob = new Blob([&apos;csv content&apos;], { type: &apos;text/csv&apos; });
     (inventoryManagementApi.exportTransactions as jest.Mock).mockResolvedValue(mockBlob);
     
     // Mock URL.createObjectURL and related functions
-    const mockCreateObjectURL = jest.fn(() => 'mock-url');
+    const mockCreateObjectURL = jest.fn(() => &apos;mock-url&apos;);
     const mockRevokeObjectURL = jest.fn();
     global.URL.createObjectURL = mockCreateObjectURL;
     global.URL.revokeObjectURL = mockRevokeObjectURL;
     
     // Mock document.createElement and appendChild
     const mockLink = {
-      href: '',
-      download: '',
+      href: &apos;&apos;,
+      download: &apos;&apos;,
       click: jest.fn(),
     };
     const mockCreateElement = jest.fn(() => mockLink);
@@ -191,18 +191,18 @@ describe('AdjustmentHistory', () => {
     
     render(<AdjustmentHistory />);
     
-    const exportButton = screen.getByText('Export CSV');
+    const exportButton = screen.getByText(&apos;Export CSV&apos;);
     fireEvent.click(exportButton);
     
     await waitFor(() => {
       expect(inventoryManagementApi.exportTransactions).toHaveBeenCalled();
       expect(mockCreateObjectURL).toHaveBeenCalledWith(mockBlob);
       expect(mockLink.click).toHaveBeenCalled();
-      expect(mockRevokeObjectURL).toHaveBeenCalledWith('mock-url');
+      expect(mockRevokeObjectURL).toHaveBeenCalledWith(&apos;mock-url&apos;);
     });
   });
 
-  it('handles pagination correctly', async () => {
+  it(&apos;handles pagination correctly&apos;, async () => {
     const mockResponseWithPagination = {
       ...mockApiResponse,
       data: {
@@ -216,11 +216,11 @@ describe('AdjustmentHistory', () => {
     render(<AdjustmentHistory />);
     
     await waitFor(() => {
-      expect(screen.getByText('Showing 1 to 20 of 50 results')).toBeInTheDocument();
-      expect(screen.getByText('Page 1 of 3')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Showing 1 to 20 of 50 results&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Page 1 of 3&apos;)).toBeInTheDocument();
     });
     
-    const nextButton = screen.getByText('Next');
+    const nextButton = screen.getByText(&apos;Next&apos;);
     fireEvent.click(nextButton);
     
     await waitFor(() => {
@@ -232,7 +232,7 @@ describe('AdjustmentHistory', () => {
     });
   });
 
-  it('displays empty state when no transactions found', async () => {
+  it(&apos;displays empty state when no transactions found&apos;, async () => {
     const emptyResponse = {
       success: true,
       data: {
@@ -248,24 +248,24 @@ describe('AdjustmentHistory', () => {
     render(<AdjustmentHistory />);
     
     await waitFor(() => {
-      expect(screen.getByText('No adjustment history found')).toBeInTheDocument();
+      expect(screen.getByText(&apos;No adjustment history found&apos;)).toBeInTheDocument();
     });
   });
 
-  it('handles API errors gracefully', async () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    (inventoryManagementApi.getTransactions as jest.Mock).mockRejectedValue(new Error('API Error'));
+  it(&apos;handles API errors gracefully&apos;, async () => {
+    const consoleSpy = jest.spyOn(console, &apos;error&apos;).mockImplementation(() => {});
+    (inventoryManagementApi.getTransactions as jest.Mock).mockRejectedValue(new Error(&apos;API Error&apos;));
     
     render(<AdjustmentHistory />);
     
     await waitFor(() => {
-      expect(consoleSpy).toHaveBeenCalledWith('Failed to fetch adjustment history:', expect.any(Error));
+      expect(consoleSpy).toHaveBeenCalledWith(&apos;Failed to fetch adjustment history:&apos;, expect.any(Error));
     });
     
     consoleSpy.mockRestore();
   });
 
-  it('formats dates correctly', async () => {
+  it(&apos;formats dates correctly&apos;, async () => {
     render(<AdjustmentHistory />);
     
     await waitFor(() => {
@@ -275,10 +275,10 @@ describe('AdjustmentHistory', () => {
     });
   });
 
-  it('truncates long reasons with title attribute', async () => {
+  it(&apos;truncates long reasons with title attribute&apos;, async () => {
     const longReasonTransaction = {
       ...mockTransaction,
-      reason: 'This is a very long reason that should be truncated in the display but shown in full in the title attribute',
+      reason: &apos;This is a very long reason that should be truncated in the display but shown in full in the title attribute&apos;,
     };
     
     const mockResponseWithLongReason = {

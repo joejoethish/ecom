@@ -9,7 +9,7 @@ jest.mock('@/utils/accessibility', () => ({
 }));
 
 // Mock the lucide-react icons
-jest.mock('lucide-react', () => ({
+jest.mock(&apos;lucide-react&apos;, () => ({
   Eye: () => <div data-testid="eye-icon">Eye Icon</div>,
   Type: () => <div>Type Icon</div>,
   TypePlus: () => <div>TypePlus Icon</div>,
@@ -21,14 +21,14 @@ jest.mock('lucide-react', () => ({
 }));
 
 // Mock the useFocusTrap hook
-jest.mock('@/hooks/useFocusTrap', () => ({
+jest.mock(&apos;@/hooks/useFocusTrap&apos;, () => ({
   useFocusTrap: jest.fn().mockImplementation(() => React.createRef()),
 }));
 
-describe('AccessibilityMenu', () => {
+describe(&apos;AccessibilityMenu&apos;, () => {
   beforeEach(() => {
     // Mock localStorage
-    Object.defineProperty(window, 'localStorage', {
+    Object.defineProperty(window, &apos;localStorage&apos;, {
       value: {
         getItem: jest.fn(),
         setItem: jest.fn(),
@@ -37,7 +37,7 @@ describe('AccessibilityMenu', () => {
     });
     
     // Mock matchMedia
-    Object.defineProperty(window, 'matchMedia', {
+    Object.defineProperty(window, &apos;matchMedia&apos;, {
       value: jest.fn().mockImplementation(query => ({
         matches: false,
         media: query,
@@ -52,18 +52,18 @@ describe('AccessibilityMenu', () => {
     });
   });
   
-  it('renders the accessibility button', () => {
+  it(&apos;renders the accessibility button&apos;, () => {
     render(
       <AccessibilityProvider>
         <AccessibilityMenu />
       </AccessibilityProvider>
     );
     
-    expect(screen.getByTestId('eye-icon')).toBeInTheDocument();
-    expect(screen.getByLabelText('Accessibility options')).toBeInTheDocument();
+    expect(screen.getByTestId(&apos;eye-icon&apos;)).toBeInTheDocument();
+    expect(screen.getByLabelText(&apos;Accessibility options&apos;)).toBeInTheDocument();
   });
   
-  it('opens the menu when the button is clicked', () => {
+  it(&apos;opens the menu when the button is clicked&apos;, () => {
     render(
       <AccessibilityProvider>
         <AccessibilityMenu />
@@ -71,18 +71,18 @@ describe('AccessibilityMenu', () => {
     );
     
     // Initially, the menu should be closed
-    expect(screen.queryByText('Accessibility Options')).not.toBeInTheDocument();
+    expect(screen.queryByText(&apos;Accessibility Options&apos;)).not.toBeInTheDocument();
     
     // Click the button to open the menu
-    fireEvent.click(screen.getByLabelText('Accessibility options'));
+    fireEvent.click(screen.getByLabelText(&apos;Accessibility options&apos;));
     
     // The menu should now be open
-    expect(screen.getByText('Accessibility Options')).toBeInTheDocument();
-    expect(screen.getByText('Display')).toBeInTheDocument();
-    expect(screen.getByText('Text Size')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Accessibility Options&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Display&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Text Size&apos;)).toBeInTheDocument();
   });
   
-  it('closes the menu when the close button is clicked', () => {
+  it(&apos;closes the menu when the close button is clicked&apos;, () => {
     render(
       <AccessibilityProvider>
         <AccessibilityMenu />
@@ -90,17 +90,17 @@ describe('AccessibilityMenu', () => {
     );
     
     // Open the menu
-    fireEvent.click(screen.getByLabelText('Accessibility options'));
-    expect(screen.getByText('Accessibility Options')).toBeInTheDocument();
+    fireEvent.click(screen.getByLabelText(&apos;Accessibility options&apos;));
+    expect(screen.getByText(&apos;Accessibility Options&apos;)).toBeInTheDocument();
     
     // Click the close button
-    fireEvent.click(screen.getByLabelText('Close accessibility menu'));
+    fireEvent.click(screen.getByLabelText(&apos;Close accessibility menu&apos;));
     
     // The menu should now be closed
-    expect(screen.queryByText('Accessibility Options')).not.toBeInTheDocument();
+    expect(screen.queryByText(&apos;Accessibility Options&apos;)).not.toBeInTheDocument();
   });
   
-  it('toggles high contrast mode', () => {
+  it(&apos;toggles high contrast mode&apos;, () => {
     render(
       <AccessibilityProvider>
         <AccessibilityMenu />
@@ -108,25 +108,25 @@ describe('AccessibilityMenu', () => {
     );
     
     // Open the menu
-    fireEvent.click(screen.getByLabelText('Accessibility options'));
+    fireEvent.click(screen.getByLabelText(&apos;Accessibility options&apos;));
     
     // Initially, high contrast should be off
-    expect(screen.getByText('High Contrast').nextSibling).toHaveTextContent('Off');
+    expect(screen.getByText(&apos;High Contrast&apos;).nextSibling).toHaveTextContent(&apos;Off&apos;);
     
     // Click the high contrast button
-    fireEvent.click(screen.getByText('High Contrast').closest('button')!);
+    fireEvent.click(screen.getByText(&apos;High Contrast&apos;).closest(&apos;button&apos;)!);
     
     // High contrast should now be on
-    expect(screen.getByText('High Contrast').nextSibling).toHaveTextContent('On');
+    expect(screen.getByText(&apos;High Contrast&apos;).nextSibling).toHaveTextContent(&apos;On&apos;);
     
     // Click again to turn it off
-    fireEvent.click(screen.getByText('High Contrast').closest('button')!);
+    fireEvent.click(screen.getByText(&apos;High Contrast&apos;).closest(&apos;button&apos;)!);
     
     // High contrast should now be off again
-    expect(screen.getByText('High Contrast').nextSibling).toHaveTextContent('Off');
+    expect(screen.getByText(&apos;High Contrast&apos;).nextSibling).toHaveTextContent(&apos;Off&apos;);
   });
   
-  it('toggles reduced motion', () => {
+  it(&apos;toggles reduced motion&apos;, () => {
     render(
       <AccessibilityProvider>
         <AccessibilityMenu />
@@ -134,25 +134,25 @@ describe('AccessibilityMenu', () => {
     );
     
     // Open the menu
-    fireEvent.click(screen.getByLabelText('Accessibility options'));
+    fireEvent.click(screen.getByLabelText(&apos;Accessibility options&apos;));
     
     // Initially, reduced motion should be off
-    expect(screen.getByText('Reduce Motion').nextSibling).toHaveTextContent('Off');
+    expect(screen.getByText(&apos;Reduce Motion&apos;).nextSibling).toHaveTextContent(&apos;Off&apos;);
     
     // Click the reduced motion button
-    fireEvent.click(screen.getByText('Reduce Motion').closest('button')!);
+    fireEvent.click(screen.getByText(&apos;Reduce Motion&apos;).closest(&apos;button&apos;)!);
     
     // Reduced motion should now be on
-    expect(screen.getByText('Reduce Motion').nextSibling).toHaveTextContent('On');
+    expect(screen.getByText(&apos;Reduce Motion&apos;).nextSibling).toHaveTextContent(&apos;On&apos;);
     
     // Click again to turn it off
-    fireEvent.click(screen.getByText('Reduce Motion').closest('button')!);
+    fireEvent.click(screen.getByText(&apos;Reduce Motion&apos;).closest(&apos;button&apos;)!);
     
     // Reduced motion should now be off again
-    expect(screen.getByText('Reduce Motion').nextSibling).toHaveTextContent('Off');
+    expect(screen.getByText(&apos;Reduce Motion&apos;).nextSibling).toHaveTextContent(&apos;Off&apos;);
   });
   
-  it('has buttons to adjust font size', () => {
+  it(&apos;has buttons to adjust font size&apos;, () => {
     render(
       <AccessibilityProvider>
         <AccessibilityMenu />

@@ -23,7 +23,7 @@ export function Skeleton({ className = '', width, height }: SkeletonProps) {
   );
 }
 
-export function SkeletonText({ lines = 3, className = '' }: { lines?: number; className?: string }) {
+export function SkeletonText({ lines = 3, className = &apos;&apos; }: { lines?: number; className?: string }) {
   return (
     <div className={`space-y-2 ${className}`}>
       {Array.from({ length: lines }).map((_, index) => (
@@ -37,7 +37,7 @@ export function SkeletonText({ lines = 3, className = '' }: { lines?: number; cl
   );
 }
 
-export function SkeletonCard({ className = '' }: { className?: string }) {
+export function SkeletonCard({ className = &apos;&apos; }: { className?: string }) {
   return (
     <div className={`p-4 border border-gray-200 rounded-lg ${className}`}>
       <div className="flex items-center space-x-3 mb-4">
@@ -55,7 +55,7 @@ export function SkeletonCard({ className = '' }: { className?: string }) {
 export function SkeletonTable({ 
   rows = 5, 
   columns = 4, 
-  className = '' 
+  className = &apos;&apos; 
 }: { 
   rows?: number; 
   columns?: number; 
@@ -90,7 +90,7 @@ export function SkeletonTable({
   );
 }
 
-export function SkeletonStats({ count = 4, className = '' }: { count?: number; className?: string }) {
+export function SkeletonStats({ count = 4, className = &apos;&apos; }: { count?: number; className?: string }) {
   return (
     <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ${className}`}>
       {Array.from({ length: count }).map((_, index) => (
@@ -106,7 +106,7 @@ export function SkeletonStats({ count = 4, className = '' }: { count?: number; c
   );
 }
 
-export function SkeletonForm({ fields = 4, className = '' }: { fields?: number; className?: string }) {
+export function SkeletonForm({ fields = 4, className = &apos;&apos; }: { fields?: number; className?: string }) {
   return (
     <div className={`space-y-6 ${className}`}>
       {Array.from({ length: fields }).map((_, index) => (
@@ -123,7 +123,7 @@ export function SkeletonForm({ fields = 4, className = '' }: { fields?: number; 
   );
 }
 
-export function SkeletonInventoryItem({ className = '' }: { className?: string }) {
+export function SkeletonInventoryItem({ className = &apos;&apos; }: { className?: string }) {
   return (
     <tr className={`animate-pulse ${className}`}>
       <td className="px-6 py-4 whitespace-nowrap">
@@ -169,7 +169,7 @@ export function SkeletonInventoryItem({ className = '' }: { className?: string }
   );
 }
 
-export function SkeletonWarehouseCard({ className = '' }: { className?: string }) {
+export function SkeletonWarehouseCard({ className = &apos;&apos; }: { className?: string }) {
   return (
     <div className={`p-6 border border-gray-200 rounded-lg animate-pulse ${className}`}>
       <div className="flex items-start justify-between mb-4">

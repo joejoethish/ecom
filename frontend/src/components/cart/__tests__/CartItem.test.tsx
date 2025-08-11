@@ -8,42 +8,41 @@ import { updateCartItem, removeCartItem, saveForLater } from '@/store/slices/car
 import type { Middleware } from '@reduxjs/toolkit';
 
 // Mock the Redux store
-const middlewares: Middleware[] = [thunk];
 const mockStore = configureStore(middlewares);
 
 // Mock the Next.js Image component
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => {
+  default: (props: unknown) => {
     return <img {...props} />;
   },
 }));
 
 // Mock the Redux actions
-jest.mock('@/store/slices/cartSlice', () => ({
-  updateCartItem: jest.fn(() => ({ type: 'mock-update' })),
-  removeCartItem: jest.fn(() => ({ type: 'mock-remove' })),
-  saveForLater: jest.fn(() => ({ type: 'mock-save' })),
+jest.mock(&apos;@/store/slices/cartSlice&apos;, () => ({
+  updateCartItem: jest.fn(() => ({ type: &apos;mock-update&apos; })),
+  removeCartItem: jest.fn(() => ({ type: &apos;mock-remove&apos; })),
+  saveForLater: jest.fn(() => ({ type: &apos;mock-save&apos; })),
 }));
 
-describe('CartItem Component', () => {
+describe(&apos;CartItem Component&apos;, () => {
   const mockItem = {
-    id: '1',
+    id: &apos;1&apos;,
     product: {
-      id: 'p1',
-      name: 'Test Product',
-      slug: 'test-product',
-      description: 'Test description',
-      short_description: 'Short description',
+      id: &apos;p1&apos;,
+      name: &apos;Test Product&apos;,
+      slug: &apos;test-product&apos;,
+      description: &apos;Test description&apos;,
+      short_description: &apos;Short description&apos;,
       category: {
-        id: 'c1',
-        name: 'Test Category',
-        slug: 'test-category',
+        id: &apos;c1&apos;,
+        name: &apos;Test Category&apos;,
+        slug: &apos;test-category&apos;,
         is_active: true,
-        created_at: '2023-01-01',
+        created_at: &apos;2023-01-01&apos;,
       },
-      brand: 'Test Brand',
-      sku: 'TST001',
+      brand: &apos;Test Brand&apos;,
+      sku: &apos;TST001&apos;,
       price: 1000,
       discount_price: 800,
       is_active: true,
@@ -51,21 +50,21 @@ describe('CartItem Component', () => {
       dimensions: {},
       images: [
         {
-          id: 'img1',
-          image: '/test-image.jpg',
-          alt_text: 'Test Image',
+          id: &apos;img1&apos;,
+          image: &apos;/test-image.jpg&apos;,
+          alt_text: &apos;Test Image&apos;,
           is_primary: true,
           order: 1,
         },
       ],
-      created_at: '2023-01-01',
-      updated_at: '2023-01-01',
+      created_at: &apos;2023-01-01&apos;,
+      updated_at: &apos;2023-01-01&apos;,
     },
     quantity: 2,
-    added_at: '2023-01-01',
+    added_at: &apos;2023-01-01&apos;,
   };
 
-  let store: any;
+  let store: unknown;
 
   beforeEach(() => {
     store = mockStore({
@@ -76,23 +75,23 @@ describe('CartItem Component', () => {
     });
   });
 
-  it('renders the cart item correctly', () => {
+  it(&apos;renders the cart item correctly&apos;, () => {
     render(
       <Provider store={store}>
         <CartItem item={mockItem} />
       </Provider>
     );
 
-    expect(screen.getByText('Test Product')).toBeInTheDocument();
-    expect(screen.getByText('Brand: Test Brand')).toBeInTheDocument();
-    expect(screen.getByText('₹800')).toBeInTheDocument();
-    expect(screen.getByText('₹1,000')).toBeInTheDocument();
-    expect(screen.getByText('20% off')).toBeInTheDocument();
-    expect(screen.getByText('2')).toBeInTheDocument();
-    expect(screen.getByText('₹1,600')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Brand: Test Brand&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;₹800&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;₹1,000&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;20% off&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;2&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;₹1,600&apos;)).toBeInTheDocument();
   });
 
-  it('dispatches updateCartItem when quantity is changed', () => {
+  it(&apos;dispatches updateCartItem when quantity is changed&apos;, () => {
     render(
       <Provider store={store}>
         <CartItem item={mockItem} />
@@ -100,26 +99,26 @@ describe('CartItem Component', () => {
     );
 
     // Click the increment button
-    fireEvent.click(screen.getByText('+'));
-    expect(updateCartItem).toHaveBeenCalledWith({ itemId: '1', quantity: 3 });
+    fireEvent.click(screen.getByText(&apos;+&apos;));
+    expect(updateCartItem).toHaveBeenCalledWith({ itemId: &apos;1&apos;, quantity: 3 });
 
     // Click the decrement button
-    fireEvent.click(screen.getByText('-'));
-    expect(updateCartItem).toHaveBeenCalledWith({ itemId: '1', quantity: 1 });
+    fireEvent.click(screen.getByText(&apos;-&apos;));
+    expect(updateCartItem).toHaveBeenCalledWith({ itemId: &apos;1&apos;, quantity: 1 });
   });
 
-  it('dispatches removeCartItem when remove button is clicked', () => {
+  it(&apos;dispatches removeCartItem when remove button is clicked&apos;, () => {
     render(
       <Provider store={store}>
         <CartItem item={mockItem} />
       </Provider>
     );
 
-    fireEvent.click(screen.getByText('Remove'));
-    expect(removeCartItem).toHaveBeenCalledWith('1');
+    fireEvent.click(screen.getByText(&apos;Remove&apos;));
+    expect(removeCartItem).toHaveBeenCalledWith(&apos;1&apos;);
   });
 
-  it('dispatches saveForLater when save for later button is clicked', () => {
+  it(&apos;dispatches saveForLater when save for later button is clicked&apos;, () => {
     render(
       <Provider store={store}>
         <CartItem item={mockItem} />

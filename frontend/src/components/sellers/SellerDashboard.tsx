@@ -4,9 +4,7 @@ import { AppDispatch, RootState } from '../../store';
 import { fetchSellerProfile, fetchSellerAnalytics } from '../../store/slices/sellerSlice';
 import Link from 'next/link';
 
-const SellerDashboard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { profile, analytics, loading } = useSelector((state: RootState) => state.seller);
 
   useEffect(() => {
     dispatch(fetchSellerProfile());
@@ -40,9 +38,9 @@ const SellerDashboard: React.FC = () => {
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-2">Welcome, {profile.business_name}!</h2>
         <p className="text-gray-600">
-          {profile.verification_status === 'VERIFIED' ? (
+          {profile.verification_status === &apos;VERIFIED&apos; ? (
             <span className="text-green-600 font-medium">Your seller account is verified.</span>
-          ) : profile.verification_status === 'PENDING' ? (
+          ) : profile.verification_status === &apos;PENDING&apos; ? (
             <span className="text-yellow-600 font-medium">Your seller account is pending verification.</span>
           ) : (
             <span className="text-red-600 font-medium">Your seller account verification has issues.</span>
@@ -56,7 +54,7 @@ const SellerDashboard: React.FC = () => {
           <h3 className="text-gray-500 text-sm font-medium mb-2">Total Sales</h3>
           <div className="flex items-baseline">
             <span className="text-3xl font-semibold">
-              ₹{analytics?.total_sales.toLocaleString() || '0'}
+              ₹{analytics?.total_sales.toLocaleString() || &apos;0&apos;}
             </span>
           </div>
         </div>
@@ -65,7 +63,7 @@ const SellerDashboard: React.FC = () => {
           <h3 className="text-gray-500 text-sm font-medium mb-2">Total Orders</h3>
           <div className="flex items-baseline">
             <span className="text-3xl font-semibold">
-              {analytics?.total_orders || '0'}
+              {analytics?.total_orders || &apos;0&apos;}
             </span>
           </div>
         </div>
@@ -74,7 +72,7 @@ const SellerDashboard: React.FC = () => {
           <h3 className="text-gray-500 text-sm font-medium mb-2">Total Products</h3>
           <div className="flex items-baseline">
             <span className="text-3xl font-semibold">
-              {analytics?.total_products || '0'}
+              {analytics?.total_products || &apos;0&apos;}
             </span>
           </div>
         </div>
@@ -94,7 +92,7 @@ const SellerDashboard: React.FC = () => {
                       className="bg-blue-500 w-12" 
                       style={{ 
                         height: `${(item.amount / Math.max(...analytics.sales_by_period.map(i => i.amount))) * 100}%`,
-                        minHeight: '10px'
+                        minHeight: &apos;10px&apos;
                       }}
                     ></div>
                     <span className="text-xs mt-2">{item.period}</span>

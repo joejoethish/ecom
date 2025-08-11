@@ -9,34 +9,34 @@ export interface ErrorDetails {
   code?: string;
   status_code?: number;
   field_errors?: Record<string, string[]>;
-  details?: any;
+  details?: unknown;
 }
 
 export interface NetworkError {
-  type: 'network';
+  type: &apos;network&apos;;
   message: string;
 }
 
 export interface ValidationError {
-  type: 'validation';
+  type: &apos;validation&apos;;
   message: string;
   field_errors: Record<string, string[]>;
 }
 
 export interface ServerError {
-  type: 'server';
+  type: &apos;server&apos;;
   message: string;
   status_code: number;
   code?: string;
 }
 
 export interface UnknownError {
-  type: 'unknown';
+  type: &apos;unknown&apos;;
   message: string;
 }
 
 export interface PermissionError {
-  type: 'permission';
+  type: &apos;permission&apos;;
   message: string;
 }
 
@@ -45,42 +45,40 @@ export type ErrorType = NetworkError | ValidationError | ServerError | UnknownEr
 /**
  * Parse API response error into structured error type
  */
-export const parseApiError = (response: ApiResponse<any>): ErrorType => {
+export const parseApiError = (response: ApiResponse<unknown>): ErrorType => {
   if (!response.error) {
     return {
-      type: 'unknown',
-      message: 'An unexpected error occurred'
+      type: &apos;unknown&apos;,
+      message: &apos;An unexpected error occurred&apos;
     };
   }
 
-  const { error } = response;
 
   // Network error
-  if (error.status_code === 0 || error.code === 'network_error') {
+  if (error.status_code === 0 || error.code === &apos;network_error&apos;) {
     return {
-      type: 'network',
-      message: error.message || 'Network error. Please check your connection.'
+      type: &apos;network&apos;,
+      message: error.message || &apos;Network error. Please check your connection.&apos;
     };
   }
 
   // Validation error (400)
   if (error.status_code === 400) {
-    const fieldErrors: Record<string, string[]> = {};
     
     // Parse Django REST framework validation errors
-    if (error.details && typeof error.details === 'object') {
+    if (error.details && typeof error.details === &apos;object&apos;) {
       Object.entries(error.details).forEach(([field, messages]) => {
         if (Array.isArray(messages)) {
           fieldErrors[field] = messages;
-        } else if (typeof messages === 'string') {
+        } else if (typeof messages === &apos;string&apos;) {
           fieldErrors[field] = [messages];
         }
       });
     }
 
     return {
-      type: 'validation',
-      message: error.message || 'Please check your input and try again.',
+      type: &apos;validation&apos;,
+      message: error.message || &apos;Please check your input and try again.&apos;,
       field_errors: fieldErrors
     };
   }
@@ -88,8 +86,8 @@ export const parseApiError = (response: ApiResponse<any>): ErrorType => {
   // Server error (500+)
   if (error.status_code >= 500) {
     return {
-      type: 'server',
-      message: error.message || 'Server error. Please try again later.',
+      type: &apos;server&apos;,
+      message: error.message || &apos;Server error. Please try again later.&apos;,
       status_code: error.status_code,
       code: error.code
     };
@@ -98,15 +96,15 @@ export const parseApiError = (response: ApiResponse<any>): ErrorType => {
   // Permission errors (401, 403)
   if (error.status_code === 401 || error.status_code === 403) {
     return {
-      type: 'permission',
-      message: error.message || 'You do not have permission to perform this action.'
+      type: &apos;permission&apos;,
+      message: error.message || &apos;You do not have permission to perform this action.&apos;
     };
   }
 
   // Other client errors (404, etc.)
   return {
-    type: 'server',
-    message: error.message || 'An error occurred. Please try again.',
+    type: &apos;server&apos;,
+    message: error.message || &apos;An error occurred. Please try again.&apos;,
     status_code: error.status_code,
     code: error.code
   };
@@ -119,28 +117,28 @@ export const showErrorToast = (error: ErrorType, customMessage?: string) => {
   const message = customMessage || error.message;
   
   switch (error.type) {
-    case 'network':
+    case &apos;network&apos;:
       toast.error(message, {
         duration: 5000,
-        icon: '🌐',
+        icon: &apos;🌐&apos;,
       });
       break;
-    case 'validation':
+    case &apos;validation&apos;:
       toast.error(message, {
         duration: 4000,
-        icon: '⚠️',
+        icon: &apos;⚠️&apos;,
       });
       break;
-    case 'server':
+    case &apos;server&apos;:
       toast.error(message, {
         duration: 6000,
-        icon: '🚨',
+        icon: &apos;🚨&apos;,
       });
       break;
-    case 'permission':
+    case &apos;permission&apos;:
       toast.error(message, {
         duration: 5000,
-        icon: '🔒',
+        icon: &apos;🔒&apos;,
       });
       break;
     default:
@@ -156,14 +154,13 @@ export const showErrorToast = (error: ErrorType, customMessage?: string) => {
 export const showSuccessToast = (message: string, options?: { duration?: number; icon?: string }) => {
   toast.success(message, {
     duration: options?.duration || 3000,
-    icon: options?.icon || '✅',
+    icon: options?.icon || &apos;✅&apos;,
   });
 };
 
 /**
  * Handle API response with automatic error display
  */
-export const handleApiResponse = <T>(
   response: ApiResponse<T>,
   options?: {
     successMessage?: string;
@@ -196,31 +193,29 @@ export const handleApiResponse = <T>(
 /**
  * Get user-friendly error message for specific operations
  */
-export const getOperationErrorMessage = (operation: string, error: ErrorType): string => {
-  const baseMessages: Record<string, string> = {
-    create: 'Failed to create item',
-    update: 'Failed to update item',
-    delete: 'Failed to delete item',
-    fetch: 'Failed to load data',
-    search: 'Search failed',
-    export: 'Export failed',
-    adjust: 'Stock adjustment failed',
-    acknowledge: 'Failed to acknowledge alert'
+    create: &apos;Failed to create item&apos;,
+    update: &apos;Failed to update item&apos;,
+    delete: &apos;Failed to delete item&apos;,
+    fetch: &apos;Failed to load data&apos;,
+    search: &apos;Search failed&apos;,
+    export: &apos;Export failed&apos;,
+    adjust: &apos;Stock adjustment failed&apos;,
+    acknowledge: &apos;Failed to acknowledge alert&apos;
   };
 
-  const baseMessage = baseMessages[operation] || 'Operation failed';
+  const baseMessage = baseMessages[operation] || &apos;Operation failed&apos;;
 
   switch (error.type) {
-    case 'network':
+    case &apos;network&apos;:
       return `${baseMessage}. Please check your internet connection and try again.`;
-    case 'validation':
+    case &apos;validation&apos;:
       return `${baseMessage}. Please check your input and try again.`;
-    case 'server':
+    case &apos;server&apos;:
       if (error.status_code === 404) {
         return `${baseMessage}. The requested item was not found.`;
       }
       if (error.status_code === 403) {
-        return `${baseMessage}. You don't have permission to perform this action.`;
+        return `${baseMessage}. You don&apos;t have permission to perform this action.`;
       }
       if (error.status_code === 409) {
         return `${baseMessage}. This action conflicts with existing data.`;
@@ -262,7 +257,6 @@ export const withRetry = async <T>(
 /**
  * Debounce function for search operations
  */
-export const debounce = <T extends (...args: any[]) => any>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
@@ -277,8 +271,6 @@ export const debounce = <T extends (...args: any[]) => any>(
 /**
  * Format validation errors for display in forms
  */
-export const formatValidationErrors = (error: ValidationError): Record<string, string> => {
-  const formattedErrors: Record<string, string> = {};
   
   Object.entries(error.field_errors).forEach(([field, messages]) => {
     formattedErrors[field] = messages[0]; // Take first error message
@@ -290,7 +282,6 @@ export const formatValidationErrors = (error: ValidationError): Record<string, s
 /**
  * Check if error is recoverable (user can retry)
  */
-export const isRecoverableError = (error: ErrorType): boolean => {
   switch (error.type) {
     case 'network':
       return true;
@@ -307,7 +298,7 @@ export const isRecoverableError = (error: ErrorType): boolean => {
 /**
  * Extract error information from various error types
  */
-export const extractErrorInfo = (error: any): { message: string; code: string; status_code?: number } => {
+export const extractErrorInfo = (error: unknown): { message: string; code: string; status_code?: number } => {
   if (!error) {
     return {
       message: 'An unexpected error occurred',
@@ -359,7 +350,6 @@ export const extractErrorInfo = (error: any): { message: string; code: string; s
 /**
  * Get display-friendly error message
  */
-export const getDisplayErrorMessage = (error: any): string => {
   const errorInfo = extractErrorInfo(error);
   return errorInfo.message;
 };
@@ -367,7 +357,6 @@ export const getDisplayErrorMessage = (error: any): string => {
 /**
  * Log error for debugging purposes
  */
-export const logError = (error: any, context?: string, additionalData?: any): void => {
   const errorInfo = extractErrorInfo(error);
 
   console.error('Error logged:', {
@@ -380,5 +369,4 @@ export const logError = (error: any, context?: string, additionalData?: any): vo
 
 /**
  * Retry with backoff (alias for withRetry for backward compatibility)
- */
-export const retryWithBackoff = withRetry;
+ */

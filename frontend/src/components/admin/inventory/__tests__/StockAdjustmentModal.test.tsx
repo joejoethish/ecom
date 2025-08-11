@@ -13,37 +13,37 @@ jest.mock('@/services/inventoryManagementApi', () => ({
 }));
 
 const mockInventoryItem = {
-  id: '1',
+  id: &apos;1&apos;,
   product_variant: {
-    id: '1',
-    sku: 'TEST-SKU-001',
+    id: &apos;1&apos;,
+    sku: &apos;TEST-SKU-001&apos;,
     product: {
-      id: '1',
-      name: 'Test Product',
+      id: &apos;1&apos;,
+      name: &apos;Test Product&apos;,
       images: [
         {
-          id: '1',
-          image: '/test-image.jpg',
+          id: &apos;1&apos;,
+          image: &apos;/test-image.jpg&apos;,
           is_primary: true,
         },
       ],
     },
-    attributes: { color: 'red', size: 'M' },
+    attributes: { color: &apos;red&apos;, size: &apos;M&apos; },
   },
   warehouse: {
-    id: '1',
-    name: 'Main Warehouse',
-    code: 'MW001',
-    city: 'New York',
+    id: &apos;1&apos;,
+    name: &apos;Main Warehouse&apos;,
+    code: &apos;MW001&apos;,
+    city: &apos;New York&apos;,
   },
   stock_quantity: 100,
   reserved_quantity: 10,
   available_quantity: 90,
   reorder_level: 20,
-  last_stock_update: '2024-01-01T00:00:00Z',
-  stock_status: 'in_stock' as const,
-  created_at: '2024-01-01T00:00:00Z',
-  updated_at: '2024-01-01T00:00:00Z',
+  last_stock_update: &apos;2024-01-01T00:00:00Z&apos;,
+  stock_status: &apos;in_stock&apos; as const,
+  created_at: &apos;2024-01-01T00:00:00Z&apos;,
+  updated_at: &apos;2024-01-01T00:00:00Z&apos;,
 };
 
 const mockProps = {
@@ -52,56 +52,56 @@ const mockProps = {
   onSuccess: jest.fn(),
 };
 
-describe('StockAdjustmentModal', () => {
+describe(&apos;StockAdjustmentModal&apos;, () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('renders single item adjustment modal correctly', () => {
+  it(&apos;renders single item adjustment modal correctly&apos;, () => {
     render(<StockAdjustmentModal {...mockProps} />);
     
-    expect(screen.getByText('Stock Adjustment')).toBeInTheDocument();
-    expect(screen.getByText('Test Product')).toBeInTheDocument();
-    expect(screen.getByText('SKU: TEST-SKU-001')).toBeInTheDocument();
-    expect(screen.getByText('Main Warehouse (MW001)')).toBeInTheDocument();
-    expect(screen.getByText('100')).toBeInTheDocument(); // Current stock
-    expect(screen.getByText('10')).toBeInTheDocument(); // Reserved
-    expect(screen.getByText('90')).toBeInTheDocument(); // Available
+    expect(screen.getByText(&apos;Stock Adjustment&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;SKU: TEST-SKU-001&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Main Warehouse (MW001)&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;100&apos;)).toBeInTheDocument(); // Current stock
+    expect(screen.getByText(&apos;10&apos;)).toBeInTheDocument(); // Reserved
+    expect(screen.getByText(&apos;90&apos;)).toBeInTheDocument(); // Available
   });
 
-  it('renders bulk adjustment modal correctly', () => {
+  it(&apos;renders bulk adjustment modal correctly&apos;, () => {
     const bulkProps = {
       ...mockProps,
-      inventory: [mockInventoryItem, { ...mockInventoryItem, id: '2' }],
+      inventory: [mockInventoryItem, { ...mockInventoryItem, id: &apos;2&apos; }],
     };
     
     render(<StockAdjustmentModal {...bulkProps} />);
     
-    expect(screen.getByText('Bulk Stock Adjustment')).toBeInTheDocument();
-    expect(screen.getAllByText('Test Product')).toHaveLength(2);
+    expect(screen.getByText(&apos;Bulk Stock Adjustment&apos;)).toBeInTheDocument();
+    expect(screen.getAllByText(&apos;Test Product&apos;)).toHaveLength(2);
   });
 
-  it('updates adjustment amount correctly', () => {
+  it(&apos;updates adjustment amount correctly&apos;, () => {
     render(<StockAdjustmentModal {...mockProps} />);
     
-    const adjustmentInput = screen.getByDisplayValue('0');
-    fireEvent.change(adjustmentInput, { target: { value: '10' } });
+    const adjustmentInput = screen.getByDisplayValue(&apos;0&apos;);
+    fireEvent.change(adjustmentInput, { target: { value: &apos;10&apos; } });
     
     expect(adjustmentInput).toHaveValue(10);
-    expect(screen.getByText('New Stock Quantity: 110')).toBeInTheDocument();
-    expect(screen.getByText('New Available: 100')).toBeInTheDocument();
+    expect(screen.getByText(&apos;New Stock Quantity: 110&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;New Available: 100&apos;)).toBeInTheDocument();
   });
 
-  it('handles quick adjustment buttons', () => {
+  it(&apos;handles quick adjustment buttons&apos;, () => {
     render(<StockAdjustmentModal {...mockProps} />);
     
-    const plusOneButton = screen.getByRole('button', { name: '' }); // Plus icon button
-    const adjustmentInput = screen.getByDisplayValue('0');
+    const plusOneButton = screen.getByRole(&apos;button&apos;, { name: &apos;&apos; }); // Plus icon button
+    const adjustmentInput = screen.getByDisplayValue(&apos;0&apos;);
     
     // Find the +1 button (with Plus icon)
-    const quickButtons = screen.getAllByRole('button');
+    const quickButtons = screen.getAllByRole(&apos;button&apos;);
     const plusButton = quickButtons.find(button => 
-      button.querySelector('svg') && button.textContent === ''
+      button.querySelector(&apos;svg&apos;) && button.textContent === &apos;&apos;
     );
     
     if (plusButton) {
@@ -110,35 +110,35 @@ describe('StockAdjustmentModal', () => {
     }
   });
 
-  it('validates required reason field', async () => {
+  it(&apos;validates required reason field&apos;, async () => {
     render(<StockAdjustmentModal {...mockProps} />);
     
     // Set adjustment amount
-    const adjustmentInput = screen.getByDisplayValue('0');
-    fireEvent.change(adjustmentInput, { target: { value: '10' } });
+    const adjustmentInput = screen.getByDisplayValue(&apos;0&apos;);
+    fireEvent.change(adjustmentInput, { target: { value: &apos;10&apos; } });
     
     // Try to submit without reason
-    const submitButton = screen.getByText('Apply Adjustments');
+    const submitButton = screen.getByText(&apos;Apply Adjustments&apos;);
     fireEvent.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText('Please provide a reason for all adjustments')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Please provide a reason for all adjustments&apos;)).toBeInTheDocument();
     });
   });
 
-  it('validates negative stock quantity', async () => {
+  it(&apos;validates negative stock quantity&apos;, async () => {
     render(<StockAdjustmentModal {...mockProps} />);
     
     // Set adjustment that would make stock negative
-    const adjustmentInput = screen.getByDisplayValue('0');
-    fireEvent.change(adjustmentInput, { target: { value: '-150' } });
+    const adjustmentInput = screen.getByDisplayValue(&apos;0&apos;);
+    fireEvent.change(adjustmentInput, { target: { value: &apos;-150&apos; } });
     
     // Set reason
-    const reasonSelect = screen.getByDisplayValue('');
-    fireEvent.change(reasonSelect, { target: { value: 'Inventory Count Correction' } });
+    const reasonSelect = screen.getByDisplayValue(&apos;&apos;);
+    fireEvent.change(reasonSelect, { target: { value: &apos;Inventory Count Correction&apos; } });
     
     // Try to submit
-    const submitButton = screen.getByText('Apply Adjustments');
+    const submitButton = screen.getByText(&apos;Apply Adjustments&apos;);
     fireEvent.click(submitButton);
     
     await waitFor(() => {
@@ -146,19 +146,19 @@ describe('StockAdjustmentModal', () => {
     });
   });
 
-  it('validates available quantity would not go negative', async () => {
+  it(&apos;validates available quantity would not go negative&apos;, async () => {
     render(<StockAdjustmentModal {...mockProps} />);
     
     // Set adjustment that would make available quantity negative
-    const adjustmentInput = screen.getByDisplayValue('0');
-    fireEvent.change(adjustmentInput, { target: { value: '-95' } }); // Available is 90, so -95 would be negative
+    const adjustmentInput = screen.getByDisplayValue(&apos;0&apos;);
+    fireEvent.change(adjustmentInput, { target: { value: &apos;-95&apos; } }); // Available is 90, so -95 would be negative
     
     // Set reason
-    const reasonSelect = screen.getByDisplayValue('');
-    fireEvent.change(reasonSelect, { target: { value: 'Inventory Count Correction' } });
+    const reasonSelect = screen.getByDisplayValue(&apos;&apos;);
+    fireEvent.change(reasonSelect, { target: { value: &apos;Inventory Count Correction&apos; } });
     
     // Try to submit
-    const submitButton = screen.getByText('Apply Adjustments');
+    const submitButton = screen.getByText(&apos;Apply Adjustments&apos;);
     fireEvent.click(submitButton);
     
     await waitFor(() => {
@@ -166,70 +166,70 @@ describe('StockAdjustmentModal', () => {
     });
   });
 
-  it('submits single adjustment successfully', async () => {
+  it(&apos;submits single adjustment successfully&apos;, async () => {
     const mockAdjustStock = inventoryManagementApi.adjustStock as jest.MockedFunction<typeof inventoryManagementApi.adjustStock>;
     mockAdjustStock.mockResolvedValue({ success: true, data: mockInventoryItem });
     
     render(<StockAdjustmentModal {...mockProps} />);
     
     // Set adjustment amount
-    const adjustmentInput = screen.getByDisplayValue('0');
-    fireEvent.change(adjustmentInput, { target: { value: '10' } });
+    const adjustmentInput = screen.getByDisplayValue(&apos;0&apos;);
+    fireEvent.change(adjustmentInput, { target: { value: &apos;10&apos; } });
     
     // Set reason
-    const reasonSelect = screen.getByDisplayValue('');
-    fireEvent.change(reasonSelect, { target: { value: 'Inventory Count Correction' } });
+    const reasonSelect = screen.getByDisplayValue(&apos;&apos;);
+    fireEvent.change(reasonSelect, { target: { value: &apos;Inventory Count Correction&apos; } });
     
     // Submit
-    const submitButton = screen.getByText('Apply Adjustments');
+    const submitButton = screen.getByText(&apos;Apply Adjustments&apos;);
     fireEvent.click(submitButton);
     
     await waitFor(() => {
-      expect(mockAdjustStock).toHaveBeenCalledWith('1', {
+      expect(mockAdjustStock).toHaveBeenCalledWith(&apos;1&apos;, {
         adjustment: 10,
-        reason: 'Inventory Count Correction',
+        reason: &apos;Inventory Count Correction&apos;,
       });
       expect(mockProps.onSuccess).toHaveBeenCalled();
       expect(mockProps.onClose).toHaveBeenCalled();
     });
   });
 
-  it('submits bulk adjustment successfully', async () => {
+  it(&apos;submits bulk adjustment successfully&apos;, async () => {
     const mockBulkAdjustStock = inventoryManagementApi.bulkAdjustStock as jest.MockedFunction<typeof inventoryManagementApi.bulkAdjustStock>;
     mockBulkAdjustStock.mockResolvedValue({ success: true, data: [mockInventoryItem] });
     
     const bulkProps = {
       ...mockProps,
-      inventory: [mockInventoryItem, { ...mockInventoryItem, id: '2' }],
+      inventory: [mockInventoryItem, { ...mockInventoryItem, id: &apos;2&apos; }],
     };
     
     render(<StockAdjustmentModal {...bulkProps} />);
     
     // Set adjustment amounts for both items
-    const adjustmentInputs = screen.getAllByDisplayValue('0');
-    fireEvent.change(adjustmentInputs[0], { target: { value: '10' } });
-    fireEvent.change(adjustmentInputs[1], { target: { value: '5' } });
+    const adjustmentInputs = screen.getAllByDisplayValue(&apos;0&apos;);
+    fireEvent.change(adjustmentInputs[0], { target: { value: &apos;10&apos; } });
+    fireEvent.change(adjustmentInputs[1], { target: { value: &apos;5&apos; } });
     
     // Set reasons for both items
-    const reasonSelects = screen.getAllByDisplayValue('');
-    fireEvent.change(reasonSelects[0], { target: { value: 'Inventory Count Correction' } });
-    fireEvent.change(reasonSelects[1], { target: { value: 'Damaged Goods' } });
+    const reasonSelects = screen.getAllByDisplayValue(&apos;&apos;);
+    fireEvent.change(reasonSelects[0], { target: { value: &apos;Inventory Count Correction&apos; } });
+    fireEvent.change(reasonSelects[1], { target: { value: &apos;Damaged Goods&apos; } });
     
     // Submit
-    const submitButton = screen.getByText('Apply Adjustments');
+    const submitButton = screen.getByText(&apos;Apply Adjustments&apos;);
     fireEvent.click(submitButton);
     
     await waitFor(() => {
       expect(mockBulkAdjustStock).toHaveBeenCalledWith([
         {
-          inventory_id: '1',
+          inventory_id: &apos;1&apos;,
           adjustment: 10,
-          reason: 'Inventory Count Correction',
+          reason: &apos;Inventory Count Correction&apos;,
         },
         {
-          inventory_id: '2',
+          inventory_id: &apos;2&apos;,
           adjustment: 5,
-          reason: 'Damaged Goods',
+          reason: &apos;Damaged Goods&apos;,
         },
       ]);
       expect(mockProps.onSuccess).toHaveBeenCalled();
@@ -237,48 +237,48 @@ describe('StockAdjustmentModal', () => {
     });
   });
 
-  it('handles custom reason input', async () => {
+  it(&apos;handles custom reason input&apos;, async () => {
     const mockAdjustStock = inventoryManagementApi.adjustStock as jest.MockedFunction<typeof inventoryManagementApi.adjustStock>;
     mockAdjustStock.mockResolvedValue({ success: true, data: mockInventoryItem });
     
     render(<StockAdjustmentModal {...mockProps} />);
     
     // Set adjustment amount
-    const adjustmentInput = screen.getByDisplayValue('0');
-    fireEvent.change(adjustmentInput, { target: { value: '10' } });
+    const adjustmentInput = screen.getByDisplayValue(&apos;0&apos;);
+    fireEvent.change(adjustmentInput, { target: { value: &apos;10&apos; } });
     
-    // Set reason to "Other"
-    const reasonSelect = screen.getByDisplayValue('');
-    fireEvent.change(reasonSelect, { target: { value: 'Other' } });
+    // Set reason to &quot;Other&quot;
+    const reasonSelect = screen.getByDisplayValue(&apos;&apos;);
+    fireEvent.change(reasonSelect, { target: { value: &apos;Other&apos; } });
     
     // Custom reason input should appear
     await waitFor(() => {
-      expect(screen.getByPlaceholderText('Please specify the reason for adjustment')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText(&apos;Please specify the reason for adjustment&apos;)).toBeInTheDocument();
     });
     
     // Set custom reason
-    const customReasonInput = screen.getByPlaceholderText('Please specify the reason for adjustment');
-    fireEvent.change(customReasonInput, { target: { value: 'Custom test reason' } });
+    const customReasonInput = screen.getByPlaceholderText(&apos;Please specify the reason for adjustment&apos;);
+    fireEvent.change(customReasonInput, { target: { value: &apos;Custom test reason&apos; } });
     
     // Submit
-    const submitButton = screen.getByText('Apply Adjustments');
+    const submitButton = screen.getByText(&apos;Apply Adjustments&apos;);
     fireEvent.click(submitButton);
     
     await waitFor(() => {
-      expect(mockAdjustStock).toHaveBeenCalledWith('1', {
+      expect(mockAdjustStock).toHaveBeenCalledWith(&apos;1&apos;, {
         adjustment: 10,
-        reason: 'Custom test reason',
+        reason: &apos;Custom test reason&apos;,
       });
     });
   });
 
-  it('handles API errors gracefully', async () => {
+  it(&apos;handles API errors gracefully&apos;, async () => {
     const mockAdjustStock = inventoryManagementApi.adjustStock as jest.MockedFunction<typeof inventoryManagementApi.adjustStock>;
     mockAdjustStock.mockResolvedValue({
       success: false,
       error: {
-        message: 'API Error occurred',
-        code: 'api_error',
+        message: &apos;API Error occurred&apos;,
+        code: &apos;api_error&apos;,
         status_code: 500
       }
     });
@@ -286,23 +286,23 @@ describe('StockAdjustmentModal', () => {
     render(<StockAdjustmentModal {...mockProps} />);
     
     // Set adjustment amount
-    const adjustmentInput = screen.getByDisplayValue('0');
-    fireEvent.change(adjustmentInput, { target: { value: '10' } });
+    const adjustmentInput = screen.getByDisplayValue(&apos;0&apos;);
+    fireEvent.change(adjustmentInput, { target: { value: &apos;10&apos; } });
     
     // Set reason
-    const reasonSelect = screen.getByDisplayValue('');
-    fireEvent.change(reasonSelect, { target: { value: 'Inventory Count Correction' } });
+    const reasonSelect = screen.getByDisplayValue(&apos;&apos;);
+    fireEvent.change(reasonSelect, { target: { value: &apos;Inventory Count Correction&apos; } });
     
     // Submit
-    const submitButton = screen.getByText('Apply Adjustments');
+    const submitButton = screen.getByText(&apos;Apply Adjustments&apos;);
     fireEvent.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText('API Error occurred')).toBeInTheDocument();
+      expect(screen.getByText(&apos;API Error occurred&apos;)).toBeInTheDocument();
     });
   });
 
-  it('closes modal when close button is clicked', () => {
+  it(&apos;closes modal when close button is clicked&apos;, () => {
     render(<StockAdjustmentModal {...mockProps} />);
     
     const closeButton = screen.getByRole('button', { name: '' }); // X icon button

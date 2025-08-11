@@ -12,78 +12,78 @@ jest.mock('next/link', () => ({
   ),
 }));
 
-describe('CategoryNavigation', () => {
+describe(&apos;CategoryNavigation&apos;, () => {
   const mockCategories = [
     {
-      id: 'cat1',
-      name: 'Electronics',
-      slug: 'electronics',
+      id: &apos;cat1&apos;,
+      name: &apos;Electronics&apos;,
+      slug: &apos;electronics&apos;,
       is_active: true,
-      created_at: '2023-01-01',
+      created_at: &apos;2023-01-01&apos;,
     },
     {
-      id: 'cat2',
-      name: 'Clothing',
-      slug: 'clothing',
+      id: &apos;cat2&apos;,
+      name: &apos;Clothing&apos;,
+      slug: &apos;clothing&apos;,
       is_active: true,
-      created_at: '2023-01-01',
+      created_at: &apos;2023-01-01&apos;,
     },
     {
-      id: 'cat3',
-      name: 'Smartphones',
-      slug: 'smartphones',
+      id: &apos;cat3&apos;,
+      name: &apos;Smartphones&apos;,
+      slug: &apos;smartphones&apos;,
       parent: {
-        id: 'cat1',
-        name: 'Electronics',
-        slug: 'electronics',
+        id: &apos;cat1&apos;,
+        name: &apos;Electronics&apos;,
+        slug: &apos;electronics&apos;,
         is_active: true,
-        created_at: '2023-01-01',
+        created_at: &apos;2023-01-01&apos;,
       },
       is_active: true,
-      created_at: '2023-01-01',
+      created_at: &apos;2023-01-01&apos;,
     },
     {
-      id: 'cat4',
-      name: 'Laptops',
-      slug: 'laptops',
+      id: &apos;cat4&apos;,
+      name: &apos;Laptops&apos;,
+      slug: &apos;laptops&apos;,
       parent: {
-        id: 'cat1',
-        name: 'Electronics',
-        slug: 'electronics',
+        id: &apos;cat1&apos;,
+        name: &apos;Electronics&apos;,
+        slug: &apos;electronics&apos;,
         is_active: true,
-        created_at: '2023-01-01',
+        created_at: &apos;2023-01-01&apos;,
       },
       is_active: true,
-      created_at: '2023-01-01',
+      created_at: &apos;2023-01-01&apos;,
     },
   ];
 
-  it('renders root categories correctly', () => {
+  it(&apos;renders root categories correctly&apos;, () => {
     render(<CategoryNavigation categories={mockCategories} />);
 
     // Check if root categories are rendered
-    expect(screen.getByText('Electronics')).toBeInTheDocument();
-    expect(screen.getByText('Clothing')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Electronics&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Clothing&apos;)).toBeInTheDocument();
     
-    // Check if "All Products" option is rendered
-    expect(screen.getByText('All Products')).toBeInTheDocument();
+    // Check if &quot;All Products&quot; option is rendered
+    expect(screen.getByText(&apos;All Products&apos;)).toBeInTheDocument();
   });
 
-  it('highlights selected category', () => {
+  it(&apos;highlights selected category&apos;, () => {
     render(<CategoryNavigation categories={mockCategories} selectedCategorySlug="clothing" />);
 
     // Check if selected category has the correct styling
-    const selectedCategory = screen.getByText('Clothing').closest('a');
-    expect(selectedCategory).toHaveClass('bg-blue-100');
-    expect(selectedCategory).toHaveClass('text-blue-700');
+    const selectedCategory = screen.getByText(&apos;Clothing&apos;).closest(&apos;a&apos;);
+    expect(selectedCategory).toHaveClass(&apos;bg-blue-100&apos;);
+    expect(selectedCategory).toHaveClass(&apos;text-blue-700&apos;);
     
-    // Check if "All Products" doesn't have the selected styling
-    const allProducts = screen.getByText('All Products').closest('a');
-    expect(allProducts).not.toHaveClass('bg-blue-100');
-    expect(allProducts).not.toHaveClass('text-blue-700');
+    // Check if &quot;All Products&quot; doesn&apos;t have the selected styling
+    const allProducts = screen.getByText(&apos;All Products&apos;).closest(&apos;a&apos;);
+    expect(allProducts).not.toHaveClass(&apos;bg-blue-100&apos;);
+    expect(allProducts).not.toHaveClass(&apos;text-blue-700&apos;);
   });
 
-  it('calls onSelectCategory when a category is clicked', () => {
+  it(&apos;calls onSelectCategory when a category is clicked&apos;, () => {
     const mockOnSelectCategory = jest.fn();
     render(
       <CategoryNavigation 
@@ -93,33 +93,33 @@ describe('CategoryNavigation', () => {
     );
 
     // Click on a category
-    fireEvent.click(screen.getByText('Clothing'));
+    fireEvent.click(screen.getByText(&apos;Clothing&apos;));
     
     // Check if onSelectCategory was called with the correct slug
-    expect(mockOnSelectCategory).toHaveBeenCalledWith('clothing');
+    expect(mockOnSelectCategory).toHaveBeenCalledWith(&apos;clothing&apos;);
   });
 
-  it('expands subcategories when parent category is clicked', () => {
+  it(&apos;expands subcategories when parent category is clicked&apos;, () => {
     render(<CategoryNavigation categories={mockCategories} />);
 
     // Initially, subcategories should not be visible
-    expect(screen.queryByText('Smartphones')).not.toBeInTheDocument();
-    expect(screen.queryByText('Laptops')).not.toBeInTheDocument();
+    expect(screen.queryByText(&apos;Smartphones&apos;)).not.toBeInTheDocument();
+    expect(screen.queryByText(&apos;Laptops&apos;)).not.toBeInTheDocument();
     
     // Click on the expand button for Electronics
-    const expandButtons = screen.getAllByRole('button');
+    const expandButtons = screen.getAllByRole(&apos;button&apos;);
     const electronicsExpandButton = expandButtons.find(button => 
-      button.nextSibling && (button.nextSibling as HTMLElement).textContent === 'Electronics'
+      button.nextSibling && (button.nextSibling as HTMLElement).textContent === &apos;Electronics&apos;
     );
     
     fireEvent.click(electronicsExpandButton!);
     
     // Now subcategories should be visible
-    expect(screen.getByText('Smartphones')).toBeInTheDocument();
-    expect(screen.getByText('Laptops')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Smartphones&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Laptops&apos;)).toBeInTheDocument();
   });
 
-  it('renders empty state correctly', () => {
+  it(&apos;renders empty state correctly&apos;, () => {
     render(<CategoryNavigation categories={[]} />);
     
     expect(screen.getByText('No categories available')).toBeInTheDocument();

@@ -20,7 +20,7 @@ export enum ConnectionState {
 // WebSocket message types
 export interface WebSocketMessage {
   type: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 class WebSocketService {
@@ -31,7 +31,7 @@ class WebSocketService {
   private reconnectTimeout: number = 1000;
   private reconnectTimer: NodeJS.Timeout | null = null;
   private connectionState: ConnectionState = ConnectionState.CLOSED;
-  private messageHandlers: Map<string, ((message: any) => void)[]> = new Map();
+  private messageHandlers: Map<string, ((message: unknown) => void)[]> = new Map();
   private connectionStateHandlers: ((state: ConnectionState) => void)[] = [];
 
   /**
@@ -88,7 +88,7 @@ class WebSocketService {
    * @param message Message to send
    * @returns boolean indicating if the message was sent
    */
-  public send(message: any): boolean {
+  public send(message: unknown): boolean {
     if (!this.socket || this.connectionState !== ConnectionState.OPEN) {
       console.error('Cannot send message, WebSocket is not connected');
       return false;
@@ -108,7 +108,7 @@ class WebSocketService {
    * @param messageType Type of message to handle
    * @param handler Function to call when message is received
    */
-  public onMessage(messageType: string, handler: (message: any) => void): void {
+  public onMessage(messageType: string, handler: (message: unknown) => void): void {
     if (!this.messageHandlers.has(messageType)) {
       this.messageHandlers.set(messageType, []);
     }
@@ -120,7 +120,7 @@ class WebSocketService {
    * @param messageType Type of message
    * @param handler Handler to remove
    */
-  public offMessage(messageType: string, handler: (message: any) => void): void {
+  public offMessage(messageType: string, handler: (message: unknown) => void): void {
     const handlers = this.messageHandlers.get(messageType);
     if (handlers) {
       const index = handlers.indexOf(handler);

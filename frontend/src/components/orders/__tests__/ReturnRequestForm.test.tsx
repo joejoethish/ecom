@@ -8,51 +8,51 @@ import { createReturnRequest } from '@/store/slices/orderSlice';
 
 // Mock Redux async thunk
 jest.mock('@/store/slices/orderSlice', () => {
-  const originalModule = jest.requireActual('@/store/slices/orderSlice');
+  const originalModule = jest.requireActual(&apos;@/store/slices/orderSlice&apos;);
   return {
     ...originalModule,
     createReturnRequest: jest.fn() as any,
   };
 });
 
-describe('ReturnRequestForm Component', () => {
+describe(&apos;ReturnRequestForm Component&apos;, () => {
   const mockOrderItem = {
-    id: '123',
+    id: &apos;123&apos;,
     product: {
-      id: '456',
-      name: 'Test Product',
-      slug: 'test-product',
-      description: 'Test description',
-      short_description: 'Short description',
+      id: &apos;456&apos;,
+      name: &apos;Test Product&apos;,
+      slug: &apos;test-product&apos;,
+      description: &apos;Test description&apos;,
+      short_description: &apos;Short description&apos;,
       category: {
-        id: 'c1',
-        name: 'Test Category',
-        slug: 'test-category',
+        id: &apos;c1&apos;,
+        name: &apos;Test Category&apos;,
+        slug: &apos;test-category&apos;,
         is_active: true,
-        created_at: '2023-01-01',
+        created_at: &apos;2023-01-01&apos;,
       },
-      brand: 'Test Brand',
-      sku: 'TST001',
+      brand: &apos;Test Brand&apos;,
+      sku: &apos;TST001&apos;,
       price: 99.99,
       is_active: true,
       is_featured: false,
       dimensions: {},
       images: [
         {
-          id: '789',
-          image: '/test.jpg',
-          alt_text: 'Test Image',
+          id: &apos;789&apos;,
+          image: &apos;/test.jpg&apos;,
+          alt_text: &apos;Test Image&apos;,
           is_primary: true,
           order: 1,
         },
       ],
-      created_at: '2023-01-01',
-      updated_at: '2023-01-01',
+      created_at: &apos;2023-01-01&apos;,
+      updated_at: &apos;2023-01-01&apos;,
     },
     quantity: 2,
     unit_price: 99.99,
     total_price: 199.98,
-    status: 'delivered',
+    status: &apos;delivered&apos;,
     is_gift: false,
     returned_quantity: 0,
     refunded_amount: 0,
@@ -63,14 +63,14 @@ describe('ReturnRequestForm Component', () => {
   
   beforeEach(() => {
     (createReturnRequest as any).mockReturnValue({
-      type: 'orders/createReturnRequest/fulfilled',
+      type: &apos;orders/createReturnRequest/fulfilled&apos;,
       payload: {
-        id: '999',
-        order_item: '123',
+        id: &apos;999&apos;,
+        order_item: &apos;123&apos;,
         quantity: 1,
-        reason: 'defective',
-        description: 'Product arrived damaged',
-        status: 'pending',
+        reason: &apos;defective&apos;,
+        description: &apos;Product arrived damaged&apos;,
+        status: &apos;pending&apos;,
       },
     });
   });

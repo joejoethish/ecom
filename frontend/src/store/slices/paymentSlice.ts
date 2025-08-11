@@ -33,7 +33,6 @@ interface PaymentState {
   currencyConversion: CurrencyConversion | null;
 }
 
-const initialState: PaymentState = {
   paymentMethods: [],
   currencies: [],
   selectedCurrency: 'USD', // Default currency
@@ -59,16 +58,16 @@ export const fetchPaymentMethods = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to fetch payment methods');
+        return rejectWithValue(response.error?.message || &apos;Failed to fetch payment methods&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch payment methods');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to fetch payment methods&apos;);
     }
   }
 );
 
 export const fetchCurrencies = createAsyncThunk(
-  'payments/fetchCurrencies',
+  &apos;payments/fetchCurrencies&apos;,
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiClient.get<Currency[]>(API_ENDPOINTS.PAYMENTS.CURRENCIES);
@@ -76,16 +75,16 @@ export const fetchCurrencies = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to fetch currencies');
+        return rejectWithValue(response.error?.message || &apos;Failed to fetch currencies&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch currencies');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to fetch currencies&apos;);
     }
   }
 );
 
 export const createPayment = createAsyncThunk(
-  'payments/createPayment',
+  &apos;payments/createPayment&apos;,
   async (paymentData: PaymentFormData, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<PaymentResponse>(API_ENDPOINTS.PAYMENTS.CREATE, paymentData);
@@ -93,16 +92,16 @@ export const createPayment = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to create payment');
+        return rejectWithValue(response.error?.message || &apos;Failed to create payment&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to create payment');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to create payment&apos;);
     }
   }
 );
 
 export const verifyPayment = createAsyncThunk(
-  'payments/verifyPayment',
+  &apos;payments/verifyPayment&apos;,
   async (verificationData: PaymentVerificationData, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<PaymentResponse>(API_ENDPOINTS.PAYMENTS.VERIFY, verificationData);
@@ -110,16 +109,16 @@ export const verifyPayment = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to verify payment');
+        return rejectWithValue(response.error?.message || &apos;Failed to verify payment&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to verify payment');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to verify payment&apos;);
     }
   }
 );
 
 export const getPaymentStatus = createAsyncThunk(
-  'payments/getPaymentStatus',
+  &apos;payments/getPaymentStatus&apos;,
   async (paymentId: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.get<PaymentResponse>(API_ENDPOINTS.PAYMENTS.STATUS(paymentId));
@@ -127,16 +126,16 @@ export const getPaymentStatus = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to get payment status');
+        return rejectWithValue(response.error?.message || &apos;Failed to get payment status&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to get payment status');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to get payment status&apos;);
     }
   }
 );
 
 export const getWalletDetails = createAsyncThunk(
-  'payments/getWalletDetails',
+  &apos;payments/getWalletDetails&apos;,
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiClient.get<WalletDetails>(API_ENDPOINTS.PAYMENTS.WALLET);
@@ -144,16 +143,16 @@ export const getWalletDetails = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to get wallet details');
+        return rejectWithValue(response.error?.message || &apos;Failed to get wallet details&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to get wallet details');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to get wallet details&apos;);
     }
   }
 );
 
 export const validateGiftCard = createAsyncThunk(
-  'payments/validateGiftCard',
+  &apos;payments/validateGiftCard&apos;,
   async (code: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<GiftCard>(API_ENDPOINTS.PAYMENTS.GIFT_CARD.VALIDATE, { code });
@@ -161,16 +160,16 @@ export const validateGiftCard = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Invalid gift card');
+        return rejectWithValue(response.error?.message || &apos;Invalid gift card&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to validate gift card');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to validate gift card&apos;);
     }
   }
 );
 
 export const convertCurrency = createAsyncThunk(
-  'payments/convertCurrency',
+  &apos;payments/convertCurrency&apos;,
   async (data: { from_currency: string; to_currency: string; amount: number }, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<CurrencyConversion>(API_ENDPOINTS.PAYMENTS.CONVERT_CURRENCY, data);
@@ -178,16 +177,16 @@ export const convertCurrency = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to convert currency');
+        return rejectWithValue(response.error?.message || &apos;Failed to convert currency&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to convert currency');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to convert currency&apos;);
     }
   }
 );
 
 const paymentSlice = createSlice({
-  name: 'payments',
+  name: &apos;payments&apos;,
   initialState,
   reducers: {
     clearError: (state) => {

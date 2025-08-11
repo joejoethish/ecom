@@ -13,29 +13,29 @@ jest.mock('next/navigation', () => ({
 }));
 
 // Mock the Breadcrumb component
-jest.mock('../../common/Breadcrumb', () => ({
+jest.mock(&apos;../../common/Breadcrumb&apos;, () => ({
     Breadcrumb: () => <div data-testid="breadcrumb">Breadcrumb Component</div>,
 }));
 
 // Mock the navigation utility
-jest.mock('@/utils/navigation', () => ({
+jest.mock(&apos;@/utils/navigation&apos;, () => ({
     generateBreadcrumbs: jest.fn().mockReturnValue([
-        { label: 'Home', href: '/' },
-        { label: 'Test', href: '/test', isCurrent: true },
+        { label: &apos;Home&apos;, href: &apos;/&apos; },
+        { label: &apos;Test&apos;, href: &apos;/test&apos;, isCurrent: true },
     ]),
 }));
 
 // Mock the Header and Footer components
-jest.mock('../Header', () => ({
+jest.mock(&apos;../Header&apos;, () => ({
     Header: () => <header data-testid="header">Header Component</header>,
 }));
 
-jest.mock('../Footer', () => ({
+jest.mock(&apos;../Footer&apos;, () => ({
     Footer: () => <footer data-testid="footer">Footer Component</footer>,
 }));
 
 // Mock the lucide-react icons
-jest.mock('lucide-react', () => ({
+jest.mock(&apos;lucide-react&apos;, () => ({
     Home: () => <div>Home Icon</div>,
     Package: () => <div>Package Icon</div>,
     ShoppingCart: () => <div>ShoppingCart Icon</div>,
@@ -58,33 +58,33 @@ jest.mock('lucide-react', () => ({
 // Create mock store
 const mockStore = configureStore([]);
 
-describe('Layout Components', () => {
+describe(&apos;Layout Components&apos;, () => {
     beforeEach(() => {
-        (usePathname as jest.Mock).mockReturnValue('/');
+        (usePathname as jest.Mock).mockReturnValue(&apos;/&apos;);
     });
 
     afterEach(() => {
         jest.clearAllMocks();
     });
 
-    describe('MainLayout', () => {
-        it('renders header, footer, breadcrumb and children', () => {
+    describe(&apos;MainLayout&apos;, () => {
+        it(&apos;renders header, footer, breadcrumb and children&apos;, () => {
             render(
                 <MainLayout>
                     <div data-testid="content">Test Content</div>
                 </MainLayout>
             );
 
-            expect(screen.getByTestId('header')).toBeInTheDocument();
-            expect(screen.getByTestId('footer')).toBeInTheDocument();
-            expect(screen.getByTestId('breadcrumb')).toBeInTheDocument();
-            expect(screen.getByTestId('content')).toBeInTheDocument();
+            expect(screen.getByTestId(&apos;header&apos;)).toBeInTheDocument();
+            expect(screen.getByTestId(&apos;footer&apos;)).toBeInTheDocument();
+            expect(screen.getByTestId(&apos;breadcrumb&apos;)).toBeInTheDocument();
+            expect(screen.getByTestId(&apos;content&apos;)).toBeInTheDocument();
         });
     });
 
-    describe('AdminLayout', () => {
-        it('renders sidebar, breadcrumb and children', () => {
-            (usePathname as jest.Mock).mockReturnValue('/admin');
+    describe(&apos;AdminLayout&apos;, () => {
+        it(&apos;renders sidebar, breadcrumb and children&apos;, () => {
+            (usePathname as jest.Mock).mockReturnValue(&apos;/admin&apos;);
 
             render(
                 <AdminLayout>
@@ -92,22 +92,22 @@ describe('Layout Components', () => {
                 </AdminLayout>
             );
 
-            expect(screen.getByText('Admin Panel')).toBeInTheDocument();
-            expect(screen.getByTestId('breadcrumb')).toBeInTheDocument();
-            expect(screen.getByTestId('content')).toBeInTheDocument();
+            expect(screen.getByText(&apos;Admin Panel&apos;)).toBeInTheDocument();
+            expect(screen.getByTestId(&apos;breadcrumb&apos;)).toBeInTheDocument();
+            expect(screen.getByTestId(&apos;content&apos;)).toBeInTheDocument();
         });
     });
 
-    describe('SellerLayout', () => {
-        it('renders sidebar, breadcrumb and children', () => {
-            (usePathname as jest.Mock).mockReturnValue('/seller/dashboard');
+    describe(&apos;SellerLayout&apos;, () => {
+        it(&apos;renders sidebar, breadcrumb and children&apos;, () => {
+            (usePathname as jest.Mock).mockReturnValue(&apos;/seller/dashboard&apos;);
 
             const store = mockStore({
                 seller: {
                     profile: {
-                        business_name: 'Test Store',
-                        verification_status: 'VERIFIED',
-                        verification_status_display: 'Verified'
+                        business_name: &apos;Test Store&apos;,
+                        verification_status: &apos;VERIFIED&apos;,
+                        verification_status_display: &apos;Verified&apos;
                     }
                 }
             });

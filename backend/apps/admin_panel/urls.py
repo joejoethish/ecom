@@ -103,5 +103,8 @@ urlpatterns = [
     # API endpoints
     path('api/', include(router.urls)),
     
+    # Dashboard system endpoints
+    path('api/dashboard/', include('apps.admin_panel.dashboard_urls')),
+    
     # Additional custom endpoints can be added here
 ]

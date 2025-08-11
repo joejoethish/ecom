@@ -3,17 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { 
   X, 
-  Calendar, 
   Target, 
   Settings, 
   DollarSign, 
-  Users, 
-  Tag,
   Clock,
   AlertCircle,
   Info,
-  Plus,
-  Trash2
+  Plus
 } from 'lucide-react';
 
 interface PromotionFormData {
@@ -115,7 +111,7 @@ const PromotionForm: React.FC<PromotionFormProps> = ({
     }
   }, [initialData]);
 
-  const handleInputChange = (field: keyof PromotionFormData, value: any) => {
+  const handleInputChange = (field: keyof PromotionFormData, value: string | number | boolean | Date) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }));

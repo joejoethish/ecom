@@ -7,7 +7,7 @@ import { createTestStore } from './test-utils';
 import type { RootState } from '@/store';
 
 // Hook testing utilities with proper typing
-interface RenderHookWithStoreOptions<TProps> extends Omit<RenderHookOptions<TProps>, 'wrapper'> {
+interface RenderHookWithStoreOptions<TProps> extends Omit<RenderHookOptions<TProps>, &apos;wrapper&apos;> {
   preloadedState?: Partial<RootState>;
   store?: EnhancedStore;
 }
@@ -33,20 +33,18 @@ export function renderHookWithStore<TResult, TProps>(
 }
 
 // Mock hook implementations
-export const createMockUseRouter = (overrides: Record<string, any> = {}) => ({
   push: jest.fn(),
   replace: jest.fn(),
   prefetch: jest.fn(),
   back: jest.fn(),
   forward: jest.fn(),
   refresh: jest.fn(),
-  pathname: '/',
+  pathname: &apos;/&apos;,
   query: {},
-  asPath: '/',
+  asPath: &apos;/&apos;,
   ...overrides,
 });
 
-export const createMockUseSearchParams = (params: Record<string, string> = {}) => ({
   get: jest.fn((key: string) => params[key] || null),
   has: jest.fn((key: string) => key in params),
   getAll: jest.fn((key: string) => params[key] ? [params[key]] : []),
@@ -58,11 +56,10 @@ export const createMockUseSearchParams = (params: Record<string, string> = {}) =
 });
 
 // WebSocket mock utilities
-export const createMockWebSocketService = (overrides: Record<string, any> = {}) => ({
   connect: jest.fn(),
   disconnect: jest.fn(),
   send: jest.fn(),
-  getConnectionState: jest.fn(() => 'CLOSED'),
+  getConnectionState: jest.fn(() => &apos;CLOSED&apos;),
   onConnectionStateChange: jest.fn(),
   offConnectionStateChange: jest.fn(),
   onMessage: jest.fn(),
@@ -71,7 +68,6 @@ export const createMockWebSocketService = (overrides: Record<string, any> = {}) 
 });
 
 // API mock utilities
-export const createMockApiService = <T>(
   mockResponses: Record<string, T> = {}
 ) => {
   const mockFetch = jest.fn();
@@ -83,7 +79,7 @@ export const createMockApiService = <T>(
           ok: true,
           json: () => Promise.resolve(response),
           status: 200,
-          statusText: 'OK',
+          statusText: &apos;OK&apos;,
         });
       }
       return Promise.reject(new Error(`No mock response for ${url}`));
@@ -116,10 +112,8 @@ export const createMockLocalStorage = (initialData: Record<string, string> = {})
 };
 
 // Session storage mock utilities
-export const createMockSessionStorage = createMockLocalStorage;
 
 // Intersection Observer mock
-export const createMockIntersectionObserver = () => {
   const mockObserver = {
     observe: jest.fn(),
     unobserve: jest.fn(),
@@ -132,7 +126,6 @@ export const createMockIntersectionObserver = () => {
 };
 
 // Resize Observer mock
-export const createMockResizeObserver = () => {
   const mockObserver = {
     observe: jest.fn(),
     unobserve: jest.fn(),
@@ -145,13 +138,11 @@ export const createMockResizeObserver = () => {
 };
 
 // Performance Observer mock
-export const createMockPerformanceObserver = () => {
   const mockObserver = {
     observe: jest.fn(),
     disconnect: jest.fn(),
   };
 
-  const MockPerformanceObserver: any = jest.fn().mockImplementation(() => mockObserver);
   MockPerformanceObserver.supportedEntryTypes = [];
   global.PerformanceObserver = MockPerformanceObserver;
   
@@ -159,7 +150,6 @@ export const createMockPerformanceObserver = () => {
 };
 
 // Media query mock utilities
-export const createMockMediaQuery = (matches = false) => ({
   matches,
   media: '(min-width: 768px)',
   onchange: null,
@@ -171,14 +161,12 @@ export const createMockMediaQuery = (matches = false) => ({
 });
 
 // Geolocation mock utilities
-export const createMockGeolocation = () => ({
   getCurrentPosition: jest.fn(),
   watchPosition: jest.fn(),
   clearWatch: jest.fn(),
 });
 
 // File API mock utilities
-export const createMockFile = (
   name: string,
   content: string,
   type = 'text/plain'
@@ -187,7 +175,6 @@ export const createMockFile = (
   return file;
 };
 
-export const createMockFileList = (files: File[]): FileList => {
   const fileList = {
     length: files.length,
     item: (index: number) => files[index] || null,

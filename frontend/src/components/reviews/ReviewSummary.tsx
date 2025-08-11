@@ -10,18 +10,17 @@ interface ReviewSummaryProps {
   className?: string;
 }
 
-const ReviewSummary: React.FC<ReviewSummaryProps> = ({
   summary,
   onRatingFilter,
   selectedRating,
-  className = '',
+  className = &apos;&apos;,
 }) => {
   const ratingLabels = {
-    5: 'Excellent',
-    4: 'Very Good',
-    3: 'Good',
-    2: 'Fair',
-    1: 'Poor',
+    5: &apos;Excellent&apos;,
+    4: &apos;Very Good&apos;,
+    3: &apos;Good&apos;,
+    2: &apos;Fair&apos;,
+    1: &apos;Poor&apos;,
   };
 
   const handleRatingClick = (rating: number) => {
@@ -49,7 +48,7 @@ const ReviewSummary: React.FC<ReviewSummaryProps> = ({
                 className="justify-center lg:justify-start mb-2"
               />
               <p className="text-sm text-gray-600">
-                Based on {summary.total_reviews.toLocaleString()} review{summary.total_reviews !== 1 ? 's' : ''}
+                Based on {summary.total_reviews.toLocaleString()} review{summary.total_reviews !== 1 ? &apos;s&apos; : &apos;&apos;}
               </p>
             </div>
             
@@ -81,8 +80,8 @@ const ReviewSummary: React.FC<ReviewSummaryProps> = ({
                 onClick={() => handleRatingClick(rating)}
                 className={`w-full flex items-center gap-3 p-2 rounded-md transition-colors ${
                   onRatingFilter 
-                    ? `hover:bg-gray-50 ${isSelected ? 'bg-blue-50 border border-blue-200' : ''}` 
-                    : ''
+                    ? `hover:bg-gray-50 ${isSelected ? &apos;bg-blue-50 border border-blue-200&apos; : &apos;&apos;}` 
+                    : &apos;&apos;
                 }`}
                 disabled={!onRatingFilter}
               >
@@ -130,7 +129,7 @@ const ReviewSummary: React.FC<ReviewSummaryProps> = ({
             </div>
             <button
               onClick={() => onRatingFilter(undefined)}
-              className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
+              className=&quot;text-sm text-blue-600 hover:text-blue-800 transition-colors&quot;
             >
               Show all reviews
             </button>

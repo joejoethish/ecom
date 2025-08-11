@@ -9,13 +9,12 @@
  * @param locale - The locale to use for formatting (default: en-US)
  * @returns Formatted currency string
  */
-export const formatCurrency = (
   amount: number,
   currencyCode: string = 'USD',
   locale: string = 'en-US'
 ): string => {
   return new Intl.NumberFormat(locale, {
-    style: 'currency',
+    style: &apos;currency&apos;,
     currency: currencyCode,
   }).format(amount);
 };
@@ -25,12 +24,11 @@ export const formatCurrency = (
  * @param cardNumber - The card number to format
  * @returns Formatted card number
  */
-export const formatCardNumber = (cardNumber: string): string => {
   // Remove all non-digit characters
-  const digits = cardNumber.replace(/\D/g, '');
+  const digits = cardNumber.replace(/\D/g, &apos;&apos;);
   
   // Add space after every 4 digits
-  let formatted = '';
+  let formatted = &apos;&apos;;
   for (let i = 0; i < digits.length; i += 4) {
     formatted += digits.slice(i, i + 4) + ' ';
   }
@@ -43,9 +41,8 @@ export const formatCardNumber = (cardNumber: string): string => {
  * @param cardNumber - The card number to mask
  * @returns Masked card number
  */
-export const maskCardNumber = (cardNumber: string): string => {
   // Remove all non-digit characters
-  const digits = cardNumber.replace(/\D/g, '');
+  const digits = cardNumber.replace(/\D/g, &apos;&apos;);
   
   if (digits.length <= 4) {
     return digits;
@@ -69,15 +66,14 @@ export const maskCardNumber = (cardNumber: string): string => {
  * @param locale - The locale to use for formatting (default: en-US)
  * @returns Formatted date string
  */
-export const formatDate = (
   dateString: string,
   locale: string = 'en-US'
 ): string => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat(locale, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    year: &apos;numeric&apos;,
+    month: &apos;long&apos;,
+    day: &apos;numeric&apos;,
   }).format(date);
 };
 
@@ -87,17 +83,16 @@ export const formatDate = (
  * @param locale - The locale to use for formatting (default: en-US)
  * @returns Formatted date and time string
  */
-export const formatDateTime = (
   dateString: string,
-  locale: string = 'en-US'
+  locale: string = &apos;en-US&apos;
 ): string => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat(locale, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+    year: &apos;numeric&apos;,
+    month: &apos;long&apos;,
+    day: &apos;numeric&apos;,
+    hour: &apos;2-digit&apos;,
+    minute: &apos;2-digit&apos;,
   }).format(date);
 };
 
@@ -106,15 +101,13 @@ export const formatDateTime = (
  * @param status - The payment status
  * @returns Formatted payment status
  */
-export const formatPaymentStatus = (status: string): string => {
-  const statusMap: Record<string, string> = {
-    'PENDING': 'Pending',
-    'PROCESSING': 'Processing',
-    'COMPLETED': 'Completed',
-    'FAILED': 'Failed',
-    'REFUNDED': 'Refunded',
-    'PARTIALLY_REFUNDED': 'Partially Refunded',
-    'CANCELLED': 'Cancelled',
+    &apos;PENDING&apos;: &apos;Pending&apos;,
+    &apos;PROCESSING&apos;: &apos;Processing&apos;,
+    &apos;COMPLETED&apos;: &apos;Completed&apos;,
+    &apos;FAILED&apos;: &apos;Failed&apos;,
+    &apos;REFUNDED&apos;: &apos;Refunded&apos;,
+    &apos;PARTIALLY_REFUNDED&apos;: &apos;Partially Refunded&apos;,
+    &apos;CANCELLED&apos;: &apos;Cancelled&apos;,
   };
   
   return statusMap[status] || status;
@@ -125,8 +118,6 @@ export const formatPaymentStatus = (status: string): string => {
  * @param status - The payment status
  * @returns CSS class name
  */
-export const getPaymentStatusClass = (status: string): string => {
-  const statusClassMap: Record<string, string> = {
     'PENDING': 'bg-yellow-100 text-yellow-800',
     'PROCESSING': 'bg-blue-100 text-blue-800',
     'COMPLETED': 'bg-green-100 text-green-800',

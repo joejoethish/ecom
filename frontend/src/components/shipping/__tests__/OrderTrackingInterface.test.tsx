@@ -30,44 +30,43 @@ const createMockStore = (initialState = {}) => {
   });
 };
 
-const mockShipment: Shipment = {
-  id: '1',
-  order: 'ORD123456',
-  shipping_partner: 'partner1',
-  shipping_partner_name: 'Shiprocket',
-  tracking_number: 'TRK123456789',
-  status: 'IN_TRANSIT',
-  status_display: 'In Transit',
+  id: &apos;1&apos;,
+  order: &apos;ORD123456&apos;,
+  shipping_partner: &apos;partner1&apos;,
+  shipping_partner_name: &apos;Shiprocket&apos;,
+  tracking_number: &apos;TRK123456789&apos;,
+  status: &apos;IN_TRANSIT&apos;,
+  status_display: &apos;In Transit&apos;,
   shipping_address: {
-    first_name: 'John',
-    last_name: 'Doe',
-    address_line_1: '123 Main Street',
-    city: 'New Delhi',
-    state: 'Delhi',
-    postal_code: '110001',
-    country: 'India'
+    first_name: &apos;John&apos;,
+    last_name: &apos;Doe&apos;,
+    address_line_1: &apos;123 Main Street&apos;,
+    city: &apos;New Delhi&apos;,
+    state: &apos;Delhi&apos;,
+    postal_code: &apos;110001&apos;,
+    country: &apos;India&apos;
   },
   weight: 1.5,
   dimensions: { length: 10, width: 8, height: 5 },
   shipping_cost: 150,
-  created_at: '2024-01-01T00:00:00Z',
-  updated_at: '2024-01-01T00:00:00Z',
+  created_at: &apos;2024-01-01T00:00:00Z&apos;,
+  updated_at: &apos;2024-01-01T00:00:00Z&apos;,
   tracking_updates: [
     {
-      id: '1',
-      shipment: '1',
-      status: 'SHIPPED',
-      status_display: 'Shipped',
-      description: 'Package has been shipped',
-      location: 'Delhi Hub',
-      timestamp: '2024-01-01T10:00:00Z',
-      created_at: '2024-01-01T10:00:00Z'
+      id: &apos;1&apos;,
+      shipment: &apos;1&apos;,
+      status: &apos;SHIPPED&apos;,
+      status_display: &apos;Shipped&apos;,
+      description: &apos;Package has been shipped&apos;,
+      location: &apos;Delhi Hub&apos;,
+      timestamp: &apos;2024-01-01T10:00:00Z&apos;,
+      created_at: &apos;2024-01-01T10:00:00Z&apos;
     }
   ]
 };
 
-describe('OrderTrackingInterface', () => {
-  it('renders search interface by default', () => {
+describe(&apos;OrderTrackingInterface&apos;, () => {
+  it(&apos;renders search interface by default&apos;, () => {
     const store = createMockStore();
     
     render(
@@ -76,12 +75,12 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Track Your Order')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('e.g., TRK123456789 or ORD123456')).toBeInTheDocument();
-    expect(screen.getByText('Track')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Track Your Order&apos;)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(&apos;e.g., TRK123456789 or ORD123456&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Track&apos;)).toBeInTheDocument();
   });
 
-  it('hides search interface when showSearch is false', () => {
+  it(&apos;hides search interface when showSearch is false&apos;, () => {
     const store = createMockStore();
     
     render(
@@ -90,10 +89,10 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    expect(screen.queryByText('Track Your Order')).not.toBeInTheDocument();
+    expect(screen.queryByText(&apos;Track Your Order&apos;)).not.toBeInTheDocument();
   });
 
-  it('handles search form submission', async () => {
+  it(&apos;handles search form submission&apos;, async () => {
     const store = createMockStore();
     
     render(
@@ -102,17 +101,17 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    const searchInput = screen.getByPlaceholderText('e.g., TRK123456789 or ORD123456');
-    const trackButton = screen.getByText('Track');
+    const searchInput = screen.getByPlaceholderText(&apos;e.g., TRK123456789 or ORD123456&apos;);
+    const trackButton = screen.getByText(&apos;Track&apos;);
 
-    fireEvent.change(searchInput, { target: { value: 'TRK123456789' } });
+    fireEvent.change(searchInput, { target: { value: &apos;TRK123456789&apos; } });
     fireEvent.click(trackButton);
 
     // The form should submit and trigger tracking
-    expect(searchInput).toHaveValue('TRK123456789');
+    expect(searchInput).toHaveValue(&apos;TRK123456789&apos;);
   });
 
-  it('shows loading state', () => {
+  it(&apos;shows loading state&apos;, () => {
     const store = createMockStore({ loading: true });
     
     render(
@@ -121,12 +120,12 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Tracking...')).toBeInTheDocument();
-    expect(screen.getByText('Loading tracking information...')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Tracking...&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Loading tracking information...&apos;)).toBeInTheDocument();
   });
 
-  it('shows error state', () => {
-    const store = createMockStore({ error: 'Tracking number not found' });
+  it(&apos;shows error state&apos;, () => {
+    const store = createMockStore({ error: &apos;Tracking number not found&apos; });
     
     render(
       <Provider store={store}>
@@ -134,10 +133,10 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Tracking number not found')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Tracking number not found&apos;)).toBeInTheDocument();
   });
 
-  it('displays shipment details when available', () => {
+  it(&apos;displays shipment details when available&apos;, () => {
     const store = createMockStore({ currentShipment: mockShipment });
     
     render(
@@ -146,14 +145,14 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Shipment Details')).toBeInTheDocument();
-    expect(screen.getByText('TRK123456789')).toBeInTheDocument();
-    expect(screen.getByText('Shiprocket')).toBeInTheDocument();
-    expect(screen.getByText('₹150')).toBeInTheDocument();
-    expect(screen.getAllByText('In Transit')).toHaveLength(2);
+    expect(screen.getByText(&apos;Shipment Details&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;TRK123456789&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Shiprocket&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;₹150&apos;)).toBeInTheDocument();
+    expect(screen.getAllByText(&apos;In Transit&apos;)).toHaveLength(2);
   });
 
-  it('displays shipping address', () => {
+  it(&apos;displays shipping address&apos;, () => {
     const store = createMockStore({ currentShipment: mockShipment });
     
     render(
@@ -162,11 +161,11 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Delivery Address')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Delivery Address&apos;)).toBeInTheDocument();
     expect(screen.getByText(/123 Main Street.*New Delhi.*Delhi.*110001/)).toBeInTheDocument();
   });
 
-  it('shows tracking timeline', () => {
+  it(&apos;shows tracking timeline&apos;, () => {
     const store = createMockStore({ currentShipment: mockShipment });
     
     render(
@@ -175,10 +174,10 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Tracking Timeline')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Tracking Timeline&apos;)).toBeInTheDocument();
   });
 
-  it('pre-fills search with tracking number prop', () => {
+  it(&apos;pre-fills search with tracking number prop&apos;, () => {
     const store = createMockStore();
     
     render(
@@ -187,11 +186,11 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    const searchInput = screen.getByPlaceholderText('e.g., TRK123456789 or ORD123456');
-    expect(searchInput).toHaveValue('TRK987654321');
+    const searchInput = screen.getByPlaceholderText(&apos;e.g., TRK123456789 or ORD123456&apos;);
+    expect(searchInput).toHaveValue(&apos;TRK987654321&apos;);
   });
 
-  it('shows empty state when no tracking data', () => {
+  it(&apos;shows empty state when no tracking data&apos;, () => {
     const store = createMockStore();
     
     render(
@@ -200,10 +199,10 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Enter a tracking number or order ID to view shipment details')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Enter a tracking number or order ID to view shipment details&apos;)).toBeInTheDocument();
   });
 
-  it('disables track button when input is empty', () => {
+  it(&apos;disables track button when input is empty&apos;, () => {
     const store = createMockStore();
     
     render(
@@ -212,11 +211,11 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    const trackButton = screen.getByText('Track');
+    const trackButton = screen.getByText(&apos;Track&apos;);
     expect(trackButton).toBeDisabled();
   });
 
-  it('enables track button when input has value', () => {
+  it(&apos;enables track button when input has value&apos;, () => {
     const store = createMockStore();
     
     render(
@@ -225,18 +224,18 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    const searchInput = screen.getByPlaceholderText('e.g., TRK123456789 or ORD123456');
-    const trackButton = screen.getByText('Track');
+    const searchInput = screen.getByPlaceholderText(&apos;e.g., TRK123456789 or ORD123456&apos;);
+    const trackButton = screen.getByText(&apos;Track&apos;);
 
-    fireEvent.change(searchInput, { target: { value: 'TRK123' } });
+    fireEvent.change(searchInput, { target: { value: &apos;TRK123&apos; } });
     
     expect(trackButton).not.toBeDisabled();
   });
 
-  it('shows estimated delivery date when available', () => {
+  it(&apos;shows estimated delivery date when available&apos;, () => {
     const shipmentWithDeliveryDate = {
       ...mockShipment,
-      estimated_delivery_date: '2024-01-05T00:00:00Z'
+      estimated_delivery_date: &apos;2024-01-05T00:00:00Z&apos;
     };
     
     const store = createMockStore({ currentShipment: shipmentWithDeliveryDate });
@@ -247,14 +246,14 @@ describe('OrderTrackingInterface', () => {
       </Provider>
     );
 
-    expect(screen.getByText('Estimated Delivery:')).toBeInTheDocument();
-    expect(screen.getByText('05/01/2024')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Estimated Delivery:&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;05/01/2024&apos;)).toBeInTheDocument();
   });
 
-  it('shows delivery slot when available', () => {
+  it(&apos;shows delivery slot when available&apos;, () => {
     const shipmentWithSlot = {
       ...mockShipment,
-      delivery_slot_display: 'Morning Slot (9:00 AM - 12:00 PM)'
+      delivery_slot_display: &apos;Morning Slot (9:00 AM - 12:00 PM)&apos;
     };
     
     const store = createMockStore({ currentShipment: shipmentWithSlot });

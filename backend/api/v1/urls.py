@@ -32,6 +32,8 @@ urlpatterns = [
     path('content/', include('apps.content.urls')),
     path('notifications/', include('apps.notifications.urls')),
     path('promotions/', include('apps.promotions.urls')),
+    path('admin/data-management/', include('apps.data_management.urls')),
+    path('admin/security/', include('apps.security_management.urls')),
     
     # Categories API
     path('categories/', get_all_categories, name='all-categories'),

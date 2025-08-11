@@ -7,11 +7,10 @@ import SellerDashboard from '../SellerDashboard';
 import type { Middleware } from '@reduxjs/toolkit';
 
 // Create mock store
-const middlewares: Middleware[] = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('SellerDashboard Component', () => {
-  test('renders loading state', () => {
+  test(&apos;renders loading state&apos;, () => {
     const store = mockStore({
       seller: {
         profile: null,
@@ -28,10 +27,10 @@ describe('SellerDashboard Component', () => {
     );
 
     // Check if loading spinner is displayed
-    expect(screen.getByRole('status')).toBeInTheDocument();
+    expect(screen.getByRole(&apos;status&apos;)).toBeInTheDocument();
   });
 
-  test('renders no profile state', () => {
+  test(&apos;renders no profile state&apos;, () => {
     const store = mockStore({
       seller: {
         profile: null,
@@ -47,19 +46,19 @@ describe('SellerDashboard Component', () => {
       </Provider>
     );
 
-    // Check if "not found" message is displayed
-    expect(screen.getByText('Seller Profile Not Found')).toBeInTheDocument();
-    expect(screen.getByText('You need to register as a seller to access the dashboard.')).toBeInTheDocument();
-    expect(screen.getByText('Register as Seller')).toBeInTheDocument();
+    // Check if &quot;not found&quot; message is displayed
+    expect(screen.getByText(&apos;Seller Profile Not Found&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;You need to register as a seller to access the dashboard.&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Register as Seller&apos;)).toBeInTheDocument();
   });
 
-  test('renders dashboard with seller data', () => {
+  test(&apos;renders dashboard with seller data&apos;, () => {
     const mockProfile = {
-      id: '1',
-      business_name: 'Test Business',
-      verification_status: 'VERIFIED',
-      verification_status_display: 'Verified',
-      created_at: '2023-01-01T00:00:00Z',
+      id: &apos;1&apos;,
+      business_name: &apos;Test Business&apos;,
+      verification_status: &apos;VERIFIED&apos;,
+      verification_status_display: &apos;Verified&apos;,
+      created_at: &apos;2023-01-01T00:00:00Z&apos;,
     };
 
     const mockAnalytics = {
@@ -68,21 +67,21 @@ describe('SellerDashboard Component', () => {
       total_products: 25,
       recent_orders: [
         {
-          id: '1',
-          order_number: 'ORD-12345',
+          id: &apos;1&apos;,
+          order_number: &apos;ORD-12345&apos;,
           total_amount: 2499,
-          status: 'DELIVERED',
-          created_at: '2023-06-15T10:30:00Z',
+          status: &apos;DELIVERED&apos;,
+          created_at: &apos;2023-06-15T10:30:00Z&apos;,
         },
       ],
       sales_by_period: [
-        { period: 'Jan', amount: 1000 },
-        { period: 'Feb', amount: 1500 },
+        { period: &apos;Jan&apos;, amount: 1000 },
+        { period: &apos;Feb&apos;, amount: 1500 },
       ],
       top_products: [
         {
-          id: '1',
-          name: 'Test Product',
+          id: &apos;1&apos;,
+          name: &apos;Test Product&apos;,
           sales: 5000,
           quantity: 10,
         },

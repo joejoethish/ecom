@@ -8,7 +8,6 @@ import { ROUTE_LABELS } from '@/constants/routes';
  */
 export function generateBreadcrumbs(pathname: string): BreadcrumbItem[] {
   // Always start with home
-  const breadcrumbs: BreadcrumbItem[] = [
     { label: 'Home', href: '/' }
   ];
   

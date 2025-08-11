@@ -3,25 +3,25 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import StarRating from '../../ui/StarRating';
 
 describe('StarRating', () => {
-  it('renders correct number of stars', () => {
+  it(&apos;renders correct number of stars&apos;, () => {
     render(<StarRating rating={3} />);
-    const stars = screen.getAllByRole('button');
+    const stars = screen.getAllByRole(&apos;button&apos;);
     expect(stars).toHaveLength(5); // Default maxRating is 5
   });
 
-  it('displays correct rating visually', () => {
+  it(&apos;displays correct rating visually&apos;, () => {
     render(<StarRating rating={3.5} />);
     // This test would need to check the visual representation
-    // For now, we'll just ensure it renders without crashing
-    expect(screen.getAllByRole('button')).toHaveLength(5);
+    // For now, we&apos;ll just ensure it renders without crashing
+    expect(screen.getAllByRole(&apos;button&apos;)).toHaveLength(5);
   });
 
-  it('shows rating value when showValue is true', () => {
+  it(&apos;shows rating value when showValue is true&apos;, () => {
     render(<StarRating rating={4.2} showValue />);
-    expect(screen.getByText('4.2 / 5')).toBeInTheDocument();
+    expect(screen.getByText(&apos;4.2 / 5&apos;)).toBeInTheDocument();
   });
 
-  it('calls onRatingChange when interactive and star is clicked', () => {
+  it(&apos;calls onRatingChange when interactive and star is clicked&apos;, () => {
     const mockOnRatingChange = jest.fn();
     render(
       <StarRating 
@@ -31,13 +31,13 @@ describe('StarRating', () => {
       />
     );
     
-    const stars = screen.getAllByRole('button');
+    const stars = screen.getAllByRole(&apos;button&apos;);
     fireEvent.click(stars[3]); // Click 4th star (rating 4)
     
     expect(mockOnRatingChange).toHaveBeenCalledWith(4);
   });
 
-  it('does not call onRatingChange when not interactive', () => {
+  it(&apos;does not call onRatingChange when not interactive&apos;, () => {
     const mockOnRatingChange = jest.fn();
     render(
       <StarRating 
@@ -47,31 +47,29 @@ describe('StarRating', () => {
       />
     );
     
-    const stars = screen.getAllByRole('button');
+    const stars = screen.getAllByRole(&apos;button&apos;);
     fireEvent.click(stars[3]);
     
     expect(mockOnRatingChange).not.toHaveBeenCalled();
   });
 
-  it('applies custom className', () => {
-    const { container } = render(
+  it(&apos;applies custom className&apos;, () => {
       <StarRating rating={3} className="custom-class" />
     );
     
-    expect(container.firstChild).toHaveClass('custom-class');
+    expect(container.firstChild).toHaveClass(&apos;custom-class&apos;);
   });
 
-  it('renders with different sizes', () => {
-    const { rerender } = render(<StarRating rating={3} size="sm" />);
-    let stars = screen.getAllByRole('button');
-    expect(stars[0]).toHaveClass('w-4', 'h-4');
+  it(&apos;renders with different sizes&apos;, () => {
+    let stars = screen.getAllByRole(&apos;button&apos;);
+    expect(stars[0]).toHaveClass(&apos;w-4&apos;, &apos;h-4&apos;);
 
     rerender(<StarRating rating={3} size="lg" />);
-    stars = screen.getAllByRole('button');
-    expect(stars[0]).toHaveClass('w-6', 'h-6');
+    stars = screen.getAllByRole(&apos;button&apos;);
+    expect(stars[0]).toHaveClass(&apos;w-6&apos;, &apos;h-6&apos;);
   });
 
-  it('handles hover states when interactive', () => {
+  it(&apos;handles hover states when interactive&apos;, () => {
     const mockOnRatingChange = jest.fn();
     render(
       <StarRating 

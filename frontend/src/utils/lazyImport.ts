@@ -7,7 +7,7 @@ import { ComponentType, lazy } from 'react';
  * @returns Lazy loaded component
  */
 export function lazyImport<
-  T extends ComponentType<any>,
+  T extends ComponentType<unknown>,
   I extends { [K2 in K]: T },
   K extends keyof I
 >(factory: () => Promise<I>, name: K): I {
@@ -18,5 +18,4 @@ export function lazyImport<
 
 /**
  * Example usage:
- * const { ProductCard } = lazyImport(() => import('@/components/products/ProductCard'), 'ProductCard');
  */

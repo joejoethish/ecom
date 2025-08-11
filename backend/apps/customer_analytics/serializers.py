@@ -6,7 +6,17 @@ from .models import (
     CustomerCohort,
     CustomerLifecycleStage,
     CustomerRecommendation,
-    CustomerSatisfactionSurvey
+    CustomerSatisfactionSurvey,
+    CustomerLifetimeValue,
+    CustomerChurnPrediction,
+    CustomerJourneyMap,
+    CustomerProfitabilityAnalysis,
+    CustomerEngagementScore,
+    CustomerPreferenceAnalysis,
+    CustomerDemographicAnalysis,
+    CustomerSentimentAnalysis,
+    CustomerFeedbackAnalysis,
+    CustomerRiskAssessment
 )
 
 
@@ -81,3 +91,85 @@ class CustomerAnalyticsSummarySerializer(serializers.Serializer):
     customer_retention_rate = serializers.DecimalField(max_digits=5, decimal_places=2)
     nps_score = serializers.DecimalField(max_digits=5, decimal_places=2, allow_null=True)
     csat_score = serializers.DecimalField(max_digits=5, decimal_places=2, allow_null=True)
+
+
+class CustomerLifetimeValueSerializer(serializers.ModelSerializer):
+    customer_username = serializers.CharField(source='customer.username', read_only=True)
+    clv_to_cac_ratio = serializers.ReadOnlyField()
+    
+    class Meta:
+        model = CustomerLifetimeValue
+        fields = '__all__'
+
+
+class CustomerChurnPredictionSerializer(serializers.ModelSerializer):
+    customer_username = serializers.CharField(source='customer.username', read_only=True)
+    
+    class Meta:
+        model = CustomerChurnPrediction
+        fields = '__all__'
+
+
+class CustomerJourneyMapSerializer(serializers.ModelSerializer):
+    customer_username = serializers.CharField(source='customer.username', read_only=True)
+    
+    class Meta:
+        model = CustomerJourneyMap
+        fields = '__all__'
+
+
+class CustomerProfitabilityAnalysisSerializer(serializers.ModelSerializer):
+    customer_username = serializers.CharField(source='customer.username', read_only=True)
+    roi = serializers.ReadOnlyField()
+    
+    class Meta:
+        model = CustomerProfitabilityAnalysis
+        fields = '__all__'
+
+
+class CustomerEngagementScoreSerializer(serializers.ModelSerializer):
+    customer_username = serializers.CharField(source='customer.username', read_only=True)
+    
+    class Meta:
+        model = CustomerEngagementScore
+        fields = '__all__'
+
+
+class CustomerPreferenceAnalysisSerializer(serializers.ModelSerializer):
+    customer_username = serializers.CharField(source='customer.username', read_only=True)
+    
+    class Meta:
+        model = CustomerPreferenceAnalysis
+        fields = '__all__'
+
+
+class CustomerDemographicAnalysisSerializer(serializers.ModelSerializer):
+    customer_username = serializers.CharField(source='customer.username', read_only=True)
+    
+    class Meta:
+        model = CustomerDemographicAnalysis
+        fields = '__all__'
+
+
+class CustomerSentimentAnalysisSerializer(serializers.ModelSerializer):
+    customer_username = serializers.CharField(source='customer.username', read_only=True)
+    
+    class Meta:
+        model = CustomerSentimentAnalysis
+        fields = '__all__'
+
+
+class CustomerFeedbackAnalysisSerializer(serializers.ModelSerializer):
+    customer_username = serializers.CharField(source='customer.username', read_only=True)
+    
+    class Meta:
+        model = CustomerFeedbackAnalysis
+        fields = '__all__'
+
+
+class CustomerRiskAssessmentSerializer(serializers.ModelSerializer):
+    customer_username = serializers.CharField(source='customer.username', read_only=True)
+    
+    class Meta:
+        model = CustomerRiskAssessment
+        fields = '__all__'

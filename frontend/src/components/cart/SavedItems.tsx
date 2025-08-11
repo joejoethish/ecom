@@ -8,7 +8,6 @@ interface SavedItemsProps {
   savedItems: SavedItem[];
 }
 
-const SavedItems: React.FC<SavedItemsProps> = ({ savedItems }) => {
   const dispatch = useAppDispatch();
 
   const handleMoveToCart = (savedItemId: string) => {
@@ -91,13 +90,13 @@ const SavedItems: React.FC<SavedItemsProps> = ({ savedItems }) => {
                 <div className="flex items-center gap-4 mt-3">
                   <button
                     onClick={() => handleMoveToCart(savedItem.id)}
-                    className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors"
+                    className=&quot;px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors&quot;
                   >
                     Move to Cart
                   </button>
                   <button
                     onClick={() => handleRemove(savedItem.id)}
-                    className="text-sm text-red-600 hover:text-red-800 font-medium"
+                    className=&quot;text-sm text-red-600 hover:text-red-800 font-medium&quot;
                   >
                     Remove
                   </button>

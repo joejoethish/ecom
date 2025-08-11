@@ -27,4 +27,5 @@ app_name = 'analytics'
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('bi/', include('apps.analytics.bi_urls')),
 ]

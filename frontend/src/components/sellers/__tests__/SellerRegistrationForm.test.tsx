@@ -15,17 +15,16 @@ jest.mock('next/router', () => ({
 }));
 
 // Mock the dispatch function
-jest.mock('react-redux', () => ({
-  ...jest.requireActual('react-redux'),
+jest.mock(&apos;react-redux&apos;, () => ({
+  ...jest.requireActual(&apos;react-redux&apos;),
   useDispatch: () => jest.fn().mockReturnValue(() => Promise.resolve()),
 }));
 
 // Create mock store
-const middlewares: Middleware[] = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('SellerRegistrationForm Component', () => {
-  let store: any;
+describe(&apos;SellerRegistrationForm Component&apos;, () => {
+  let store: unknown;
 
   beforeEach(() => {
     store = mockStore({
@@ -36,7 +35,7 @@ describe('SellerRegistrationForm Component', () => {
     });
   });
 
-  test('renders the form correctly', () => {
+  test(&apos;renders the form correctly&apos;, () => {
     render(
       <Provider store={store}>
         <SellerRegistrationForm />
@@ -44,7 +43,7 @@ describe('SellerRegistrationForm Component', () => {
     );
 
     // Check if form elements are displayed
-    expect(screen.getByText('Seller Registration')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Seller Registration&apos;)).toBeInTheDocument();
     expect(screen.getByLabelText(/Business Name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Business Type/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Address/i)).toBeInTheDocument();
@@ -52,14 +51,14 @@ describe('SellerRegistrationForm Component', () => {
     expect(screen.getByLabelText(/Country/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Phone Number/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Email/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Register as Seller/i })).toBeInTheDocument();
+    expect(screen.getByRole(&apos;button&apos;, { name: /Register as Seller/i })).toBeInTheDocument();
   });
 
-  test('displays error message when there is an error', () => {
+  test(&apos;displays error message when there is an error&apos;, () => {
     const errorStore = mockStore({
       seller: {
         loading: false,
-        error: 'Registration failed',
+        error: &apos;Registration failed&apos;,
       },
     });
 
@@ -70,10 +69,10 @@ describe('SellerRegistrationForm Component', () => {
     );
 
     // Check if error message is displayed
-    expect(screen.getByText('Registration failed')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Registration failed&apos;)).toBeInTheDocument();
   });
 
-  test('disables submit button when loading', () => {
+  test(&apos;disables submit button when loading&apos;, () => {
     const loadingStore = mockStore({
       seller: {
         loading: true,
@@ -88,10 +87,10 @@ describe('SellerRegistrationForm Component', () => {
     );
 
     // Check if submit button is disabled
-    expect(screen.getByRole('button', { name: /Submitting/i })).toBeDisabled();
+    expect(screen.getByRole(&apos;button&apos;, { name: /Submitting/i })).toBeDisabled();
   });
 
-  test('handles form submission', async () => {
+  test(&apos;handles form submission&apos;, async () => {
     render(
       <Provider store={store}>
         <SellerRegistrationForm />

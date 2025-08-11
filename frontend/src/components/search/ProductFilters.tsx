@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { apiClient } from '@/utils/api';
-import { API_ENDPOINTS } from '@/constants';
 
 interface FilterOption {
   name: string;
@@ -34,9 +33,9 @@ interface ProductFiltersProps {
   /** Additional CSS classes to apply to the component */
   className?: string;
   /** Callback when filters change */
-  onFilterChange?: (filters: Record<string, any>) => void;
+  onFilterChange?: (filters: Record<string, string | number | boolean>) => void;
   /** Initial filters */
-  initialFilters?: Record<string, any>;
+  initialFilters?: Record<string, string | number | boolean>;
 }
 
 /**
@@ -50,7 +49,7 @@ export function ProductFilters({
   initialFilters = {},
 }: ProductFiltersProps) {
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({});
-  const [selectedFilters, setSelectedFilters] = useState<Record<string, any>>(initialFilters);
+  const [selectedFilters, setSelectedFilters] = useState<Record<string, string | number | boolean>>(initialFilters);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState<[number | null, number | null]>([null, null]);
@@ -58,13 +57,28 @@ export function ProductFilters({
   const searchParams = useSearchParams();
 
   // Fetch filter options on component mount
+  const fetchFilterOptions = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    
+    try {
+      const response = await apiClient.get('/api/products/filters/');
+      setFilterOptions(response.data);
+    } catch (err) {
+      setError('Failed to load filter options');
+      console.error('Error fetching filter options:', err);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     fetchFilterOptions();
-  }, []);
+  }, [fetchFilterOptions]);
 
   // Update selected filters from URL params on mount
   useEffect(() => {
-    const filters: Record<string, any> = {};
+    const filters: Record<string, string | number | boolean> = {};
     
     // Extract category filter
     const category = searchParams.get('category');
@@ -106,61 +120,6 @@ export function ProductFilters({
     
     setSelectedFilters(filters);
   }, [searchParams]);
-
-  // Fetch available filter options from the API
-  const fetchFilterOptions = async () => {
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // Get category from search params to fetch category-specific filters
-      const category = searchParams.get('category');
-      
-      if (category) {
-        // Fetch category-specific filters
-        const response = await apiClient.get(`/categories/${category}/filters/`);
-        
-        if (response.success && response.data) {
-          setFilterOptions({
-            categories: [{ 
-              name: response.data.category.name, 
-              count: response.data.total_products 
-            }],
-            brands: response.data.brands,
-            price_ranges: response.data.price_ranges
-          });
-        } else {
-          setError(response.error?.message || 'Failed to load filter options');
-        }
-      } else {
-        // Fetch general filter options (you might want to create a general filters endpoint)
-        const response = await apiClient.get('/categories/');
-        
-        if (response.success && response.data) {
-          setFilterOptions({
-            categories: response.data.data.map((cat: any) => ({
-              name: cat.name,
-              count: cat.product_count
-            })),
-            brands: [], // Will be populated when a category is selected
-            price_ranges: [
-              { from: null, to: 100, count: 0, label: 'Under $100' },
-              { from: 100, to: 500, count: 0, label: '$100 - $500' },
-              { from: 500, to: 1000, count: 0, label: '$500 - $1000' },
-              { from: 1000, to: null, count: 0, label: '$1000+' }
-            ]
-          });
-        } else {
-          setError(response.error?.message || 'Failed to load filter options');
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching filter options:', error);
-      setError('Failed to load filter options. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   // Handle category filter change
   const handleCategoryChange = (category: string) => {
@@ -225,7 +184,7 @@ export function ProductFilters({
   };
 
   // Update filters and notify parent component
-  const updateFilters = (newFilters: Record<string, any>) => {
+  const updateFilters = (newFilters: Record<string, string | number | boolean>) => {
     setSelectedFilters(newFilters);
     
     if (onFilterChange) {

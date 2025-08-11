@@ -6,6 +6,16 @@ from django.db.models import Q
 from typing import List, Dict, Optional
 from .models import Banner, Carousel, CarouselItem, ContentPage, Announcement
 
+# Import advanced services
+try:
+    from .advanced_services import (
+        AdvancedContentService, ContentWorkflowService, ContentAssetService,
+        PageBuilderService, ContentAnalyticsService
+    )
+except ImportError:
+    # Advanced services not available yet
+    pass
+
 
 class BannerService:
     """

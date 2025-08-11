@@ -15,15 +15,14 @@ jest.mock('@/services/inventoryManagementApi', () => ({
 }));
 
 // Mock validation utilities
-jest.mock('@/utils/validation', () => ({
+jest.mock(&apos;@/utils/validation&apos;, () => ({
   validateRequired: jest.fn((value: string, fieldName: string) => {
     if (!value || value.trim().length === 0) {
       return `${fieldName} is required`;
     }
     return null;
   }),
-  validateForm: jest.fn((data: Record<string, any>, rules: Record<string, (value: any) => string | null>) => {
-    const errors: Record<string, string> = {};
+  validateForm: jest.fn((data: Record<string, unknown>, rules: Record<string, (value: unknown) => string | null>) => {
     Object.keys(rules).forEach(field => {
       const error = rules[field](data[field]);
       if (error) {
@@ -36,61 +35,61 @@ jest.mock('@/utils/validation', () => ({
 
 const mockWarehouses = [
   {
-    id: '1',
-    name: 'Main Warehouse',
-    code: 'MW001',
-    address: '123 Main St',
-    city: 'New York',
-    state: 'NY',
-    postal_code: '10001',
-    country: 'USA',
-    phone: '+1234567890',
-    email: 'warehouse@example.com',
-    manager: 'John Doe',
+    id: &apos;1&apos;,
+    name: &apos;Main Warehouse&apos;,
+    code: &apos;MW001&apos;,
+    address: &apos;123 Main St&apos;,
+    city: &apos;New York&apos;,
+    state: &apos;NY&apos;,
+    postal_code: &apos;10001&apos;,
+    country: &apos;USA&apos;,
+    phone: &apos;+1234567890&apos;,
+    email: &apos;warehouse@example.com&apos;,
+    manager: &apos;John Doe&apos;,
     is_active: true,
-    created_at: '2024-01-01T00:00:00Z',
-    updated_at: '2024-01-01T00:00:00Z',
+    created_at: &apos;2024-01-01T00:00:00Z&apos;,
+    updated_at: &apos;2024-01-01T00:00:00Z&apos;,
   },
 ];
 
 const mockProductVariants = [
   {
-    id: '1',
-    sku: 'TEST-001',
+    id: &apos;1&apos;,
+    sku: &apos;TEST-001&apos;,
     product: {
-      id: '1',
-      name: 'Test Product',
+      id: &apos;1&apos;,
+      name: &apos;Test Product&apos;,
     },
-    attributes: { color: 'red', size: 'M' },
+    attributes: { color: &apos;red&apos;, size: &apos;M&apos; },
   },
 ];
 
 const mockBatch = {
-  id: '1',
-  batch_number: 'BATCH-001',
+  id: &apos;1&apos;,
+  batch_number: &apos;BATCH-001&apos;,
   product_variant: {
-    id: '1',
-    sku: 'TEST-001',
+    id: &apos;1&apos;,
+    sku: &apos;TEST-001&apos;,
     product: {
-      name: 'Test Product',
+      name: &apos;Test Product&apos;,
     },
   },
   warehouse: {
-    id: '1',
-    name: 'Main Warehouse',
+    id: &apos;1&apos;,
+    name: &apos;Main Warehouse&apos;,
   },
   quantity: 100,
   remaining_quantity: 80,
-  expiration_date: '2024-12-31T00:00:00Z',
-  manufacturing_date: '2024-01-01T00:00:00Z',
-  supplier: 'Test Supplier',
+  expiration_date: &apos;2024-12-31T00:00:00Z&apos;,
+  manufacturing_date: &apos;2024-01-01T00:00:00Z&apos;,
+  supplier: &apos;Test Supplier&apos;,
   cost_per_unit: 10.50,
-  status: 'active' as const,
-  created_at: '2024-01-01T00:00:00Z',
-  updated_at: '2024-01-01T00:00:00Z',
+  status: &apos;active&apos; as const,
+  created_at: &apos;2024-01-01T00:00:00Z&apos;,
+  updated_at: &apos;2024-01-01T00:00:00Z&apos;,
 };
 
-describe('BatchForm', () => {
+describe(&apos;BatchForm&apos;, () => {
   const mockOnClose = jest.fn();
   const mockOnSave = jest.fn();
 
@@ -106,7 +105,7 @@ describe('BatchForm', () => {
     });
   });
 
-  it('renders create form correctly', async () => {
+  it(&apos;renders create form correctly&apos;, async () => {
     render(
       <BatchForm
         batch={null}
@@ -115,7 +114,7 @@ describe('BatchForm', () => {
       />
     );
 
-    expect(screen.getByText('Add Product Batch')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Add Product Batch&apos;)).toBeInTheDocument();
     expect(screen.getByLabelText(/Batch Number/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Product Variant/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Warehouse/)).toBeInTheDocument();
@@ -124,14 +123,14 @@ describe('BatchForm', () => {
     expect(screen.getByLabelText(/Expiration Date/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Supplier/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Cost per Unit/)).toBeInTheDocument();
-    expect(screen.getByText('Create Batch')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Create Batch&apos;)).toBeInTheDocument();
 
     await waitFor(() => {
       expect(inventoryManagementApi.getWarehouses).toHaveBeenCalled();
     });
   });
 
-  it('renders edit form correctly', async () => {
+  it(&apos;renders edit form correctly&apos;, async () => {
     render(
       <BatchForm
         batch={mockBatch}
@@ -140,21 +139,21 @@ describe('BatchForm', () => {
       />
     );
 
-    expect(screen.getByText('Edit Product Batch')).toBeInTheDocument();
-    expect(screen.getByText('Update Batch')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Edit Product Batch&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Update Batch&apos;)).toBeInTheDocument();
     
     // Check that form is pre-populated
-    expect(screen.getByDisplayValue('BATCH-001')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('100')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('Test Supplier')).toBeInTheDocument();
-    expect(screen.getByDisplayValue('10.5')).toBeInTheDocument();
+    expect(screen.getByDisplayValue(&apos;BATCH-001&apos;)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(&apos;100&apos;)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(&apos;Test Supplier&apos;)).toBeInTheDocument();
+    expect(screen.getByDisplayValue(&apos;10.5&apos;)).toBeInTheDocument();
 
     await waitFor(() => {
       expect(inventoryManagementApi.getWarehouses).toHaveBeenCalled();
     });
   });
 
-  it('validates required fields', async () => {
+  it(&apos;validates required fields&apos;, async () => {
     render(
       <BatchForm
         batch={null}
@@ -164,24 +163,24 @@ describe('BatchForm', () => {
     );
 
     // Try to submit without filling required fields
-    const submitButton = screen.getByText('Create Batch');
+    const submitButton = screen.getByText(&apos;Create Batch&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Batch number is required')).toBeInTheDocument();
-      expect(screen.getByText('Product variant is required')).toBeInTheDocument();
-      expect(screen.getByText('Warehouse is required')).toBeInTheDocument();
-      expect(screen.getByText('Quantity is required')).toBeInTheDocument();
-      expect(screen.getByText('Manufacturing date is required')).toBeInTheDocument();
-      expect(screen.getByText('Expiration date is required')).toBeInTheDocument();
-      expect(screen.getByText('Supplier is required')).toBeInTheDocument();
-      expect(screen.getByText('Cost per unit is required')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Batch number is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Product variant is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Warehouse is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Quantity is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Manufacturing date is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Expiration date is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Supplier is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Cost per unit is required&apos;)).toBeInTheDocument();
     });
 
     expect(inventoryManagementApi.createBatch).not.toHaveBeenCalled();
   });
 
-  it('validates numeric fields', async () => {
+  it(&apos;validates numeric fields&apos;, async () => {
     render(
       <BatchForm
         batch={null}
@@ -194,19 +193,19 @@ describe('BatchForm', () => {
     const quantityInput = screen.getByLabelText(/Quantity/);
     const costInput = screen.getByLabelText(/Cost per Unit/);
 
-    fireEvent.change(quantityInput, { target: { value: '-5' } });
-    fireEvent.change(costInput, { target: { value: 'invalid' } });
+    fireEvent.change(quantityInput, { target: { value: &apos;-5&apos; } });
+    fireEvent.change(costInput, { target: { value: &apos;invalid&apos; } });
 
-    const submitButton = screen.getByText('Create Batch');
+    const submitButton = screen.getByText(&apos;Create Batch&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Quantity must be a positive number')).toBeInTheDocument();
-      expect(screen.getByText('Cost per unit must be a non-negative number')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Quantity must be a positive number&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Cost per unit must be a non-negative number&apos;)).toBeInTheDocument();
     });
   });
 
-  it('validates date fields', async () => {
+  it(&apos;validates date fields&apos;, async () => {
     render(
       <BatchForm
         batch={null}
@@ -220,7 +219,7 @@ describe('BatchForm', () => {
     const futureDate = new Date();
     futureDate.setDate(futureDate.getDate() + 1);
     fireEvent.change(manufacturingDateInput, { 
-      target: { value: futureDate.toISOString().split('T')[0] } 
+      target: { value: futureDate.toISOString().split(&apos;T&apos;)[0] } 
     });
 
     // Set expiration date in the past
@@ -228,19 +227,19 @@ describe('BatchForm', () => {
     const pastDate = new Date();
     pastDate.setDate(pastDate.getDate() - 1);
     fireEvent.change(expirationDateInput, { 
-      target: { value: pastDate.toISOString().split('T')[0] } 
+      target: { value: pastDate.toISOString().split(&apos;T&apos;)[0] } 
     });
 
-    const submitButton = screen.getByText('Create Batch');
+    const submitButton = screen.getByText(&apos;Create Batch&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Manufacturing date cannot be in the future')).toBeInTheDocument();
-      expect(screen.getByText('Expiration date must be in the future')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Manufacturing date cannot be in the future&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Expiration date must be in the future&apos;)).toBeInTheDocument();
     });
   });
 
-  it('validates expiration date is after manufacturing date', async () => {
+  it(&apos;validates expiration date is after manufacturing date&apos;, async () => {
     render(
       <BatchForm
         batch={null}
@@ -258,21 +257,21 @@ describe('BatchForm', () => {
     tomorrow.setDate(today.getDate() + 1);
     
     fireEvent.change(manufacturingDateInput, { 
-      target: { value: tomorrow.toISOString().split('T')[0] } 
+      target: { value: tomorrow.toISOString().split(&apos;T&apos;)[0] } 
     });
     fireEvent.change(expirationDateInput, { 
-      target: { value: today.toISOString().split('T')[0] } 
+      target: { value: today.toISOString().split(&apos;T&apos;)[0] } 
     });
 
-    const submitButton = screen.getByText('Create Batch');
+    const submitButton = screen.getByText(&apos;Create Batch&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Expiration date must be after manufacturing date')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Expiration date must be after manufacturing date&apos;)).toBeInTheDocument();
     });
   });
 
-  it('handles product variant search', async () => {
+  it(&apos;handles product variant search&apos;, async () => {
     render(
       <BatchForm
         batch={null}
@@ -285,16 +284,16 @@ describe('BatchForm', () => {
     
     // Focus on input to show search dropdown
     fireEvent.focus(productSearchInput);
-    fireEvent.change(productSearchInput, { target: { value: 'Test' } });
+    fireEvent.change(productSearchInput, { target: { value: &apos;Test&apos; } });
 
     await waitFor(() => {
-      expect(inventoryManagementApi.searchProductVariants).toHaveBeenCalledWith('Test');
-      expect(screen.getByText('Test Product')).toBeInTheDocument();
-      expect(screen.getByText('SKU: TEST-001')).toBeInTheDocument();
+      expect(inventoryManagementApi.searchProductVariants).toHaveBeenCalledWith(&apos;Test&apos;);
+      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;SKU: TEST-001&apos;)).toBeInTheDocument();
     });
   });
 
-  it('selects product variant from search results', async () => {
+  it(&apos;selects product variant from search results&apos;, async () => {
     render(
       <BatchForm
         batch={null}
@@ -307,22 +306,22 @@ describe('BatchForm', () => {
     
     // Focus and search
     fireEvent.focus(productSearchInput);
-    fireEvent.change(productSearchInput, { target: { value: 'Test' } });
+    fireEvent.change(productSearchInput, { target: { value: &apos;Test&apos; } });
 
     await waitFor(() => {
-      expect(screen.getByText('Test Product')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
     });
 
     // Click on search result
-    const productOption = screen.getByText('Test Product');
+    const productOption = screen.getByText(&apos;Test Product&apos;);
     fireEvent.click(productOption);
 
     // Should show selected product
-    expect(screen.getByText('Test Product')).toBeInTheDocument();
-    expect(screen.getByText('SKU: TEST-001')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;SKU: TEST-001&apos;)).toBeInTheDocument();
   });
 
-  it('creates batch successfully', async () => {
+  it(&apos;creates batch successfully&apos;, async () => {
     (inventoryManagementApi.createBatch as jest.Mock).mockResolvedValue({
       success: true,
       data: mockBatch,
@@ -338,57 +337,57 @@ describe('BatchForm', () => {
 
     // Wait for warehouses to load
     await waitFor(() => {
-      expect(screen.getByText('Main Warehouse (MW001) - New York')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Main Warehouse (MW001) - New York&apos;)).toBeInTheDocument();
     });
 
     // Fill in the form
     fireEvent.change(screen.getByLabelText(/Batch Number/), { 
-      target: { value: 'BATCH-001' } 
+      target: { value: &apos;BATCH-001&apos; } 
     });
 
     // Select product variant
     const productSearchInput = screen.getByLabelText(/Product Variant/);
     fireEvent.focus(productSearchInput);
-    fireEvent.change(productSearchInput, { target: { value: 'Test' } });
+    fireEvent.change(productSearchInput, { target: { value: &apos;Test&apos; } });
 
     await waitFor(() => {
-      expect(screen.getByText('Test Product')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
     });
     
-    fireEvent.click(screen.getByText('Test Product'));
+    fireEvent.click(screen.getByText(&apos;Test Product&apos;));
 
     // Select warehouse
     const warehouseSelect = screen.getByLabelText(/Warehouse/);
-    fireEvent.change(warehouseSelect, { target: { value: '1' } });
+    fireEvent.change(warehouseSelect, { target: { value: &apos;1&apos; } });
 
     // Fill in other fields
-    fireEvent.change(screen.getByLabelText(/Quantity/), { target: { value: '100' } });
+    fireEvent.change(screen.getByLabelText(/Quantity/), { target: { value: &apos;100&apos; } });
     fireEvent.change(screen.getByLabelText(/Manufacturing Date/), { 
-      target: { value: '2024-01-01' } 
+      target: { value: &apos;2024-01-01&apos; } 
     });
     fireEvent.change(screen.getByLabelText(/Expiration Date/), { 
-      target: { value: '2024-12-31' } 
+      target: { value: &apos;2024-12-31&apos; } 
     });
     fireEvent.change(screen.getByLabelText(/Supplier/), { 
-      target: { value: 'Test Supplier' } 
+      target: { value: &apos;Test Supplier&apos; } 
     });
     fireEvent.change(screen.getByLabelText(/Cost per Unit/), { 
-      target: { value: '10.50' } 
+      target: { value: &apos;10.50&apos; } 
     });
 
     // Submit form
-    const submitButton = screen.getByText('Create Batch');
+    const submitButton = screen.getByText(&apos;Create Batch&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(inventoryManagementApi.createBatch).toHaveBeenCalledWith({
-        batch_number: 'BATCH-001',
-        product_variant: '1',
-        warehouse: '1',
+        batch_number: &apos;BATCH-001&apos;,
+        product_variant: &apos;1&apos;,
+        warehouse: &apos;1&apos;,
         quantity: 100,
-        manufacturing_date: '2024-01-01',
-        expiration_date: '2024-12-31',
-        supplier: 'Test Supplier',
+        manufacturing_date: &apos;2024-01-01&apos;,
+        expiration_date: &apos;2024-12-31&apos;,
+        supplier: &apos;Test Supplier&apos;,
         cost_per_unit: 10.50,
       });
       expect(mockOnSave).toHaveBeenCalled();
@@ -396,7 +395,7 @@ describe('BatchForm', () => {
     });
   });
 
-  it('updates batch successfully', async () => {
+  it(&apos;updates batch successfully&apos;, async () => {
     (inventoryManagementApi.updateBatch as jest.Mock).mockResolvedValue({
       success: true,
       data: mockBatch,
@@ -412,24 +411,24 @@ describe('BatchForm', () => {
 
     // Wait for warehouses to load
     await waitFor(() => {
-      expect(screen.getByText('Main Warehouse (MW001) - New York')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Main Warehouse (MW001) - New York&apos;)).toBeInTheDocument();
     });
 
     // Update quantity
-    const quantityInput = screen.getByDisplayValue('100');
-    fireEvent.change(quantityInput, { target: { value: '150' } });
+    const quantityInput = screen.getByDisplayValue(&apos;100&apos;);
+    fireEvent.change(quantityInput, { target: { value: &apos;150&apos; } });
 
     // Submit form
-    const submitButton = screen.getByText('Update Batch');
+    const submitButton = screen.getByText(&apos;Update Batch&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(inventoryManagementApi.updateBatch).toHaveBeenCalledWith('1', {
-        batch_number: 'BATCH-001',
+      expect(inventoryManagementApi.updateBatch).toHaveBeenCalledWith(&apos;1&apos;, {
+        batch_number: &apos;BATCH-001&apos;,
         quantity: 150,
-        expiration_date: '2024-12-31',
-        manufacturing_date: '2024-01-01',
-        supplier: 'Test Supplier',
+        expiration_date: &apos;2024-12-31&apos;,
+        manufacturing_date: &apos;2024-01-01&apos;,
+        supplier: &apos;Test Supplier&apos;,
         cost_per_unit: 10.50,
       });
       expect(mockOnSave).toHaveBeenCalled();
@@ -437,7 +436,7 @@ describe('BatchForm', () => {
     });
   });
 
-  it('disables product variant and warehouse fields when editing', async () => {
+  it(&apos;disables product variant and warehouse fields when editing&apos;, async () => {
     render(
       <BatchForm
         batch={mockBatch}
@@ -455,7 +454,7 @@ describe('BatchForm', () => {
     });
   });
 
-  it('shows expiring soon warning', async () => {
+  it(&apos;shows expiring soon warning&apos;, async () => {
     render(
       <BatchForm
         batch={null}
@@ -470,18 +469,18 @@ describe('BatchForm', () => {
     soonDate.setDate(soonDate.getDate() + 15); // 15 days from now
     
     fireEvent.change(expirationDateInput, { 
-      target: { value: soonDate.toISOString().split('T')[0] } 
+      target: { value: soonDate.toISOString().split(&apos;T&apos;)[0] } 
     });
 
     await waitFor(() => {
-      expect(screen.getByText('This batch expires within 30 days')).toBeInTheDocument();
+      expect(screen.getByText(&apos;This batch expires within 30 days&apos;)).toBeInTheDocument();
     });
   });
 
-  it('handles API errors gracefully', async () => {
+  it(&apos;handles API errors gracefully&apos;, async () => {
     (inventoryManagementApi.createBatch as jest.Mock).mockResolvedValue({
       success: false,
-      error: { message: 'Batch number already exists' },
+      error: { message: &apos;Batch number already exists&apos; },
     });
 
     render(
@@ -494,49 +493,49 @@ describe('BatchForm', () => {
 
     // Fill in valid form data
     fireEvent.change(screen.getByLabelText(/Batch Number/), { 
-      target: { value: 'BATCH-001' } 
+      target: { value: &apos;BATCH-001&apos; } 
     });
 
     const productSearchInput = screen.getByLabelText(/Product Variant/);
     fireEvent.focus(productSearchInput);
-    fireEvent.change(productSearchInput, { target: { value: 'Test' } });
+    fireEvent.change(productSearchInput, { target: { value: &apos;Test&apos; } });
 
     await waitFor(() => {
-      expect(screen.getByText('Test Product')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
     });
     
-    fireEvent.click(screen.getByText('Test Product'));
+    fireEvent.click(screen.getByText(&apos;Test Product&apos;));
 
     const warehouseSelect = screen.getByLabelText(/Warehouse/);
-    fireEvent.change(warehouseSelect, { target: { value: '1' } });
+    fireEvent.change(warehouseSelect, { target: { value: &apos;1&apos; } });
 
-    fireEvent.change(screen.getByLabelText(/Quantity/), { target: { value: '100' } });
+    fireEvent.change(screen.getByLabelText(/Quantity/), { target: { value: &apos;100&apos; } });
     fireEvent.change(screen.getByLabelText(/Manufacturing Date/), { 
-      target: { value: '2024-01-01' } 
+      target: { value: &apos;2024-01-01&apos; } 
     });
     fireEvent.change(screen.getByLabelText(/Expiration Date/), { 
-      target: { value: '2024-12-31' } 
+      target: { value: &apos;2024-12-31&apos; } 
     });
     fireEvent.change(screen.getByLabelText(/Supplier/), { 
-      target: { value: 'Test Supplier' } 
+      target: { value: &apos;Test Supplier&apos; } 
     });
     fireEvent.change(screen.getByLabelText(/Cost per Unit/), { 
-      target: { value: '10.50' } 
+      target: { value: &apos;10.50&apos; } 
     });
 
     // Submit form
-    const submitButton = screen.getByText('Create Batch');
+    const submitButton = screen.getByText(&apos;Create Batch&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Batch number already exists')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Batch number already exists&apos;)).toBeInTheDocument();
     });
 
     expect(mockOnSave).not.toHaveBeenCalled();
     expect(mockOnClose).not.toHaveBeenCalled();
   });
 
-  it('closes form when cancel button is clicked', () => {
+  it(&apos;closes form when cancel button is clicked&apos;, () => {
     render(
       <BatchForm
         batch={null}
@@ -545,13 +544,13 @@ describe('BatchForm', () => {
       />
     );
 
-    const cancelButton = screen.getByText('Cancel');
+    const cancelButton = screen.getByText(&apos;Cancel&apos;);
     fireEvent.click(cancelButton);
 
     expect(mockOnClose).toHaveBeenCalled();
   });
 
-  it('closes form when X button is clicked', () => {
+  it(&apos;closes form when X button is clicked&apos;, () => {
     render(
       <BatchForm
         batch={null}
@@ -560,13 +559,13 @@ describe('BatchForm', () => {
       />
     );
 
-    const closeButton = screen.getByRole('button', { name: '' }); // X button
+    const closeButton = screen.getByRole(&apos;button&apos;, { name: &apos;&apos; }); // X button
     fireEvent.click(closeButton);
 
     expect(mockOnClose).toHaveBeenCalled();
   });
 
-  it('clears field errors when user starts typing', async () => {
+  it(&apos;clears field errors when user starts typing&apos;, async () => {
     render(
       <BatchForm
         batch={null}
@@ -576,25 +575,25 @@ describe('BatchForm', () => {
     );
 
     // Submit to generate errors
-    const submitButton = screen.getByText('Create Batch');
+    const submitButton = screen.getByText(&apos;Create Batch&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Batch number is required')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Batch number is required&apos;)).toBeInTheDocument();
     });
 
     // Start typing in batch number field
     const batchNumberInput = screen.getByLabelText(/Batch Number/);
-    fireEvent.change(batchNumberInput, { target: { value: 'B' } });
+    fireEvent.change(batchNumberInput, { target: { value: &apos;B&apos; } });
 
     // Error should be cleared
-    expect(screen.queryByText('Batch number is required')).not.toBeInTheDocument();
+    expect(screen.queryByText(&apos;Batch number is required&apos;)).not.toBeInTheDocument();
   });
 
-  it('handles warehouse loading error', async () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  it(&apos;handles warehouse loading error&apos;, async () => {
+    const consoleSpy = jest.spyOn(console, &apos;error&apos;).mockImplementation(() => {});
     (inventoryManagementApi.getWarehouses as jest.Mock).mockRejectedValue(
-      new Error('Failed to load warehouses')
+      new Error(&apos;Failed to load warehouses&apos;)
     );
 
     render(
@@ -606,13 +605,13 @@ describe('BatchForm', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Failed to load warehouses. Please try again.')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Failed to load warehouses. Please try again.&apos;)).toBeInTheDocument();
     });
 
     consoleSpy.mockRestore();
   });
 
-  it('debounces product variant search', async () => {
+  it(&apos;debounces product variant search&apos;, async () => {
     jest.useFakeTimers();
 
     render(

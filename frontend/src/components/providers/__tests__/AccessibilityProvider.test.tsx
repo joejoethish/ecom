@@ -16,12 +16,12 @@ const localStorageMock = (() => {
     };
 })();
 
-Object.defineProperty(window, 'localStorage', {
+Object.defineProperty(window, &apos;localStorage&apos;, {
     value: localStorageMock,
 });
 
 // Mock matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, &apos;matchMedia&apos;, {
     value: (query: string) => ({
         matches: false,
         media: query,
@@ -49,9 +49,9 @@ function TestComponent() {
 
     return (
         <div>
-            <div data-testid="high-contrast-value">{highContrast ? 'true' : 'false'}</div>
+            <div data-testid="high-contrast-value">{highContrast ? &apos;true&apos; : &apos;false&apos;}</div>
             <div data-testid="font-size-value">{fontSize}</div>
-            <div data-testid="reduce-motion-value">{reduceMotion ? 'true' : 'false'}</div>
+            <div data-testid="reduce-motion-value">{reduceMotion ? &apos;true&apos; : &apos;false&apos;}</div>
             <button data-testid="toggle-high-contrast" onClick={toggleHighContrast}>
                 Toggle High Contrast
             </button>
@@ -71,58 +71,58 @@ function TestComponent() {
     );
 }
 
-describe('AccessibilityProvider', () => {
+describe(&apos;AccessibilityProvider&apos;, () => {
     beforeEach(() => {
         localStorageMock.clear();
-        document.documentElement.style.fontSize = '';
-        document.documentElement.classList.remove('high-contrast', 'reduce-motion');
+        document.documentElement.style.fontSize = &apos;&apos;;
+        document.documentElement.classList.remove(&apos;high-contrast&apos;, &apos;reduce-motion&apos;);
     });
 
-    it('provides default accessibility values', () => {
+    it(&apos;provides default accessibility values&apos;, () => {
         render(
             <AccessibilityProvider>
                 <TestComponent />
             </AccessibilityProvider>
         );
 
-        expect(screen.getByTestId('high-contrast-value')).toHaveTextContent('false');
-        expect(screen.getByTestId('font-size-value')).toHaveTextContent('16');
-        expect(screen.getByTestId('reduce-motion-value')).toHaveTextContent('false');
+        expect(screen.getByTestId(&apos;high-contrast-value&apos;)).toHaveTextContent(&apos;false&apos;);
+        expect(screen.getByTestId(&apos;font-size-value&apos;)).toHaveTextContent(&apos;16&apos;);
+        expect(screen.getByTestId(&apos;reduce-motion-value&apos;)).toHaveTextContent(&apos;false&apos;);
     });
 
-    it('toggles high contrast mode', () => {
+    it(&apos;toggles high contrast mode&apos;, () => {
         render(
             <AccessibilityProvider>
                 <TestComponent />
             </AccessibilityProvider>
         );
 
-        fireEvent.click(screen.getByTestId('toggle-high-contrast'));
-        expect(screen.getByTestId('high-contrast-value')).toHaveTextContent('true');
-        expect(document.documentElement.classList.contains('high-contrast')).toBe(true);
+        fireEvent.click(screen.getByTestId(&apos;toggle-high-contrast&apos;));
+        expect(screen.getByTestId(&apos;high-contrast-value&apos;)).toHaveTextContent(&apos;true&apos;);
+        expect(document.documentElement.classList.contains(&apos;high-contrast&apos;)).toBe(true);
 
-        fireEvent.click(screen.getByTestId('toggle-high-contrast'));
-        expect(screen.getByTestId('high-contrast-value')).toHaveTextContent('false');
-        expect(document.documentElement.classList.contains('high-contrast')).toBe(false);
+        fireEvent.click(screen.getByTestId(&apos;toggle-high-contrast&apos;));
+        expect(screen.getByTestId(&apos;high-contrast-value&apos;)).toHaveTextContent(&apos;false&apos;);
+        expect(document.documentElement.classList.contains(&apos;high-contrast&apos;)).toBe(false);
     });
 
-    it('increases and decreases font size', () => {
+    it(&apos;increases and decreases font size&apos;, () => {
         render(
             <AccessibilityProvider>
                 <TestComponent />
             </AccessibilityProvider>
         );
 
-        fireEvent.click(screen.getByTestId('increase-font-size'));
-        expect(screen.getByTestId('font-size-value')).toHaveTextContent('17');
-        expect(document.documentElement.style.fontSize).toBe('17px');
+        fireEvent.click(screen.getByTestId(&apos;increase-font-size&apos;));
+        expect(screen.getByTestId(&apos;font-size-value&apos;)).toHaveTextContent(&apos;17&apos;);
+        expect(document.documentElement.style.fontSize).toBe(&apos;17px&apos;);
 
-        fireEvent.click(screen.getByTestId('decrease-font-size'));
-        expect(screen.getByTestId('font-size-value')).toHaveTextContent('16');
-        expect(document.documentElement.style.fontSize).toBe('16px');
+        fireEvent.click(screen.getByTestId(&apos;decrease-font-size&apos;));
+        expect(screen.getByTestId(&apos;font-size-value&apos;)).toHaveTextContent(&apos;16&apos;);
+        expect(document.documentElement.style.fontSize).toBe(&apos;16px&apos;);
     });
 
-    it('resets font size to default', () => {
+    it(&apos;resets font size to default&apos;, () => {
         render(
             <AccessibilityProvider>
                 <TestComponent />
@@ -130,33 +130,33 @@ describe('AccessibilityProvider', () => {
         );
 
         // Increase font size twice
-        fireEvent.click(screen.getByTestId('increase-font-size'));
-        fireEvent.click(screen.getByTestId('increase-font-size'));
-        expect(screen.getByTestId('font-size-value')).toHaveTextContent('18');
+        fireEvent.click(screen.getByTestId(&apos;increase-font-size&apos;));
+        fireEvent.click(screen.getByTestId(&apos;increase-font-size&apos;));
+        expect(screen.getByTestId(&apos;font-size-value&apos;)).toHaveTextContent(&apos;18&apos;);
 
         // Reset to default
-        fireEvent.click(screen.getByTestId('reset-font-size'));
-        expect(screen.getByTestId('font-size-value')).toHaveTextContent('16');
-        expect(document.documentElement.style.fontSize).toBe('16px');
+        fireEvent.click(screen.getByTestId(&apos;reset-font-size&apos;));
+        expect(screen.getByTestId(&apos;font-size-value&apos;)).toHaveTextContent(&apos;16&apos;);
+        expect(document.documentElement.style.fontSize).toBe(&apos;16px&apos;);
     });
 
-    it('toggles reduced motion', () => {
+    it(&apos;toggles reduced motion&apos;, () => {
         render(
             <AccessibilityProvider>
                 <TestComponent />
             </AccessibilityProvider>
         );
 
-        fireEvent.click(screen.getByTestId('toggle-reduce-motion'));
-        expect(screen.getByTestId('reduce-motion-value')).toHaveTextContent('true');
-        expect(document.documentElement.classList.contains('reduce-motion')).toBe(true);
+        fireEvent.click(screen.getByTestId(&apos;toggle-reduce-motion&apos;));
+        expect(screen.getByTestId(&apos;reduce-motion-value&apos;)).toHaveTextContent(&apos;true&apos;);
+        expect(document.documentElement.classList.contains(&apos;reduce-motion&apos;)).toBe(true);
 
-        fireEvent.click(screen.getByTestId('toggle-reduce-motion'));
-        expect(screen.getByTestId('reduce-motion-value')).toHaveTextContent('false');
-        expect(document.documentElement.classList.contains('reduce-motion')).toBe(false);
+        fireEvent.click(screen.getByTestId(&apos;toggle-reduce-motion&apos;));
+        expect(screen.getByTestId(&apos;reduce-motion-value&apos;)).toHaveTextContent(&apos;false&apos;);
+        expect(document.documentElement.classList.contains(&apos;reduce-motion&apos;)).toBe(false);
     });
 
-    it('persists settings to localStorage', () => {
+    it(&apos;persists settings to localStorage&apos;, () => {
         render(
             <AccessibilityProvider>
                 <TestComponent />

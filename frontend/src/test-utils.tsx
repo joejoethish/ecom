@@ -18,11 +18,10 @@ export const createTestStore = (initialState = {}) => {
 
 // Custom render function that includes providers
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
-  initialState?: any;
-  store?: any;
+  initialState?: unknown;
+  store?: unknown;
 }
 
-export const renderWithProviders = (
   ui: React.ReactElement,
   {
     initialState = {},
@@ -38,7 +37,6 @@ export const renderWithProviders = (
 };
 
 // Mock data factories
-export const createMockProduct = (overrides = {}) => ({
   id: '1',
   name: 'Test Product',
   slug: 'test-product',
@@ -81,7 +79,6 @@ export const createMockProduct = (overrides = {}) => ({
   ...overrides,
 });
 
-export const createMockUser = (overrides = {}) => ({
   id: '1',
   username: 'testuser',
   email: 'test@example.com',

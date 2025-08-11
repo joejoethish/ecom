@@ -40,25 +40,24 @@ interface NotificationCardProps {
   showActions?: boolean;
 }
 
-const NotificationCard: React.FC<NotificationCardProps> = ({
   notification,
   onMarkAsRead,
   onRemove,
   compact = false,
   showActions = true
 }) => {
-  const isUnread = notification.status !== 'READ';
+  const isUnread = notification.status !== &apos;READ&apos;;
 
   // Get channel icon
   const getChannelIcon = (channel: string) => {
     switch (channel) {
-      case 'EMAIL':
+      case &apos;EMAIL&apos;:
         return <Mail size={16} className="text-blue-500" />;
-      case 'SMS':
+      case &apos;SMS&apos;:
         return <MessageSquare size={16} className="text-green-500" />;
-      case 'PUSH':
+      case &apos;PUSH&apos;:
         return <Smartphone size={16} className="text-purple-500" />;
-      case 'IN_APP':
+      case &apos;IN_APP&apos;:
         return <Monitor size={16} className="text-orange-500" />;
       default:
         return <Bell size={16} className="text-gray-500" />;
@@ -68,14 +67,14 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
   // Get status icon
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'SENT':
-      case 'DELIVERED':
+      case &apos;SENT&apos;:
+      case &apos;DELIVERED&apos;:
         return <CheckCircle size={16} className="text-green-500" />;
-      case 'READ':
+      case &apos;READ&apos;:
         return <CheckCircle size={16} className="text-blue-500" />;
-      case 'FAILED':
+      case &apos;FAILED&apos;:
         return <XCircle size={16} className="text-red-500" />;
-      case 'PENDING':
+      case &apos;PENDING&apos;:
         return <Clock size={16} className="text-yellow-500" />;
       default:
         return <AlertCircle size={16} className="text-gray-500" />;
@@ -85,16 +84,16 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
   // Get priority color
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'URGENT':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-      case 'HIGH':
-        return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
-      case 'NORMAL':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
-      case 'LOW':
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+      case &apos;URGENT&apos;:
+        return &apos;bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200&apos;;
+      case &apos;HIGH&apos;:
+        return &apos;bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200&apos;;
+      case &apos;NORMAL&apos;:
+        return &apos;bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200&apos;;
+      case &apos;LOW&apos;:
+        return &apos;bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200&apos;;
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+        return &apos;bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200&apos;;
     }
   };
 
@@ -103,16 +102,16 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
     if (!templateType) return null;
     
     switch (templateType) {
-      case 'ORDER_CONFIRMATION':
-      case 'ORDER_STATUS_UPDATE':
+      case &apos;ORDER_CONFIRMATION&apos;:
+      case &apos;ORDER_STATUS_UPDATE&apos;:
         return <Package size={16} className="text-blue-500" />;
-      case 'PAYMENT_SUCCESS':
-      case 'PAYMENT_FAILED':
+      case &apos;PAYMENT_SUCCESS&apos;:
+      case &apos;PAYMENT_FAILED&apos;:
         return <CreditCard size={16} className="text-green-500" />;
-      case 'SHIPPING_UPDATE':
-      case 'DELIVERY_CONFIRMATION':
+      case &apos;SHIPPING_UPDATE&apos;:
+      case &apos;DELIVERY_CONFIRMATION&apos;:
         return <Truck size={16} className="text-purple-500" />;
-      case 'REVIEW_REQUEST':
+      case &apos;REVIEW_REQUEST&apos;:
         return <Star size={16} className="text-yellow-500" />;
       default:
         return null;
@@ -171,7 +170,7 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
                     </span>
                   </div>
                   
-                  {notification.priority !== 'NORMAL' && (
+                  {notification.priority !== &apos;NORMAL&apos; && (
                     <Badge 
                       variant="secondary" 
                       className={`text-xs ${getPriorityColor(notification.priority)}`}
@@ -198,7 +197,7 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
             )}
 
             {/* Error message for failed notifications */}
-            {notification.status === 'FAILED' && notification.error_message && (
+            {notification.status === &apos;FAILED&apos; && notification.error_message && (
               <div className="mb-3 p-2 bg-red-50 dark:bg-red-950/20 rounded-md">
                 <p className="text-xs text-red-600 dark:text-red-400">
                   Error: {notification.error_message}
@@ -231,7 +230,7 @@ const NotificationCard: React.FC<NotificationCardProps> = ({
                   </Button>
                 )}
                 
-                {notification.can_retry && notification.status === 'FAILED' && (
+                {notification.can_retry && notification.status === &apos;FAILED&apos; && (
                   <Button
                     variant="outline"
                     size="sm"

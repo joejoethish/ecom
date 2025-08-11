@@ -20,8 +20,8 @@ export interface OrderDetail {
   shipping_amount: number;
   tax_amount: number;
   discount_amount: number;
-  shipping_address: Record<string, any>;
-  billing_address: Record<string, any>;
+  shipping_address: Record<string, unknown>;
+  billing_address: Record<string, unknown>;
   shipping_method: string;
   payment_method: string;
   estimated_delivery_date?: string;
@@ -99,7 +99,7 @@ export interface Replacement {
   replacement_product_name: string;
   quantity: number;
   status: string;
-  shipping_address: Record<string, any>;
+  shipping_address: Record<string, unknown>;
   tracking_number?: string;
   shipped_date?: string;
   delivered_date?: string;
@@ -117,7 +117,6 @@ export interface ReturnRequestFormData {
   description: string;
 }
 
-export const RETURN_REASON_OPTIONS = [
   { value: 'damaged', label: 'Product Damaged' },
   { value: 'defective', label: 'Product Defective' },
   { value: 'wrong_item', label: 'Wrong Item Received' },

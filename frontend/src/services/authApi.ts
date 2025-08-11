@@ -25,10 +25,9 @@ export interface ResetPasswordResponse {
 export interface PasswordResetError {
   code: string;
   message: string;
-  details?: any;
+  details?: unknown;
 }
 
-export const authApi = {
   /**
    * Request a password reset for the given email address
    * @param email - User's email address
@@ -36,7 +35,7 @@ export const authApi = {
    */
   async requestPasswordReset(email: string): Promise<ApiResponse<RequestPasswordResetResponse>> {
     return withPerformanceMonitoring(
-      'password_reset_request',
+      &apos;password_reset_request&apos;,
       async () => {
         try {
           const response = await apiClient.post<RequestPasswordResetResponse>(
@@ -48,14 +47,14 @@ export const authApi = {
           return {
             success: false,
             error: {
-              message: 'Failed to request password reset',
-              code: 'request_failed',
+              message: &apos;Failed to request password reset&apos;,
+              code: &apos;request_failed&apos;,
               status_code: 500
             }
           };
         }
       },
-      { email: email.substring(0, 3) + '***' }
+      { email: email.substring(0, 3) + &apos;***&apos; }
     );
   },
 
@@ -66,7 +65,7 @@ export const authApi = {
    */
   async validateResetToken(token: string): Promise<ApiResponse<ValidateResetTokenResponse>> {
     return withPerformanceMonitoring(
-      'token_validation',
+      &apos;token_validation&apos;,
       async () => {
         try {
           const response = await apiClient.get<ValidateResetTokenResponse>(
@@ -77,14 +76,14 @@ export const authApi = {
           return {
             success: false,
             error: {
-              message: 'Failed to validate reset token',
-              code: 'validation_failed',
+              message: &apos;Failed to validate reset token&apos;,
+              code: &apos;validation_failed&apos;,
               status_code: 500
             }
           };
         }
       },
-      { token: token.substring(0, 8) + '...' }
+      { token: token.substring(0, 8) + &apos;...&apos; }
     );
   },
 
@@ -96,7 +95,7 @@ export const authApi = {
    */
   async resetPassword(token: string, password: string): Promise<ApiResponse<ResetPasswordResponse>> {
     return withPerformanceMonitoring(
-      'password_reset',
+      &apos;password_reset&apos;,
       async () => {
         try {
           const response = await apiClient.post<ResetPasswordResponse>(

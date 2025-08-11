@@ -9,10 +9,10 @@ import websocketService, { ConnectionState } from '@/services/websocket';
 jest.mock('@/services/websocket', () => ({
   __esModule: true,
   ConnectionState: {
-    CONNECTING: 'connecting',
-    OPEN: 'open',
-    CLOSING: 'closing',
-    CLOSED: 'closed',
+    CONNECTING: &apos;connecting&apos;,
+    OPEN: &apos;open&apos;,
+    CLOSING: &apos;closing&apos;,
+    CLOSED: &apos;closed&apos;,
   },
   default: {
     connect: jest.fn(),
@@ -24,8 +24,8 @@ jest.mock('@/services/websocket', () => ({
 }));
 
 // Mock the auth utility
-jest.mock('@/utils/auth', () => ({
-  getAuthToken: jest.fn().mockReturnValue('mock-token'),
+jest.mock(&apos;@/utils/auth&apos;, () => ({
+  getAuthToken: jest.fn().mockReturnValue(&apos;mock-token&apos;),
 }));
 
 // Create a mock Redux store
@@ -33,18 +33,17 @@ const mockStore = configureStore([]);
 
 // Test component that uses the WebSocket context
 const TestComponent = () => {
-  const { isConnected, connectionState, lastError } = useWebSocketContext();
   return (
     <div>
       <div data-testid="connection-state">{connectionState}</div>
       <div data-testid="is-connected">{isConnected.toString()}</div>
-      <div data-testid="last-error">{lastError || 'no error'}</div>
+      <div data-testid="last-error">{lastError || &apos;no error&apos;}</div>
     </div>
   );
 };
 
-describe('WebSocketProvider', () => {
-  let store: any;
+describe(&apos;WebSocketProvider&apos;, () => {
+  let store: unknown;
   
   beforeEach(() => {
     jest.clearAllMocks();
@@ -54,14 +53,14 @@ describe('WebSocketProvider', () => {
     store = mockStore({
       auth: {
         user: {
-          id: '123',
-          username: 'testuser',
+          id: &apos;123&apos;,
+          username: &apos;testuser&apos;,
         },
       },
     });
   });
   
-  it('should render children and provide WebSocket context', () => {
+  it(&apos;should render children and provide WebSocket context&apos;, () => {
     render(
       <Provider store={store}>
         <WebSocketProvider>
@@ -70,12 +69,12 @@ describe('WebSocketProvider', () => {
       </Provider>
     );
     
-    expect(screen.getByTestId('connection-state')).toHaveTextContent('closed');
-    expect(screen.getByTestId('is-connected')).toHaveTextContent('false');
-    expect(screen.getByTestId('last-error')).toHaveTextContent('no error');
+    expect(screen.getByTestId(&apos;connection-state&apos;)).toHaveTextContent(&apos;closed&apos;);
+    expect(screen.getByTestId(&apos;is-connected&apos;)).toHaveTextContent(&apos;false&apos;);
+    expect(screen.getByTestId(&apos;last-error&apos;)).toHaveTextContent(&apos;no error&apos;);
   });
   
-  it('should connect to WebSocket when user is authenticated', () => {
+  it(&apos;should connect to WebSocket when user is authenticated&apos;, () => {
     render(
       <Provider store={store}>
         <WebSocketProvider>
@@ -85,11 +84,11 @@ describe('WebSocketProvider', () => {
     );
     
     expect(websocketService.connect).toHaveBeenCalledWith(
-      expect.stringContaining('/ws/notifications/123/?token=mock-token')
+      expect.stringContaining(&apos;/ws/notifications/123/?token=mock-token&apos;)
     );
   });
   
-  it('should not connect to WebSocket when user is not authenticated', () => {
+  it(&apos;should not connect to WebSocket when user is not authenticated&apos;, () => {
     const unauthenticatedStore = mockStore({
       auth: {
         user: null,
@@ -107,8 +106,7 @@ describe('WebSocketProvider', () => {
     expect(websocketService.connect).not.toHaveBeenCalled();
   });
   
-  it('should disconnect from WebSocket when component unmounts', () => {
-    const { unmount } = render(
+  it(&apos;should disconnect from WebSocket when component unmounts&apos;, () => {
       <Provider store={store}>
         <WebSocketProvider>
           <div>Test</div>
@@ -122,7 +120,7 @@ describe('WebSocketProvider', () => {
     expect(websocketService.offConnectionStateChange).toHaveBeenCalled();
   });
   
-  it('should update connection state when WebSocket connection changes', () => {
+  it(&apos;should update connection state when WebSocket connection changes&apos;, () => {
     render(
       <Provider store={store}>
         <WebSocketProvider>

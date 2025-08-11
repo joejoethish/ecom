@@ -3,9 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { fetchPayoutHistory } from '../../store/slices/sellerSlice';
 
-const PayoutHistory: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { payouts, loading, error } = useSelector((state: RootState) => state.seller);
 
   useEffect(() => {
     dispatch(fetchPayoutHistory());
@@ -13,16 +11,16 @@ const PayoutHistory: React.FC = () => {
 
   const getStatusClass = (status: string) => {
     switch (status) {
-      case 'COMPLETED':
-        return 'bg-green-100 text-green-800';
-      case 'PROCESSING':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'PENDING':
-        return 'bg-gray-100 text-gray-800';
-      case 'FAILED':
-        return 'bg-red-100 text-red-800';
+      case &apos;COMPLETED&apos;:
+        return &apos;bg-green-100 text-green-800&apos;;
+      case &apos;PROCESSING&apos;:
+        return &apos;bg-yellow-100 text-yellow-800&apos;;
+      case &apos;PENDING&apos;:
+        return &apos;bg-gray-100 text-gray-800&apos;;
+      case &apos;FAILED&apos;:
+        return &apos;bg-red-100 text-red-800&apos;;
       default:
-        return 'bg-gray-100 text-gray-800';
+        return &apos;bg-gray-100 text-gray-800&apos;;
     }
   };
 

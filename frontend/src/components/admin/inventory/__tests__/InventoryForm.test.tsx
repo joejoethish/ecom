@@ -15,15 +15,14 @@ jest.mock('@/services/inventoryManagementApi', () => ({
 }));
 
 // Mock the validation utilities
-jest.mock('@/utils/validation', () => ({
+jest.mock(&apos;@/utils/validation&apos;, () => ({
   validateRequired: jest.fn((value: string, fieldName: string) => {
     if (!value || value.trim().length === 0) {
       return `${fieldName} is required`;
     }
     return null;
   }),
-  validateForm: jest.fn((data: Record<string, any>, rules: Record<string, (value: any) => string | null>) => {
-    const errors: Record<string, string> = {};
+  validateForm: jest.fn((data: Record<string, unknown>, rules: Record<string, (value: unknown) => string | null>) => {
     Object.keys(rules).forEach(field => {
       const error = rules[field](data[field]);
       if (error) {
@@ -36,64 +35,64 @@ jest.mock('@/utils/validation', () => ({
 
 const mockWarehouses = [
   {
-    id: '1',
-    name: 'Main Warehouse',
-    code: 'MW001',
-    address: '123 Main St',
-    city: 'New York',
-    state: 'NY',
-    postal_code: '10001',
-    country: 'USA',
-    phone: '+1234567890',
-    email: 'warehouse@example.com',
-    manager: 'John Doe',
+    id: &apos;1&apos;,
+    name: &apos;Main Warehouse&apos;,
+    code: &apos;MW001&apos;,
+    address: &apos;123 Main St&apos;,
+    city: &apos;New York&apos;,
+    state: &apos;NY&apos;,
+    postal_code: &apos;10001&apos;,
+    country: &apos;USA&apos;,
+    phone: &apos;+1234567890&apos;,
+    email: &apos;warehouse@example.com&apos;,
+    manager: &apos;John Doe&apos;,
     is_active: true,
-    created_at: '2024-01-01T00:00:00Z',
-    updated_at: '2024-01-01T00:00:00Z',
+    created_at: &apos;2024-01-01T00:00:00Z&apos;,
+    updated_at: &apos;2024-01-01T00:00:00Z&apos;,
   },
 ];
 
 const mockProductVariants = [
   {
-    id: '1',
-    sku: 'TEST-001',
+    id: &apos;1&apos;,
+    sku: &apos;TEST-001&apos;,
     product: {
-      id: '1',
-      name: 'Test Product',
+      id: &apos;1&apos;,
+      name: &apos;Test Product&apos;,
     },
-    attributes: { color: 'red', size: 'M' },
+    attributes: { color: &apos;red&apos;, size: &apos;M&apos; },
   },
 ];
 
 const mockInventoryItem = {
-  id: '1',
+  id: &apos;1&apos;,
   product_variant: {
-    id: '1',
-    sku: 'TEST-001',
+    id: &apos;1&apos;,
+    sku: &apos;TEST-001&apos;,
     product: {
-      id: '1',
-      name: 'Test Product',
+      id: &apos;1&apos;,
+      name: &apos;Test Product&apos;,
       images: [],
     },
-    attributes: { color: 'red', size: 'M' },
+    attributes: { color: &apos;red&apos;, size: &apos;M&apos; },
   },
   warehouse: {
-    id: '1',
-    name: 'Main Warehouse',
-    code: 'MW001',
-    city: 'New York',
+    id: &apos;1&apos;,
+    name: &apos;Main Warehouse&apos;,
+    code: &apos;MW001&apos;,
+    city: &apos;New York&apos;,
   },
   stock_quantity: 100,
   reserved_quantity: 10,
   available_quantity: 90,
   reorder_level: 20,
-  last_stock_update: '2024-01-01T00:00:00Z',
-  stock_status: 'in_stock' as const,
-  created_at: '2024-01-01T00:00:00Z',
-  updated_at: '2024-01-01T00:00:00Z',
+  last_stock_update: &apos;2024-01-01T00:00:00Z&apos;,
+  stock_status: &apos;in_stock&apos; as const,
+  created_at: &apos;2024-01-01T00:00:00Z&apos;,
+  updated_at: &apos;2024-01-01T00:00:00Z&apos;,
 };
 
-describe('InventoryForm', () => {
+describe(&apos;InventoryForm&apos;, () => {
   const mockOnClose = jest.fn();
   const mockOnSave = jest.fn();
 
@@ -109,7 +108,7 @@ describe('InventoryForm', () => {
     });
   });
 
-  it('renders create form correctly', async () => {
+  it(&apos;renders create form correctly&apos;, async () => {
     render(
       <InventoryForm
         inventory={null}
@@ -118,19 +117,19 @@ describe('InventoryForm', () => {
       />
     );
 
-    expect(screen.getByText('Add Inventory')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Add Inventory&apos;)).toBeInTheDocument();
     expect(screen.getByLabelText(/Product Variant/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Warehouse/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Stock Quantity/)).toBeInTheDocument();
     expect(screen.getByLabelText(/Reorder Level/)).toBeInTheDocument();
-    expect(screen.getByText('Create Inventory')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Create Inventory&apos;)).toBeInTheDocument();
 
     await waitFor(() => {
       expect(inventoryManagementApi.getWarehouses).toHaveBeenCalled();
     });
   });
 
-  it('renders edit form correctly', async () => {
+  it(&apos;renders edit form correctly&apos;, async () => {
     render(
       <InventoryForm
         inventory={mockInventoryItem}
@@ -139,19 +138,19 @@ describe('InventoryForm', () => {
       />
     );
 
-    expect(screen.getByText('Edit Inventory')).toBeInTheDocument();
-    expect(screen.getByText('Update Inventory')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Edit Inventory&apos;)).toBeInTheDocument();
+    expect(screen.getByText(&apos;Update Inventory&apos;)).toBeInTheDocument();
     
     // Check that form is pre-populated
-    expect(screen.getByDisplayValue('100')).toBeInTheDocument(); // stock_quantity
-    expect(screen.getByDisplayValue('20')).toBeInTheDocument(); // reorder_level
+    expect(screen.getByDisplayValue(&apos;100&apos;)).toBeInTheDocument(); // stock_quantity
+    expect(screen.getByDisplayValue(&apos;20&apos;)).toBeInTheDocument(); // reorder_level
 
     await waitFor(() => {
       expect(inventoryManagementApi.getWarehouses).toHaveBeenCalled();
     });
   });
 
-  it('validates required fields', async () => {
+  it(&apos;validates required fields&apos;, async () => {
     render(
       <InventoryForm
         inventory={null}
@@ -161,20 +160,20 @@ describe('InventoryForm', () => {
     );
 
     // Try to submit without filling required fields
-    const submitButton = screen.getByText('Create Inventory');
+    const submitButton = screen.getByText(&apos;Create Inventory&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Product variant is required')).toBeInTheDocument();
-      expect(screen.getByText('Warehouse is required')).toBeInTheDocument();
-      expect(screen.getByText('Stock quantity is required')).toBeInTheDocument();
-      expect(screen.getByText('Reorder level is required')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Product variant is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Warehouse is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Stock quantity is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Reorder level is required&apos;)).toBeInTheDocument();
     });
 
     expect(inventoryManagementApi.createInventory).not.toHaveBeenCalled();
   });
 
-  it('validates numeric fields', async () => {
+  it(&apos;validates numeric fields&apos;, async () => {
     render(
       <InventoryForm
         inventory={null}
@@ -187,19 +186,19 @@ describe('InventoryForm', () => {
     const stockQuantityInput = screen.getByLabelText(/Stock Quantity/);
     const reorderLevelInput = screen.getByLabelText(/Reorder Level/);
 
-    fireEvent.change(stockQuantityInput, { target: { value: '-5' } });
-    fireEvent.change(reorderLevelInput, { target: { value: 'invalid' } });
+    fireEvent.change(stockQuantityInput, { target: { value: &apos;-5&apos; } });
+    fireEvent.change(reorderLevelInput, { target: { value: &apos;invalid&apos; } });
 
-    const submitButton = screen.getByText('Create Inventory');
+    const submitButton = screen.getByText(&apos;Create Inventory&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Stock quantity must be a non-negative number')).toBeInTheDocument();
-      expect(screen.getByText('Reorder level must be a non-negative number')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Stock quantity must be a non-negative number&apos;)).toBeInTheDocument();
+      expect(screen.getByText(&apos;Reorder level must be a non-negative number&apos;)).toBeInTheDocument();
     });
   });
 
-  it('creates inventory successfully', async () => {
+  it(&apos;creates inventory successfully&apos;, async () => {
     (inventoryManagementApi.createInventory as jest.Mock).mockResolvedValue({
       success: true,
       data: mockInventoryItem,
@@ -215,40 +214,40 @@ describe('InventoryForm', () => {
 
     // Wait for warehouses to load
     await waitFor(() => {
-      expect(screen.getByText('Main Warehouse (MW001) - New York')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Main Warehouse (MW001) - New York&apos;)).toBeInTheDocument();
     });
 
     // Fill in the form
     const productSearchInput = screen.getByLabelText(/Product Variant/);
-    fireEvent.change(productSearchInput, { target: { value: 'Test' } });
+    fireEvent.change(productSearchInput, { target: { value: &apos;Test&apos; } });
     fireEvent.focus(productSearchInput);
 
     // Wait for search results and select product
     await waitFor(() => {
-      expect(screen.getByText('Test Product')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
     });
     
-    fireEvent.click(screen.getByText('Test Product'));
+    fireEvent.click(screen.getByText(&apos;Test Product&apos;));
 
     // Select warehouse
     const warehouseSelect = screen.getByLabelText(/Warehouse/);
-    fireEvent.change(warehouseSelect, { target: { value: '1' } });
+    fireEvent.change(warehouseSelect, { target: { value: &apos;1&apos; } });
 
     // Fill in quantities
     const stockQuantityInput = screen.getByLabelText(/Stock Quantity/);
     const reorderLevelInput = screen.getByLabelText(/Reorder Level/);
     
-    fireEvent.change(stockQuantityInput, { target: { value: '100' } });
-    fireEvent.change(reorderLevelInput, { target: { value: '20' } });
+    fireEvent.change(stockQuantityInput, { target: { value: &apos;100&apos; } });
+    fireEvent.change(reorderLevelInput, { target: { value: &apos;20&apos; } });
 
     // Submit form
-    const submitButton = screen.getByText('Create Inventory');
+    const submitButton = screen.getByText(&apos;Create Inventory&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
       expect(inventoryManagementApi.createInventory).toHaveBeenCalledWith({
-        product_variant: '1',
-        warehouse: '1',
+        product_variant: &apos;1&apos;,
+        warehouse: &apos;1&apos;,
         stock_quantity: 100,
         reorder_level: 20,
       });
@@ -257,7 +256,7 @@ describe('InventoryForm', () => {
     });
   });
 
-  it('updates inventory successfully', async () => {
+  it(&apos;updates inventory successfully&apos;, async () => {
     (inventoryManagementApi.updateInventory as jest.Mock).mockResolvedValue({
       success: true,
       data: mockInventoryItem,
@@ -273,35 +272,35 @@ describe('InventoryForm', () => {
 
     // Wait for warehouses to load
     await waitFor(() => {
-      expect(screen.getByText('Main Warehouse (MW001) - New York')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Main Warehouse (MW001) - New York&apos;)).toBeInTheDocument();
     });
 
     // Update quantities
-    const stockQuantityInput = screen.getByDisplayValue('100');
-    const reorderLevelInput = screen.getByDisplayValue('20');
+    const stockQuantityInput = screen.getByDisplayValue(&apos;100&apos;);
+    const reorderLevelInput = screen.getByDisplayValue(&apos;20&apos;);
     
-    fireEvent.change(stockQuantityInput, { target: { value: '150' } });
-    fireEvent.change(reorderLevelInput, { target: { value: '25' } });
+    fireEvent.change(stockQuantityInput, { target: { value: &apos;150&apos; } });
+    fireEvent.change(reorderLevelInput, { target: { value: &apos;25&apos; } });
 
     // Submit form
-    const submitButton = screen.getByText('Update Inventory');
+    const submitButton = screen.getByText(&apos;Update Inventory&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(inventoryManagementApi.updateInventory).toHaveBeenCalledWith('1', {
+      expect(inventoryManagementApi.updateInventory).toHaveBeenCalledWith(&apos;1&apos;, {
         stock_quantity: 150,
         reorder_level: 25,
-        warehouse: '1',
+        warehouse: &apos;1&apos;,
       });
       expect(mockOnSave).toHaveBeenCalled();
       expect(mockOnClose).toHaveBeenCalled();
     });
   });
 
-  it('handles API errors gracefully', async () => {
+  it(&apos;handles API errors gracefully&apos;, async () => {
     (inventoryManagementApi.createInventory as jest.Mock).mockResolvedValue({
       success: false,
-      error: { message: 'Product variant already exists in this warehouse' },
+      error: { message: &apos;Product variant already exists in this warehouse&apos; },
     });
 
     render(
@@ -314,37 +313,37 @@ describe('InventoryForm', () => {
 
     // Fill in valid form data
     const productSearchInput = screen.getByLabelText(/Product Variant/);
-    fireEvent.change(productSearchInput, { target: { value: 'Test' } });
+    fireEvent.change(productSearchInput, { target: { value: &apos;Test&apos; } });
     fireEvent.focus(productSearchInput);
 
     await waitFor(() => {
-      expect(screen.getByText('Test Product')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
     });
     
-    fireEvent.click(screen.getByText('Test Product'));
+    fireEvent.click(screen.getByText(&apos;Test Product&apos;));
 
     const warehouseSelect = screen.getByLabelText(/Warehouse/);
-    fireEvent.change(warehouseSelect, { target: { value: '1' } });
+    fireEvent.change(warehouseSelect, { target: { value: &apos;1&apos; } });
 
     const stockQuantityInput = screen.getByLabelText(/Stock Quantity/);
     const reorderLevelInput = screen.getByLabelText(/Reorder Level/);
     
-    fireEvent.change(stockQuantityInput, { target: { value: '100' } });
-    fireEvent.change(reorderLevelInput, { target: { value: '20' } });
+    fireEvent.change(stockQuantityInput, { target: { value: &apos;100&apos; } });
+    fireEvent.change(reorderLevelInput, { target: { value: &apos;20&apos; } });
 
     // Submit form
-    const submitButton = screen.getByText('Create Inventory');
+    const submitButton = screen.getByText(&apos;Create Inventory&apos;);
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText('Product variant already exists in this warehouse')).toBeInTheDocument();
+      expect(screen.getByText(&apos;Product variant already exists in this warehouse&apos;)).toBeInTheDocument();
     });
 
     expect(mockOnSave).not.toHaveBeenCalled();
     expect(mockOnClose).not.toHaveBeenCalled();
   });
 
-  it('closes form when cancel button is clicked', () => {
+  it(&apos;closes form when cancel button is clicked&apos;, () => {
     render(
       <InventoryForm
         inventory={null}
@@ -353,13 +352,13 @@ describe('InventoryForm', () => {
       />
     );
 
-    const cancelButton = screen.getByText('Cancel');
+    const cancelButton = screen.getByText(&apos;Cancel&apos;);
     fireEvent.click(cancelButton);
 
     expect(mockOnClose).toHaveBeenCalled();
   });
 
-  it('closes form when X button is clicked', () => {
+  it(&apos;closes form when X button is clicked&apos;, () => {
     render(
       <InventoryForm
         inventory={null}

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Filter, SortAsc, SortDesc, Star, CheckCircle } from 'lucide-react';
+import { Filter, Star } from 'lucide-react';
 import ReviewCard from './ReviewCard';
-import StarRating from '../ui/StarRating';
-import { Review, ReviewFilters, PaginatedResponse } from '../../types';
+import { Review, ReviewFilters } from '../../types';
 
 interface ReviewListProps {
   reviews: Review[];
@@ -61,7 +60,7 @@ const ReviewList: React.FC<ReviewListProps> = ({
     { value: 1, label: '1 Star' },
   ];
 
-  const handleFilterChange = (key: keyof ReviewFilters, value: any) => {
+  const handleFilterChange = (key: keyof ReviewFilters, value: string | number | boolean | undefined) => {
     const newFilters = { ...localFilters, [key]: value };
     setLocalFilters(newFilters);
     onFiltersChange?.(newFilters);

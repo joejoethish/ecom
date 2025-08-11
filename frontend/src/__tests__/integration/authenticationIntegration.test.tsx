@@ -22,7 +22,7 @@ jest.mock('next/navigation', () => ({
   useSearchParams: jest.fn(),
 }));
 
-jest.mock('@/services/authApi', () => ({
+jest.mock(&apos;@/services/authApi&apos;, () => ({
   authApi: {
     requestPasswordReset: jest.fn(),
     validateResetToken: jest.fn(),
@@ -30,12 +30,12 @@ jest.mock('@/services/authApi', () => ({
   },
 }));
 
-jest.mock('react-hot-toast', () => ({
+jest.mock(&apos;react-hot-toast&apos;, () => ({
   success: jest.fn(),
   error: jest.fn(),
 }));
 
-jest.mock('@/utils/authIntegration', () => ({
+jest.mock(&apos;@/utils/authIntegration&apos;, () => ({
   useAuthIntegration: () => ({
     onPasswordResetRequest: jest.fn(),
     onPasswordResetFailure: jest.fn(),
@@ -52,7 +52,7 @@ const mockSearchParams = {
   get: jest.fn(),
 };
 
-const createMockStore = (initialState: any = {}) => {
+const createMockStore = (initialState: unknown = {}) => {
   return configureStore({
     reducer: {
       auth: authSlice,
@@ -63,21 +63,21 @@ const createMockStore = (initialState: any = {}) => {
         loading: false,
         error: null,
         isAuthenticated: false,
-        ...(initialState && 'auth' in initialState ? initialState.auth : {}),
+        ...(initialState && &apos;auth&apos; in initialState ? initialState.auth : {}),
       },
     },
   });
 };
 
-describe('Authentication Integration', () => {
+describe(&apos;Authentication Integration&apos;, () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (useRouter as jest.Mock).mockReturnValue(mockRouter);
     (useSearchParams as jest.Mock).mockReturnValue(mockSearchParams);
   });
 
-  describe('Login Form Integration', () => {
-    it('should display forgot password link', () => {
+  describe(&apos;Login Form Integration&apos;, () => {
+    it(&apos;should display forgot password link&apos;, () => {
       const store = createMockStore();
       mockSearchParams.get.mockReturnValue(null);
 
@@ -87,14 +87,14 @@ describe('Authentication Integration', () => {
         </Provider>
       );
 
-      const forgotPasswordLink = screen.getByText('Forgot your password?');
+      const forgotPasswordLink = screen.getByText(&apos;Forgot your password?&apos;);
       expect(forgotPasswordLink).toBeInTheDocument();
-      expect(forgotPasswordLink.closest('a')).toHaveAttribute('href', '/auth/forgot-password');
+      expect(forgotPasswordLink.closest(&apos;a&apos;)).toHaveAttribute(&apos;href&apos;, &apos;/auth/forgot-password&apos;);
     });
 
-    it('should show success message when redirected from password reset', () => {
+    it(&apos;should show success message when redirected from password reset&apos;, () => {
       const store = createMockStore();
-      mockSearchParams.get.mockReturnValue('password-reset-success');
+      mockSearchParams.get.mockReturnValue(&apos;password-reset-success&apos;);
 
       render(
         <Provider store={store}>
@@ -103,11 +103,11 @@ describe('Authentication Integration', () => {
       );
 
       expect(toast.success).toHaveBeenCalledWith(
-        'Password reset successful! You can now log in with your new password.'
+        &apos;Password reset successful! You can now log in with your new password.&apos;
       );
     });
 
-    it('should have remember me functionality', () => {
+    it(&apos;should have remember me functionality&apos;, () => {
       const store = createMockStore();
       mockSearchParams.get.mockReturnValue(null);
 
@@ -117,14 +117,14 @@ describe('Authentication Integration', () => {
         </Provider>
       );
 
-      const rememberMeCheckbox = screen.getByLabelText('Remember me');
+      const rememberMeCheckbox = screen.getByLabelText(&apos;Remember me&apos;);
       expect(rememberMeCheckbox).toBeInTheDocument();
-      expect(rememberMeCheckbox).toHaveAttribute('type', 'checkbox');
+      expect(rememberMeCheckbox).toHaveAttribute(&apos;type&apos;, &apos;checkbox&apos;);
     });
   });
 
-  describe('Forgot Password Integration', () => {
-    it('should have back to login functionality', async () => {
+  describe(&apos;Forgot Password Integration&apos;, () => {
+    it(&apos;should have back to login functionality&apos;, async () => {
       const user = userEvent.setup();
       const mockBackToLogin = jest.fn();
 
@@ -132,13 +132,13 @@ describe('Authentication Integration', () => {
         <ForgotPasswordForm onBackToLogin={mockBackToLogin} />
       );
 
-      const backToLoginButton = screen.getByText('Back to Login');
+      const backToLoginButton = screen.getByText(&apos;Back to Login&apos;);
       await user.click(backToLoginButton);
 
       expect(mockBackToLogin).toHaveBeenCalled();
     });
 
-    it('should integrate with auth API for password reset request', async () => {
+    it(&apos;should integrate with auth API for password reset request&apos;, async () => {
       const user = userEvent.setup();
       const mockOnSuccess = jest.fn();
       
@@ -150,22 +150,22 @@ describe('Authentication Integration', () => {
         <ForgotPasswordForm onSuccess={mockOnSuccess} />
       );
 
-      const emailInput = screen.getByLabelText('Email Address');
-      const submitButton = screen.getByText('Send Reset Link');
+      const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
+      const submitButton = screen.getByText(&apos;Send Reset Link&apos;);
 
-      await user.type(emailInput, 'test@example.com');
+      await user.type(emailInput, &apos;test@example.com&apos;);
       await user.click(submitButton);
 
       await waitFor(() => {
-        expect(authApi.requestPasswordReset).toHaveBeenCalledWith('test@example.com');
+        expect(authApi.requestPasswordReset).toHaveBeenCalledWith(&apos;test@example.com&apos;);
         expect(mockOnSuccess).toHaveBeenCalled();
       });
     });
   });
 
-  describe('Reset Password Integration', () => {
-    it('should validate token on component mount', async () => {
-      const mockToken = 'valid-reset-token';
+  describe(&apos;Reset Password Integration&apos;, () => {
+    it(&apos;should validate token on component mount&apos;, async () => {
+      const mockToken = &apos;valid-reset-token&apos;;
       
       (authApi.validateResetToken as jest.Mock).mockResolvedValue({
         success: true,
@@ -185,9 +185,9 @@ describe('Authentication Integration', () => {
       });
     });
 
-    it('should redirect to login after successful password reset', async () => {
+    it(&apos;should redirect to login after successful password reset&apos;, async () => {
       const user = userEvent.setup();
-      const mockToken = 'valid-reset-token';
+      const mockToken = &apos;valid-reset-token&apos;;
       const mockOnSuccess = jest.fn();
       
       (authApi.validateResetToken as jest.Mock).mockResolvedValue({
@@ -209,29 +209,29 @@ describe('Authentication Integration', () => {
 
       // Wait for token validation
       await waitFor(() => {
-        expect(screen.getByLabelText('New Password')).toBeInTheDocument();
+        expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
       });
 
-      const passwordInput = screen.getByLabelText('New Password');
-      const confirmInput = screen.getByLabelText('Confirm New Password');
-      const submitButton = screen.getByRole('button', { name: 'Reset Password' });
+      const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
+      const confirmInput = screen.getByLabelText(&apos;Confirm New Password&apos;);
+      const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
 
-      await user.type(passwordInput, 'NewPassword123!');
-      await user.type(confirmInput, 'NewPassword123!');
+      await user.type(passwordInput, &apos;NewPassword123!&apos;);
+      await user.type(confirmInput, &apos;NewPassword123!&apos;);
       await user.click(submitButton);
 
       await waitFor(() => {
-        expect(authApi.resetPassword).toHaveBeenCalledWith(mockToken, 'NewPassword123!');
+        expect(authApi.resetPassword).toHaveBeenCalledWith(mockToken, &apos;NewPassword123!&apos;);
         expect(mockOnSuccess).toHaveBeenCalled();
       });
     });
 
-    it('should handle invalid token gracefully', async () => {
-      const mockToken = 'invalid-token';
+    it(&apos;should handle invalid token gracefully&apos;, async () => {
+      const mockToken = &apos;invalid-token&apos;;
       
       (authApi.validateResetToken as jest.Mock).mockResolvedValue({
         success: false,
-        error: { code: 'TOKEN_INVALID', message: 'Invalid token' },
+        error: { code: &apos;TOKEN_INVALID&apos;, message: &apos;Invalid token&apos; },
       });
 
       render(
@@ -248,8 +248,8 @@ describe('Authentication Integration', () => {
     });
   });
 
-  describe('Complete Password Reset Flow', () => {
-    it('should support complete flow from login to reset and back', async () => {
+  describe(&apos;Complete Password Reset Flow&apos;, () => {
+    it(&apos;should support complete flow from login to reset and back&apos;, async () => {
       const user = userEvent.setup();
       
       // Mock API responses
@@ -270,13 +270,12 @@ describe('Authentication Integration', () => {
       const store = createMockStore();
       mockSearchParams.get.mockReturnValue(null);
 
-      const { rerender } = render(
         <Provider store={store}>
           <LoginForm />
         </Provider>
       );
 
-      const forgotPasswordLink = screen.getByText('Forgot your password?');
+      const forgotPasswordLink = screen.getByText(&apos;Forgot your password?&apos;);
       expect(forgotPasswordLink).toBeInTheDocument();
 
       // Step 2: Forgot password form
@@ -287,18 +286,18 @@ describe('Authentication Integration', () => {
         />
       );
 
-      const emailInput = screen.getByLabelText('Email Address');
-      const sendResetButton = screen.getByText('Send Reset Link');
+      const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
+      const sendResetButton = screen.getByText(&apos;Send Reset Link&apos;);
 
-      await user.type(emailInput, 'test@example.com');
+      await user.type(emailInput, &apos;test@example.com&apos;);
       await user.click(sendResetButton);
 
       await waitFor(() => {
-        expect(authApi.requestPasswordReset).toHaveBeenCalledWith('test@example.com');
+        expect(authApi.requestPasswordReset).toHaveBeenCalledWith(&apos;test@example.com&apos;);
       });
 
       // Step 3: Reset password form
-      const mockToken = 'valid-reset-token';
+      const mockToken = &apos;valid-reset-token&apos;;
       rerender(
         <ResetPasswordForm 
           token={mockToken}
@@ -313,23 +312,23 @@ describe('Authentication Integration', () => {
 
       // Wait for form to be ready
       await waitFor(() => {
-        expect(screen.getByLabelText('New Password')).toBeInTheDocument();
+        expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
       });
 
-      const passwordInput = screen.getByLabelText('New Password');
-      const confirmInput = screen.getByLabelText('Confirm New Password');
-      const resetButton = screen.getByRole('button', { name: 'Reset Password' });
+      const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
+      const confirmInput = screen.getByLabelText(&apos;Confirm New Password&apos;);
+      const resetButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
 
-      await user.type(passwordInput, 'NewPassword123!');
-      await user.type(confirmInput, 'NewPassword123!');
+      await user.type(passwordInput, &apos;NewPassword123!&apos;);
+      await user.type(confirmInput, &apos;NewPassword123!&apos;);
       await user.click(resetButton);
 
       await waitFor(() => {
-        expect(authApi.resetPassword).toHaveBeenCalledWith(mockToken, 'NewPassword123!');
+        expect(authApi.resetPassword).toHaveBeenCalledWith(mockToken, &apos;NewPassword123!&apos;);
       });
 
       // Step 4: Back to login with success message
-      mockSearchParams.get.mockReturnValue('password-reset-success');
+      mockSearchParams.get.mockReturnValue(&apos;password-reset-success&apos;);
       
       rerender(
         <Provider store={store}>
@@ -338,20 +337,20 @@ describe('Authentication Integration', () => {
       );
 
       expect(toast.success).toHaveBeenCalledWith(
-        'Password reset successful! You can now log in with your new password.'
+        &apos;Password reset successful! You can now log in with your new password.&apos;
       );
     });
   });
 
-  describe('User Model Integration', () => {
-    it('should work with different user types', async () => {
+  describe(&apos;User Model Integration&apos;, () => {
+    it(&apos;should work with different user types&apos;, async () => {
       const user = userEvent.setup();
       
       // Test that password reset works regardless of user type
       const testCases = [
-        { email: 'customer@example.com', userType: 'customer' },
-        { email: 'seller@example.com', userType: 'seller' },
-        { email: 'admin@example.com', userType: 'admin' },
+        { email: &apos;customer@example.com&apos;, userType: &apos;customer&apos; },
+        { email: &apos;seller@example.com&apos;, userType: &apos;seller&apos; },
+        { email: &apos;admin@example.com&apos;, userType: &apos;admin&apos; },
       ];
 
       for (const testCase of testCases) {
@@ -384,7 +383,7 @@ describe('Authentication Integration', () => {
     it('should handle route protection correctly', () => {
       // This test verifies that the middleware configuration includes
       // password reset routes in guest routes
-      const { GUEST_ROUTES } = require('@/middleware/auth');
+      import { GUEST_ROUTES }  from '@/middleware/auth';
       
       expect(GUEST_ROUTES).toContain('/auth/forgot-password');
       expect(GUEST_ROUTES).toContain('/auth/reset-password');

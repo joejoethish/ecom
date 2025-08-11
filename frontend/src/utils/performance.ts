@@ -26,7 +26,7 @@ export function measureRenderTime<T>(componentName: string, callback: () => T): 
  * Reports a web vital metric to analytics
  * @param metric - The web vital metric to report
  */
-export function reportWebVitals(metric: any) {
+export function reportWebVitals(metric: unknown) {
   // In a real app, you would send this to your analytics service
   // Example: sendToAnalytics(metric);
   

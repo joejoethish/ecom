@@ -8,13 +8,13 @@ import { addToCart } from '@/store/slices/cartSlice';
 // Mock Next.js components
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => {
+  default: (props: unknown) => {
     // eslint-disable-next-line @next/next/no-img-element
     return <img {...props} src={props.src} alt={props.alt} />;
   },
 }));
 
-jest.mock('next/link', () => ({
+jest.mock(&apos;next/link&apos;, () => ({
   __esModule: true,
   default: ({ href, children }: { href: string; children: React.ReactNode }) => (
     <a href={href}>{children}</a>
@@ -22,28 +22,28 @@ jest.mock('next/link', () => ({
 }));
 
 // Mock formatCurrency utility
-jest.mock('@/utils/format', () => ({
+jest.mock(&apos;@/utils/format&apos;, () => ({
   formatCurrency: (value: number) => `$${value.toFixed(2)}`,
 }));
 
 const mockStore = configureStore([]);
 
-describe('ProductCard', () => {
+describe(&apos;ProductCard&apos;, () => {
   const mockProduct = {
-    id: '1',
-    name: 'Test Product',
-    slug: 'test-product',
-    description: 'Test description',
-    short_description: 'Short description',
+    id: &apos;1&apos;,
+    name: &apos;Test Product&apos;,
+    slug: &apos;test-product&apos;,
+    description: &apos;Test description&apos;,
+    short_description: &apos;Short description&apos;,
     category: {
-      id: 'cat1',
-      name: 'Test Category',
-      slug: 'test-category',
+      id: &apos;cat1&apos;,
+      name: &apos;Test Category&apos;,
+      slug: &apos;test-category&apos;,
       is_active: true,
-      created_at: '2023-01-01',
+      created_at: &apos;2023-01-01&apos;,
     },
-    brand: 'Test Brand',
-    sku: 'TEST123',
+    brand: &apos;Test Brand&apos;,
+    sku: &apos;TEST123&apos;,
     price: 100,
     discount_price: 80,
     is_active: true,
@@ -52,18 +52,18 @@ describe('ProductCard', () => {
     dimensions: {},
     images: [
       {
-        id: 'img1',
-        image: '/test-image.jpg',
-        alt_text: 'Test Image',
+        id: &apos;img1&apos;,
+        image: &apos;/test-image.jpg&apos;,
+        alt_text: &apos;Test Image&apos;,
         is_primary: true,
         order: 1,
       },
     ],
-    created_at: '2023-01-01',
-    updated_at: '2023-01-01',
+    created_at: &apos;2023-01-01&apos;,
+    updated_at: &apos;2023-01-01&apos;,
   };
 
-  it('renders product information correctly', () => {
+  it(&apos;renders product information correctly&apos;, () => {
     const store = mockStore({
       cart: {
         items: [],
@@ -81,27 +81,27 @@ describe('ProductCard', () => {
     );
 
     // Check if product name is rendered
-    expect(screen.getByText('Test Product')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
     
     // Check if category name is rendered
-    expect(screen.getByText('Test Category')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Test Category&apos;)).toBeInTheDocument();
     
     // Check if brand is rendered
-    expect(screen.getByText('Test Brand')).toBeInTheDocument();
+    expect(screen.getByText(&apos;Test Brand&apos;)).toBeInTheDocument();
     
     // Check if price is rendered
-    expect(screen.getByText('$80.00')).toBeInTheDocument();
+    expect(screen.getByText(&apos;$80.00&apos;)).toBeInTheDocument();
     
     // Check if original price is rendered and has line-through style
-    const originalPrice = screen.getByText('$100.00');
+    const originalPrice = screen.getByText(&apos;$100.00&apos;);
     expect(originalPrice).toBeInTheDocument();
-    expect(originalPrice).toHaveClass('line-through');
+    expect(originalPrice).toHaveClass(&apos;line-through&apos;);
     
     // Check if discount badge is rendered
-    expect(screen.getByText('20% OFF')).toBeInTheDocument();
+    expect(screen.getByText(&apos;20% OFF&apos;)).toBeInTheDocument();
   });
 
-  it('dispatches addToCart action when add to cart button is clicked', () => {
+  it(&apos;dispatches addToCart action when add to cart button is clicked&apos;, () => {
     const store = mockStore({
       cart: {
         items: [],
@@ -121,19 +121,19 @@ describe('ProductCard', () => {
     );
 
     // Find and click the add to cart button
-    const addToCartButton = screen.getByLabelText('Add to cart');
+    const addToCartButton = screen.getByLabelText(&apos;Add to cart&apos;);
     fireEvent.click(addToCartButton);
 
     // Check if the addToCart action was dispatched with the correct payload
     expect(store.dispatch).toHaveBeenCalledWith(
       expect.objectContaining({
-        type: expect.stringContaining('cart/addToCart'),
-        payload: { productId: '1', quantity: 1 },
+        type: expect.stringContaining(&apos;cart/addToCart&apos;),
+        payload: { productId: &apos;1&apos;, quantity: 1 },
       })
     );
   });
 
-  it('renders product without discount correctly', () => {
+  it(&apos;renders product without discount correctly&apos;, () => {
     const productWithoutDiscount = {
       ...mockProduct,
       discount_price: undefined,

@@ -12,6 +12,9 @@ from .models import (
     AdminReport
 )
 
+# Import chart admin configurations
+from .chart_admin import *
+
 
 @admin.register(AdminUser)
 class AdminUserAdmin(UserAdmin):

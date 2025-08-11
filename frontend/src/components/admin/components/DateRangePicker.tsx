@@ -22,8 +22,8 @@ export default function DateRangePicker({ from, to, onChange }: DateRangePickerP
     const fromDate = new Date(toDate.getTime() - days * 24 * 60 * 60 * 1000);
     
     onChange(
-      fromDate.toISOString().split('T')[0],
-      toDate.toISOString().split('T')[0]
+      fromDate.toISOString().split(&apos;T&apos;)[0],
+      toDate.toISOString().split(&apos;T&apos;)[0]
     );
   };
 
@@ -33,19 +33,19 @@ export default function DateRangePicker({ from, to, onChange }: DateRangePickerP
       <div className="flex space-x-1">
         <button
           onClick={() => setPresetRange(7)}
-          className="px-3 py-1 text-xs font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+          className=&quot;px-3 py-1 text-xs font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50&quot;
         >
           7D
         </button>
         <button
           onClick={() => setPresetRange(30)}
-          className="px-3 py-1 text-xs font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+          className=&quot;px-3 py-1 text-xs font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50&quot;
         >
           30D
         </button>
         <button
           onClick={() => setPresetRange(90)}
-          className="px-3 py-1 text-xs font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+          className=&quot;px-3 py-1 text-xs font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50&quot;
         >
           90D
         </button>

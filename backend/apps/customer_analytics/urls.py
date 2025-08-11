@@ -7,7 +7,9 @@ from .views import (
     CustomerCohortViewSet,
     CustomerLifecycleStageViewSet,
     CustomerRecommendationViewSet,
-    CustomerSatisfactionSurveyViewSet
+    CustomerSatisfactionSurveyViewSet,
+    AdvancedCustomerAnalyticsViewSet,
+    MLCustomerAnalyticsViewSet
 )
 
 router = DefaultRouter()
@@ -18,6 +20,8 @@ router.register(r'cohorts', CustomerCohortViewSet)
 router.register(r'lifecycle-stages', CustomerLifecycleStageViewSet)
 router.register(r'recommendations', CustomerRecommendationViewSet)
 router.register(r'satisfaction-surveys', CustomerSatisfactionSurveyViewSet)
+router.register(r'advanced', AdvancedCustomerAnalyticsViewSet, basename='advanced-analytics')
+router.register(r'ml', MLCustomerAnalyticsViewSet, basename='ml-analytics')
 
 urlpatterns = [
     path('', include(router.urls)),

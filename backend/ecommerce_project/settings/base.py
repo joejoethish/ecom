@@ -44,6 +44,8 @@ LOCAL_APPS = [
     'core',  # Core utilities including migration tools
     'apps.authentication',
     'apps.admin_panel',  # Comprehensive admin panel
+    'apps.system_settings',  # Comprehensive system settings management
+    'apps.integrations',  # Third-party integration management
     'apps.products',
     'apps.orders',
     'apps.cart',
@@ -60,6 +62,18 @@ LOCAL_APPS = [
     'apps.notifications',
     'apps.chat',
     'apps.promotions',  # Comprehensive promotion and coupon management
+    'apps.forms',  # Dynamic form management
+    'apps.api_management',  # API management and documentation
+    'apps.communications',  # Communication management
+    'apps.financial',  # Financial management
+    'apps.suppliers',  # Supplier management
+    'apps.pricing',  # Pricing management
+    'apps.data_management',  # Advanced data import/export management
+    'apps.security_management',  # Comprehensive security management system
+    'apps.workflow',  # Comprehensive workflow automation system
+    'apps.project_management',  # Advanced task and project management system
+    'apps.tenants',  # Comprehensive multi-tenant architecture
+    'apps.internationalization',  # Comprehensive internationalization system
     # 'apps.logs',  # Temporarily disabled due to import issues
     'tasks',
 ]
@@ -70,6 +84,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'apps.authentication.middleware.SecurityHeadersMiddleware',
+    'apps.tenants.middleware.TenantMiddleware',  # Multi-tenant support
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

@@ -12,7 +12,6 @@ import {
 import { User } from '@/types';
 
 describe('Inventory Authentication Utilities', () => {
-  const mockAdminUser: User = {
     id: '1',
     username: 'admin',
     email: 'admin@example.com',
@@ -24,7 +23,6 @@ describe('Inventory Authentication Utilities', () => {
 
   };
 
-  const mockSellerUser: User = {
     id: '2',
     username: 'seller',
     email: 'seller@example.com',
@@ -35,7 +33,6 @@ describe('Inventory Authentication Utilities', () => {
     created_at: '2023-01-01T00:00:00Z',
   };
 
-  const mockCustomerUser: User = {
     id: '3',
     username: 'customer',
     email: 'customer@example.com',
@@ -46,7 +43,6 @@ describe('Inventory Authentication Utilities', () => {
     created_at: '2023-01-01T00:00:00Z',
   };
 
-  const mockInventoryManagerUser: User = {
     id: '4',
     username: 'inventory_manager',
     email: 'inventory@example.com',
@@ -57,7 +53,6 @@ describe('Inventory Authentication Utilities', () => {
     created_at: '2023-01-01T00:00:00Z',
   };
 
-  const mockWarehouseStaffUser: User = {
     id: '5',
     username: 'warehouse_staff',
     email: 'warehouse@example.com',

@@ -15,7 +15,6 @@ interface CartState {
   error: string | null;
 }
 
-const initialState: CartState = {
   items: [],
   savedItems: [],
   appliedCoupons: [],
@@ -37,16 +36,16 @@ export const fetchCart = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to fetch cart');
+        return rejectWithValue(response.error?.message || &apos;Failed to fetch cart&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to fetch cart');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to fetch cart&apos;);
     }
   }
 );
 
 export const addToCart = createAsyncThunk(
-  'cart/addToCart',
+  &apos;cart/addToCart&apos;,
   async ({ productId, quantity }: { productId: string; quantity: number }, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<CartItem>(API_ENDPOINTS.CART.ADD, {
@@ -57,16 +56,16 @@ export const addToCart = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to add item to cart');
+        return rejectWithValue(response.error?.message || &apos;Failed to add item to cart&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to add item to cart');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to add item to cart&apos;);
     }
   }
 );
 
 export const updateCartItem = createAsyncThunk(
-  'cart/updateCartItem',
+  &apos;cart/updateCartItem&apos;,
   async ({ itemId, quantity }: { itemId: string; quantity: number }, { rejectWithValue }) => {
     try {
       const response = await apiClient.patch<CartItem>(API_ENDPOINTS.CART.UPDATE(itemId), {
@@ -76,16 +75,16 @@ export const updateCartItem = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to update cart item');
+        return rejectWithValue(response.error?.message || &apos;Failed to update cart item&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to update cart item');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to update cart item&apos;);
     }
   }
 );
 
 export const removeCartItem = createAsyncThunk(
-  'cart/removeCartItem',
+  &apos;cart/removeCartItem&apos;,
   async (itemId: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.delete(API_ENDPOINTS.CART.REMOVE(itemId));
@@ -93,16 +92,16 @@ export const removeCartItem = createAsyncThunk(
       if (response.success) {
         return itemId;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to remove item from cart');
+        return rejectWithValue(response.error?.message || &apos;Failed to remove item from cart&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to remove item from cart');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to remove item from cart&apos;);
     }
   }
 );
 
 export const saveForLater = createAsyncThunk(
-  'cart/saveForLater',
+  &apos;cart/saveForLater&apos;,
   async (itemId: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<SavedItem>(`/cart/save-for-later/${itemId}/`);
@@ -110,16 +109,16 @@ export const saveForLater = createAsyncThunk(
       if (response.success && response.data) {
         return { savedItem: response.data, itemId };
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to save item for later');
+        return rejectWithValue(response.error?.message || &apos;Failed to save item for later&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to save item for later');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to save item for later&apos;);
     }
   }
 );
 
 export const moveToCart = createAsyncThunk(
-  'cart/moveToCart',
+  &apos;cart/moveToCart&apos;,
   async (savedItemId: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<CartItem>(`/cart/move-to-cart/${savedItemId}/`);
@@ -127,16 +126,16 @@ export const moveToCart = createAsyncThunk(
       if (response.success && response.data) {
         return { cartItem: response.data, savedItemId };
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to move item to cart');
+        return rejectWithValue(response.error?.message || &apos;Failed to move item to cart&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to move item to cart');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to move item to cart&apos;);
     }
   }
 );
 
 export const removeSavedItem = createAsyncThunk(
-  'cart/removeSavedItem',
+  &apos;cart/removeSavedItem&apos;,
   async (savedItemId: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.delete(`/cart/saved-items/${savedItemId}/`);
@@ -144,16 +143,16 @@ export const removeSavedItem = createAsyncThunk(
       if (response.success) {
         return savedItemId;
       } else {
-        return rejectWithValue(response.error?.message || 'Failed to remove saved item');
+        return rejectWithValue(response.error?.message || &apos;Failed to remove saved item&apos;);
       }
-    } catch (error: any) {
-      return rejectWithValue(error.message || 'Failed to remove saved item');
+    } catch (error: unknown) {
+      return rejectWithValue(error.message || &apos;Failed to remove saved item&apos;);
     }
   }
 );
 
 export const applyCoupon = createAsyncThunk(
-  'cart/applyCoupon',
+  &apos;cart/applyCoupon&apos;,
   async (couponCode: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.post<AppliedCoupon>('/cart/apply-coupon/', {
@@ -165,7 +164,7 @@ export const applyCoupon = createAsyncThunk(
       } else {
         return rejectWithValue(response.error?.message || 'Failed to apply coupon');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       return rejectWithValue(error.message || 'Failed to apply coupon');
     }
   }
@@ -182,7 +181,7 @@ export const removeCoupon = createAsyncThunk(
       } else {
         return rejectWithValue(response.error?.message || 'Failed to remove coupon');
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       return rejectWithValue(error.message || 'Failed to remove coupon');
     }
   }
@@ -227,7 +226,6 @@ const cartSlice = createSlice({
         state.subtotal = action.payload.subtotal;
         state.discountAmount = action.payload.discount_amount;
         state.totalAmount = action.payload.total_amount;
-        const { itemCount } = calculateCartTotals(action.payload.items);
         state.itemCount = itemCount;
         state.error = null;
       })
@@ -257,7 +255,6 @@ const cartSlice = createSlice({
           state.items.push(action.payload);
         }
         
-        const { itemCount, totalAmount } = calculateCartTotals(state.items);
         state.itemCount = itemCount;
         state.totalAmount = totalAmount;
         state.error = null;
@@ -281,7 +278,6 @@ const cartSlice = createSlice({
           state.items[itemIndex].quantity = action.payload.quantity;
         }
         
-        const { itemCount, totalAmount } = calculateCartTotals(state.items);
         state.itemCount = itemCount;
         state.totalAmount = totalAmount;
         state.error = null;
@@ -302,7 +298,6 @@ const cartSlice = createSlice({
         // Remove item from cart
         state.items = state.items.filter(item => item.id !== action.payload);
         
-        const { itemCount, totalAmount } = calculateCartTotals(state.items);
         state.itemCount = itemCount;
         state.totalAmount = totalAmount;
         state.error = null;
@@ -324,7 +319,6 @@ const cartSlice = createSlice({
         state.items = state.items.filter(item => item.id !== action.payload.itemId);
         state.savedItems.push(action.payload.savedItem);
         
-        const { itemCount, totalAmount } = calculateCartTotals(state.items);
         state.itemCount = itemCount;
         state.totalAmount = totalAmount;
         state.error = null;
@@ -346,7 +340,6 @@ const cartSlice = createSlice({
         state.savedItems = state.savedItems.filter(item => item.id !== action.payload.savedItemId);
         state.items.push(action.payload.cartItem);
         
-        const { itemCount, totalAmount } = calculateCartTotals(state.items);
         state.itemCount = itemCount;
         state.totalAmount = totalAmount;
         state.error = null;
@@ -416,5 +409,4 @@ const cartSlice = createSlice({
   },
 });
 
-export const { clearError, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;
