@@ -30,10 +30,11 @@ const createMockStore = (initialState = {}) => {
   });
 };
 
+const mockShippingRates: ShippingRateResult[] = [
   {
     shipping_partner: {
-      id: &apos;1&apos;,
-      name: &apos;Shiprocket&apos;
+      id: '1',
+      name: 'Shiprocket'
     },
     rate: 150,
     min_delivery_days: 3,
@@ -42,8 +43,8 @@ const createMockStore = (initialState = {}) => {
   },
   {
     shipping_partner: {
-      id: &apos;2&apos;,
-      name: &apos;Delhivery&apos;
+      id: '2',
+      name: 'Delhivery'
     },
     rate: 120,
     estimated_delivery_days: 4,
@@ -51,8 +52,8 @@ const createMockStore = (initialState = {}) => {
   }
 ];
 
-describe(&apos;ShippingCostCalculator&apos;, () => {
-  it(&apos;renders calculator form&apos;, () => {
+describe('ShippingCostCalculator', () => {
+  it('renders calculator form', () => {
     const store = createMockStore();
     
     render(
@@ -61,14 +62,14 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Calculate Shipping Cost&apos;)).toBeInTheDocument();
-    expect(screen.getByLabelText(&apos;Source Pin Code&apos;)).toBeInTheDocument();
-    expect(screen.getByLabelText(&apos;Destination Pin Code&apos;)).toBeInTheDocument();
-    expect(screen.getByLabelText(&apos;Weight (kg)&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Calculate Rates&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Calculate Shipping Cost')).toBeInTheDocument();
+    expect(screen.getByLabelText('Source Pin Code')).toBeInTheDocument();
+    expect(screen.getByLabelText('Destination Pin Code')).toBeInTheDocument();
+    expect(screen.getByLabelText('Weight (kg)')).toBeInTheDocument();
+    expect(screen.getByText('Calculate Rates')).toBeInTheDocument();
   });
 
-  it(&apos;pre-fills form with provided props&apos;, () => {
+  it('pre-fills form with provided props', () => {
     const store = createMockStore();
     
     render(
@@ -81,12 +82,12 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByDisplayValue(&apos;110001&apos;)).toBeInTheDocument();
-    expect(screen.getByDisplayValue(&apos;400001&apos;)).toBeInTheDocument();
-    expect(screen.getByDisplayValue(&apos;2.5&apos;)).toBeInTheDocument();
+    expect(screen.getByDisplayValue('110001')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('400001')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('2.5')).toBeInTheDocument();
   });
 
-  it(&apos;shows advanced options when toggled&apos;, () => {
+  it('shows advanced options when toggled', () => {
     const store = createMockStore();
     
     render(
@@ -95,16 +96,16 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    const advancedButton = screen.getByText(&apos;Advanced Options&apos;);
+    const advancedButton = screen.getByText('Advanced Options');
     fireEvent.click(advancedButton);
 
-    expect(screen.getByText(&apos;Package Dimensions (cm)&apos;)).toBeInTheDocument();
-    expect(screen.getByLabelText(&apos;Length&apos;)).toBeInTheDocument();
-    expect(screen.getByLabelText(&apos;Width&apos;)).toBeInTheDocument();
-    expect(screen.getByLabelText(&apos;Height&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Package Dimensions (cm)')).toBeInTheDocument();
+    expect(screen.getByLabelText('Length')).toBeInTheDocument();
+    expect(screen.getByLabelText('Width')).toBeInTheDocument();
+    expect(screen.getByLabelText('Height')).toBeInTheDocument();
   });
 
-  it(&apos;handles form input changes&apos;, () => {
+  it('handles form input changes', () => {
     const store = createMockStore();
     
     render(
@@ -113,20 +114,20 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    const sourceInput = screen.getByLabelText(&apos;Source Pin Code&apos;);
-    const destinationInput = screen.getByLabelText(&apos;Destination Pin Code&apos;);
-    const weightInput = screen.getByLabelText(&apos;Weight (kg)&apos;);
+    const sourceInput = screen.getByLabelText('Source Pin Code');
+    const destinationInput = screen.getByLabelText('Destination Pin Code');
+    const weightInput = screen.getByLabelText('Weight (kg)');
 
-    fireEvent.change(sourceInput, { target: { value: &apos;110001&apos; } });
-    fireEvent.change(destinationInput, { target: { value: &apos;400001&apos; } });
-    fireEvent.change(weightInput, { target: { value: &apos;1.5&apos; } });
+    fireEvent.change(sourceInput, { target: { value: '110001' } });
+    fireEvent.change(destinationInput, { target: { value: '400001' } });
+    fireEvent.change(weightInput, { target: { value: '1.5' } });
 
-    expect(sourceInput).toHaveValue(&apos;110001&apos;);
-    expect(destinationInput).toHaveValue(&apos;400001&apos;);
+    expect(sourceInput).toHaveValue('110001');
+    expect(destinationInput).toHaveValue('400001');
     expect(weightInput).toHaveValue(1.5);
   });
 
-  it(&apos;validates form before submission&apos;, () => {
+  it('validates form before submission', () => {
     const store = createMockStore();
     
     render(
@@ -135,18 +136,18 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    const calculateButton = screen.getByText(&apos;Calculate Rates&apos;);
+    const calculateButton = screen.getByText('Calculate Rates');
     expect(calculateButton).toBeDisabled();
 
     // Fill required fields
-    fireEvent.change(screen.getByLabelText(&apos;Source Pin Code&apos;), { target: { value: &apos;110001&apos; } });
-    fireEvent.change(screen.getByLabelText(&apos;Destination Pin Code&apos;), { target: { value: &apos;400001&apos; } });
-    fireEvent.change(screen.getByLabelText(&apos;Weight (kg)&apos;), { target: { value: &apos;1.5&apos; } });
+    fireEvent.change(screen.getByLabelText('Source Pin Code'), { target: { value: '110001' } });
+    fireEvent.change(screen.getByLabelText('Destination Pin Code'), { target: { value: '400001' } });
+    fireEvent.change(screen.getByLabelText('Weight (kg)'), { target: { value: '1.5' } });
 
     expect(calculateButton).not.toBeDisabled();
   });
 
-  it(&apos;shows loading state during calculation&apos;, () => {
+  it('shows loading state during calculation', () => {
     const store = createMockStore({ loading: true });
     
     render(
@@ -159,10 +160,10 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Calculating...&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Calculating...')).toBeInTheDocument();
   });
 
-  it(&apos;displays shipping rates when available&apos;, () => {
+  it('displays shipping rates when available', () => {
     const store = createMockStore({ shippingRates: mockShippingRates });
     
     render(
@@ -171,14 +172,14 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Available Shipping Options&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Shiprocket&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Delhivery&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;₹150.00&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;₹120.00&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Available Shipping Options')).toBeInTheDocument();
+    expect(screen.getByText('Shiprocket')).toBeInTheDocument();
+    expect(screen.getByText('Delhivery')).toBeInTheDocument();
+    expect(screen.getByText('₹150.00')).toBeInTheDocument();
+    expect(screen.getByText('₹120.00')).toBeInTheDocument();
   });
 
-  it(&apos;shows delivery time estimates&apos;, () => {
+  it('shows delivery time estimates', () => {
     const store = createMockStore({ shippingRates: mockShippingRates });
     
     render(
@@ -187,11 +188,11 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Delivery: 3-5 days&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Delivery: 4 days&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Delivery: 3-5 days')).toBeInTheDocument();
+    expect(screen.getByText('Delivery: 4 days')).toBeInTheDocument();
   });
 
-  it(&apos;shows live rate indicator&apos;, () => {
+  it('shows live rate indicator', () => {
     const store = createMockStore({ shippingRates: mockShippingRates });
     
     render(
@@ -200,10 +201,10 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Live Rate&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Live Rate')).toBeInTheDocument();
   });
 
-  it(&apos;handles rate selection&apos;, async () => {
+  it('handles rate selection', async () => {
     const mockOnRateSelect = jest.fn();
     const store = createMockStore({ shippingRates: mockShippingRates });
     
@@ -213,7 +214,7 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    const shiprocketOption = screen.getByText(&apos;Shiprocket&apos;).closest(&apos;div&apos;);
+    const shiprocketOption = screen.getByText('Shiprocket').closest('div');
     if (shiprocketOption) {
       fireEvent.click(shiprocketOption);
     }
@@ -223,7 +224,7 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
     });
   });
 
-  it(&apos;shows selected rate details&apos;, () => {
+  it('shows selected rate details', () => {
     const store = createMockStore({ shippingRates: mockShippingRates });
     
     render(
@@ -233,17 +234,17 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
     );
 
     // Select a rate
-    const shiprocketOption = screen.getByText(&apos;Shiprocket&apos;).closest(&apos;div&apos;);
+    const shiprocketOption = screen.getByText('Shiprocket').closest('div');
     if (shiprocketOption) {
       fireEvent.click(shiprocketOption);
     }
 
-    expect(screen.getByText(&apos;Selected Option:&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Shiprocket - ₹150.00&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Clear Selection&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Selected Option:')).toBeInTheDocument();
+    expect(screen.getByText('Shiprocket - ₹150.00')).toBeInTheDocument();
+    expect(screen.getByText('Clear Selection')).toBeInTheDocument();
   });
 
-  it(&apos;handles clear rates&apos;, () => {
+  it('handles clear rates', () => {
     const store = createMockStore({ shippingRates: mockShippingRates });
     
     render(
@@ -252,14 +253,14 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    const clearButton = screen.getByText(&apos;Clear&apos;);
+    const clearButton = screen.getByText('Clear');
     fireEvent.click(clearButton);
 
     // This would trigger the clearShippingRates action
   });
 
-  it(&apos;shows error state&apos;, () => {
-    const store = createMockStore({ error: &apos;Failed to calculate rates&apos; });
+  it('shows error state', () => {
+    const store = createMockStore({ error: 'Failed to calculate rates' });
     
     render(
       <Provider store={store}>
@@ -267,10 +268,10 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Failed to calculate rates&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Failed to calculate rates')).toBeInTheDocument();
   });
 
-  it(&apos;handles dimension inputs in advanced mode&apos;, () => {
+  it('handles dimension inputs in advanced mode', () => {
     const store = createMockStore();
     
     render(
@@ -280,22 +281,22 @@ describe(&apos;ShippingCostCalculator&apos;, () => {
     );
 
     // Open advanced options
-    fireEvent.click(screen.getByText(&apos;Advanced Options&apos;));
+    fireEvent.click(screen.getByText('Advanced Options'));
 
-    const lengthInput = screen.getByLabelText(&apos;Length&apos;);
-    const widthInput = screen.getByLabelText(&apos;Width&apos;);
-    const heightInput = screen.getByLabelText(&apos;Height&apos;);
+    const lengthInput = screen.getByLabelText('Length');
+    const widthInput = screen.getByLabelText('Width');
+    const heightInput = screen.getByLabelText('Height');
 
-    fireEvent.change(lengthInput, { target: { value: &apos;10&apos; } });
-    fireEvent.change(widthInput, { target: { value: &apos;8&apos; } });
-    fireEvent.change(heightInput, { target: { value: &apos;5&apos; } });
+    fireEvent.change(lengthInput, { target: { value: '10' } });
+    fireEvent.change(widthInput, { target: { value: '8' } });
+    fireEvent.change(heightInput, { target: { value: '5' } });
 
     expect(lengthInput).toHaveValue(10);
     expect(widthInput).toHaveValue(8);
     expect(heightInput).toHaveValue(5);
   });
 
-  it(&apos;shows prompt to calculate when form is valid but no rates&apos;, () => {
+  it('shows prompt to calculate when form is valid but no rates', () => {
     const store = createMockStore();
     
     render(

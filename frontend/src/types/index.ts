@@ -13,7 +13,7 @@ export interface User {
   is_verified: boolean;
   is_staff?: boolean;
   is_superuser?: boolean;
-  seller_profile?: unknown;
+  seller_profile?: any;
   created_at: string;
 }
 
@@ -37,7 +37,7 @@ export interface ApiResponse<T = any> {
     message: string;
     code: string;
     status_code: number;
-    details?: unknown;
+    details?: any;
   };
 }
 
@@ -70,7 +70,7 @@ export interface Product {
   is_active: boolean;
   is_featured: boolean;
   weight?: number;
-  dimensions?: Record<string, unknown>;
+  dimensions?: Record<string, any>;
   images: ProductImage[];
   status?: string;
   created_at: string;

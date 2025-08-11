@@ -30,37 +30,38 @@ const createMockStore = (initialState = {}) => {
   });
 };
 
+const mockAddresses: Address[] = [
   {
-    id: &apos;1&apos;,
-    type: &apos;HOME&apos;,
-    first_name: &apos;John&apos;,
-    last_name: &apos;Doe&apos;,
-    address_line_1: &apos;123 Main Street&apos;,
-    address_line_2: &apos;Apt 4B&apos;,
-    city: &apos;New Delhi&apos;,
-    state: &apos;Delhi&apos;,
-    postal_code: &apos;110001&apos;,
-    country: &apos;India&apos;,
-    phone: &apos;+91 9876543210&apos;,
+    id: '1',
+    type: 'HOME',
+    first_name: 'John',
+    last_name: 'Doe',
+    address_line_1: '123 Main Street',
+    address_line_2: 'Apt 4B',
+    city: 'New Delhi',
+    state: 'Delhi',
+    postal_code: '110001',
+    country: 'India',
+    phone: '+91 9876543210',
     is_default: true
   },
   {
-    id: &apos;2&apos;,
-    type: &apos;WORK&apos;,
-    first_name: &apos;John&apos;,
-    last_name: &apos;Doe&apos;,
-    address_line_1: &apos;456 Business Park&apos;,
-    city: &apos;Gurgaon&apos;,
-    state: &apos;Haryana&apos;,
-    postal_code: &apos;122001&apos;,
-    country: &apos;India&apos;,
-    phone: &apos;+91 9876543210&apos;,
+    id: '2',
+    type: 'WORK',
+    first_name: 'John',
+    last_name: 'Doe',
+    address_line_1: '456 Business Park',
+    city: 'Gurgaon',
+    state: 'Haryana',
+    postal_code: '122001',
+    country: 'India',
+    phone: '+91 9876543210',
     is_default: false
   }
 ];
 
-describe(&apos;ShippingAddressManager&apos;, () => {
-  it(&apos;renders empty state when no addresses provided&apos;, () => {
+describe('ShippingAddressManager', () => {
+  it('renders empty state when no addresses provided', () => {
     const store = createMockStore();
     
     render(
@@ -69,11 +70,11 @@ describe(&apos;ShippingAddressManager&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;No delivery addresses found&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Add New Address&apos;)).toBeInTheDocument();
+    expect(screen.getByText('No delivery addresses found')).toBeInTheDocument();
+    expect(screen.getByText('Add New Address')).toBeInTheDocument();
   });
 
-  it(&apos;renders addresses list&apos;, () => {
+  it('renders addresses list', () => {
     const store = createMockStore();
     
     render(
@@ -82,13 +83,13 @@ describe(&apos;ShippingAddressManager&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Delivery Address&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;John Doe&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;123 Main Street, Apt 4B, New Delhi, Delhi, 110001&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;456 Business Park, Gurgaon, Haryana, 122001&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Delivery Address')).toBeInTheDocument();
+    expect(screen.getByText('John Doe')).toBeInTheDocument();
+    expect(screen.getByText('123 Main Street, Apt 4B, New Delhi, Delhi, 110001')).toBeInTheDocument();
+    expect(screen.getByText('456 Business Park, Gurgaon, Haryana, 122001')).toBeInTheDocument();
   });
 
-  it(&apos;shows default address badge&apos;, () => {
+  it('shows default address badge', () => {
     const store = createMockStore();
     
     render(
@@ -97,10 +98,10 @@ describe(&apos;ShippingAddressManager&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Default&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Default')).toBeInTheDocument();
   });
 
-  it(&apos;handles address selection&apos;, async () => {
+  it('handles address selection', async () => {
     const mockOnAddressSelect = jest.fn();
     const store = createMockStore();
     
@@ -113,7 +114,7 @@ describe(&apos;ShippingAddressManager&apos;, () => {
       </Provider>
     );
 
-    const workAddress = screen.getByText(&apos;456 Business Park, Gurgaon, Haryana, 122001&apos;).closest(&apos;div&apos;);
+    const workAddress = screen.getByText('456 Business Park, Gurgaon, Haryana, 122001').closest('div');
     if (workAddress) {
       fireEvent.click(workAddress);
     }
@@ -123,7 +124,7 @@ describe(&apos;ShippingAddressManager&apos;, () => {
     });
   });
 
-  it(&apos;handles add new address&apos;, () => {
+  it('handles add new address', () => {
     const mockOnAddNewAddress = jest.fn();
     const store = createMockStore();
     
@@ -136,13 +137,13 @@ describe(&apos;ShippingAddressManager&apos;, () => {
       </Provider>
     );
 
-    const addButton = screen.getByText(&apos;Add New&apos;);
+    const addButton = screen.getByText('Add New');
     fireEvent.click(addButton);
 
     expect(mockOnAddNewAddress).toHaveBeenCalled();
   });
 
-  it(&apos;handles edit address&apos;, () => {
+  it('handles edit address', () => {
     const mockOnEditAddress = jest.fn();
     const store = createMockStore();
     
@@ -155,9 +156,9 @@ describe(&apos;ShippingAddressManager&apos;, () => {
       </Provider>
     );
 
-    const editButtons = screen.getAllByRole(&apos;button&apos;);
+    const editButtons = screen.getAllByRole('button');
     const editButton = editButtons.find(button => 
-      button.querySelector(&apos;svg&apos;) && !button.textContent?.includes(&apos;Add New&apos;)
+      button.querySelector('svg') && !button.textContent?.includes('Add New')
     );
     
     if (editButton) {
@@ -166,7 +167,7 @@ describe(&apos;ShippingAddressManager&apos;, () => {
     }
   });
 
-  it(&apos;shows address type icons&apos;, () => {
+  it('shows address type icons', () => {
     const store = createMockStore();
     
     render(
@@ -176,11 +177,11 @@ describe(&apos;ShippingAddressManager&apos;, () => {
     );
 
     // Check for SVG icons (home and work icons should be present)
-    const svgElements = screen.getAllByRole(&apos;img&apos;, { hidden: true });
+    const svgElements = screen.getAllByRole('img', { hidden: true });
     expect(svgElements.length).toBeGreaterThan(0);
   });
 
-  it(&apos;displays phone numbers&apos;, () => {
+  it('displays phone numbers', () => {
     const store = createMockStore();
     
     render(
@@ -189,10 +190,10 @@ describe(&apos;ShippingAddressManager&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getAllByText(&apos;Phone: +91 9876543210&apos;)).toHaveLength(2);
+    expect(screen.getAllByText('Phone: +91 9876543210')).toHaveLength(2);
   });
 
-  it(&apos;shows serviceability checking state&apos;, async () => {
+  it('shows serviceability checking state', async () => {
     const store = createMockStore({ loading: true });
     
     render(
@@ -202,7 +203,7 @@ describe(&apos;ShippingAddressManager&apos;, () => {
     );
 
     // Click on an address to trigger serviceability check
-    const homeAddress = screen.getByText(&apos;123 Main Street, Apt 4B, New Delhi, Delhi, 110001&apos;).closest(&apos;div&apos;);
+    const homeAddress = screen.getByText('123 Main Street, Apt 4B, New Delhi, Delhi, 110001').closest('div');
     if (homeAddress) {
       fireEvent.click(homeAddress);
     }
@@ -214,8 +215,8 @@ describe(&apos;ShippingAddressManager&apos;, () => {
     });
   });
 
-  it(&apos;shows error state&apos;, () => {
-    const store = createMockStore({ error: &apos;Failed to check serviceability&apos; });
+  it('shows error state', () => {
+    const store = createMockStore({ error: 'Failed to check serviceability' });
     
     render(
       <Provider store={store}>
@@ -223,10 +224,10 @@ describe(&apos;ShippingAddressManager&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Failed to check serviceability&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Failed to check serviceability')).toBeInTheDocument();
   });
 
-  it(&apos;auto-selects default address on mount&apos;, () => {
+  it('auto-selects default address on mount', () => {
     const mockOnAddressSelect = jest.fn();
     const store = createMockStore();
     

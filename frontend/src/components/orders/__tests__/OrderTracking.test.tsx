@@ -4,37 +4,38 @@ import OrderTracking from '../OrderTracking';
 import { OrderTracking as OrderTrackingType } from '@/types';
 
 describe('OrderTracking Component', () => {
+  const mockEvents: OrderTrackingType[] = [
     {
-      id: &apos;1&apos;,
-      status: &apos;pending&apos;,
-      description: &apos;Order placed successfully&apos;,
-      created_at: &apos;2023-01-01T10:00:00Z&apos;,
+      id: '1',
+      status: 'pending',
+      description: 'Order placed successfully',
+      created_at: '2023-01-01T10:00:00Z',
     },
     {
-      id: &apos;2&apos;,
-      status: &apos;confirmed&apos;,
-      description: &apos;Order confirmed&apos;,
-      created_at: &apos;2023-01-01T11:00:00Z&apos;,
+      id: '2',
+      status: 'confirmed',
+      description: 'Order confirmed',
+      created_at: '2023-01-01T11:00:00Z',
     },
     {
-      id: &apos;3&apos;,
-      status: &apos;processing&apos;,
-      description: &apos;Order is being processed&apos;,
-      created_at: &apos;2023-01-01T12:00:00Z&apos;,
+      id: '3',
+      status: 'processing',
+      description: 'Order is being processed',
+      created_at: '2023-01-01T12:00:00Z',
     },
     {
-      id: &apos;4&apos;,
-      status: &apos;shipped&apos;,
-      description: &apos;Order has been shipped&apos;,
-      location: &apos;Warehouse A&apos;,
-      created_by: &apos;John Doe&apos;,
-      created_at: &apos;2023-01-02T10:00:00Z&apos;,
+      id: '4',
+      status: 'shipped',
+      description: 'Order has been shipped',
+      location: 'Warehouse A',
+      created_by: 'John Doe',
+      created_at: '2023-01-02T10:00:00Z',
     },
   ];
 
-  test(&apos;renders loading state initially&apos;, () => {
+  test('renders loading state initially', () => {
     // Mock the hook to return loading state
-    jest.mock(&apos;@/hooks/useOrderTracking&apos;, () => ({
+    jest.mock('@/hooks/useOrderTracking', () => ({
       useOrderTracking: () => ({
         isConnected: false,
         trackingEvents: [],
@@ -45,18 +46,18 @@ describe('OrderTracking Component', () => {
     }));
     
     render(<OrderTracking orderId="test-order-id" />);
-    expect(screen.getByRole(&apos;status&apos;)).toBeInTheDocument();
+    expect(screen.getByRole('status')).toBeInTheDocument();
   });
 
-  test(&apos;renders error state when there is an error&apos;, () => {
+  test('renders error state when there is an error', () => {
     // Mock the hook to return error state
-    jest.mock(&apos;@/hooks/useOrderTracking&apos;, () => ({
+    jest.mock('@/hooks/useOrderTracking', () => ({
       useOrderTracking: () => ({
         isConnected: false,
         trackingEvents: [],
         currentStatus: null,
         isLoading: false,
-        error: &apos;Failed to load tracking information&apos;,
+        error: 'Failed to load tracking information',
       }),
     }));
     
@@ -64,13 +65,13 @@ describe('OrderTracking Component', () => {
     expect(screen.getByText(/Failed to load tracking information/i)).toBeInTheDocument();
   });
 
-  test(&apos;renders tracking events when available&apos;, () => {
+  test('renders tracking events when available', () => {
     // Mock the hook to return tracking events
-    jest.mock(&apos;@/hooks/useOrderTracking&apos;, () => ({
+    jest.mock('@/hooks/useOrderTracking', () => ({
       useOrderTracking: () => ({
         isConnected: true,
         trackingEvents: mockEvents,
-        currentStatus: &apos;shipped&apos;,
+        currentStatus: 'shipped',
         isLoading: false,
         error: null,
       }),

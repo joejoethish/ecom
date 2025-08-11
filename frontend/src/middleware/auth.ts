@@ -26,6 +26,7 @@ const GUEST_ROUTES = [
  * Handles route protection and redirects based on authentication status
  */
 export function authMiddleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
   
   // Get tokens from cookies or headers
   const accessToken = request.cookies.get('access_token')?.value;

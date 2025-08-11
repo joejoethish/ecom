@@ -14,8 +14,8 @@ jest.mock('@/services/inventoryManagementApi', () => ({
 }));
 
 // Mock UI components
-jest.mock(&apos;@/components/ui/Button&apos;, () => {
-  return function MockButton({ children, onClick, disabled, ...props }: unknown) {
+jest.mock('@/components/ui/Button', () => {
+  return function MockButton({ children, onClick, disabled, ...props }: any) {
     return (
       <button onClick={onClick} disabled={disabled} {...props}>
         {children}
@@ -24,14 +24,14 @@ jest.mock(&apos;@/components/ui/Button&apos;, () => {
   };
 });
 
-jest.mock(&apos;@/components/ui/Input&apos;, () => {
-  return function MockInput({ onChange, ...props }: unknown) {
+jest.mock('@/components/ui/Input', () => {
+  return function MockInput({ onChange, ...props }: any) {
     return <input onChange={onChange} {...props} />;
   };
 });
 
-jest.mock(&apos;@/components/ui/Select&apos;, () => {
-  return function MockSelect({ children, onChange, ...props }: unknown) {
+jest.mock('@/components/ui/Select', () => {
+  return function MockSelect({ children, onChange, ...props }: any) {
     return (
       <select onChange={onChange} {...props}>
         {children}
@@ -40,19 +40,19 @@ jest.mock(&apos;@/components/ui/Select&apos;, () => {
   };
 });
 
-jest.mock(&apos;@/components/ui/Badge&apos;, () => {
-  return function MockBadge({ children, className }: unknown) {
+jest.mock('@/components/ui/Badge', () => {
+  return function MockBadge({ children, className }: any) {
     return <span className={className}>{children}</span>;
   };
 });
 
-jest.mock(&apos;@/components/ui/card&apos;, () => ({
-  Card: function MockCard({ children, className }: unknown) {
+jest.mock('@/components/ui/card', () => ({
+  Card: function MockCard({ children, className }: any) {
     return <div className={className}>{children}</div>;
   },
 }));
 
-jest.mock(&apos;@/components/ui/LoadingSpinner&apos;, () => {
+jest.mock('@/components/ui/LoadingSpinner', () => {
   return function MockLoadingSpinner() {
     return <div data-testid="loading-spinner">Loading...</div>;
   };
@@ -60,60 +60,60 @@ jest.mock(&apos;@/components/ui/LoadingSpinner&apos;, () => {
 
 const mockTransactions = [
   {
-    id: &apos;1&apos;,
+    id: '1',
     inventory_item: {
-      id: &apos;1&apos;,
+      id: '1',
       product_variant: {
-        sku: &apos;TEST-001&apos;,
+        sku: 'TEST-001',
         product: {
-          name: &apos;Test Product&apos;,
+          name: 'Test Product',
         },
       },
       warehouse: {
-        name: &apos;Main Warehouse&apos;,
+        name: 'Main Warehouse',
       },
     },
-    transaction_type: &apos;sale&apos; as const,
+    transaction_type: 'sale' as const,
     quantity_change: -5,
     previous_quantity: 100,
     new_quantity: 95,
-    reason: &apos;Customer order&apos;,
+    reason: 'Customer order',
     user: {
-      id: &apos;1&apos;,
-      username: &apos;testuser&apos;,
+      id: '1',
+      username: 'testuser',
     },
-    created_at: &apos;2024-01-15T10:30:00Z&apos;,
+    created_at: '2024-01-15T10:30:00Z',
   },
   {
-    id: &apos;2&apos;,
+    id: '2',
     inventory_item: {
-      id: &apos;2&apos;,
+      id: '2',
       product_variant: {
-        sku: &apos;TEST-002&apos;,
+        sku: 'TEST-002',
         product: {
-          name: &apos;Another Product&apos;,
+          name: 'Another Product',
         },
       },
       warehouse: {
-        name: &apos;Secondary Warehouse&apos;,
+        name: 'Secondary Warehouse',
       },
     },
-    transaction_type: &apos;purchase&apos; as const,
+    transaction_type: 'purchase' as const,
     quantity_change: 50,
     previous_quantity: 20,
     new_quantity: 70,
-    reason: &apos;Stock replenishment&apos;,
+    reason: 'Stock replenishment',
     user: {
-      id: &apos;2&apos;,
-      username: &apos;admin&apos;,
+      id: '2',
+      username: 'admin',
     },
-    created_at: &apos;2024-01-14T14:20:00Z&apos;,
+    created_at: '2024-01-14T14:20:00Z',
   },
 ];
 
 const mockWarehouses = [
-  { id: &apos;1&apos;, name: &apos;Main Warehouse&apos;, code: &apos;MAIN&apos; },
-  { id: &apos;2&apos;, name: &apos;Secondary Warehouse&apos;, code: &apos;SEC&apos; },
+  { id: '1', name: 'Main Warehouse', code: 'MAIN' },
+  { id: '2', name: 'Secondary Warehouse', code: 'SEC' },
 ];
 
 const mockApiResponse = {
@@ -131,7 +131,7 @@ const mockApiResponse = {
   },
 };
 
-describe(&apos;TransactionHistory&apos;, () => {
+describe('TransactionHistory', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (inventoryManagementApi.getTransactions as jest.Mock).mockResolvedValue(mockApiResponse);
@@ -141,203 +141,203 @@ describe(&apos;TransactionHistory&apos;, () => {
     });
   });
 
-  it(&apos;renders transaction history component&apos;, async () => {
+  it('renders transaction history component', async () => {
     render(<TransactionHistory />);
     
-    expect(screen.getByText(&apos;Transaction History&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Track all inventory movements and changes&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Transaction History')).toBeInTheDocument();
+    expect(screen.getByText('Track all inventory movements and changes')).toBeInTheDocument();
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Another Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
+      expect(screen.getByText('Another Product')).toBeInTheDocument();
     });
   });
 
-  it(&apos;displays loading spinner while fetching data&apos;, () => {
+  it('displays loading spinner while fetching data', () => {
     (inventoryManagementApi.getTransactions as jest.Mock).mockImplementation(
       () => new Promise(() => {}) // Never resolves
     );
     
     render(<TransactionHistory />);
     
-    expect(screen.getByTestId(&apos;loading-spinner&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
   });
 
-  it(&apos;displays transaction data correctly&apos;, async () => {
+  it('displays transaction data correctly', async () => {
     render(<TransactionHistory />);
     
     await waitFor(() => {
       // Check transaction details
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;SKU: TEST-001&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Sale&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;testuser&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
+      expect(screen.getByText('SKU: TEST-001')).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
+      expect(screen.getByText('Sale')).toBeInTheDocument();
+      expect(screen.getByText('testuser')).toBeInTheDocument();
     });
   });
 
-  it(&apos;handles filter changes&apos;, async () => {
+  it('handles filter changes', async () => {
     render(<TransactionHistory />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Change warehouse filter
-    const warehouseSelect = screen.getByDisplayValue(&apos;All Warehouses&apos;);
-    fireEvent.change(warehouseSelect, { target: { value: &apos;1&apos; } });
+    const warehouseSelect = screen.getByDisplayValue('All Warehouses');
+    fireEvent.change(warehouseSelect, { target: { value: '1' } });
     
     await waitFor(() => {
       expect(inventoryManagementApi.getTransactions).toHaveBeenCalledWith(
         expect.objectContaining({
-          warehouse: &apos;1&apos;,
+          warehouse: '1',
           page: 1,
         })
       );
     });
   });
 
-  it(&apos;handles transaction type filter&apos;, async () => {
+  it('handles transaction type filter', async () => {
     render(<TransactionHistory />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Change transaction type filter
-    const typeSelect = screen.getByDisplayValue(&apos;All Types&apos;);
-    fireEvent.change(typeSelect, { target: { value: &apos;sale&apos; } });
+    const typeSelect = screen.getByDisplayValue('All Types');
+    fireEvent.change(typeSelect, { target: { value: 'sale' } });
     
     await waitFor(() => {
       expect(inventoryManagementApi.getTransactions).toHaveBeenCalledWith(
         expect.objectContaining({
-          transaction_type: &apos;sale&apos;,
+          transaction_type: 'sale',
           page: 1,
         })
       );
     });
   });
 
-  it(&apos;handles date range filters&apos;, async () => {
+  it('handles date range filters', async () => {
     render(<TransactionHistory />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Set date from filter
-    const dateFromInput = screen.getByLabelText(&apos;Date From&apos;);
-    fireEvent.change(dateFromInput, { target: { value: &apos;2024-01-01&apos; } });
+    const dateFromInput = screen.getByLabelText('Date From');
+    fireEvent.change(dateFromInput, { target: { value: '2024-01-01' } });
     
     await waitFor(() => {
       expect(inventoryManagementApi.getTransactions).toHaveBeenCalledWith(
         expect.objectContaining({
-          date_from: &apos;2024-01-01&apos;,
+          date_from: '2024-01-01',
           page: 1,
         })
       );
     });
   });
 
-  it(&apos;handles search functionality&apos;, async () => {
+  it('handles search functionality', async () => {
     render(<TransactionHistory />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Search for product
-    const searchInput = screen.getByPlaceholderText(&apos;Search by product name, SKU, or user...&apos;);
-    fireEvent.change(searchInput, { target: { value: &apos;Test Product&apos; } });
+    const searchInput = screen.getByPlaceholderText('Search by product name, SKU, or user...');
+    fireEvent.change(searchInput, { target: { value: 'Test Product' } });
     
     await waitFor(() => {
       expect(inventoryManagementApi.getTransactions).toHaveBeenCalledWith(
         expect.objectContaining({
-          product: &apos;Test Product&apos;,
+          product: 'Test Product',
           page: 1,
         })
       );
     });
   });
 
-  it(&apos;clears filters when clear button is clicked&apos;, async () => {
+  it('clears filters when clear button is clicked', async () => {
     render(<TransactionHistory />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Set some filters first
-    const searchInput = screen.getByPlaceholderText(&apos;Search by product name, SKU, or user...&apos;);
-    fireEvent.change(searchInput, { target: { value: &apos;test&apos; } });
+    const searchInput = screen.getByPlaceholderText('Search by product name, SKU, or user...');
+    fireEvent.change(searchInput, { target: { value: 'test' } });
     
     // Clear filters
-    const clearButton = screen.getByText(&apos;Clear Filters&apos;);
+    const clearButton = screen.getByText('Clear Filters');
     fireEvent.click(clearButton);
     
     await waitFor(() => {
       expect(inventoryManagementApi.getTransactions).toHaveBeenCalledWith(
         expect.objectContaining({
-          product: &apos;&apos;,
-          warehouse: &apos;&apos;,
+          product: '',
+          warehouse: '',
           transaction_type: undefined,
-          date_from: &apos;&apos;,
-          date_to: &apos;&apos;,
+          date_from: '',
+          date_to: '',
           page: 1,
         })
       );
     });
   });
 
-  it(&apos;opens transaction details modal when view button is clicked&apos;, async () => {
+  it('opens transaction details modal when view button is clicked', async () => {
     render(<TransactionHistory />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Click view button for first transaction
-    const viewButtons = screen.getAllByRole(&apos;button&apos;);
+    const viewButtons = screen.getAllByRole('button');
     const viewButton = viewButtons.find(button => 
-      button.querySelector(&apos;svg&apos;) // Looking for the Eye icon
+      button.querySelector('svg') // Looking for the Eye icon
     );
     
     if (viewButton) {
       fireEvent.click(viewButton);
       
       await waitFor(() => {
-        expect(screen.getByText(&apos;Transaction Details&apos;)).toBeInTheDocument();
-        expect(screen.getByText(&apos;Transaction ID&apos;)).toBeInTheDocument();
+        expect(screen.getByText('Transaction Details')).toBeInTheDocument();
+        expect(screen.getByText('Transaction ID')).toBeInTheDocument();
       });
     }
   });
 
-  it(&apos;handles CSV export&apos;, async () => {
-    const mockBlob = new Blob([&apos;csv data&apos;], { type: &apos;text/csv&apos; });
+  it('handles CSV export', async () => {
+    const mockBlob = new Blob(['csv data'], { type: 'text/csv' });
     (inventoryManagementApi.exportTransactions as jest.Mock).mockResolvedValue(mockBlob);
     
     // Mock URL.createObjectURL and related methods
-    global.URL.createObjectURL = jest.fn(() => &apos;mock-url&apos;);
+    global.URL.createObjectURL = jest.fn(() => 'mock-url');
     global.URL.revokeObjectURL = jest.fn();
     
     // Mock document.createElement and appendChild
     const mockLink = {
-      href: &apos;&apos;,
-      download: &apos;&apos;,
+      href: '',
+      download: '',
       click: jest.fn(),
     };
-    jest.spyOn(document, &apos;createElement&apos;).mockReturnValue(mockLink as any);
-    jest.spyOn(document.body, &apos;appendChild&apos;).mockImplementation(() => mockLink as any);
-    jest.spyOn(document.body, &apos;removeChild&apos;).mockImplementation(() => mockLink as any);
+    jest.spyOn(document, 'createElement').mockReturnValue(mockLink as any);
+    jest.spyOn(document.body, 'appendChild').mockImplementation(() => mockLink as any);
+    jest.spyOn(document.body, 'removeChild').mockImplementation(() => mockLink as any);
     
     render(<TransactionHistory />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Click export button
-    const exportButton = screen.getByText(&apos;Export CSV&apos;);
+    const exportButton = screen.getByText('Export CSV');
     fireEvent.click(exportButton);
     
     await waitFor(() => {
@@ -346,36 +346,36 @@ describe(&apos;TransactionHistory&apos;, () => {
     });
   });
 
-  it(&apos;displays correct transaction type colors and icons&apos;, async () => {
+  it('displays correct transaction type colors and icons', async () => {
     render(<TransactionHistory />);
     
     await waitFor(() => {
-      const saleTransaction = screen.getByText(&apos;Sale&apos;);
-      const purchaseTransaction = screen.getByText(&apos;Purchase&apos;);
+      const saleTransaction = screen.getByText('Sale');
+      const purchaseTransaction = screen.getByText('Purchase');
       
       expect(saleTransaction).toBeInTheDocument();
       expect(purchaseTransaction).toBeInTheDocument();
     });
   });
 
-  it(&apos;formats quantity changes correctly&apos;, async () => {
+  it('formats quantity changes correctly', async () => {
     render(<TransactionHistory />);
     
     await waitFor(() => {
       // Should show negative change for sale (red)
-      const negativeChange = screen.getByText(&apos;-5&apos;);
+      const negativeChange = screen.getByText('-5');
       expect(negativeChange).toBeInTheDocument();
       
       // Should show positive change for purchase (green)  
-      const positiveChange = screen.getByText(&apos;+50&apos;);
+      const positiveChange = screen.getByText('+50');
       expect(positiveChange).toBeInTheDocument();
     });
   });
 
-  it(&apos;handles API errors gracefully&apos;, async () => {
-    const consoleSpy = jest.spyOn(console, &apos;error&apos;).mockImplementation(() => {});
+  it('handles API errors gracefully', async () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
     (inventoryManagementApi.getTransactions as jest.Mock).mockRejectedValue(
-      new Error(&apos;API Error&apos;)
+      new Error('API Error')
     );
     
     render(<TransactionHistory />);

@@ -19,7 +19,7 @@ export interface InventoryItem {
         is_primary: boolean;
       }>;
     };
-    attributes: Record<string, unknown>;
+    attributes: Record<string, any>;
   };
   warehouse: {
     id: string;
@@ -32,7 +32,7 @@ export interface InventoryItem {
   available_quantity: number;
   reorder_level: number;
   last_stock_update: string;
-  stock_status: &apos;in_stock&apos; | &apos;low_stock&apos; | &apos;out_of_stock&apos;;
+  stock_status: 'in_stock' | 'low_stock' | 'out_of_stock';
   created_at: string;
   updated_at: string;
 }
@@ -74,7 +74,7 @@ export interface ProductBatch {
   manufacturing_date: string;
   supplier: string;
   cost_per_unit: number;
-  status: &apos;active&apos; | &apos;expired&apos; | &apos;recalled&apos;;
+  status: 'active' | 'expired' | 'recalled';
   created_at: string;
   updated_at: string;
 }
@@ -93,7 +93,7 @@ export interface InventoryTransaction {
       name: string;
     };
   };
-  transaction_type: &apos;adjustment&apos; | &apos;sale&apos; | &apos;purchase&apos; | &apos;transfer&apos; | &apos;return&apos;;
+  transaction_type: 'adjustment' | 'sale' | 'purchase' | 'transfer' | 'return';
   quantity_change: number;
   previous_quantity: number;
   new_quantity: number;
@@ -120,8 +120,8 @@ export interface StockAlert {
       name: string;
     };
   };
-  alert_type: &apos;low_stock&apos; | &apos;out_of_stock&apos; | &apos;expiring_batch&apos;;
-  priority: &apos;low&apos; | &apos;medium&apos; | &apos;high&apos; | &apos;critical&apos;;
+  alert_type: 'low_stock' | 'out_of_stock' | 'expiring_batch';
+  priority: 'low' | 'medium' | 'high' | 'critical';
   message: string;
   is_acknowledged: boolean;
   acknowledged_by?: {
@@ -147,7 +147,7 @@ export interface InventoryStats {
 // Filter interfaces
 export interface InventoryFilters {
   warehouse?: string;
-  stock_status?: &apos;in_stock&apos; | &apos;low_stock&apos; | &apos;out_of_stock&apos;;
+  stock_status?: 'in_stock' | 'low_stock' | 'out_of_stock';
   product?: string;
   category?: string;
   search?: string;
@@ -159,7 +159,7 @@ export interface InventoryFilters {
 export interface BatchFilters {
   warehouse?: string;
   product_variant?: string;
-  status?: &apos;active&apos; | &apos;expired&apos; | &apos;recalled&apos;;
+  status?: 'active' | 'expired' | 'recalled';
   expiring_soon?: boolean;
   page?: number;
   page_size?: number;
@@ -171,7 +171,7 @@ export interface TransactionFilters {
   date_to?: string;
   product?: string;
   warehouse?: string;
-  transaction_type?: &apos;adjustment&apos; | &apos;sale&apos; | &apos;purchase&apos; | &apos;transfer&apos; | &apos;return&apos;;
+  transaction_type?: 'adjustment' | 'sale' | 'purchase' | 'transfer' | 'return';
   user?: string;
   inventory_item?: string;
   page?: number;
@@ -180,8 +180,8 @@ export interface TransactionFilters {
 }
 
 export interface AlertFilters {
-  alert_type?: &apos;low_stock&apos; | &apos;out_of_stock&apos; | &apos;expiring_batch&apos;;
-  priority?: &apos;low&apos; | &apos;medium&apos; | &apos;high&apos; | &apos;critical&apos;;
+  alert_type?: 'low_stock' | 'out_of_stock' | 'expiring_batch';
+  priority?: 'low' | 'medium' | 'high' | 'critical';
   is_acknowledged?: boolean;
   warehouse?: string;
   page?: number;
@@ -249,7 +249,7 @@ export interface UpdateBatchRequest {
   manufacturing_date?: string;
   supplier?: string;
   cost_per_unit?: number;
-  status?: &apos;active&apos; | &apos;expired&apos; | &apos;recalled&apos;;
+  status?: 'active' | 'expired' | 'recalled';
 }
 
 export interface StockAdjustmentRequest {
@@ -271,7 +271,7 @@ export const inventoryManagementApi = {
       });
     }
     
-    const url = `/api/inventory/${params.toString() ? `?${params.toString()}` : &apos;&apos;}`;
+    const url = `/api/inventory/${params.toString() ? `?${params.toString()}` : ''}`;
     return apiClient.get(url);
   },
 
@@ -280,7 +280,7 @@ export const inventoryManagementApi = {
   },
 
   createInventory: async (data: CreateInventoryRequest): Promise<ApiResponse<InventoryItem>> => {
-    return apiClient.post(&apos;/api/inventory/&apos;, data);
+    return apiClient.post('/api/inventory/', data);
   },
 
   updateInventory: async (id: string, data: UpdateInventoryRequest): Promise<ApiResponse<InventoryItem>> => {
@@ -297,12 +297,12 @@ export const inventoryManagementApi = {
 
   // Statistics
   getInventoryStats: async (): Promise<ApiResponse<InventoryStats>> => {
-    return apiClient.get(&apos;/api/inventory/stats/&apos;);
+    return apiClient.get('/api/inventory/stats/');
   },
 
   // Warehouses
   getWarehouses: async (): Promise<ApiResponse<Warehouse[]>> => {
-    return apiClient.get(&apos;/api/warehouses/&apos;);
+    return apiClient.get('/api/warehouses/');
   },
 
   getWarehouseById: async (id: string): Promise<ApiResponse<Warehouse>> => {
@@ -310,7 +310,7 @@ export const inventoryManagementApi = {
   },
 
   createWarehouse: async (data: CreateWarehouseRequest): Promise<ApiResponse<Warehouse>> => {
-    return apiClient.post(&apos;/api/warehouses/&apos;, data);
+    return apiClient.post('/api/warehouses/', data);
   },
 
   updateWarehouse: async (id: string, data: UpdateWarehouseRequest): Promise<ApiResponse<Warehouse>> => {
@@ -333,7 +333,7 @@ export const inventoryManagementApi = {
       });
     }
     
-    const url = `/api/inventory/batches/${params.toString() ? `?${params.toString()}` : &apos;&apos;}`;
+    const url = `/api/inventory/batches/${params.toString() ? `?${params.toString()}` : ''}`;
     return apiClient.get(url);
   },
 
@@ -342,7 +342,7 @@ export const inventoryManagementApi = {
   },
 
   createBatch: async (data: CreateBatchRequest): Promise<ApiResponse<ProductBatch>> => {
-    return apiClient.post(&apos;/api/inventory/batches/&apos;, data);
+    return apiClient.post('/api/inventory/batches/', data);
   },
 
   updateBatch: async (id: string, data: UpdateBatchRequest): Promise<ApiResponse<ProductBatch>> => {
@@ -365,7 +365,7 @@ export const inventoryManagementApi = {
       });
     }
     
-    const url = `/api/inventory/transactions/${params.toString() ? `?${params.toString()}` : &apos;&apos;}`;
+    const url = `/api/inventory/transactions/${params.toString() ? `?${params.toString()}` : ''}`;
     return apiClient.get(url);
   },
 
@@ -384,15 +384,15 @@ export const inventoryManagementApi = {
       });
     }
     
-    params.append(&apos;export&apos;, &apos;csv&apos;);
+    params.append('export', 'csv');
     
     const response = await apiClient.get(
-      `/api/inventory/transactions/export/${params.toString() ? `?${params.toString()}` : &apos;&apos;}`,
-      { responseType: &apos;blob&apos; as any }
+      `/api/inventory/transactions/export/${params.toString() ? `?${params.toString()}` : ''}`,
+      { responseType: 'blob' as any }
     );
     
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to export transactions&apos;);
+      throw new Error(response.error?.message || 'Failed to export transactions');
     }
     
     return response.data;
@@ -410,7 +410,7 @@ export const inventoryManagementApi = {
       });
     }
     
-    const url = `/api/inventory/alerts/${params.toString() ? `?${params.toString()}` : &apos;&apos;}`;
+    const url = `/api/inventory/alerts/${params.toString() ? `?${params.toString()}` : ''}`;
     return apiClient.get(url);
   },
 
@@ -432,7 +432,7 @@ export const inventoryManagementApi = {
     adjustment: number;
     reason: string;
   }>): Promise<ApiResponse<InventoryItem[]>> => {
-    return apiClient.post(&apos;/api/inventory/bulk_adjust/&apos;, { adjustments });
+    return apiClient.post('/api/inventory/bulk_adjust/', { adjustments });
   },
 
   // Product variant search for forms
@@ -443,7 +443,7 @@ export const inventoryManagementApi = {
       id: string;
       name: string;
     };
-    attributes: Record<string, unknown>;
+    attributes: Record<string, any>;
   }>>> => {
     return apiClient.get(`/api/product-variants/search/?q=${encodeURIComponent(query)}`);
   },

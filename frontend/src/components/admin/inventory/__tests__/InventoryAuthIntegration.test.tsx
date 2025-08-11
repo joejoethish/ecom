@@ -20,7 +20,7 @@ const mockUseInventoryAuth = useInventoryAuth as jest.MockedFunction<typeof useI
 const mockUseInventoryAlertNotifications = useInventoryAlertNotifications as jest.MockedFunction<typeof useInventoryAlertNotifications>;
 
 // Mock store
-const createMockStore = (authState: unknown) => {
+const createMockStore = (authState: any) => {
   return configureStore({
     reducer: {
       auth: authReducer,
@@ -38,11 +38,12 @@ const createMockStore = (authState: unknown) => {
 };
 
 // Mock component wrapper
+const MockWrapper: React.FC<{ children: React.ReactNode; authState: any }> = ({ children, authState }) => {
   const store = createMockStore(authState);
   return <Provider store={store}>{children}</Provider>;
 };
 
-describe(&apos;Inventory Management Authentication Integration&apos;, () => {
+describe('Inventory Management Authentication Integration', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     
@@ -63,21 +64,21 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
     });
   });
 
-  describe(&apos;Admin User Access&apos;, () => {
+  describe('Admin User Access', () => {
     beforeEach(() => {
       mockUseInventoryAuth.mockReturnValue({
         user: {
-          id: &apos;1&apos;,
-          username: &apos;admin&apos;,
-          email: &apos;admin@example.com&apos;,
-          user_type: &apos;admin&apos;,
+          id: '1',
+          username: 'admin',
+          email: 'admin@example.com',
+          user_type: 'admin',
           is_superuser: true,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
         tokens: {
-          access: &apos;mock-access-token&apos;,
-          refresh: &apos;mock-refresh-token&apos;,
+          access: 'mock-access-token',
+          refresh: 'mock-refresh-token',
         },
         isAuthenticated: true,
         loading: false,
@@ -105,17 +106,17 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       });
     });
 
-    it(&apos;should render all tabs for admin user&apos;, async () => {
+    it('should render all tabs for admin user', async () => {
       const authState = {
         user: { 
-          id: &apos;1&apos;, 
-          username: &apos;admin&apos;, 
-          user_type: &apos;admin&apos;, 
+          id: '1', 
+          username: 'admin', 
+          user_type: 'admin', 
           is_superuser: true,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
-        tokens: { access: &apos;token&apos;, refresh: &apos;token&apos; },
+        tokens: { access: 'token', refresh: 'token' },
         isAuthenticated: true,
         loading: false,
         error: null,
@@ -128,26 +129,26 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByText(&apos;Inventory&apos;)).toBeInTheDocument();
-        expect(screen.getByText(&apos;Warehouses&apos;)).toBeInTheDocument();
-        expect(screen.getByText(&apos;Batches&apos;)).toBeInTheDocument();
-        expect(screen.getByText(&apos;Transactions&apos;)).toBeInTheDocument();
-        expect(screen.getByText(&apos;Adjustments&apos;)).toBeInTheDocument();
-        expect(screen.getByText(&apos;Alerts&apos;)).toBeInTheDocument();
+        expect(screen.getByText('Inventory')).toBeInTheDocument();
+        expect(screen.getByText('Warehouses')).toBeInTheDocument();
+        expect(screen.getByText('Batches')).toBeInTheDocument();
+        expect(screen.getByText('Transactions')).toBeInTheDocument();
+        expect(screen.getByText('Adjustments')).toBeInTheDocument();
+        expect(screen.getByText('Alerts')).toBeInTheDocument();
       });
     });
 
-    it(&apos;should show Add Inventory button for admin user&apos;, async () => {
+    it('should show Add Inventory button for admin user', async () => {
       const authState = {
         user: { 
-          id: &apos;1&apos;, 
-          username: &apos;admin&apos;, 
-          user_type: &apos;admin&apos;, 
+          id: '1', 
+          username: 'admin', 
+          user_type: 'admin', 
           is_superuser: true,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
-        tokens: { access: &apos;token&apos;, refresh: &apos;token&apos; },
+        tokens: { access: 'token', refresh: 'token' },
         isAuthenticated: true,
         loading: false,
         error: null,
@@ -160,26 +161,26 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByLabelText(&apos;Add new inventory item&apos;)).toBeInTheDocument();
+        expect(screen.getByLabelText('Add new inventory item')).toBeInTheDocument();
       });
     });
   });
 
-  describe(&apos;Seller User Access&apos;, () => {
+  describe('Seller User Access', () => {
     beforeEach(() => {
       mockUseInventoryAuth.mockReturnValue({
         user: {
-          id: &apos;2&apos;,
-          username: &apos;seller&apos;,
-          email: &apos;seller@example.com&apos;,
-          user_type: &apos;seller&apos;,
+          id: '2',
+          username: 'seller',
+          email: 'seller@example.com',
+          user_type: 'seller',
           is_superuser: false,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
         tokens: {
-          access: &apos;mock-access-token&apos;,
-          refresh: &apos;mock-refresh-token&apos;,
+          access: 'mock-access-token',
+          refresh: 'mock-refresh-token',
         },
         isAuthenticated: true,
         loading: false,
@@ -189,8 +190,8 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
         isSeller: true,
         isCustomer: false,
         checkPermission: (permission: string) => {
-          // Sellers can&apos;t manage warehouses or configure alerts
-          return ![&apos;manage_warehouses&apos;, &apos;configure_alerts&apos;, &apos;delete_inventory&apos;].includes(permission);
+          // Sellers can't manage warehouses or configure alerts
+          return !['manage_warehouses', 'configure_alerts', 'delete_inventory'].includes(permission);
         },
         checkAnyPermission: jest.fn().mockReturnValue(true),
         checkAllPermissions: jest.fn().mockReturnValue(false),
@@ -210,17 +211,17 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       });
     });
 
-    it(&apos;should not show warehouse management tab for seller&apos;, async () => {
+    it('should not show warehouse management tab for seller', async () => {
       const authState = {
         user: { 
-          id: &apos;2&apos;, 
-          username: &apos;seller&apos;, 
-          user_type: &apos;seller&apos;, 
+          id: '2', 
+          username: 'seller', 
+          user_type: 'seller', 
           is_superuser: false,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
-        tokens: { access: &apos;token&apos;, refresh: &apos;token&apos; },
+        tokens: { access: 'token', refresh: 'token' },
         isAuthenticated: true,
         loading: false,
         error: null,
@@ -233,22 +234,22 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByText(&apos;Inventory&apos;)).toBeInTheDocument();
-        expect(screen.queryByText(&apos;Warehouses&apos;)).not.toBeInTheDocument();
+        expect(screen.getByText('Inventory')).toBeInTheDocument();
+        expect(screen.queryByText('Warehouses')).not.toBeInTheDocument();
       });
     });
 
-    it(&apos;should not show configure alerts button for seller&apos;, async () => {
+    it('should not show configure alerts button for seller', async () => {
       const authState = {
         user: { 
-          id: &apos;2&apos;, 
-          username: &apos;seller&apos;, 
-          user_type: &apos;seller&apos;, 
+          id: '2', 
+          username: 'seller', 
+          user_type: 'seller', 
           is_superuser: false,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
-        tokens: { access: &apos;token&apos;, refresh: &apos;token&apos; },
+        tokens: { access: 'token', refresh: 'token' },
         isAuthenticated: true,
         loading: false,
         error: null,
@@ -261,15 +262,15 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       );
 
       // Click on alerts tab
-      fireEvent.click(screen.getByText(&apos;Alerts&apos;));
+      fireEvent.click(screen.getByText('Alerts'));
 
       await waitFor(() => {
-        expect(screen.queryByText(&apos;Configure Alerts&apos;)).not.toBeInTheDocument();
+        expect(screen.queryByText('Configure Alerts')).not.toBeInTheDocument();
       });
     });
   });
 
-  describe(&apos;Unauthenticated User&apos;, () => {
+  describe('Unauthenticated User', () => {
     beforeEach(() => {
       mockUseInventoryAuth.mockReturnValue({
         user: null,
@@ -300,13 +301,13 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       });
     });
 
-    it(&apos;should redirect unauthenticated users&apos;, async () => {
+    it('should redirect unauthenticated users', async () => {
       // Mock window.location
       const mockLocation = {
-        href: &apos;&apos;,
-        pathname: &apos;/admin/inventory&apos;,
+        href: '',
+        pathname: '/admin/inventory',
       };
-      Object.defineProperty(window, &apos;location&apos;, {
+      Object.defineProperty(window, 'location', {
         value: mockLocation,
         writable: true,
       });
@@ -327,26 +328,26 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
 
       // Should not render the main content
       await waitFor(() => {
-        expect(screen.queryByText(&apos;Inventory&apos;)).not.toBeInTheDocument();
+        expect(screen.queryByText('Inventory')).not.toBeInTheDocument();
       });
     });
   });
 
-  describe(&apos;Insufficient Permissions&apos;, () => {
+  describe('Insufficient Permissions', () => {
     beforeEach(() => {
       mockUseInventoryAuth.mockReturnValue({
         user: {
-          id: &apos;3&apos;,
-          username: &apos;customer&apos;,
-          email: &apos;customer@example.com&apos;,
-          user_type: &apos;customer&apos;,
+          id: '3',
+          username: 'customer',
+          email: 'customer@example.com',
+          user_type: 'customer',
           is_superuser: false,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
         tokens: {
-          access: &apos;mock-access-token&apos;,
-          refresh: &apos;mock-refresh-token&apos;,
+          access: 'mock-access-token',
+          refresh: 'mock-refresh-token',
         },
         isAuthenticated: true,
         loading: false,
@@ -374,17 +375,17 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       });
     });
 
-    it(&apos;should show access denied message for users without permissions&apos;, async () => {
+    it('should show access denied message for users without permissions', async () => {
       const authState = {
         user: { 
-          id: &apos;3&apos;, 
-          username: &apos;customer&apos;, 
-          user_type: &apos;customer&apos;, 
+          id: '3', 
+          username: 'customer', 
+          user_type: 'customer', 
           is_superuser: false,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
-        tokens: { access: &apos;token&apos;, refresh: &apos;token&apos; },
+        tokens: { access: 'token', refresh: 'token' },
         isAuthenticated: true,
         loading: false,
         error: null,
@@ -397,27 +398,27 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       );
 
       await waitFor(() => {
-        expect(screen.getByText(&apos;Access Denied&apos;)).toBeInTheDocument();
-        expect(screen.getByText(&quot;You don&apos;t have permission to access this inventory management feature.&quot;)).toBeInTheDocument();
+        expect(screen.getByText('Access Denied')).toBeInTheDocument();
+        expect(screen.getByText("You don't have permission to access this inventory management feature.")).toBeInTheDocument();
       });
     });
   });
 
-  describe(&apos;Notification Integration&apos;, () => {
+  describe('Notification Integration', () => {
     beforeEach(() => {
       mockUseInventoryAuth.mockReturnValue({
         user: {
-          id: &apos;1&apos;,
-          username: &apos;admin&apos;,
-          email: &apos;admin@example.com&apos;,
-          user_type: &apos;admin&apos;,
+          id: '1',
+          username: 'admin',
+          email: 'admin@example.com',
+          user_type: 'admin',
           is_superuser: true,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
         tokens: {
-          access: &apos;mock-access-token&apos;,
-          refresh: &apos;mock-refresh-token&apos;,
+          access: 'mock-access-token',
+          refresh: 'mock-refresh-token',
         },
         isAuthenticated: true,
         loading: false,
@@ -445,7 +446,7 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       });
     });
 
-    it(&apos;should call notification service when inventory is created&apos;, async () => {
+    it('should call notification service when inventory is created', async () => {
       const mockSendNotification = jest.fn();
       mockUseInventoryAlertNotifications.mockReturnValue({
         ...mockUseInventoryAlertNotifications(),
@@ -454,14 +455,14 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
 
       const authState = {
         user: { 
-          id: &apos;1&apos;, 
-          username: &apos;admin&apos;, 
-          user_type: &apos;admin&apos;, 
+          id: '1', 
+          username: 'admin', 
+          user_type: 'admin', 
           is_superuser: true,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
-        tokens: { access: &apos;token&apos;, refresh: &apos;token&apos; },
+        tokens: { access: 'token', refresh: 'token' },
         isAuthenticated: true,
         loading: false,
         error: null,
@@ -478,7 +479,7 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
       expect(mockUseInventoryAlertNotifications).toHaveBeenCalled();
     });
 
-    it(&apos;should request notification permissions on mount&apos;, async () => {
+    it('should request notification permissions on mount', async () => {
       const mockRequestPermission = jest.fn();
       mockUseInventoryAlertNotifications.mockReturnValue({
         ...mockUseInventoryAlertNotifications(),
@@ -487,14 +488,14 @@ describe(&apos;Inventory Management Authentication Integration&apos;, () => {
 
       const authState = {
         user: { 
-          id: &apos;1&apos;, 
-          username: &apos;admin&apos;, 
-          user_type: &apos;admin&apos;, 
+          id: '1', 
+          username: 'admin', 
+          user_type: 'admin', 
           is_superuser: true,
           is_verified: true,
-          created_at: &apos;2023-01-01T00:00:00Z&apos;,
+          created_at: '2023-01-01T00:00:00Z',
         },
-        tokens: { access: &apos;token&apos;, refresh: &apos;token&apos; },
+        tokens: { access: 'token', refresh: 'token' },
         isAuthenticated: true,
         loading: false,
         error: null,

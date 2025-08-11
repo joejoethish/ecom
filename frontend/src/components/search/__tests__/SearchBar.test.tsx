@@ -10,18 +10,18 @@ jest.mock('next/navigation', () => ({
 }));
 
 // Mock the API client
-jest.mock(&apos;@/utils/api&apos;, () => ({
+jest.mock('@/utils/api', () => ({
   apiClient: {
     get: jest.fn(),
   },
 }));
 
 // Mock the useDebounce hook
-jest.mock(&apos;@/hooks/useDebounce&apos;, () => ({
-  useDebounce: (value: string) => value, // Return value immediately for testing
+jest.mock('@/hooks/useDebounce', () => ({
+  useDebounce: (value: any, delay: number) => value, // Return value immediately for testing
 }));
 
-describe(&apos;SearchBar Component&apos;, () => {
+describe('SearchBar Component', () => {
   const mockRouter = {
     push: jest.fn(),
   };
@@ -32,126 +32,126 @@ describe(&apos;SearchBar Component&apos;, () => {
     (apiClient.get as jest.Mock).mockResolvedValue({
       success: true,
       data: {
-        suggestions: [&apos;smartphone&apos;, &apos;smart tv&apos;, &apos;smartwatch&apos;],
+        suggestions: ['smartphone', 'smart tv', 'smartwatch'],
         products: [
           {
-            id: &apos;1&apos;,
-            name: &apos;Smartphone X&apos;,
-            slug: &apos;smartphone-x&apos;,
+            id: '1',
+            name: 'Smartphone X',
+            slug: 'smartphone-x',
             price: 999.99,
-            image: &apos;smartphone.jpg&apos;,
-            category: &apos;Electronics&apos;
+            image: 'smartphone.jpg',
+            category: 'Electronics'
           },
           {
-            id: &apos;2&apos;,
-            name: &apos;Smart TV 55&quot;&apos;,
-            slug: &apos;smart-tv-55&apos;,
+            id: '2',
+            name: 'Smart TV 55"',
+            slug: 'smart-tv-55',
             price: 699.99,
-            image: &apos;tv.jpg&apos;,
-            category: &apos;Electronics&apos;
+            image: 'tv.jpg',
+            category: 'Electronics'
           }
         ]
       }
     });
   });
 
-  test(&apos;renders the search bar correctly&apos;, () => {
+  test('renders the search bar correctly', () => {
     render(<SearchBar />);
     
-    expect(screen.getByRole(&apos;combobox&apos;)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(&apos;Search for products...&apos;)).toBeInTheDocument();
-    expect(screen.getByLabelText(&apos;Search&apos;)).toBeInTheDocument();
+    expect(screen.getByRole('combobox')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Search for products...')).toBeInTheDocument();
+    expect(screen.getByLabelText('Search')).toBeInTheDocument();
   });
 
-  test(&apos;handles input change and shows suggestions&apos;, async () => {
+  test('handles input change and shows suggestions', async () => {
     render(<SearchBar />);
     
-    const input = screen.getByRole(&apos;combobox&apos;);
-    fireEvent.change(input, { target: { value: &apos;smart&apos; } });
+    const input = screen.getByRole('combobox');
+    fireEvent.change(input, { target: { value: 'smart' } });
     
     // Wait for suggestions to appear
     await waitFor(() => {
-      expect(apiClient.get).toHaveBeenCalledWith(expect.stringContaining(&apos;q=smart&apos;));
+      expect(apiClient.get).toHaveBeenCalledWith(expect.stringContaining('q=smart'));
     });
     
     // Check if suggestions are displayed
     await waitFor(() => {
-      expect(screen.getByText(&apos;Suggestions&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;smartphone&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;smart tv&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;smartwatch&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Suggestions')).toBeInTheDocument();
+      expect(screen.getByText('smartphone')).toBeInTheDocument();
+      expect(screen.getByText('smart tv')).toBeInTheDocument();
+      expect(screen.getByText('smartwatch')).toBeInTheDocument();
     });
     
     // Check if product suggestions are displayed
     await waitFor(() => {
-      expect(screen.getByText(&apos;Products&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Smartphone X&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Smart TV 55&quot;&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Products')).toBeInTheDocument();
+      expect(screen.getByText('Smartphone X')).toBeInTheDocument();
+      expect(screen.getByText('Smart TV 55"')).toBeInTheDocument();
     });
   });
 
-  test(&apos;navigates to search results page on form submission&apos;, async () => {
+  test('navigates to search results page on form submission', async () => {
     render(<SearchBar />);
     
-    const input = screen.getByRole(&apos;combobox&apos;);
-    fireEvent.change(input, { target: { value: &apos;smart&apos; } });
+    const input = screen.getByRole('combobox');
+    fireEvent.change(input, { target: { value: 'smart' } });
     
-    const form = input.closest(&apos;form&apos;);
+    const form = input.closest('form');
     fireEvent.submit(form!);
     
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products?search=smart&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products?search=smart');
   });
 
-  test(&apos;navigates to product page when product suggestion is clicked&apos;, async () => {
+  test('navigates to product page when product suggestion is clicked', async () => {
     render(<SearchBar />);
     
-    const input = screen.getByRole(&apos;combobox&apos;);
-    fireEvent.change(input, { target: { value: &apos;smart&apos; } });
+    const input = screen.getByRole('combobox');
+    fireEvent.change(input, { target: { value: 'smart' } });
     
     // Wait for suggestions to appear
     await waitFor(() => {
-      expect(apiClient.get).toHaveBeenCalledWith(expect.stringContaining(&apos;q=smart&apos;));
+      expect(apiClient.get).toHaveBeenCalledWith(expect.stringContaining('q=smart'));
     });
     
     // Click on a product suggestion
-    const productSuggestion = await screen.findByText(&apos;Smartphone X&apos;);
+    const productSuggestion = await screen.findByText('Smartphone X');
     fireEvent.click(productSuggestion);
     
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products/smartphone-x&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products/smartphone-x');
   });
 
-  test(&apos;calls onSearch callback when provided&apos;, async () => {
+  test('calls onSearch callback when provided', async () => {
     const mockOnSearch = jest.fn();
     render(<SearchBar onSearch={mockOnSearch} />);
     
-    const input = screen.getByRole(&apos;combobox&apos;);
-    fireEvent.change(input, { target: { value: &apos;smart&apos; } });
+    const input = screen.getByRole('combobox');
+    fireEvent.change(input, { target: { value: 'smart' } });
     
-    const form = input.closest(&apos;form&apos;);
+    const form = input.closest('form');
     fireEvent.submit(form!);
     
-    expect(mockOnSearch).toHaveBeenCalledWith(&apos;smart&apos;);
+    expect(mockOnSearch).toHaveBeenCalledWith('smart');
     expect(mockRouter.push).not.toHaveBeenCalled();
   });
 
-  test(&apos;clears search input when clear button is clicked&apos;, async () => {
+  test('clears search input when clear button is clicked', async () => {
     render(<SearchBar />);
     
-    const input = screen.getByRole(&apos;combobox&apos;);
-    fireEvent.change(input, { target: { value: &apos;smart&apos; } });
+    const input = screen.getByRole('combobox');
+    fireEvent.change(input, { target: { value: 'smart' } });
     
     // Clear button should appear
-    const clearButton = screen.getByLabelText(&apos;Clear search&apos;);
+    const clearButton = screen.getByLabelText('Clear search');
     fireEvent.click(clearButton);
     
-    expect(input).toHaveValue(&apos;&apos;);
+    expect(input).toHaveValue('');
   });
 
-  test(&apos;handles API error gracefully&apos;, async () => {
+  test('handles API error gracefully', async () => {
     (apiClient.get as jest.Mock).mockResolvedValue({
       success: false,
       error: {
-        message: &apos;Failed to fetch suggestions&apos;
+        message: 'Failed to fetch suggestions'
       }
     });
     

@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 
 export function useWishlist() {
   const dispatch = useAppDispatch();
+  const { wishlist, loading } = useAppSelector((state) => state.wishlist);
 
   const isInWishlist = useCallback((productId: string) => {
     return wishlist?.items.some(item => item.product.id === productId) || false;
@@ -22,7 +23,7 @@ export function useWishlist() {
         await dispatch(addToWishlist(productId)).unwrap();
         toast.success(`${productName || 'Item'} added to wishlist`);
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast.error(error || 'Failed to update wishlist');
     }
   }, [dispatch, isInWishlist, wishlist]);
@@ -31,7 +32,7 @@ export function useWishlist() {
     try {
       await dispatch(addToWishlist(productId)).unwrap();
       toast.success(`${productName || 'Item'} added to wishlist`);
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast.error(error || 'Failed to add to wishlist');
     }
   }, [dispatch]);
@@ -40,7 +41,7 @@ export function useWishlist() {
     try {
       await dispatch(removeFromWishlist(itemId)).unwrap();
       toast.success(`${productName || 'Item'} removed from wishlist`);
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast.error(error || 'Failed to remove from wishlist');
     }
   }, [dispatch]);
@@ -48,7 +49,7 @@ export function useWishlist() {
   const refreshWishlist = useCallback(async () => {
     try {
       await dispatch(fetchWishlist()).unwrap();
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast.error('Failed to refresh wishlist');
     }
   }, [dispatch]);

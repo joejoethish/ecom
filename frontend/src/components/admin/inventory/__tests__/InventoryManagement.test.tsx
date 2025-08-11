@@ -15,8 +15,8 @@ jest.mock('@/services/inventoryManagementApi', () => ({
 }));
 
 // Mock child components
-jest.mock(&apos;../InventoryForm&apos;, () => {
-  return function MockInventoryForm({ onClose, onSave }: unknown) {
+jest.mock('../InventoryForm', () => {
+  return function MockInventoryForm({ onClose, onSave }: any) {
     return (
       <div data-testid="inventory-form">
         <button onClick={onClose}>Close Form</button>
@@ -26,26 +26,26 @@ jest.mock(&apos;../InventoryForm&apos;, () => {
   };
 });
 
-jest.mock(&apos;../WarehouseManagement&apos;, () => {
+jest.mock('../WarehouseManagement', () => {
   return function MockWarehouseManagement() {
     return <div data-testid="warehouse-management">Warehouse Management</div>;
   };
 });
 
-jest.mock(&apos;../TransactionHistory&apos;, () => {
+jest.mock('../TransactionHistory', () => {
   return function MockTransactionHistory() {
     return <div data-testid="transaction-history">Transaction History</div>;
   };
 });
 
-jest.mock(&apos;../StockAlerts&apos;, () => {
+jest.mock('../StockAlerts', () => {
   return function MockStockAlerts() {
     return <div data-testid="stock-alerts">Stock Alerts</div>;
   };
 });
 
-jest.mock(&apos;../StockAdjustmentModal&apos;, () => {
-  return function MockStockAdjustmentModal({ onClose, onSuccess }: unknown) {
+jest.mock('../StockAdjustmentModal', () => {
+  return function MockStockAdjustmentModal({ onClose, onSuccess }: any) {
     return (
       <div data-testid="stock-adjustment-modal">
         <button onClick={onClose}>Close Modal</button>
@@ -55,22 +55,22 @@ jest.mock(&apos;../StockAdjustmentModal&apos;, () => {
   };
 });
 
-jest.mock(&apos;../AdjustmentHistory&apos;, () => {
+jest.mock('../AdjustmentHistory', () => {
   return function MockAdjustmentHistory() {
     return <div data-testid="adjustment-history">Adjustment History</div>;
   };
 });
 
 // Mock UI components
-jest.mock(&apos;@/components/ui/ErrorBoundary&apos;, () => ({
-  ErrorBoundary: ({ children }: unknown) => <div>{children}</div>,
-  ErrorDisplay: ({ error, onRetry }: unknown) => (
+jest.mock('@/components/ui/ErrorBoundary', () => ({
+  ErrorBoundary: ({ children }: any) => <div>{children}</div>,
+  ErrorDisplay: ({ error, onRetry }: any) => (
     <div data-testid="error-display">
       <span>{error}</span>
       <button onClick={onRetry}>Retry</button>
     </div>
   ),
-  EmptyState: ({ title, description, action }: unknown) => (
+  EmptyState: ({ title, description, action }: any) => (
     <div data-testid="empty-state">
       <span>{title}</span>
       <span>{description}</span>
@@ -79,8 +79,8 @@ jest.mock(&apos;@/components/ui/ErrorBoundary&apos;, () => ({
   ),
 }));
 
-jest.mock(&apos;@/components/ui/SkeletonLoader&apos;, () => ({
-  SkeletonStats: ({ count }: unknown) => (
+jest.mock('@/components/ui/SkeletonLoader', () => ({
+  SkeletonStats: ({ count }: any) => (
     <div data-testid="skeleton-stats">Loading {count} stats...</div>
   ),
   SkeletonInventoryItem: () => (
@@ -90,7 +90,7 @@ jest.mock(&apos;@/components/ui/SkeletonLoader&apos;, () => ({
   ),
 }));
 
-jest.mock(&apos;@/utils/errorHandling&apos;, () => ({
+jest.mock('@/utils/errorHandling', () => ({
   handleApiResponse: jest.fn((response) => response),
   showErrorToast: jest.fn(),
   showSuccessToast: jest.fn(),
@@ -100,37 +100,37 @@ jest.mock(&apos;@/utils/errorHandling&apos;, () => ({
 
 const mockInventoryItems = [
   {
-    id: &apos;1&apos;,
+    id: '1',
     product_variant: {
-      id: &apos;1&apos;,
-      sku: &apos;TEST-001&apos;,
+      id: '1',
+      sku: 'TEST-001',
       product: {
-        id: &apos;1&apos;,
-        name: &apos;Test Product&apos;,
+        id: '1',
+        name: 'Test Product',
         images: [
           {
-            id: &apos;1&apos;,
-            image: &apos;/test-image.jpg&apos;,
+            id: '1',
+            image: '/test-image.jpg',
             is_primary: true,
           },
         ],
       },
-      attributes: { color: &apos;red&apos;, size: &apos;M&apos; },
+      attributes: { color: 'red', size: 'M' },
     },
     warehouse: {
-      id: &apos;1&apos;,
-      name: &apos;Main Warehouse&apos;,
-      code: &apos;MW001&apos;,
-      city: &apos;New York&apos;,
+      id: '1',
+      name: 'Main Warehouse',
+      code: 'MW001',
+      city: 'New York',
     },
     stock_quantity: 100,
     reserved_quantity: 10,
     available_quantity: 90,
     reorder_level: 20,
-    last_stock_update: &apos;2024-01-01T00:00:00Z&apos;,
-    stock_status: &apos;in_stock&apos; as const,
-    created_at: &apos;2024-01-01T00:00:00Z&apos;,
-    updated_at: &apos;2024-01-01T00:00:00Z&apos;,
+    last_stock_update: '2024-01-01T00:00:00Z',
+    stock_status: 'in_stock' as const,
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z',
   },
 ];
 
@@ -144,11 +144,11 @@ const mockStats = {
 };
 
 const mockWarehouses = [
-  { id: &apos;1&apos;, name: &apos;Main Warehouse&apos;, code: &apos;MW001&apos; },
-  { id: &apos;2&apos;, name: &apos;Secondary Warehouse&apos;, code: &apos;SW002&apos; },
+  { id: '1', name: 'Main Warehouse', code: 'MW001' },
+  { id: '2', name: 'Secondary Warehouse', code: 'SW002' },
 ];
 
-describe(&apos;InventoryManagement&apos;, () => {
+describe('InventoryManagement', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (inventoryManagementApi.getInventory as jest.Mock).mockResolvedValue({
@@ -165,150 +165,150 @@ describe(&apos;InventoryManagement&apos;, () => {
     });
   });
 
-  it(&apos;renders inventory management tabs correctly&apos;, async () => {
+  it('renders inventory management tabs correctly', async () => {
     render(<InventoryManagement />);
     
-    expect(screen.getByText(&apos;Inventory&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Warehouses&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Batches&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Transactions&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Adjustments&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Alerts&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Inventory')).toBeInTheDocument();
+    expect(screen.getByText('Warehouses')).toBeInTheDocument();
+    expect(screen.getByText('Batches')).toBeInTheDocument();
+    expect(screen.getByText('Transactions')).toBeInTheDocument();
+    expect(screen.getByText('Adjustments')).toBeInTheDocument();
+    expect(screen.getByText('Alerts')).toBeInTheDocument();
   });
 
-  it(&apos;displays loading state initially&apos;, () => {
+  it('displays loading state initially', () => {
     render(<InventoryManagement />);
     
-    expect(screen.getByTestId(&apos;skeleton-stats&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('skeleton-stats')).toBeInTheDocument();
   });
 
-  it(&apos;displays stats after loading&apos;, async () => {
+  it('displays stats after loading', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;150&apos;)).toBeInTheDocument(); // total_products
-      expect(screen.getByText(&apos;3&apos;)).toBeInTheDocument(); // total_warehouses
-      expect(screen.getByText(&apos;12&apos;)).toBeInTheDocument(); // low_stock_items
-      expect(screen.getByText(&apos;5&apos;)).toBeInTheDocument(); // out_of_stock_items
+      expect(screen.getByText('150')).toBeInTheDocument(); // total_products
+      expect(screen.getByText('3')).toBeInTheDocument(); // total_warehouses
+      expect(screen.getByText('12')).toBeInTheDocument(); // low_stock_items
+      expect(screen.getByText('5')).toBeInTheDocument(); // out_of_stock_items
     });
   });
 
-  it(&apos;displays inventory items after loading&apos;, async () => {
+  it('displays inventory items after loading', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;SKU: TEST-001&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;MW001 • New York&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
+      expect(screen.getByText('SKU: TEST-001')).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
+      expect(screen.getByText('MW001 • New York')).toBeInTheDocument();
     });
   });
 
-  it(&apos;handles search filter changes&apos;, async () => {
+  it('handles search filter changes', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const searchInput = screen.getByPlaceholderText(&apos;Search inventory...&apos;);
-    fireEvent.change(searchInput, { target: { value: &apos;test search&apos; } });
+    const searchInput = screen.getByPlaceholderText('Search inventory...');
+    fireEvent.change(searchInput, { target: { value: 'test search' } });
 
     await waitFor(() => {
       expect(inventoryManagementApi.getInventory).toHaveBeenCalledWith(
         expect.objectContaining({
-          search: &apos;test search&apos;,
+          search: 'test search',
         })
       );
     });
   });
 
-  it(&apos;handles warehouse filter changes&apos;, async () => {
+  it('handles warehouse filter changes', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const warehouseSelect = screen.getByDisplayValue(&apos;All Warehouses&apos;);
-    fireEvent.change(warehouseSelect, { target: { value: &apos;1&apos; } });
+    const warehouseSelect = screen.getByDisplayValue('All Warehouses');
+    fireEvent.change(warehouseSelect, { target: { value: '1' } });
 
     await waitFor(() => {
       expect(inventoryManagementApi.getInventory).toHaveBeenCalledWith(
         expect.objectContaining({
-          warehouse: &apos;1&apos;,
+          warehouse: '1',
         })
       );
     });
   });
 
-  it(&apos;handles stock status filter changes&apos;, async () => {
+  it('handles stock status filter changes', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const statusSelect = screen.getByDisplayValue(&apos;All Stock Status&apos;);
-    fireEvent.change(statusSelect, { target: { value: &apos;low_stock&apos; } });
+    const statusSelect = screen.getByDisplayValue('All Stock Status');
+    fireEvent.change(statusSelect, { target: { value: 'low_stock' } });
 
     await waitFor(() => {
       expect(inventoryManagementApi.getInventory).toHaveBeenCalledWith(
         expect.objectContaining({
-          stock_status: &apos;low_stock&apos;,
+          stock_status: 'low_stock',
         })
       );
     });
   });
 
-  it(&apos;opens inventory form when Add Inventory is clicked&apos;, async () => {
+  it('opens inventory form when Add Inventory is clicked', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const addButton = screen.getByText(&apos;Add Inventory&apos;);
+    const addButton = screen.getByText('Add Inventory');
     fireEvent.click(addButton);
 
-    expect(screen.getByTestId(&apos;inventory-form&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('inventory-form')).toBeInTheDocument();
   });
 
-  it(&apos;opens inventory form for editing when edit button is clicked&apos;, async () => {
+  it('opens inventory form for editing when edit button is clicked', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const editButtons = screen.getAllByRole(&apos;button&apos;);
+    const editButtons = screen.getAllByRole('button');
     const editButton = editButtons.find(button => 
-      button.getAttribute(&apos;title&apos;) === &apos;Edit Inventory&apos;
+      button.getAttribute('title') === 'Edit Inventory'
     );
     
     if (editButton) {
       fireEvent.click(editButton);
-      expect(screen.getByTestId(&apos;inventory-form&apos;)).toBeInTheDocument();
+      expect(screen.getByTestId('inventory-form')).toBeInTheDocument();
     }
   });
 
-  it(&apos;handles inventory deletion&apos;, async () => {
+  it('handles inventory deletion', async () => {
     (inventoryManagementApi.deleteInventory as jest.Mock).mockResolvedValue({
       success: true,
     });
 
     // Mock window.confirm
-    const confirmSpy = jest.spyOn(window, &apos;confirm&apos;).mockReturnValue(true);
+    const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(true);
 
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const deleteButtons = screen.getAllByRole(&apos;button&apos;);
+    const deleteButtons = screen.getAllByRole('button');
     const deleteButton = deleteButtons.find(button => 
-      button.getAttribute(&apos;title&apos;) === &apos;Delete Inventory&apos;
+      button.getAttribute('title') === 'Delete Inventory'
     );
     
     if (deleteButton) {
@@ -316,71 +316,71 @@ describe(&apos;InventoryManagement&apos;, () => {
       
       await waitFor(() => {
         expect(confirmSpy).toHaveBeenCalled();
-        expect(inventoryManagementApi.deleteInventory).toHaveBeenCalledWith(&apos;1&apos;);
+        expect(inventoryManagementApi.deleteInventory).toHaveBeenCalledWith('1');
       });
     }
 
     confirmSpy.mockRestore();
   });
 
-  it(&apos;opens stock adjustment modal when adjust button is clicked&apos;, async () => {
+  it('opens stock adjustment modal when adjust button is clicked', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const adjustButtons = screen.getAllByRole(&apos;button&apos;);
+    const adjustButtons = screen.getAllByRole('button');
     const adjustButton = adjustButtons.find(button => 
-      button.getAttribute(&apos;title&apos;) === &apos;Adjust Stock&apos;
+      button.getAttribute('title') === 'Adjust Stock'
     );
     
     if (adjustButton) {
       fireEvent.click(adjustButton);
-      expect(screen.getByTestId(&apos;stock-adjustment-modal&apos;)).toBeInTheDocument();
+      expect(screen.getByTestId('stock-adjustment-modal')).toBeInTheDocument();
     }
   });
 
-  it(&apos;handles bulk stock adjustment&apos;, async () => {
+  it('handles bulk stock adjustment', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Select an item
-    const checkbox = screen.getAllByRole(&apos;checkbox&apos;)[1]; // First is select all
+    const checkbox = screen.getAllByRole('checkbox')[1]; // First is select all
     fireEvent.click(checkbox);
 
     // Click bulk adjust button
     const bulkAdjustButton = screen.getByText(/Adjust Selected/);
     fireEvent.click(bulkAdjustButton);
 
-    expect(screen.getByTestId(&apos;stock-adjustment-modal&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('stock-adjustment-modal')).toBeInTheDocument();
   });
 
-  it(&apos;handles select all functionality&apos;, async () => {
+  it('handles select all functionality', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const selectAllCheckbox = screen.getAllByRole(&apos;checkbox&apos;)[0];
+    const selectAllCheckbox = screen.getAllByRole('checkbox')[0];
     fireEvent.click(selectAllCheckbox);
 
     // Should show bulk adjust button
     expect(screen.getByText(/Adjust Selected \(1\)/)).toBeInTheDocument();
   });
 
-  it(&apos;handles refresh functionality&apos;, async () => {
+  it('handles refresh functionality', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const refreshButton = screen.getByText(&apos;Refresh&apos;);
+    const refreshButton = screen.getByText('Refresh');
     fireEvent.click(refreshButton);
 
     await waitFor(() => {
@@ -389,35 +389,35 @@ describe(&apos;InventoryManagement&apos;, () => {
     });
   });
 
-  it(&apos;switches between tabs correctly&apos;, async () => {
+  it('switches between tabs correctly', async () => {
     render(<InventoryManagement />);
     
     // Click on Warehouses tab
-    const warehousesTab = screen.getByText(&apos;Warehouses&apos;);
+    const warehousesTab = screen.getByText('Warehouses');
     fireEvent.click(warehousesTab);
     
-    expect(screen.getByTestId(&apos;warehouse-management&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('warehouse-management')).toBeInTheDocument();
 
     // Click on Transactions tab
-    const transactionsTab = screen.getByText(&apos;Transactions&apos;);
+    const transactionsTab = screen.getByText('Transactions');
     fireEvent.click(transactionsTab);
     
-    expect(screen.getByTestId(&apos;transaction-history&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('transaction-history')).toBeInTheDocument();
 
     // Click on Alerts tab
-    const alertsTab = screen.getByText(&apos;Alerts&apos;);
+    const alertsTab = screen.getByText('Alerts');
     fireEvent.click(alertsTab);
     
-    expect(screen.getByTestId(&apos;stock-alerts&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('stock-alerts')).toBeInTheDocument();
 
     // Click on Adjustments tab
-    const adjustmentsTab = screen.getByText(&apos;Adjustments&apos;);
+    const adjustmentsTab = screen.getByText('Adjustments');
     fireEvent.click(adjustmentsTab);
     
-    expect(screen.getByTestId(&apos;adjustment-history&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('adjustment-history')).toBeInTheDocument();
   });
 
-  it(&apos;displays empty state when no inventory items&apos;, async () => {
+  it('displays empty state when no inventory items', async () => {
     (inventoryManagementApi.getInventory as jest.Mock).mockResolvedValue({
       success: true,
       data: { results: [] },
@@ -426,57 +426,57 @@ describe(&apos;InventoryManagement&apos;, () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByTestId(&apos;empty-state&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;No inventory items found&apos;)).toBeInTheDocument();
+      expect(screen.getByTestId('empty-state')).toBeInTheDocument();
+      expect(screen.getByText('No inventory items found')).toBeInTheDocument();
     });
   });
 
-  it(&apos;displays error state when API fails&apos;, async () => {
+  it('displays error state when API fails', async () => {
     (inventoryManagementApi.getInventory as jest.Mock).mockResolvedValue({
       success: false,
-      error: { message: &apos;API Error&apos; },
+      error: { message: 'API Error' },
     });
 
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByTestId(&apos;error-display&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;API Error&apos;)).toBeInTheDocument();
+      expect(screen.getByTestId('error-display')).toBeInTheDocument();
+      expect(screen.getByText('API Error')).toBeInTheDocument();
     });
   });
 
-  it(&apos;handles stats API error gracefully&apos;, async () => {
+  it('handles stats API error gracefully', async () => {
     (inventoryManagementApi.getInventoryStats as jest.Mock).mockResolvedValue({
       success: false,
-      error: { message: &apos;Stats API Error&apos; },
+      error: { message: 'Stats API Error' },
     });
 
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Stats API Error&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Stats API Error')).toBeInTheDocument();
     });
   });
 
-  it(&apos;handles warehouses API error gracefully&apos;, async () => {
+  it('handles warehouses API error gracefully', async () => {
     (inventoryManagementApi.getWarehouses as jest.Mock).mockResolvedValue({
       success: false,
-      error: { message: &apos;Warehouses API Error&apos; },
+      error: { message: 'Warehouses API Error' },
     });
 
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      const warehouseSelect = screen.getByDisplayValue(&apos;Error loading warehouses&apos;);
+      const warehouseSelect = screen.getByDisplayValue('Error loading warehouses');
       expect(warehouseSelect).toBeDisabled();
     });
   });
 
-  it(&apos;displays correct stock status badges&apos;, async () => {
+  it('displays correct stock status badges', async () => {
     const inventoryWithDifferentStatuses = [
-      { ...mockInventoryItems[0], stock_status: &apos;in_stock&apos; },
-      { ...mockInventoryItems[0], id: &apos;2&apos;, stock_status: &apos;low_stock&apos; },
-      { ...mockInventoryItems[0], id: &apos;3&apos;, stock_status: &apos;out_of_stock&apos; },
+      { ...mockInventoryItems[0], stock_status: 'in_stock' },
+      { ...mockInventoryItems[0], id: '2', stock_status: 'low_stock' },
+      { ...mockInventoryItems[0], id: '3', stock_status: 'out_of_stock' },
     ];
 
     (inventoryManagementApi.getInventory as jest.Mock).mockResolvedValue({
@@ -487,13 +487,13 @@ describe(&apos;InventoryManagement&apos;, () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;in stock&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;low stock&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;out of stock&apos;)).toBeInTheDocument();
+      expect(screen.getByText('in stock')).toBeInTheDocument();
+      expect(screen.getByText('low stock')).toBeInTheDocument();
+      expect(screen.getByText('out of stock')).toBeInTheDocument();
     });
   });
 
-  it(&apos;formats dates correctly&apos;, async () => {
+  it('formats dates correctly', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {
@@ -502,7 +502,7 @@ describe(&apos;InventoryManagement&apos;, () => {
     });
   });
 
-  it(&apos;handles image loading errors gracefully&apos;, async () => {
+  it('handles image loading errors gracefully', async () => {
     render(<InventoryManagement />);
     
     await waitFor(() => {

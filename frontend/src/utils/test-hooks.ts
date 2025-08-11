@@ -7,7 +7,7 @@ import { createTestStore } from './test-utils';
 import type { RootState } from '@/store';
 
 // Hook testing utilities with proper typing
-interface RenderHookWithStoreOptions<TProps> extends Omit<RenderHookOptions<TProps>, &apos;wrapper&apos;> {
+interface RenderHookWithStoreOptions<TProps> extends Omit<RenderHookOptions<TProps>, 'wrapper'> {
   preloadedState?: Partial<RootState>;
   store?: EnhancedStore;
 }
@@ -33,18 +33,20 @@ export function renderHookWithStore<TResult, TProps>(
 }
 
 // Mock hook implementations
+export const createMockUseRouter = (overrides: Record<string, any> = {}) => ({
   push: jest.fn(),
   replace: jest.fn(),
   prefetch: jest.fn(),
   back: jest.fn(),
   forward: jest.fn(),
   refresh: jest.fn(),
-  pathname: &apos;/&apos;,
+  pathname: '/',
   query: {},
-  asPath: &apos;/&apos;,
+  asPath: '/',
   ...overrides,
 });
 
+export const createMockUseSearchParams = (params: Record<string, string> = {}) => ({
   get: jest.fn((key: string) => params[key] || null),
   has: jest.fn((key: string) => key in params),
   getAll: jest.fn((key: string) => params[key] ? [params[key]] : []),
@@ -56,10 +58,11 @@ export function renderHookWithStore<TResult, TProps>(
 });
 
 // WebSocket mock utilities
+export const createMockWebSocketService = (overrides: Record<string, any> = {}) => ({
   connect: jest.fn(),
   disconnect: jest.fn(),
   send: jest.fn(),
-  getConnectionState: jest.fn(() => &apos;CLOSED&apos;),
+  getConnectionState: jest.fn(() => 'CLOSED'),
   onConnectionStateChange: jest.fn(),
   offConnectionStateChange: jest.fn(),
   onMessage: jest.fn(),
@@ -68,6 +71,7 @@ export function renderHookWithStore<TResult, TProps>(
 });
 
 // API mock utilities
+export const createMockApiService = <T>(
   mockResponses: Record<string, T> = {}
 ) => {
   const mockFetch = jest.fn();
@@ -79,7 +83,7 @@ export function renderHookWithStore<TResult, TProps>(
           ok: true,
           json: () => Promise.resolve(response),
           status: 200,
-          statusText: &apos;OK&apos;,
+          statusText: 'OK',
         });
       }
       return Promise.reject(new Error(`No mock response for ${url}`));
@@ -112,8 +116,10 @@ export const createMockLocalStorage = (initialData: Record<string, string> = {})
 };
 
 // Session storage mock utilities
+export const createMockSessionStorage = createMockLocalStorage;
 
 // Intersection Observer mock
+export const createMockIntersectionObserver = () => {
   const mockObserver = {
     observe: jest.fn(),
     unobserve: jest.fn(),
@@ -126,6 +132,7 @@ export const createMockLocalStorage = (initialData: Record<string, string> = {})
 };
 
 // Resize Observer mock
+export const createMockResizeObserver = () => {
   const mockObserver = {
     observe: jest.fn(),
     unobserve: jest.fn(),
@@ -138,11 +145,13 @@ export const createMockLocalStorage = (initialData: Record<string, string> = {})
 };
 
 // Performance Observer mock
+export const createMockPerformanceObserver = () => {
   const mockObserver = {
     observe: jest.fn(),
     disconnect: jest.fn(),
   };
 
+  const MockPerformanceObserver: any = jest.fn().mockImplementation(() => mockObserver);
   MockPerformanceObserver.supportedEntryTypes = [];
   global.PerformanceObserver = MockPerformanceObserver;
   
@@ -150,6 +159,7 @@ export const createMockLocalStorage = (initialData: Record<string, string> = {})
 };
 
 // Media query mock utilities
+export const createMockMediaQuery = (matches = false) => ({
   matches,
   media: '(min-width: 768px)',
   onchange: null,
@@ -161,12 +171,14 @@ export const createMockLocalStorage = (initialData: Record<string, string> = {})
 });
 
 // Geolocation mock utilities
+export const createMockGeolocation = () => ({
   getCurrentPosition: jest.fn(),
   watchPosition: jest.fn(),
   clearWatch: jest.fn(),
 });
 
 // File API mock utilities
+export const createMockFile = (
   name: string,
   content: string,
   type = 'text/plain'
@@ -175,6 +187,7 @@ export const createMockLocalStorage = (initialData: Record<string, string> = {})
   return file;
 };
 
+export const createMockFileList = (files: File[]): FileList => {
   const fileList = {
     length: files.length,
     item: (index: number) => files[index] || null,

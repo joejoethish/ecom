@@ -10,6 +10,7 @@ interface CartSummaryProps {
   loading?: boolean;
 }
 
+const CartSummary: React.FC<CartSummaryProps> = ({
   itemCount,
   subtotal,
   discountAmount,
@@ -100,7 +101,7 @@ interface CartSummaryProps {
             disabled={itemCount === 0 || loading}
             className="w-full bg-orange-500 text-white py-3 px-4 rounded-lg font-semibold hover:bg-orange-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
           >
-            {loading ? &apos;Processing...&apos; : `Proceed to Checkout (₹${finalAmount.toLocaleString()})`}
+            {loading ? 'Processing...' : `Proceed to Checkout (₹${finalAmount.toLocaleString()})`}
           </button>
         </Link>
         

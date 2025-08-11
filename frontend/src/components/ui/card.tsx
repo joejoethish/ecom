@@ -25,7 +25,7 @@ interface CardDescriptionProps {
   className?: string;
 }
 
-export function Card({ children, className = &apos;&apos;, ...props }: CardProps) {
+export function Card({ children, className = '', ...props }: CardProps) {
   return (
     <div className={`bg-white rounded-lg border border-gray-200 shadow-sm ${className}`} {...props}>
       {children}
@@ -33,7 +33,7 @@ export function Card({ children, className = &apos;&apos;, ...props }: CardProps
   );
 }
 
-export function CardContent({ children, className = &apos;&apos; }: CardContentProps) {
+export function CardContent({ children, className = '' }: CardContentProps) {
   return (
     <div className={`p-6 ${className}`}>
       {children}
@@ -41,7 +41,7 @@ export function CardContent({ children, className = &apos;&apos; }: CardContentP
   );
 }
 
-export function CardHeader({ children, className = &apos;&apos; }: CardHeaderProps) {
+export function CardHeader({ children, className = '' }: CardHeaderProps) {
   return (
     <div className={`p-6 pb-0 ${className}`}>
       {children}
@@ -49,7 +49,7 @@ export function CardHeader({ children, className = &apos;&apos; }: CardHeaderPro
   );
 }
 
-export function CardTitle({ children, className = &apos;&apos; }: CardTitleProps) {
+export function CardTitle({ children, className = '' }: CardTitleProps) {
   return (
     <h3 className={`text-lg font-semibold leading-none tracking-tight ${className}`}>
       {children}
@@ -57,7 +57,7 @@ export function CardTitle({ children, className = &apos;&apos; }: CardTitleProps
   );
 }
 
-export function CardDescription({ children, className = &apos;&apos; }: CardDescriptionProps) {
+export function CardDescription({ children, className = '' }: CardDescriptionProps) {
   return (
     <p className={`text-sm text-gray-600 ${className}`}>
       {children}

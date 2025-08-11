@@ -2,6 +2,7 @@
 
 export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api/v1';
 
+export const API_ENDPOINTS = {
   // Authentication
   AUTH: {
     LOGIN: '/auth/login/',
@@ -105,17 +106,20 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://loca
   },
 } as const;
 
+export const STORAGE_KEYS = {
   ACCESS_TOKEN: 'access_token',
   REFRESH_TOKEN: 'refresh_token',
   USER: 'user',
   CART: 'cart',
 } as const;
 
+export const USER_TYPES = {
   CUSTOMER: 'customer',
   SELLER: 'seller',
   ADMIN: 'admin',
 } as const;
 
+export const ORDER_STATUS = {
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
   PROCESSING: 'PROCESSING',
@@ -125,6 +129,7 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://loca
   RETURNED: 'RETURNED',
 } as const;
 
+export const PAYMENT_STATUS = {
   PENDING: 'PENDING',
   PROCESSING: 'PROCESSING',
   COMPLETED: 'COMPLETED',
@@ -133,6 +138,7 @@ export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://loca
   REFUNDED: 'REFUNDED',
 } as const;
 
+export const ADDRESS_TYPES = {
   HOME: 'HOME',
   WORK: 'WORK',
   OTHER: 'OTHER',
@@ -157,6 +163,7 @@ export {
 };
 
 // Legacy routes object for backward compatibility
+export const ROUTES = {
   ...MAIN_ROUTES,
   ...AUTH_ROUTES,
   PROFILE: PROFILE_ROUTES.DASHBOARD,
@@ -168,10 +175,12 @@ export {
   SELLER: SELLER_ROUTES.DASHBOARD,
 } as const;
 
+export const PAGINATION = {
   DEFAULT_PAGE_SIZE: 20,
   MAX_PAGE_SIZE: 100,
 } as const;
 
+export const VALIDATION = {
   PASSWORD_MIN_LENGTH: 8,
   USERNAME_MIN_LENGTH: 3,
   PHONE_REGEX: /^[\+]?[1-9][\d]{0,15}$/,

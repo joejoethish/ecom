@@ -8,6 +8,7 @@ interface CartItemProps {
   item: CartItemType;
 }
 
+const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const dispatch = useAppDispatch();
 
   const handleQuantityChange = (newQuantity: number) => {
@@ -74,7 +75,7 @@ interface CartItemProps {
           <div className="flex items-center border border-gray-300 rounded">
             <button
               onClick={() => handleQuantityChange(item.quantity - 1)}
-              className=&quot;px-3 py-1 text-gray-600 hover:bg-gray-100 transition-colors&quot;
+              className="px-3 py-1 text-gray-600 hover:bg-gray-100 transition-colors"
               disabled={item.quantity <= 1}
             >
               -
@@ -84,7 +85,7 @@ interface CartItemProps {
             </span>
             <button
               onClick={() => handleQuantityChange(item.quantity + 1)}
-              className=&quot;px-3 py-1 text-gray-600 hover:bg-gray-100 transition-colors&quot;
+              className="px-3 py-1 text-gray-600 hover:bg-gray-100 transition-colors"
             >
               +
             </button>

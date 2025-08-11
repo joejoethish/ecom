@@ -44,7 +44,7 @@ export interface Notification {
   read_at?: string;
   scheduled_at?: string;
   expires_at?: string;
-  metadata?: Record<string, unknown>;
+  metadata?: Record<string, any>;
   external_id?: string;
   error_message?: string;
   retry_count: number;
@@ -92,7 +92,7 @@ export interface NotificationBatch {
   delivered_count: number;
   failed_count: number;
   success_rate: number;
-  target_criteria: Record<string, unknown>;
+  target_criteria: Record<string, any>;
   scheduled_at?: string;
   started_at?: string;
   completed_at?: string;
@@ -132,7 +132,7 @@ export interface NotificationCreateData {
   user_id: number;
   template_type: string;
   channels: string[];
-  context_data?: Record<string, unknown>;
+  context_data?: Record<string, any>;
   priority?: string;
   scheduled_at?: string;
   expires_at?: string;

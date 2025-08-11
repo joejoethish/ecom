@@ -49,13 +49,13 @@ export default function MetricCard({
                   <div className={`ml-2 flex items-baseline text-sm font-semibold ${
                     changeType === 'increase' ? 'text-green-600' : 'text-red-600'
                   }`}>
-                    {changeType === &apos;increase&apos; ? (
+                    {changeType === 'increase' ? (
                       <TrendingUp className="self-center flex-shrink-0 h-4 w-4 mr-1" />
                     ) : (
                       <TrendingDown className="self-center flex-shrink-0 h-4 w-4 mr-1" />
                     )}
                     <span className="sr-only">
-                      {changeType === &apos;increase&apos; ? &apos;Increased&apos; : &apos;Decreased&apos;} by
+                      {changeType === 'increase' ? 'Increased' : 'Decreased'} by
                     </span>
                     {Math.abs(change).toFixed(1)}%
                   </div>

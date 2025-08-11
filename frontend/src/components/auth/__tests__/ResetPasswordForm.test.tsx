@@ -9,24 +9,24 @@ jest.mock('@/services/authApi');
 const mockAuthApi = authApi as jest.Mocked<typeof authApi>;
 
 // Mock the error handling utilities
-jest.mock(&apos;@/utils/passwordResetErrors&apos;, () => ({
-  getPasswordResetErrorMessage: jest.fn((error) => error?.message || &apos;An error occurred&apos;),
+jest.mock('@/utils/passwordResetErrors', () => ({
+  getPasswordResetErrorMessage: jest.fn((error) => error?.message || 'An error occurred'),
   logPasswordResetError: jest.fn(),
   isRetryablePasswordResetError: jest.fn(() => true),
   isValidTokenFormat: jest.fn(() => true),
   logPasswordResetSecurityEvent: jest.fn(),
 }));
 
-describe(&apos;ResetPasswordForm&apos;, () => {
+describe('ResetPasswordForm', () => {
   const mockOnSuccess = jest.fn();
   const mockOnBackToLogin = jest.fn();
-  const validToken = &apos;abcd1234567890abcd1234567890abcd&apos;;
+  const validToken = 'abcd1234567890abcd1234567890abcd';
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it(&apos;validates token on mount&apos;, async () => {
+  it('validates token on mount', async () => {
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
       data: { valid: true }
@@ -46,11 +46,11 @@ describe(&apos;ResetPasswordForm&apos;, () => {
 
     // Should show the form after validation
     await waitFor(() => {
-      expect(screen.getByText(&apos;Reset Your Password&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Reset Your Password')).toBeInTheDocument();
     });
   });
 
-  it(&apos;shows loading state during token validation&apos;, () => {
+  it('shows loading state during token validation', () => {
     mockAuthApi.validateResetToken.mockReturnValue(new Promise(() => { })); // Never resolves
 
     render(
@@ -61,10 +61,10 @@ describe(&apos;ResetPasswordForm&apos;, () => {
       />
     );
 
-    expect(screen.getByText(&apos;Validating Reset Link&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Validating Reset Link')).toBeInTheDocument();
   });
 
-  it(&apos;shows error for invalid token&apos;, async () => {
+  it('shows error for invalid token', async () => {
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
       data: { valid: false }
@@ -79,11 +79,11 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Invalid Reset Link&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Invalid Reset Link')).toBeInTheDocument();
     });
   });
 
-  it(&apos;shows error for expired token&apos;, async () => {
+  it('shows error for expired token', async () => {
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
       data: { valid: false, expired: true }
@@ -98,11 +98,11 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Invalid Reset Link&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Invalid Reset Link')).toBeInTheDocument();
     });
   });
 
-  it(&apos;renders password form for valid token&apos;, async () => {
+  it('renders password form for valid token', async () => {
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
       data: { valid: true }
@@ -117,13 +117,13 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
-      expect(screen.getByLabelText(&apos;Confirm New Password&apos;)).toBeInTheDocument();
-      expect(screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; })).toBeInTheDocument();
+      expect(screen.getByLabelText('New Password')).toBeInTheDocument();
+      expect(screen.getByLabelText('Confirm New Password')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Reset Password' })).toBeInTheDocument();
     });
   });
 
-  it(&apos;validates password strength&apos;, async () => {
+  it('validates password strength', async () => {
     const user = userEvent.setup();
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
@@ -139,31 +139,31 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
+      expect(screen.getByLabelText('New Password')).toBeInTheDocument();
     });
 
-    const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
+    const passwordInput = screen.getByLabelText('New Password');
+    const submitButton = screen.getByRole('button', { name: 'Reset Password' });
 
     // Test weak password
-    await user.type(passwordInput, &apos;weak&apos;);
+    await user.type(passwordInput, 'weak');
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Password must be at least 8 characters long&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Password must be at least 8 characters long')).toBeInTheDocument();
     });
 
     // Test password without uppercase
     await user.clear(passwordInput);
-    await user.type(passwordInput, &apos;password123!&apos;);
+    await user.type(passwordInput, 'password123!');
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Password must contain at least one uppercase letter&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Password must contain at least one uppercase letter')).toBeInTheDocument();
     });
   });
 
-  it(&apos;validates password confirmation&apos;, async () => {
+  it('validates password confirmation', async () => {
     const user = userEvent.setup();
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
@@ -179,23 +179,23 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
+      expect(screen.getByLabelText('New Password')).toBeInTheDocument();
     });
 
-    const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
-    const confirmInput = screen.getByLabelText(&apos;Confirm New Password&apos;);
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
+    const passwordInput = screen.getByLabelText('New Password');
+    const confirmInput = screen.getByLabelText('Confirm New Password');
+    const submitButton = screen.getByRole('button', { name: 'Reset Password' });
 
-    await user.type(passwordInput, &apos;Password123!&apos;);
-    await user.type(confirmInput, &apos;DifferentPassword123!&apos;);
+    await user.type(passwordInput, 'Password123!');
+    await user.type(confirmInput, 'DifferentPassword123!');
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Passwords do not match&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Passwords do not match')).toBeInTheDocument();
     });
   });
 
-  it(&apos;shows password strength indicator&apos;, async () => {
+  it('shows password strength indicator', async () => {
     const user = userEvent.setup();
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
@@ -211,20 +211,20 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
+      expect(screen.getByLabelText('New Password')).toBeInTheDocument();
     });
 
-    const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
+    const passwordInput = screen.getByLabelText('New Password');
 
     // Type a password to trigger strength indicator
-    await user.type(passwordInput, &apos;Password123!&apos;);
+    await user.type(passwordInput, 'Password123!');
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Password Strength&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Password Strength')).toBeInTheDocument();
     });
   });
 
-  it(&apos;submits form successfully&apos;, async () => {
+  it('submits form successfully', async () => {
     const user = userEvent.setup();
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
@@ -232,7 +232,7 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     });
     mockAuthApi.resetPassword.mockResolvedValue({
       success: true,
-      data: { success: true, message: &apos;Password reset successful&apos; }
+      data: { success: true, message: 'Password reset successful' }
     });
 
     render(
@@ -244,30 +244,30 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
+      expect(screen.getByLabelText('New Password')).toBeInTheDocument();
     });
 
-    const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
-    const confirmInput = screen.getByLabelText(&apos;Confirm New Password&apos;);
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
+    const passwordInput = screen.getByLabelText('New Password');
+    const confirmInput = screen.getByLabelText('Confirm New Password');
+    const submitButton = screen.getByRole('button', { name: 'Reset Password' });
 
-    await user.type(passwordInput, &apos;Password123!&apos;);
-    await user.type(confirmInput, &apos;Password123!&apos;);
+    await user.type(passwordInput, 'Password123!');
+    await user.type(confirmInput, 'Password123!');
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(mockAuthApi.resetPassword).toHaveBeenCalledWith(validToken, &apos;Password123!&apos;);
+      expect(mockAuthApi.resetPassword).toHaveBeenCalledWith(validToken, 'Password123!');
     });
 
     // Should show success screen
     await waitFor(() => {
-      expect(screen.getByText(&apos;Password Reset Successful!&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Password Reset Successful!')).toBeInTheDocument();
     });
 
     expect(mockOnSuccess).toHaveBeenCalled();
   });
 
-  it(&apos;handles reset password API errors&apos;, async () => {
+  it('handles reset password API errors', async () => {
     const user = userEvent.setup();
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
@@ -276,8 +276,8 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     mockAuthApi.resetPassword.mockResolvedValue({
       success: false,
       error: {
-        message: &apos;Token expired&apos;,
-        code: &apos;token_expired&apos;,
+        message: 'Token expired',
+        code: 'token_expired',
         status_code: 400
       }
     });
@@ -291,32 +291,32 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
+      expect(screen.getByLabelText('New Password')).toBeInTheDocument();
     });
 
-    const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
-    const confirmInput = screen.getByLabelText(&apos;Confirm New Password&apos;);
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
+    const passwordInput = screen.getByLabelText('New Password');
+    const confirmInput = screen.getByLabelText('Confirm New Password');
+    const submitButton = screen.getByRole('button', { name: 'Reset Password' });
 
-    await user.type(passwordInput, &apos;Password123!&apos;);
-    await user.type(confirmInput, &apos;Password123!&apos;);
+    await user.type(passwordInput, 'Password123!');
+    await user.type(confirmInput, 'Password123!');
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Token expired&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Token expired')).toBeInTheDocument();
     });
 
     expect(mockOnSuccess).not.toHaveBeenCalled();
   });
 
-  it(&apos;shows loading state during password reset&apos;, async () => {
+  it('shows loading state during password reset', async () => {
     const user = userEvent.setup();
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
       data: { valid: true }
     });
 
-    let resolvePromise: (value: unknown) => void;
+    let resolvePromise: (value: any) => void;
     const promise = new Promise((resolve) => {
       resolvePromise = resolve;
     });
@@ -331,33 +331,33 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
+      expect(screen.getByLabelText('New Password')).toBeInTheDocument();
     });
 
-    const passwordInput = screen.getByLabelText(&apos;New Password&apos;);
-    const confirmInput = screen.getByLabelText(&apos;Confirm New Password&apos;);
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Reset Password&apos; });
+    const passwordInput = screen.getByLabelText('New Password');
+    const confirmInput = screen.getByLabelText('Confirm New Password');
+    const submitButton = screen.getByRole('button', { name: 'Reset Password' });
 
-    await user.type(passwordInput, &apos;Password123!&apos;);
-    await user.type(confirmInput, &apos;Password123!&apos;);
+    await user.type(passwordInput, 'Password123!');
+    await user.type(confirmInput, 'Password123!');
     await user.click(submitButton);
 
     // Should show loading state
-    expect(screen.getByText(&apos;Resetting Password...&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Resetting Password...')).toBeInTheDocument();
     expect(submitButton).toBeDisabled();
 
     // Resolve the promise
     resolvePromise!({
       success: true,
-      data: { success: true, message: &apos;Password reset successful&apos; }
+      data: { success: true, message: 'Password reset successful' }
     });
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Password Reset Successful!&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Password Reset Successful!')).toBeInTheDocument();
     });
   });
 
-  it(&apos;calls onBackToLogin when back button is clicked&apos;, async () => {
+  it('calls onBackToLogin when back button is clicked', async () => {
     const user = userEvent.setup();
     mockAuthApi.validateResetToken.mockResolvedValue({
       success: true,
@@ -373,16 +373,16 @@ describe(&apos;ResetPasswordForm&apos;, () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText(&apos;New Password&apos;)).toBeInTheDocument();
+      expect(screen.getByLabelText('New Password')).toBeInTheDocument();
     });
 
-    const backButton = screen.getByRole(&apos;button&apos;, { name: &apos;Back to Login&apos; });
+    const backButton = screen.getByRole('button', { name: 'Back to Login' });
     await user.click(backButton);
 
     expect(mockOnBackToLogin).toHaveBeenCalled();
   });
 
-  it(&apos;handles missing token&apos;, () => {
+  it('handles missing token', () => {
     render(
       <ResetPasswordForm
         token=""

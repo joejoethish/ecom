@@ -13,6 +13,7 @@ import {
   removeStoredUser 
 } from '@/utils/storage';
 
+const initialState: AuthState = {
   user: null,
   tokens: null,
   isAuthenticated: false,
@@ -28,39 +29,41 @@ export const loginUser = createAsyncThunk(
       const response = await apiClient.post(API_ENDPOINTS.AUTH.LOGIN, credentials);
       
       if (response.success && response.data) {
+        const { user, tokens } = response.data;
         setStoredTokens(tokens);
         setStoredUser(user);
         return { user, tokens };
       } else {
-        return rejectWithValue(response.error?.message || &apos;Login failed&apos;);
+        return rejectWithValue(response.error?.message || 'Login failed');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Login failed&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Login failed');
     }
   }
 );
 
 export const registerUser = createAsyncThunk(
-  &apos;auth/register&apos;,
+  'auth/register',
   async (userData: RegisterData, { rejectWithValue }) => {
     try {
       const response = await apiClient.post(API_ENDPOINTS.AUTH.REGISTER, userData);
       
       if (response.success && response.data) {
+        const { user, tokens } = response.data;
         setStoredTokens(tokens);
         setStoredUser(user);
         return { user, tokens };
       } else {
-        return rejectWithValue(response.error?.message || &apos;Registration failed&apos;);
+        return rejectWithValue(response.error?.message || 'Registration failed');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Registration failed&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Registration failed');
     }
   }
 );
 
 export const logoutUser = createAsyncThunk(
-  &apos;auth/logout&apos;,
+  'auth/logout',
   async () => {
     try {
       const tokens = getStoredTokens();
@@ -73,7 +76,7 @@ export const logoutUser = createAsyncThunk(
       removeStoredTokens();
       removeStoredUser();
       return null;
-    } catch (error: unknown) {
+    } catch (error: any) {
       // Even if logout API fails, clear local storage
       removeStoredTokens();
       removeStoredUser();
@@ -83,7 +86,7 @@ export const logoutUser = createAsyncThunk(
 );
 
 export const fetchUserProfile = createAsyncThunk(
-  &apos;auth/fetchProfile&apos;,
+  'auth/fetchProfile',
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiClient.get(API_ENDPOINTS.AUTH.PROFILE);
@@ -93,16 +96,16 @@ export const fetchUserProfile = createAsyncThunk(
         setStoredUser(user);
         return user;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to fetch profile&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to fetch profile');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to fetch profile&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch profile');
     }
   }
 );
 
 export const updateUserProfile = createAsyncThunk(
-  &apos;auth/updateProfile&apos;,
+  'auth/updateProfile',
   async (userData: Partial<User>, { rejectWithValue }) => {
     try {
       const response = await apiClient.put(API_ENDPOINTS.AUTH.PROFILE, userData);
@@ -112,16 +115,16 @@ export const updateUserProfile = createAsyncThunk(
         setStoredUser(user);
         return user;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to update profile&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to update profile');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to update profile&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to update profile');
     }
   }
 );
 
 export const initializeAuth = createAsyncThunk(
-  &apos;auth/initialize&apos;,
+  'auth/initialize',
   async (_, { dispatch }) => {
     const tokens = getStoredTokens();
     const user = getStoredUser();
@@ -144,7 +147,7 @@ export const initializeAuth = createAsyncThunk(
 );
 
 const authSlice = createSlice({
-  name: &apos;auth&apos;,
+  name: 'auth',
   initialState,
   reducers: {
     clearError: (state) => {
@@ -242,4 +245,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { clearError, setTokens } = authSlice.actions;
 export default authSlice.reducer;

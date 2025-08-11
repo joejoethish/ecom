@@ -8,101 +8,102 @@ jest.mock('@/utils/format', () => ({
   formatCurrency: (value: number) => `$${value.toFixed(2)}`,
 }));
 
-describe(&apos;ProductDetails&apos;, () => {
+describe('ProductDetails', () => {
   const mockProduct = createMockProduct();
 
-  it(&apos;renders product details correctly&apos;, () => {
+  it('renders product details correctly', () => {
     renderWithProviders(<ProductDetails product={mockProduct} />);
 
     // Check if product name is rendered (using role to get the main heading)
-    expect(screen.getByRole(&apos;heading&apos;, { name: &apos;Test Product&apos; })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Test Product' })).toBeInTheDocument();
 
     // Check if product description is rendered
-    expect(screen.getByText(&apos;Test description with details about the product.&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Test description with details about the product.')).toBeInTheDocument();
 
     // Check if brand is rendered
-    expect(screen.getByText(&apos;Brand: Test Brand&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Brand: Test Brand')).toBeInTheDocument();
 
     // Check if price is rendered
-    expect(screen.getByText(&apos;$80.00&apos;)).toBeInTheDocument();
+    expect(screen.getByText('$80.00')).toBeInTheDocument();
 
     // Check if original price is rendered
-    expect(screen.getByText(&apos;$100.00&apos;)).toBeInTheDocument();
+    expect(screen.getByText('$100.00')).toBeInTheDocument();
 
     // Check if SKU is rendered
-    expect(screen.getByText(&apos;SKU: TEST123&apos;)).toBeInTheDocument();
+    expect(screen.getByText('SKU: TEST123')).toBeInTheDocument();
 
     // Check if category is rendered in breadcrumbs
-    expect(screen.getAllByText(&apos;Test Category&apos;)[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Test Category')[0]).toBeInTheDocument();
 
     // Check if weight is rendered
-    expect(screen.getByText(&apos;1 kg&apos;)).toBeInTheDocument();
+    expect(screen.getByText('1 kg')).toBeInTheDocument();
   });
 
-  it(&apos;renders product images and thumbnails correctly&apos;, () => {
+  it('renders product images and thumbnails correctly', () => {
     renderWithProviders(<ProductDetails product={mockProduct} />);
 
     // Check if main image is rendered
-    const mainImage = screen.getAllByRole(&apos;img&apos;)[0];
-    expect(mainImage).toHaveAttribute(&apos;src&apos;, &apos;/test-image-1.jpg&apos;);
+    const mainImage = screen.getAllByRole('img')[0];
+    expect(mainImage).toHaveAttribute('src', '/test-image-1.jpg');
 
     // Check if thumbnails are rendered
-    const thumbnails = screen.getAllByRole(&apos;img&apos;);
+    const thumbnails = screen.getAllByRole('img');
     expect(thumbnails.length).toBe(3); // Main image + 2 thumbnails
-    expect(thumbnails[1]).toHaveAttribute(&apos;src&apos;, &apos;/test-image-1.jpg&apos;);
-    expect(thumbnails[2]).toHaveAttribute(&apos;src&apos;, &apos;/test-image-2.jpg&apos;);
+    expect(thumbnails[1]).toHaveAttribute('src', '/test-image-1.jpg');
+    expect(thumbnails[2]).toHaveAttribute('src', '/test-image-2.jpg');
   });
 
-  it(&apos;changes main image when thumbnail is clicked&apos;, () => {
+  it('changes main image when thumbnail is clicked', () => {
     renderWithProviders(<ProductDetails product={mockProduct} />);
 
     // Get main image before clicking thumbnail
-    const mainImageBefore = screen.getAllByRole(&apos;img&apos;)[0];
-    expect(mainImageBefore).toHaveAttribute(&apos;src&apos;, &apos;/test-image-1.jpg&apos;);
+    const mainImageBefore = screen.getAllByRole('img')[0];
+    expect(mainImageBefore).toHaveAttribute('src', '/test-image-1.jpg');
 
     // Click on second thumbnail
-    const secondThumbnail = screen.getAllByRole(&apos;button&apos;)[1]; // First button is quantity input
+    const secondThumbnail = screen.getAllByRole('button')[1]; // First button is quantity input
     fireEvent.click(secondThumbnail);
 
     // Check if main image has changed
-    const mainImageAfter = screen.getAllByRole(&apos;img&apos;)[0];
-    expect(mainImageAfter).toHaveAttribute(&apos;src&apos;, &apos;/test-image-2.jpg&apos;);
+    const mainImageAfter = screen.getAllByRole('img')[0];
+    expect(mainImageAfter).toHaveAttribute('src', '/test-image-2.jpg');
   });
 
-  it(&apos;updates quantity when input changes&apos;, () => {
+  it('updates quantity when input changes', () => {
     renderWithProviders(<ProductDetails product={mockProduct} />);
 
     // Get quantity input
-    const quantityInput = screen.getByLabelText(&apos;Quantity&apos;);
+    const quantityInput = screen.getByLabelText('Quantity');
 
     // Change quantity
-    fireEvent.change(quantityInput, { target: { value: &apos;3&apos; } });
+    fireEvent.change(quantityInput, { target: { value: '3' } });
 
     // Check if quantity has been updated
     expect(quantityInput).toHaveValue(3);
   });
 
-  it(&apos;dispatches addToCart action when add to cart button is clicked&apos;, () => {
+  it('dispatches addToCart action when add to cart button is clicked', () => {
+    const { store } = renderWithProviders(<ProductDetails product={mockProduct} />);
 
     // Mock the dispatch function
     const mockDispatch = jest.fn();
     store.dispatch = mockDispatch;
 
     // Get quantity input and change it
-    const quantityInput = screen.getByLabelText(&apos;Quantity&apos;);
-    fireEvent.change(quantityInput, { target: { value: &apos;3&apos; } });
+    const quantityInput = screen.getByLabelText('Quantity');
+    fireEvent.change(quantityInput, { target: { value: '3' } });
 
     // Click add to cart button
-    const addToCartButton = screen.getByText(&apos;Add to Cart&apos;);
+    const addToCartButton = screen.getByText('Add to Cart');
     fireEvent.click(addToCartButton);
 
     // Check if dispatch was called
     expect(mockDispatch).toHaveBeenCalled();
   });
 
-  it(&apos;renders out of stock state correctly&apos;, () => {
+  it('renders out of stock state correctly', () => {
     const outOfStockProduct = createMockProduct({
-      status: &apos;out_of_stock&apos;,
+      status: 'out_of_stock',
     });
 
     renderWithProviders(<ProductDetails product={outOfStockProduct} />);

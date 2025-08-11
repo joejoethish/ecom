@@ -13,6 +13,7 @@ import type {
 
 const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
 
+export const notificationApi = {
   // Notification CRUD operations
   async getNotifications(filters?: NotificationFilters): Promise<Notification[]> {
     const params = new URLSearchParams();
@@ -25,10 +26,10 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
       });
     }
     
-    const url = `${NOTIFICATIONS_BASE_URL}${params.toString() ? `?${params.toString()}` : &apos;&apos;}`;
+    const url = `${NOTIFICATIONS_BASE_URL}${params.toString() ? `?${params.toString()}` : ''}`;
     const response = await apiClient.get<Notification[]>(url);
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch notifications&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch notifications');
     }
     return response.data;
   },
@@ -44,7 +45,7 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
   async createNotification(data: NotificationCreateData): Promise<Notification[]> {
     const response = await apiClient.post<Notification[]>(`${NOTIFICATIONS_BASE_URL}/create/`, data);
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to create notification&apos;);
+      throw new Error(response.error?.message || 'Failed to create notification');
     }
     return response.data;
   },
@@ -55,7 +56,7 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
       { notification_ids: notificationIds }
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to mark notifications as read&apos;);
+      throw new Error(response.error?.message || 'Failed to mark notifications as read');
     }
     return response.data;
   },
@@ -65,7 +66,7 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
       `${NOTIFICATIONS_BASE_URL}/mark-all-as-read/`
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to mark all notifications as read&apos;);
+      throw new Error(response.error?.message || 'Failed to mark all notifications as read');
     }
     return response.data;
   },
@@ -74,7 +75,7 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
   async getPreferences(): Promise<NotificationPreference[]> {
     const response = await apiClient.get<NotificationPreference[]>(`${NOTIFICATIONS_BASE_URL}/preferences/`);
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch notification preferences&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch notification preferences');
     }
     return response.data;
   },
@@ -85,7 +86,7 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
       data
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to update notification preferences&apos;);
+      throw new Error(response.error?.message || 'Failed to update notification preferences');
     }
     return response.data;
   },
@@ -102,7 +103,7 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
   async getStats(): Promise<NotificationStats> {
     const response = await apiClient.get<NotificationStats>(`${NOTIFICATIONS_BASE_URL}/stats/`);
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch notification stats&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch notification stats');
     }
     return response.data;
   },
@@ -110,7 +111,7 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
   async getSettings(): Promise<NotificationSettings> {
     const response = await apiClient.get<NotificationSettings>(`${NOTIFICATIONS_BASE_URL}/settings/`);
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch notification settings&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch notification settings');
     }
     return response.data;
   },
@@ -131,7 +132,7 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
       statuses: Array<{ value: string; label: string }>;
     }>(`${NOTIFICATIONS_BASE_URL}/types/`);
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch notification types&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch notification types');
     }
     return response.data;
   },
@@ -140,7 +141,7 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
   async getBatches(): Promise<NotificationBatch[]> {
     const response = await apiClient.get<NotificationBatch[]>(`${NOTIFICATIONS_BASE_URL}/batches/`);
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch notification batches&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch notification batches');
     }
     return response.data;
   },
@@ -164,23 +165,23 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
       });
     }
     
-    const url = `${NOTIFICATIONS_BASE_URL}/analytics${params.toString() ? `?${params.toString()}` : &apos;&apos;}`;
+    const url = `${NOTIFICATIONS_BASE_URL}/analytics${params.toString() ? `?${params.toString()}` : ''}`;
     const response = await apiClient.get<NotificationAnalytics[]>(url);
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch notification analytics&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch notification analytics');
     }
     return response.data;
   },
 
-  async getAnalyticsSummary(dateFrom?: string, dateTo?: string): Promise<unknown> {
+  async getAnalyticsSummary(dateFrom?: string, dateTo?: string): Promise<any> {
     const params = new URLSearchParams();
-    if (dateFrom) params.append(&apos;date_from&apos;, dateFrom);
-    if (dateTo) params.append(&apos;date_to&apos;, dateTo);
+    if (dateFrom) params.append('date_from', dateFrom);
+    if (dateTo) params.append('date_to', dateTo);
     
-    const url = `${NOTIFICATIONS_BASE_URL}/analytics/summary/${params.toString() ? `?${params.toString()}` : &apos;&apos;}`;
-    const response = await apiClient.get<unknown>(url);
+    const url = `${NOTIFICATIONS_BASE_URL}/analytics/summary/${params.toString() ? `?${params.toString()}` : ''}`;
+    const response = await apiClient.get<any>(url);
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch notification analytics summary&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch notification analytics summary');
     }
     return response.data;
   },
@@ -191,7 +192,7 @@ const NOTIFICATIONS_BASE_URL = '/api/v1/notifications';
       { max_age_hours: maxAgeHours || 24 }
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to retry failed notifications&apos;);
+      throw new Error(response.error?.message || 'Failed to retry failed notifications');
     }
     return response.data;
   },

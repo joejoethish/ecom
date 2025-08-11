@@ -38,6 +38,7 @@ const createMockStore = () => {
 };
 
 // Mock wrapper component
+const MockWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const store = createMockStore();
   return React.createElement(Provider, { store, children });
 };
@@ -98,6 +99,7 @@ describe('Inventory Notification Utilities', () => {
 
   describe('useInventoryNotifications', () => {
     it('should initialize with correct default values', () => {
+      const { result } = renderHook(() => useInventoryNotifications(), {
         wrapper: MockWrapper,
       });
 
@@ -108,10 +110,11 @@ describe('Inventory Notification Utilities', () => {
     });
 
     it('should send inventory notification with correct data', () => {
+      const { result } = renderHook(() => useInventoryNotifications(), {
         wrapper: MockWrapper,
       });
 
-      let notification: unknown;
+      let notification: any;
       act(() => {
         notification = result.current.sendInventoryNotification(
           InventoryNotificationType.LOW_STOCK,
@@ -136,9 +139,11 @@ describe('Inventory Notification Utilities', () => {
     });
 
     it('should convert stock alert to notification format', () => {
+      const { result } = renderHook(() => useInventoryNotifications(), {
         wrapper: MockWrapper,
       });
 
+      const mockAlert: StockAlert = {
         id: '1',
         inventory_item: {
           id: 'inv-1',
@@ -184,6 +189,7 @@ describe('Inventory Notification Utilities', () => {
         canViewInventory: false,
       });
 
+      const { result } = renderHook(() => useInventoryNotifications(), {
         wrapper: MockWrapper,
       });
 
@@ -194,7 +200,7 @@ describe('Inventory Notification Utilities', () => {
       };
 
       // Should not throw or process notification
-      // @ts-expect-error - act signature deprecation
+      // @ts-ignore - act signature deprecation
       act(() => {
         result.current.processInventoryNotification(mockNotification);
         return undefined;
@@ -207,6 +213,7 @@ describe('Inventory Notification Utilities', () => {
 
   describe('useInventoryAlertNotifications', () => {
     it('should provide stock level notification methods', () => {
+      const { result } = renderHook(() => useInventoryAlertNotifications(), {
         wrapper: MockWrapper,
       });
 
@@ -217,6 +224,7 @@ describe('Inventory Notification Utilities', () => {
     });
 
     it('should send stock level notification', () => {
+      const { result } = renderHook(() => useInventoryAlertNotifications(), {
         wrapper: MockWrapper,
       });
 
@@ -230,8 +238,8 @@ describe('Inventory Notification Utilities', () => {
         reorder_level: 10,
       };
 
-      let notification: unknown;
-      // @ts-expect-error - act signature deprecation
+      let notification: any;
+      // @ts-ignore - act signature deprecation
       act(() => {
         notification = result.current.notifyStockLevel(mockInventoryItem, 'low_stock');
       });
@@ -249,6 +257,7 @@ describe('Inventory Notification Utilities', () => {
     });
 
     it('should send batch expiration notification', () => {
+      const { result } = renderHook(() => useInventoryAlertNotifications(), {
         wrapper: MockWrapper,
       });
 
@@ -262,8 +271,8 @@ describe('Inventory Notification Utilities', () => {
         expiration_date: '2023-12-31',
       };
 
-      let notification: unknown;
-      // @ts-expect-error - act signature deprecation
+      let notification: any;
+      // @ts-ignore - act signature deprecation
       act(() => {
         notification = result.current.notifyBatchExpiration(mockBatch, 3);
       });
@@ -282,6 +291,7 @@ describe('Inventory Notification Utilities', () => {
     });
 
     it('should send stock adjustment notification', () => {
+      const { result } = renderHook(() => useInventoryAlertNotifications(), {
         wrapper: MockWrapper,
       });
 
@@ -294,8 +304,8 @@ describe('Inventory Notification Utilities', () => {
         stock_quantity: 15,
       };
 
-      let notification: unknown;
-      // @ts-expect-error - act signature deprecation
+      let notification: any;
+      // @ts-ignore - act signature deprecation
       act(() => {
         notification = result.current.notifyStockAdjustment(
           mockInventoryItem,
@@ -318,9 +328,11 @@ describe('Inventory Notification Utilities', () => {
     });
 
     it('should process stock alerts for users with alert permissions', () => {
+      const { result } = renderHook(() => useInventoryAlertNotifications(), {
         wrapper: MockWrapper,
       });
 
+      const mockAlerts: StockAlert[] = [
         {
           id: '1',
           inventory_item: {
@@ -355,7 +367,7 @@ describe('Inventory Notification Utilities', () => {
         },
       ];
 
-      // @ts-expect-error - act signature deprecation
+      // @ts-ignore - act signature deprecation
       act(() => {
         result.current.processStockAlerts(mockAlerts);
         return undefined;
@@ -371,9 +383,11 @@ describe('Inventory Notification Utilities', () => {
         canViewAlerts: false,
       });
 
+      const { result } = renderHook(() => useInventoryAlertNotifications(), {
         wrapper: MockWrapper,
       });
 
+      const mockAlerts: StockAlert[] = [
         {
           id: '1',
           inventory_item: {
@@ -392,7 +406,7 @@ describe('Inventory Notification Utilities', () => {
         },
       ];
 
-      // @ts-expect-error - act signature deprecation
+      // @ts-ignore - act signature deprecation
       act(() => {
         result.current.processStockAlerts(mockAlerts);
         return undefined;
@@ -414,11 +428,12 @@ describe('Inventory Notification Utilities', () => {
         writable: true,
       });
 
+      const { result } = renderHook(() => useInventoryNotifications(), {
         wrapper: MockWrapper,
       });
 
       let granted: boolean;
-      // @ts-expect-error - act signature deprecation
+      // @ts-ignore - act signature deprecation
       await act(async () => {
         granted = await result.current.requestNotificationPermission();
       });
@@ -437,11 +452,12 @@ describe('Inventory Notification Utilities', () => {
         writable: true,
       });
 
+      const { result } = renderHook(() => useInventoryNotifications(), {
         wrapper: MockWrapper,
       });
 
       let granted: boolean;
-      // @ts-expect-error - act signature deprecation
+      // @ts-ignore - act signature deprecation
       await act(async () => {
         granted = await result.current.requestNotificationPermission();
       });
@@ -456,11 +472,12 @@ describe('Inventory Notification Utilities', () => {
         writable: true,
       });
 
+      const { result } = renderHook(() => useInventoryNotifications(), {
         wrapper: MockWrapper,
       });
 
       let granted: boolean;
-      // @ts-expect-error - act signature deprecation
+      // @ts-ignore - act signature deprecation
       await act(async () => {
         granted = await result.current.requestNotificationPermission();
       });

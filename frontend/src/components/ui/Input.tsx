@@ -10,7 +10,7 @@ export function Input({
   label,
   error,
   helperText,
-  className = &apos;&apos;,
+  className = '',
   id,
   ...props
 }: InputProps) {
@@ -18,10 +18,10 @@ export function Input({
   const errorId = error ? `${inputId}-error` : undefined;
   const helperId = helperText ? `${inputId}-helper` : undefined;
   
-  const baseClasses = &apos;block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-0 sm:text-sm transition-colors touch-manipulation&apos;;
-  const normalClasses = &apos;border-gray-300 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400&apos;;
-  const errorClasses = &apos;border-red-300 focus:ring-red-500 focus:border-red-500&apos;;
-  const disabledClasses = &apos;disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed disabled:border-gray-200&apos;;
+  const baseClasses = 'block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-0 sm:text-sm transition-colors touch-manipulation';
+  const normalClasses = 'border-gray-300 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400';
+  const errorClasses = 'border-red-300 focus:ring-red-500 focus:border-red-500';
+  const disabledClasses = 'disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed disabled:border-gray-200';
   
   const inputClasses = `${baseClasses} ${error ? errorClasses : normalClasses} ${disabledClasses} ${className}`;
   

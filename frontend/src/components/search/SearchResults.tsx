@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { apiClient } from '@/utils/api';
+import { API_ENDPOINTS } from '@/constants';
 import { ProductGrid } from '../products/ProductGrid';
 import { Pagination } from '../products/Pagination';
 
@@ -12,34 +13,27 @@ interface SearchResultsProps {
   /** Initial search query */
   initialQuery?: string;
   /** Initial filters */
-  initialFilters?: Record<string, string | number | boolean>;
+  initialFilters?: Record<string, any>;
 }
 
 /**
  * SearchResults component for displaying search results with sorting and pagination
  */
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  image_url?: string;
-  rating?: number;
-  reviews_count?: number;
-}
-
 export function SearchResults({
   className = '',
   initialQuery = '',
   initialFilters = {},
 }: SearchResultsProps) {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
   const [totalPages, setTotalPages] = useState(1);
   const [sortBy, setSortBy] = useState<string>('relevance');
   const [query, setQuery] = useState(initialQuery);
+  const [filters, setFilters] = useState(initialFilters);
   
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -67,7 +61,7 @@ export function SearchResults({
     }
     
     // Extract filters
-    const extractedFilters: Record<string, string | number | boolean> = {};
+    const extractedFilters: Record<string, any> = {};
     
     // Extract category filter
     const category = searchParams.get('category');
@@ -103,14 +97,16 @@ export function SearchResults({
       extractedFilters.is_featured = true;
     }
     
+    setFilters(extractedFilters);
+    
     // Fetch search results with the updated parameters
     fetchSearchResults(searchQuery, extractedFilters, sort || (searchQuery ? 'relevance' : 'created_at'), page ? parseInt(page, 10) : 1);
-  }, [searchParams, fetchSearchResults]);
+  }, [searchParams]);
 
   // Fetch search results from the API
-  const fetchSearchResults = useCallback(async (
+  const fetchSearchResults = async (
     searchQuery: string,
-    searchFilters: Record<string, string | number | boolean>,
+    searchFilters: Record<string, any>,
     sortOption: string,
     page: number
   ) => {
@@ -162,7 +158,7 @@ export function SearchResults({
       
       // Make API request
       const response = await apiClient.get(
-        `/api/products/search/?${params.toString()}`
+        `${API_ENDPOINTS.SEARCH.PRODUCTS}?${params.toString()}`
       );
       
       if (response.success && response.data) {
@@ -183,7 +179,7 @@ export function SearchResults({
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  };
 
   // Handle sort change
   const handleSortChange = (newSortBy: string) => {

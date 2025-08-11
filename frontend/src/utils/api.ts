@@ -6,7 +6,7 @@ import { ApiResponse, AuthTokens } from '@/types';
 import { getStoredTokens, removeStoredTokens, setStoredTokens } from './storage';
 
 class ApiClient {
-  private client: unknown;
+  private client: any;
 
   constructor() {
     this.client = axios.create({
@@ -23,7 +23,7 @@ class ApiClient {
   private setupInterceptors() {
     // Request interceptor to add auth token
     this.client.interceptors.request.use(
-      (config: unknown) => {
+      (config: any) => {
         const tokens = getStoredTokens();
         if (tokens?.access && config.headers) {
           config.headers.Authorization = `Bearer ${tokens.access}`;
@@ -37,9 +37,9 @@ class ApiClient {
 
     // Response interceptor to handle token refresh
     this.client.interceptors.response.use(
-      (response: unknown) => response,
+      (response: any) => response,
       async (error: unknown) => {
-        if (error && typeof error === &apos;object&apos; && &apos;config&apos; in error && &apos;response&apos; in error) {
+        if (error && typeof error === 'object' && 'config' in error && 'response' in error) {
           const originalRequest = (error as any).config;
 
           if ((error as any).response?.status === 401 && !originalRequest._retry) {
@@ -61,8 +61,8 @@ class ApiClient {
             } catch (refreshError) {
               // Refresh failed, redirect to login
               removeStoredTokens();
-              if (typeof window !== &apos;undefined&apos;) {
-                window.location.href = &apos;/auth/login&apos;;
+              if (typeof window !== 'undefined') {
+                window.location.href = '/auth/login';
               }
             }
           }
@@ -73,14 +73,15 @@ class ApiClient {
     );
   }
 
-  private async refreshToken(refreshToken: string): Promise<unknown> {
-    return this.client.post(&apos;/auth/refresh/&apos;, {
+  private async refreshToken(refreshToken: string): Promise<any> {
+    return this.client.post('/auth/refresh/', {
       refresh: refreshToken,
     });
   }
 
   async get<T = any>(url: string, config?: object): Promise<ApiResponse<T>> {
     try {
+      const response: any = await this.client.get(url, config);
       return {
         success: true,
         data: response.data,
@@ -90,8 +91,9 @@ class ApiClient {
     }
   }
 
-  async post<T = any>(url: string, data?: unknown, config?: object): Promise<ApiResponse<T>> {
+  async post<T = any>(url: string, data?: any, config?: object): Promise<ApiResponse<T>> {
     try {
+      const response: any = await this.client.post(url, data, config);
       return {
         success: true,
         data: response.data,
@@ -101,8 +103,9 @@ class ApiClient {
     }
   }
 
-  async put<T = any>(url: string, data?: unknown, config?: object): Promise<ApiResponse<T>> {
+  async put<T = any>(url: string, data?: any, config?: object): Promise<ApiResponse<T>> {
     try {
+      const response: any = await this.client.put(url, data, config);
       return {
         success: true,
         data: response.data,
@@ -112,8 +115,9 @@ class ApiClient {
     }
   }
 
-  async patch<T = any>(url: string, data?: unknown, config?: object): Promise<ApiResponse<T>> {
+  async patch<T = any>(url: string, data?: any, config?: object): Promise<ApiResponse<T>> {
     try {
+      const response: any = await this.client.patch(url, data, config);
       return {
         success: true,
         data: response.data,
@@ -125,6 +129,7 @@ class ApiClient {
 
   async delete<T = any>(url: string, config?: object): Promise<ApiResponse<T>> {
     try {
+      const response: any = await this.client.delete(url, config);
       return {
         success: true,
         data: response.data,
@@ -177,4 +182,5 @@ class ApiClient {
 // Create and export a singleton instance
 export const apiClient = new ApiClient();
 
-// Export individual methods for convenience
+// Export individual methods for convenience
+export const { get, post, put, patch, delete: del } = apiClient;

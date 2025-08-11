@@ -9,14 +9,14 @@ jest.mock('@/services/authApi');
 const mockAuthApi = authApi as jest.Mocked<typeof authApi>;
 
 // Mock the error handling utilities
-jest.mock(&apos;@/utils/passwordResetErrors&apos;, () => ({
-  getPasswordResetErrorMessage: jest.fn((error) => error?.message || &apos;An error occurred&apos;),
+jest.mock('@/utils/passwordResetErrors', () => ({
+  getPasswordResetErrorMessage: jest.fn((error) => error?.message || 'An error occurred'),
   logPasswordResetError: jest.fn(),
   isRetryablePasswordResetError: jest.fn(() => true),
   logPasswordResetSecurityEvent: jest.fn(),
 }));
 
-describe(&apos;ForgotPasswordForm&apos;, () => {
+describe('ForgotPasswordForm', () => {
   const mockOnSuccess = jest.fn();
   const mockOnBackToLogin = jest.fn();
 
@@ -24,7 +24,7 @@ describe(&apos;ForgotPasswordForm&apos;, () => {
     jest.clearAllMocks();
   });
 
-  it(&apos;renders the form correctly&apos;, () => {
+  it('renders the form correctly', () => {
     render(
       <ForgotPasswordForm 
         onSuccess={mockOnSuccess}
@@ -32,13 +32,13 @@ describe(&apos;ForgotPasswordForm&apos;, () => {
       />
     );
 
-    expect(screen.getByText(&apos;Forgot Password?&apos;)).toBeInTheDocument();
-    expect(screen.getByLabelText(&apos;Email Address&apos;)).toBeInTheDocument();
-    expect(screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; })).toBeInTheDocument();
-    expect(screen.getByRole(&apos;button&apos;, { name: &apos;Back to Login&apos; })).toBeInTheDocument();
+    expect(screen.getByText('Forgot Password?')).toBeInTheDocument();
+    expect(screen.getByLabelText('Email Address')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Send Reset Link' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Back to Login' })).toBeInTheDocument();
   });
 
-  it(&apos;validates email format&apos;, async () => {
+  it('validates email format', async () => {
     const user = userEvent.setup();
     render(
       <ForgotPasswordForm 
@@ -47,28 +47,28 @@ describe(&apos;ForgotPasswordForm&apos;, () => {
       />
     );
 
-    const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; });
+    const emailInput = screen.getByLabelText('Email Address');
+    const submitButton = screen.getByRole('button', { name: 'Send Reset Link' });
 
     // Test invalid email
-    await user.type(emailInput, &apos;invalid-email&apos;);
+    await user.type(emailInput, 'invalid-email');
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Please enter a valid email address&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Please enter a valid email address')).toBeInTheDocument();
     });
 
     // Test valid email
     await user.clear(emailInput);
-    await user.type(emailInput, &apos;test@example.com&apos;);
+    await user.type(emailInput, 'test@example.com');
     
     // The validation error should disappear
     await waitFor(() => {
-      expect(screen.queryByText(&apos;Please enter a valid email address&apos;)).not.toBeInTheDocument();
+      expect(screen.queryByText('Please enter a valid email address')).not.toBeInTheDocument();
     });
   });
 
-  it(&apos;requires email to be entered&apos;, async () => {
+  it('requires email to be entered', async () => {
     const user = userEvent.setup();
     render(
       <ForgotPasswordForm 
@@ -77,19 +77,19 @@ describe(&apos;ForgotPasswordForm&apos;, () => {
       />
     );
 
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; });
+    const submitButton = screen.getByRole('button', { name: 'Send Reset Link' });
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Email address is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Email address is required')).toBeInTheDocument();
     });
   });
 
-  it(&apos;submits form successfully&apos;, async () => {
+  it('submits form successfully', async () => {
     const user = userEvent.setup();
     mockAuthApi.requestPasswordReset.mockResolvedValue({
       success: true,
-      data: { success: true, message: &apos;Reset email sent&apos; }
+      data: { success: true, message: 'Reset email sent' }
     });
 
     render(
@@ -99,32 +99,32 @@ describe(&apos;ForgotPasswordForm&apos;, () => {
       />
     );
 
-    const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; });
+    const emailInput = screen.getByLabelText('Email Address');
+    const submitButton = screen.getByRole('button', { name: 'Send Reset Link' });
 
-    await user.type(emailInput, &apos;test@example.com&apos;);
+    await user.type(emailInput, 'test@example.com');
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(mockAuthApi.requestPasswordReset).toHaveBeenCalledWith(&apos;test@example.com&apos;);
+      expect(mockAuthApi.requestPasswordReset).toHaveBeenCalledWith('test@example.com');
     });
 
     // Should show success screen
     await waitFor(() => {
-      expect(screen.getByText(&apos;Check Your Email&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;test@example.com&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Check Your Email')).toBeInTheDocument();
+      expect(screen.getByText('test@example.com')).toBeInTheDocument();
     });
 
     expect(mockOnSuccess).toHaveBeenCalled();
   });
 
-  it(&apos;handles API errors&apos;, async () => {
+  it('handles API errors', async () => {
     const user = userEvent.setup();
     mockAuthApi.requestPasswordReset.mockResolvedValue({
       success: false,
       error: {
-        message: &apos;Server error&apos;,
-        code: &apos;server_error&apos;,
+        message: 'Server error',
+        code: 'server_error',
         status_code: 500
       }
     });
@@ -136,22 +136,22 @@ describe(&apos;ForgotPasswordForm&apos;, () => {
       />
     );
 
-    const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; });
+    const emailInput = screen.getByLabelText('Email Address');
+    const submitButton = screen.getByRole('button', { name: 'Send Reset Link' });
 
-    await user.type(emailInput, &apos;test@example.com&apos;);
+    await user.type(emailInput, 'test@example.com');
     await user.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Server error&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Server error')).toBeInTheDocument();
     });
 
     expect(mockOnSuccess).not.toHaveBeenCalled();
   });
 
-  it(&apos;shows loading state during submission&apos;, async () => {
+  it('shows loading state during submission', async () => {
     const user = userEvent.setup();
-    let resolvePromise: (value: unknown) => void;
+    let resolvePromise: (value: any) => void;
     const promise = new Promise((resolve) => {
       resolvePromise = resolve;
     });
@@ -165,32 +165,32 @@ describe(&apos;ForgotPasswordForm&apos;, () => {
       />
     );
 
-    const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; });
+    const emailInput = screen.getByLabelText('Email Address');
+    const submitButton = screen.getByRole('button', { name: 'Send Reset Link' });
 
-    await user.type(emailInput, &apos;test@example.com&apos;);
+    await user.type(emailInput, 'test@example.com');
     await user.click(submitButton);
 
     // Should show loading state
-    expect(screen.getByText(&apos;Sending Reset Link...&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Sending Reset Link...')).toBeInTheDocument();
     expect(submitButton).toBeDisabled();
 
     // Resolve the promise
     resolvePromise!({
       success: true,
-      data: { success: true, message: &apos;Reset email sent&apos; }
+      data: { success: true, message: 'Reset email sent' }
     });
 
     await waitFor(() => {
-      expect(screen.getByText(&apos;Check Your Email&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Check Your Email')).toBeInTheDocument();
     });
   });
 
-  it(&apos;allows trying different email from success screen&apos;, async () => {
+  it('allows trying different email from success screen', async () => {
     const user = userEvent.setup();
     mockAuthApi.requestPasswordReset.mockResolvedValue({
       success: true,
-      data: { success: true, message: &apos;Reset email sent&apos; }
+      data: { success: true, message: 'Reset email sent' }
     });
 
     render(
@@ -200,29 +200,29 @@ describe(&apos;ForgotPasswordForm&apos;, () => {
       />
     );
 
-    const emailInput = screen.getByLabelText(&apos;Email Address&apos;);
-    const submitButton = screen.getByRole(&apos;button&apos;, { name: &apos;Send Reset Link&apos; });
+    const emailInput = screen.getByLabelText('Email Address');
+    const submitButton = screen.getByRole('button', { name: 'Send Reset Link' });
 
-    await user.type(emailInput, &apos;test@example.com&apos;);
+    await user.type(emailInput, 'test@example.com');
     await user.click(submitButton);
 
     // Wait for success screen
     await waitFor(() => {
-      expect(screen.getByText(&apos;Check Your Email&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Check Your Email')).toBeInTheDocument();
     });
 
-    // Click &quot;Try Different Email&quot;
-    const tryDifferentButton = screen.getByRole(&apos;button&apos;, { name: &apos;Try Different Email&apos; });
+    // Click "Try Different Email"
+    const tryDifferentButton = screen.getByRole('button', { name: 'Try Different Email' });
     await user.click(tryDifferentButton);
 
     // Should return to form
     await waitFor(() => {
-      expect(screen.getByText(&apos;Forgot Password?&apos;)).toBeInTheDocument();
-      expect(screen.getByLabelText(&apos;Email Address&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Forgot Password?')).toBeInTheDocument();
+      expect(screen.getByLabelText('Email Address')).toBeInTheDocument();
     });
   });
 
-  it(&apos;calls onBackToLogin when back button is clicked&apos;, async () => {
+  it('calls onBackToLogin when back button is clicked', async () => {
     const user = userEvent.setup();
     render(
       <ForgotPasswordForm 
@@ -231,15 +231,15 @@ describe(&apos;ForgotPasswordForm&apos;, () => {
       />
     );
 
-    const backButton = screen.getByRole(&apos;button&apos;, { name: &apos;Back to Login&apos; });
+    const backButton = screen.getByRole('button', { name: 'Back to Login' });
     await user.click(backButton);
 
     expect(mockOnBackToLogin).toHaveBeenCalled();
   });
 
-  it(&apos;handles network errors with retry functionality&apos;, async () => {
+  it('handles network errors with retry functionality', async () => {
     const user = userEvent.setup();
-    mockAuthApi.requestPasswordReset.mockRejectedValue(new Error(&apos;Network error&apos;));
+    mockAuthApi.requestPasswordReset.mockRejectedValue(new Error('Network error'));
 
     render(
       <ForgotPasswordForm 

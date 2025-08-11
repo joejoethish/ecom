@@ -4,14 +4,9 @@ import { SearchResults } from '../SearchResults';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { apiClient } from '@/utils/api';
 
-interface Product {
-  id: string;
-  name: string;
-}
-
 // Mock the ProductGrid component
 jest.mock('@/components/products/ProductGrid', () => ({
-  ProductGrid: ({ products }: { products: Product[] }) => (
+  ProductGrid: ({ products }: { products: any[] }) => (
     <div data-testid="product-grid">
       {products.map(product => (
         <div key={product.id} data-testid={`product-${product.id}`}>
@@ -23,7 +18,7 @@ jest.mock('@/components/products/ProductGrid', () => ({
 }));
 
 // Mock the Pagination component
-jest.mock(&apos;@/components/products/Pagination&apos;, () => ({
+jest.mock('@/components/products/Pagination', () => ({
   Pagination: ({ currentPage, totalPages, onPageChange }: { currentPage: number, totalPages: number, onPageChange: (page: number) => void }) => (
     <div data-testid="pagination">
       <span>Page {currentPage} of {totalPages}</span>
@@ -33,55 +28,55 @@ jest.mock(&apos;@/components/products/Pagination&apos;, () => ({
 }));
 
 // Mock the next/navigation router and searchParams
-jest.mock(&apos;next/navigation&apos;, () => ({
+jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
   useSearchParams: jest.fn(),
 }));
 
 // Mock the API client
-jest.mock(&apos;@/utils/api&apos;, () => ({
+jest.mock('@/utils/api', () => ({
   apiClient: {
     get: jest.fn(),
   },
 }));
 
-describe(&apos;SearchResults Component&apos;, () => {
+describe('SearchResults Component', () => {
   const mockRouter = {
     push: jest.fn(),
   };
   
   const mockSearchParams = {
     get: jest.fn(),
-    toString: jest.fn().mockReturnValue(&apos;&apos;),
+    toString: jest.fn().mockReturnValue(''),
   };
   
   const mockSearchResults = {
     count: 42,
     results: [
       {
-        id: &apos;1&apos;,
-        name: &apos;Smartphone X&apos;,
-        slug: &apos;smartphone-x&apos;,
+        id: '1',
+        name: 'Smartphone X',
+        slug: 'smartphone-x',
         price: 999.99,
         discount_price: null,
         effective_price: 999.99,
         discount_percentage: 0,
-        brand: &apos;Apple&apos;,
-        category: { name: &apos;Electronics&apos;, slug: &apos;electronics&apos; },
-        primary_image_url: &apos;smartphone.jpg&apos;,
+        brand: 'Apple',
+        category: { name: 'Electronics', slug: 'electronics' },
+        primary_image_url: 'smartphone.jpg',
         is_featured: true,
       },
       {
-        id: &apos;2&apos;,
-        name: &apos;Smart TV 55&quot;&apos;,
-        slug: &apos;smart-tv-55&apos;,
+        id: '2',
+        name: 'Smart TV 55"',
+        slug: 'smart-tv-55',
         price: 899.99,
         discount_price: 699.99,
         effective_price: 699.99,
         discount_percentage: 22.22,
-        brand: &apos;Samsung&apos;,
-        category: { name: &apos;Electronics&apos;, slug: &apos;electronics&apos; },
-        primary_image_url: &apos;tv.jpg&apos;,
+        brand: 'Samsung',
+        category: { name: 'Electronics', slug: 'electronics' },
+        primary_image_url: 'tv.jpg',
         is_featured: false,
       },
     ],
@@ -89,9 +84,9 @@ describe(&apos;SearchResults Component&apos;, () => {
     page_size: 20,
     num_pages: 3,
     facets: {},
-    query: &apos;smart&apos;,
+    query: 'smart',
     filters: {},
-    sort_by: &apos;relevance&apos;,
+    sort_by: 'relevance',
   };
   
   beforeEach(() => {
@@ -104,10 +99,10 @@ describe(&apos;SearchResults Component&apos;, () => {
     });
   });
 
-  test(&apos;renders the search results correctly&apos;, async () => {
+  test('renders the search results correctly', async () => {
     // Mock search query
     mockSearchParams.get.mockImplementation((param) => {
-      if (param === &apos;search&apos;) return &apos;smart&apos;;
+      if (param === 'search') return 'smart';
       return null;
     });
     
@@ -115,39 +110,39 @@ describe(&apos;SearchResults Component&apos;, () => {
     
     // Wait for search results to load
     await waitFor(() => {
-      expect(screen.getByText(&apos;Search results for &quot;smart&quot;&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Search results for "smart"')).toBeInTheDocument();
     });
     
     // Check if product count is displayed
-    expect(screen.getByText(&apos;42 products found&apos;)).toBeInTheDocument();
+    expect(screen.getByText('42 products found')).toBeInTheDocument();
     
     // Check if sort options are displayed
-    expect(screen.getByLabelText(&apos;Sort by:&apos;)).toBeInTheDocument();
+    expect(screen.getByLabelText('Sort by:')).toBeInTheDocument();
     
     // Check if products are displayed
-    expect(screen.getByTestId(&apos;product-grid&apos;)).toBeInTheDocument();
-    expect(screen.getByTestId(&apos;product-1&apos;)).toBeInTheDocument();
-    expect(screen.getByTestId(&apos;product-2&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('product-grid')).toBeInTheDocument();
+    expect(screen.getByTestId('product-1')).toBeInTheDocument();
+    expect(screen.getByTestId('product-2')).toBeInTheDocument();
     
     // Check if pagination is displayed
-    expect(screen.getByTestId(&apos;pagination&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Page 1 of 3&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('pagination')).toBeInTheDocument();
+    expect(screen.getByText('Page 1 of 3')).toBeInTheDocument();
   });
 
-  test(&apos;displays &quot;All Products&quot; when no search query is provided&apos;, async () => {
+  test('displays "All Products" when no search query is provided', async () => {
     mockSearchParams.get.mockReturnValue(null);
     
     render(<SearchResults />);
     
     // Wait for search results to load
     await waitFor(() => {
-      expect(screen.getByText(&apos;All Products&apos;)).toBeInTheDocument();
+      expect(screen.getByText('All Products')).toBeInTheDocument();
     });
   });
 
-  test(&apos;handles sort change&apos;, async () => {
+  test('handles sort change', async () => {
     mockSearchParams.get.mockImplementation((param) => {
-      if (param === &apos;search&apos;) return &apos;smart&apos;;
+      if (param === 'search') return 'smart';
       return null;
     });
     
@@ -155,20 +150,20 @@ describe(&apos;SearchResults Component&apos;, () => {
     
     // Wait for search results to load
     await waitFor(() => {
-      expect(screen.getByLabelText(&apos;Sort by:&apos;)).toBeInTheDocument();
+      expect(screen.getByLabelText('Sort by:')).toBeInTheDocument();
     });
     
     // Change sort option
-    const sortSelect = screen.getByLabelText(&apos;Sort by:&apos;);
-    fireEvent.change(sortSelect, { target: { value: &apos;price_asc&apos; } });
+    const sortSelect = screen.getByLabelText('Sort by:');
+    fireEvent.change(sortSelect, { target: { value: 'price_asc' } });
     
     // Check if router was called with correct URL
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products?sort_by=price_asc&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products?sort_by=price_asc');
   });
 
-  test(&apos;handles page change&apos;, async () => {
+  test('handles page change', async () => {
     mockSearchParams.get.mockImplementation((param) => {
-      if (param === &apos;search&apos;) return &apos;smart&apos;;
+      if (param === 'search') return 'smart';
       return null;
     });
     
@@ -176,18 +171,18 @@ describe(&apos;SearchResults Component&apos;, () => {
     
     // Wait for search results to load
     await waitFor(() => {
-      expect(screen.getByTestId(&apos;pagination&apos;)).toBeInTheDocument();
+      expect(screen.getByTestId('pagination')).toBeInTheDocument();
     });
     
     // Click next page button
-    const nextButton = screen.getByText(&apos;Next&apos;);
+    const nextButton = screen.getByText('Next');
     fireEvent.click(nextButton);
     
     // Check if router was called with correct URL
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products?page=2&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products?page=2');
   });
 
-  test(&apos;displays loading state&apos;, async () => {
+  test('displays loading state', async () => {
     // Delay API response to show loading state
     (apiClient.get as jest.Mock).mockImplementation(() => {
       return new Promise(resolve => {
@@ -203,14 +198,14 @@ describe(&apos;SearchResults Component&apos;, () => {
     render(<SearchResults />);
     
     // Check if loading state is displayed
-    expect(screen.getByText(&apos;Loading...&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
-  test(&apos;displays error message when API fails&apos;, async () => {
+  test('displays error message when API fails', async () => {
     (apiClient.get as jest.Mock).mockResolvedValue({
       success: false,
       error: {
-        message: &apos;Failed to load search results&apos;
+        message: 'Failed to load search results'
       }
     });
     
@@ -218,11 +213,11 @@ describe(&apos;SearchResults Component&apos;, () => {
     
     // Wait for error message to appear
     await waitFor(() => {
-      expect(screen.getByText(&apos;Failed to load search results&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Failed to load search results')).toBeInTheDocument();
     });
   });
 
-  test(&apos;displays empty state when no results found&apos;, async () => {
+  test('displays empty state when no results found', async () => {
     (apiClient.get as jest.Mock).mockResolvedValue({
       success: true,
       data: {
@@ -233,7 +228,7 @@ describe(&apos;SearchResults Component&apos;, () => {
     });
     
     mockSearchParams.get.mockImplementation((param) => {
-      if (param === &apos;search&apos;) return &apos;nonexistent&apos;;
+      if (param === 'search') return 'nonexistent';
       return null;
     });
     

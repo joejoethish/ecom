@@ -1,17 +1,19 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import ReviewSummary from '../ReviewSummary';
 import { ProductReviewSummary } from '../../../types';
 
 // Mock the StarRating component
 jest.mock('../../ui/StarRating', () => {
-  return function MockStarRating({ rating }: { rating: number }) {
+  return function MockStarRating({ rating }: any) {
     return <div data-testid="star-rating">Rating: {rating}</div>;
   };
 });
 
-describe(&apos;ReviewSummary&apos;, () => {
-    product_id: &apos;product-123&apos;,
+describe('ReviewSummary', () => {
+  const mockSummary: ProductReviewSummary = {
+    product_id: 'product-123',
     total_reviews: 100,
     average_rating: 4.2,
     rating_distribution: {
@@ -29,44 +31,44 @@ describe(&apos;ReviewSummary&apos;, () => {
     summary: mockSummary,
   };
 
-  it(&apos;renders summary information correctly&apos;, () => {
+  it('renders summary information correctly', () => {
     render(<ReviewSummary {...defaultProps} />);
 
-    expect(screen.getByText(&apos;Customer Reviews&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;4.2&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Based on 100 reviews&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;86% Verified Purchases&apos;)).toBeInTheDocument();
-    expect(screen.getByTestId(&apos;star-rating&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Customer Reviews')).toBeInTheDocument();
+    expect(screen.getByText('4.2')).toBeInTheDocument();
+    expect(screen.getByText('Based on 100 reviews')).toBeInTheDocument();
+    expect(screen.getByText('86% Verified Purchases')).toBeInTheDocument();
+    expect(screen.getByTestId('star-rating')).toBeInTheDocument();
   });
 
-  it(&apos;displays rating distribution correctly&apos;, () => {
+  it('displays rating distribution correctly', () => {
     render(<ReviewSummary {...defaultProps} />);
 
     // Check that all rating levels are shown
-    expect(screen.getAllByText(&apos;5&apos;)).toHaveLength(1);
-    expect(screen.getAllByText(&apos;4&apos;)).toHaveLength(1);
-    expect(screen.getAllByText(&apos;3&apos;)).toHaveLength(2); // Appears in rating and count
-    expect(screen.getAllByText(&apos;2&apos;)).toHaveLength(1);
-    expect(screen.getAllByText(&apos;1&apos;)).toHaveLength(1);
+    expect(screen.getAllByText('5')).toHaveLength(1);
+    expect(screen.getAllByText('4')).toHaveLength(1);
+    expect(screen.getAllByText('3')).toHaveLength(2); // Appears in rating and count
+    expect(screen.getAllByText('2')).toHaveLength(1);
+    expect(screen.getAllByText('1')).toHaveLength(1);
 
     // Check counts and percentages
-    expect(screen.getAllByText(&apos;40&apos;)).toHaveLength(1); // 5-star count
-    expect(screen.getByText(&apos;(40%)&apos;)).toBeInTheDocument(); // 5-star percentage
-    expect(screen.getAllByText(&apos;30&apos;)).toHaveLength(1); // 4-star count
-    expect(screen.getByText(&apos;(30%)&apos;)).toBeInTheDocument(); // 4-star percentage
+    expect(screen.getAllByText('40')).toHaveLength(1); // 5-star count
+    expect(screen.getByText('(40%)')).toBeInTheDocument(); // 5-star percentage
+    expect(screen.getAllByText('30')).toHaveLength(1); // 4-star count
+    expect(screen.getByText('(30%)')).toBeInTheDocument(); // 4-star percentage
   });
 
-  it(&apos;shows rating labels&apos;, () => {
+  it('shows rating labels', () => {
     render(<ReviewSummary {...defaultProps} />);
 
-    expect(screen.getByText(&apos;Excellent&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Very Good&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Good&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Fair&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Poor&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Excellent')).toBeInTheDocument();
+    expect(screen.getByText('Very Good')).toBeInTheDocument();
+    expect(screen.getByText('Good')).toBeInTheDocument();
+    expect(screen.getByText('Fair')).toBeInTheDocument();
+    expect(screen.getByText('Poor')).toBeInTheDocument();
   });
 
-  it(&apos;handles rating filter clicks&apos;, async () => {
+  it('handles rating filter clicks', async () => {
     const mockOnRatingFilter = jest.fn();
     const user = userEvent.setup();
 
@@ -78,13 +80,13 @@ describe(&apos;ReviewSummary&apos;, () => {
     );
 
     // Click on 5-star rating
-    const fiveStarButton = screen.getByRole(&apos;button&apos;, { name: /5.*Excellent/ });
+    const fiveStarButton = screen.getByRole('button', { name: /5.*Excellent/ });
     await user.click(fiveStarButton);
 
     expect(mockOnRatingFilter).toHaveBeenCalledWith(5);
   });
 
-  it(&apos;toggles rating filter when same rating is clicked&apos;, async () => {
+  it('toggles rating filter when same rating is clicked', async () => {
     const mockOnRatingFilter = jest.fn();
     const user = userEvent.setup();
 
@@ -97,13 +99,13 @@ describe(&apos;ReviewSummary&apos;, () => {
     );
 
     // Click on already selected 5-star rating
-    const fiveStarButton = screen.getByRole(&apos;button&apos;, { name: /5.*Excellent/ });
+    const fiveStarButton = screen.getByRole('button', { name: /5.*Excellent/ });
     await user.click(fiveStarButton);
 
     expect(mockOnRatingFilter).toHaveBeenCalledWith(undefined);
   });
 
-  it(&apos;highlights selected rating&apos;, () => {
+  it('highlights selected rating', () => {
     render(
       <ReviewSummary
         {...defaultProps}
@@ -112,11 +114,11 @@ describe(&apos;ReviewSummary&apos;, () => {
       />
     );
 
-    const fiveStarButton = screen.getByRole(&apos;button&apos;, { name: /5.*Excellent/ });
-    expect(fiveStarButton).toHaveClass(&apos;bg-blue-50&apos;, &apos;border-blue-200&apos;);
+    const fiveStarButton = screen.getByRole('button', { name: /5.*Excellent/ });
+    expect(fiveStarButton).toHaveClass('bg-blue-50', 'border-blue-200');
   });
 
-  it(&apos;shows filter indicator when rating is selected&apos;, () => {
+  it('shows filter indicator when rating is selected', () => {
     render(
       <ReviewSummary
         {...defaultProps}
@@ -125,11 +127,11 @@ describe(&apos;ReviewSummary&apos;, () => {
       />
     );
 
-    expect(screen.getByText(&apos;Showing 4-star reviews only&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Show all reviews&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Showing 4-star reviews only')).toBeInTheDocument();
+    expect(screen.getByText('Show all reviews')).toBeInTheDocument();
   });
 
-  it(&apos;clears filter when &quot;Show all reviews&quot; is clicked&apos;, async () => {
+  it('clears filter when "Show all reviews" is clicked', async () => {
     const mockOnRatingFilter = jest.fn();
     const user = userEvent.setup();
 
@@ -141,13 +143,14 @@ describe(&apos;ReviewSummary&apos;, () => {
       />
     );
 
-    const showAllButton = screen.getByText(&apos;Show all reviews&apos;);
+    const showAllButton = screen.getByText('Show all reviews');
     await user.click(showAllButton);
 
     expect(mockOnRatingFilter).toHaveBeenCalledWith(undefined);
   });
 
-  it(&apos;handles zero reviews correctly&apos;, () => {
+  it('handles zero reviews correctly', () => {
+    const emptySummary: ProductReviewSummary = {
       ...mockSummary,
       total_reviews: 0,
       average_rating: 0,
@@ -163,22 +166,24 @@ describe(&apos;ReviewSummary&apos;, () => {
 
     render(<ReviewSummary summary={emptySummary} />);
 
-    expect(screen.getByText(&apos;0.0&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Based on 0 reviews&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;0% Verified Purchases&apos;)).toBeInTheDocument();
+    expect(screen.getByText('0.0')).toBeInTheDocument();
+    expect(screen.getByText('Based on 0 reviews')).toBeInTheDocument();
+    expect(screen.getByText('0% Verified Purchases')).toBeInTheDocument();
   });
 
-  it(&apos;handles singular review count&apos;, () => {
+  it('handles singular review count', () => {
+    const singleReviewSummary: ProductReviewSummary = {
       ...mockSummary,
       total_reviews: 1,
     };
 
     render(<ReviewSummary summary={singleReviewSummary} />);
 
-    expect(screen.getByText(&apos;Based on 1 review&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Based on 1 review')).toBeInTheDocument();
   });
 
-  it(&apos;formats large numbers correctly&apos;, () => {
+  it('formats large numbers correctly', () => {
+    const largeSummary: ProductReviewSummary = {
       ...mockSummary,
       total_reviews: 1500,
       rating_distribution: {
@@ -192,11 +197,11 @@ describe(&apos;ReviewSummary&apos;, () => {
 
     render(<ReviewSummary summary={largeSummary} />);
 
-    expect(screen.getByText(&apos;Based on 1,500 reviews&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;750&apos;)).toBeInTheDocument(); // Should format large numbers
+    expect(screen.getByText('Based on 1,500 reviews')).toBeInTheDocument();
+    expect(screen.getByText('750')).toBeInTheDocument(); // Should format large numbers
   });
 
-  it(&apos;calculates percentages correctly&apos;, () => {
+  it('calculates percentages correctly', () => {
     render(<ReviewSummary {...defaultProps} />);
 
     // With 100 total reviews:
@@ -206,21 +211,22 @@ describe(&apos;ReviewSummary&apos;, () => {
     // 2 stars: 7 reviews = 7%
     // 1 star: 3 reviews = 3%
 
-    expect(screen.getByText(&apos;(40%)&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;(30%)&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;(20%)&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;(7%)&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;(3%)&apos;)).toBeInTheDocument();
+    expect(screen.getByText('(40%)')).toBeInTheDocument();
+    expect(screen.getByText('(30%)')).toBeInTheDocument();
+    expect(screen.getByText('(20%)')).toBeInTheDocument();
+    expect(screen.getByText('(7%)')).toBeInTheDocument();
+    expect(screen.getByText('(3%)')).toBeInTheDocument();
   });
 
-  it(&apos;applies custom className&apos;, () => {
+  it('applies custom className', () => {
+    const { container } = render(
       <ReviewSummary {...defaultProps} className="custom-class" />
     );
 
-    expect(container.firstChild).toHaveClass(&apos;custom-class&apos;);
+    expect(container.firstChild).toHaveClass('custom-class');
   });
 
-  it(&apos;disables rating buttons when onRatingFilter is not provided&apos;, () => {
+  it('disables rating buttons when onRatingFilter is not provided', () => {
     render(<ReviewSummary {...defaultProps} />);
 
     const ratingButtons = screen.getAllByRole('button');

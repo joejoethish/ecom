@@ -29,6 +29,7 @@ interface ProductState {
   };
 }
 
+const initialState: ProductState = {
   products: [],
   categories: [],
   currentProduct: null,
@@ -46,12 +47,12 @@ export const fetchProducts = createAsyncThunk(
       const queryParams = new URLSearchParams();
       
       if (params.page) {
-        queryParams.append(&apos;page&apos;, params.page.toString());
+        queryParams.append('page', params.page.toString());
       }
       
       if (params.filters) {
         Object.entries(params.filters).forEach(([key, value]) => {
-          if (value !== undefined && value !== null && value !== &apos;&apos;) {
+          if (value !== undefined && value !== null && value !== '') {
             queryParams.append(key, value.toString());
           }
         });
@@ -63,16 +64,16 @@ export const fetchProducts = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to fetch products&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to fetch products');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to fetch products&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch products');
     }
   }
 );
 
 export const fetchProductById = createAsyncThunk(
-  &apos;products/fetchProductById&apos;,
+  'products/fetchProductById',
   async (id: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.get<Product>(API_ENDPOINTS.PRODUCTS.DETAIL(id));
@@ -80,16 +81,16 @@ export const fetchProductById = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to fetch product&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to fetch product');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to fetch product&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch product');
     }
   }
 );
 
 export const fetchCategories = createAsyncThunk(
-  &apos;products/fetchCategories&apos;,
+  'products/fetchCategories',
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiClient.get<Category[]>(API_ENDPOINTS.PRODUCTS.CATEGORIES);
@@ -97,16 +98,16 @@ export const fetchCategories = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to fetch categories&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to fetch categories');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to fetch categories&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch categories');
     }
   }
 );
 
 export const searchProducts = createAsyncThunk(
-  &apos;products/searchProducts&apos;,
+  'products/searchProducts',
   async (searchQuery: string, { rejectWithValue }) => {
     try {
       const response = await apiClient.get<PaginatedResponse<Product>>(
@@ -116,16 +117,16 @@ export const searchProducts = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to search products&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to search products');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to search products&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to search products');
     }
   }
 );
 
 const productSlice = createSlice({
-  name: &apos;products&apos;,
+  name: 'products',
   initialState,
   reducers: {
     clearError: (state) => {
@@ -205,4 +206,5 @@ const productSlice = createSlice({
   },
 });
 
+export const { clearError, setFilters, clearFilters, setCurrentProduct } = productSlice.actions;
 export default productSlice.reducer;

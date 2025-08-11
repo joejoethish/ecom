@@ -11,38 +11,38 @@ jest.mock('next/navigation', () => ({
 }));
 
 // Mock the API client
-jest.mock(&apos;@/utils/api&apos;, () => ({
+jest.mock('@/utils/api', () => ({
   apiClient: {
     get: jest.fn(),
   },
 }));
 
-describe(&apos;ProductFilters Component&apos;, () => {
+describe('ProductFilters Component', () => {
   const mockRouter = {
     push: jest.fn(),
   };
   
   const mockSearchParams = {
     get: jest.fn(),
-    toString: jest.fn().mockReturnValue(&apos;&apos;),
+    toString: jest.fn().mockReturnValue(''),
   };
   
   const mockFilterOptions = {
     categories: [
-      { name: &apos;Electronics&apos;, count: 42 },
-      { name: &apos;Clothing&apos;, count: 36 },
-      { name: &apos;Books&apos;, count: 28 },
+      { name: 'Electronics', count: 42 },
+      { name: 'Clothing', count: 36 },
+      { name: 'Books', count: 28 },
     ],
     brands: [
-      { name: &apos;Apple&apos;, count: 15 },
-      { name: &apos;Samsung&apos;, count: 12 },
-      { name: &apos;Sony&apos;, count: 8 },
+      { name: 'Apple', count: 15 },
+      { name: 'Samsung', count: 12 },
+      { name: 'Sony', count: 8 },
     ],
     price_ranges: [
-      { from: null, to: 100, count: 25, label: &apos;Under $100&apos; },
-      { from: 100, to: 500, count: 30, label: &apos;$100 - $500&apos; },
-      { from: 500, to: 1000, count: 15, label: &apos;$500 - $1000&apos; },
-      { from: 1000, to: null, count: 10, label: &apos;$1000+&apos; },
+      { from: null, to: 100, count: 25, label: 'Under $100' },
+      { from: 100, to: 500, count: 30, label: '$100 - $500' },
+      { from: 500, to: 1000, count: 15, label: '$500 - $1000' },
+      { from: 1000, to: null, count: 10, label: '$1000+' },
     ],
   };
   
@@ -53,24 +53,24 @@ describe(&apos;ProductFilters Component&apos;, () => {
     
     // Mock API calls based on the endpoint
     (apiClient.get as jest.Mock).mockImplementation((endpoint) => {
-      if (endpoint === &apos;/categories/&apos;) {
+      if (endpoint === '/categories/') {
         return Promise.resolve({
           success: true,
           data: {
             data: [
-              { name: &apos;Electronics&apos;, product_count: 42 },
-              { name: &apos;Clothing&apos;, product_count: 36 },
-              { name: &apos;Books&apos;, product_count: 28 },
+              { name: 'Electronics', product_count: 42 },
+              { name: 'Clothing', product_count: 36 },
+              { name: 'Books', product_count: 28 },
             ]
           }
         });
       }
       
-      if (endpoint.startsWith(&apos;/categories/&apos;) && endpoint.endsWith(&apos;/filters/&apos;)) {
+      if (endpoint.startsWith('/categories/') && endpoint.endsWith('/filters/')) {
         return Promise.resolve({
           success: true,
           data: {
-            category: { name: &apos;Electronics&apos; },
+            category: { name: 'Electronics' },
             total_products: 42,
             brands: mockFilterOptions.brands,
             price_ranges: mockFilterOptions.price_ranges,
@@ -80,136 +80,136 @@ describe(&apos;ProductFilters Component&apos;, () => {
       
       return Promise.resolve({
         success: false,
-        error: { message: &apos;Endpoint not found&apos; }
+        error: { message: 'Endpoint not found' }
       });
     });
   });
 
-  test(&apos;renders the filter component correctly&apos;, async () => {
+  test('renders the filter component correctly', async () => {
     render(<ProductFilters />);
     
     // Wait for filter options to load
     await waitFor(() => {
-      expect(screen.getByText(&apos;Filters&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Filters')).toBeInTheDocument();
     });
     
     // Check if categories are displayed
     await waitFor(() => {
-      expect(screen.getByText(&apos;Categories&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Electronics (42)&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Clothing (36)&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Books (28)&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Categories')).toBeInTheDocument();
+      expect(screen.getByText('Electronics (42)')).toBeInTheDocument();
+      expect(screen.getByText('Clothing (36)')).toBeInTheDocument();
+      expect(screen.getByText('Books (28)')).toBeInTheDocument();
     });
     
     // Check if brands are displayed
     await waitFor(() => {
-      expect(screen.getByText(&apos;Brands&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Apple (15)&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Samsung (12)&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Sony (8)&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Brands')).toBeInTheDocument();
+      expect(screen.getByText('Apple (15)')).toBeInTheDocument();
+      expect(screen.getByText('Samsung (12)')).toBeInTheDocument();
+      expect(screen.getByText('Sony (8)')).toBeInTheDocument();
     });
     
     // Check if price ranges are displayed
     await waitFor(() => {
-      expect(screen.getByText(&apos;Price Range&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Under $100 (25)&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;$100 - $500 (30)&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;$500 - $1000 (15)&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;$1000+ (10)&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Price Range')).toBeInTheDocument();
+      expect(screen.getByText('Under $100 (25)')).toBeInTheDocument();
+      expect(screen.getByText('$100 - $500 (30)')).toBeInTheDocument();
+      expect(screen.getByText('$500 - $1000 (15)')).toBeInTheDocument();
+      expect(screen.getByText('$1000+ (10)')).toBeInTheDocument();
     });
     
     // Check if additional filters are displayed
-    expect(screen.getByText(&apos;Additional Filters&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Discounted Items Only&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Featured Items Only&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Additional Filters')).toBeInTheDocument();
+    expect(screen.getByText('Discounted Items Only')).toBeInTheDocument();
+    expect(screen.getByText('Featured Items Only')).toBeInTheDocument();
   });
 
-  test(&apos;handles category filter selection&apos;, async () => {
+  test('handles category filter selection', async () => {
     render(<ProductFilters />);
     
     // Wait for filter options to load
     await waitFor(() => {
-      expect(screen.getByText(&apos;Categories&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Categories')).toBeInTheDocument();
     });
     
     // Click on a category
-    const categoryCheckbox = screen.getByLabelText(&apos;Electronics (42)&apos;);
+    const categoryCheckbox = screen.getByLabelText('Electronics (42)');
     fireEvent.click(categoryCheckbox);
     
     // Check if router was called with correct URL
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products?category=Electronics&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products?category=Electronics');
   });
 
-  test(&apos;handles brand filter selection&apos;, async () => {
+  test('handles brand filter selection', async () => {
     render(<ProductFilters />);
     
     // Wait for filter options to load
     await waitFor(() => {
-      expect(screen.getByText(&apos;Brands&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Brands')).toBeInTheDocument();
     });
     
     // Click on a brand
-    const brandCheckbox = screen.getByLabelText(&apos;Apple&apos;);
+    const brandCheckbox = screen.getByLabelText('Apple');
     fireEvent.click(brandCheckbox);
     
     // Check if router was called with correct URL
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products?brand=Apple&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products?brand=Apple');
   });
 
-  test(&apos;handles price range filter selection&apos;, async () => {
+  test('handles price range filter selection', async () => {
     render(<ProductFilters />);
     
     // Wait for filter options to load
     await waitFor(() => {
-      expect(screen.getByText(&apos;Price Range&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Price Range')).toBeInTheDocument();
     });
     
     // Click on a price range
-    const priceRangeRadio = screen.getByLabelText(&apos;$100 - $500&apos;);
+    const priceRangeRadio = screen.getByLabelText('$100 - $500');
     fireEvent.click(priceRangeRadio);
     
     // Check if router was called with correct URL
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products?min_price=100&max_price=500&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products?min_price=100&max_price=500');
   });
 
-  test(&apos;handles discount only filter selection&apos;, async () => {
+  test('handles discount only filter selection', async () => {
     render(<ProductFilters />);
     
     // Wait for filter options to load
     await waitFor(() => {
-      expect(screen.getByText(&apos;Additional Filters&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Additional Filters')).toBeInTheDocument();
     });
     
     // Click on discount only checkbox
-    const discountCheckbox = screen.getByLabelText(&apos;Discounted Items Only&apos;);
+    const discountCheckbox = screen.getByLabelText('Discounted Items Only');
     fireEvent.click(discountCheckbox);
     
     // Check if router was called with correct URL
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products?discount_only=true&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products?discount_only=true');
   });
 
-  test(&apos;handles featured only filter selection&apos;, async () => {
+  test('handles featured only filter selection', async () => {
     render(<ProductFilters />);
     
     // Wait for filter options to load
     await waitFor(() => {
-      expect(screen.getByText(&apos;Additional Filters&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Additional Filters')).toBeInTheDocument();
     });
     
     // Click on featured only checkbox
-    const featuredCheckbox = screen.getByLabelText(&apos;Featured Items Only&apos;);
+    const featuredCheckbox = screen.getByLabelText('Featured Items Only');
     fireEvent.click(featuredCheckbox);
     
     // Check if router was called with correct URL
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products?is_featured=true&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products?is_featured=true');
   });
 
-  test(&apos;clears all filters when clear button is clicked&apos;, async () => {
+  test('clears all filters when clear button is clicked', async () => {
     // Mock initial filters
     mockSearchParams.get.mockImplementation((param) => {
-      if (param === &apos;category&apos;) return &apos;Electronics&apos;;
-      if (param === &apos;brand&apos;) return &apos;Apple&apos;;
-      if (param === &apos;discount_only&apos;) return &apos;true&apos;;
+      if (param === 'category') return 'Electronics';
+      if (param === 'brand') return 'Apple';
+      if (param === 'discount_only') return 'true';
       return null;
     });
     
@@ -217,21 +217,21 @@ describe(&apos;ProductFilters Component&apos;, () => {
     
     // Wait for filter options to load
     await waitFor(() => {
-      expect(screen.getByText(&apos;Clear All&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Clear All')).toBeInTheDocument();
     });
     
     // Click on clear all button
-    const clearButton = screen.getByText(&apos;Clear All&apos;);
+    const clearButton = screen.getByText('Clear All');
     fireEvent.click(clearButton);
     
     // Check if router was called with URL without filters
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products');
   });
 
-  test(&apos;preserves search query when applying filters&apos;, async () => {
+  test('preserves search query when applying filters', async () => {
     // Mock search query
     mockSearchParams.get.mockImplementation((param) => {
-      if (param === &apos;search&apos;) return &apos;smartphone&apos;;
+      if (param === 'search') return 'smartphone';
       return null;
     });
     
@@ -239,22 +239,22 @@ describe(&apos;ProductFilters Component&apos;, () => {
     
     // Wait for filter options to load
     await waitFor(() => {
-      expect(screen.getByText(&apos;Categories&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Categories')).toBeInTheDocument();
     });
     
     // Click on a category
-    const categoryCheckbox = screen.getByLabelText(&apos;Electronics (42)&apos;);
+    const categoryCheckbox = screen.getByLabelText('Electronics (42)');
     fireEvent.click(categoryCheckbox);
     
     // Check if router was called with correct URL that includes the search query
-    expect(mockRouter.push).toHaveBeenCalledWith(&apos;/products?category=Electronics&search=smartphone&apos;);
+    expect(mockRouter.push).toHaveBeenCalledWith('/products?category=Electronics&search=smartphone');
   });
 
-  test(&apos;handles API error gracefully&apos;, async () => {
+  test('handles API error gracefully', async () => {
     (apiClient.get as jest.Mock).mockResolvedValue({
       success: false,
       error: {
-        message: &apos;Failed to load filter options&apos;
+        message: 'Failed to load filter options'
       }
     });
     

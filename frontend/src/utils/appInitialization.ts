@@ -7,6 +7,7 @@ import { logSecurityEvent } from './securityMonitoring';
 /**
  * Initialize all app-level utilities and services
  */
+export const initializeApp = (): void => {
   try {
     // Initialize token cleanup with custom config if needed
     initializeTokenCleanup({
@@ -47,6 +48,7 @@ import { logSecurityEvent } from './securityMonitoring';
 /**
  * Cleanup function to call on app shutdown
  */
+export const cleanupApp = (): void => {
   try {
     // The token cleanup manager will handle its own cleanup
     // through the beforeunload event listener

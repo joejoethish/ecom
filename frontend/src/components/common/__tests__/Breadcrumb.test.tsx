@@ -12,42 +12,46 @@ jest.mock('next/link', () => {
 });
 
 // Mock the lucide-react icons
-jest.mock(&apos;lucide-react&apos;, () => ({
+jest.mock('lucide-react', () => ({
   ChevronRight: () => <div data-testid="chevron-icon">ChevronRight Icon</div>,
 }));
 
-describe(&apos;Breadcrumb Component&apos;, () => {
-  it(&apos;renders nothing when items array is empty&apos;, () => {
+describe('Breadcrumb Component', () => {
+  it('renders nothing when items array is empty', () => {
+    const { container } = render(<Breadcrumb items={[]} />);
     expect(container.firstChild).toBeNull();
   });
 
-  it(&apos;renders a single breadcrumb item correctly&apos;, () => {
-      { label: &apos;Home&apos;, href: &apos;/&apos;, isCurrent: true }
+  it('renders a single breadcrumb item correctly', () => {
+    const items: BreadcrumbItem[] = [
+      { label: 'Home', href: '/', isCurrent: true }
     ];
 
     render(<Breadcrumb items={items} />);
     
-    expect(screen.getByText(&apos;Home&apos;)).toBeInTheDocument();
-    expect(screen.queryByTestId(&apos;chevron-icon&apos;)).not.toBeInTheDocument();
+    expect(screen.getByText('Home')).toBeInTheDocument();
+    expect(screen.queryByTestId('chevron-icon')).not.toBeInTheDocument();
   });
 
-  it(&apos;renders multiple breadcrumb items with separators&apos;, () => {
-      { label: &apos;Home&apos;, href: &apos;/&apos; },
-      { label: &apos;Products&apos;, href: &apos;/products&apos; },
-      { label: &apos;Product Name&apos;, href: &apos;/products/123&apos;, isCurrent: true }
+  it('renders multiple breadcrumb items with separators', () => {
+    const items: BreadcrumbItem[] = [
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products' },
+      { label: 'Product Name', href: '/products/123', isCurrent: true }
     ];
 
     render(<Breadcrumb items={items} />);
     
-    expect(screen.getByText(&apos;Home&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Products&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Product Name&apos;)).toBeInTheDocument();
-    expect(screen.getAllByTestId(&apos;chevron-icon&apos;)).toHaveLength(2);
+    expect(screen.getByText('Home')).toBeInTheDocument();
+    expect(screen.getByText('Products')).toBeInTheDocument();
+    expect(screen.getByText('Product Name')).toBeInTheDocument();
+    expect(screen.getAllByTestId('chevron-icon')).toHaveLength(2);
   });
 
-  it(&apos;renders current item as span and others as links&apos;, () => {
-      { label: &apos;Home&apos;, href: &apos;/&apos; },
-      { label: &apos;Products&apos;, href: &apos;/products&apos;, isCurrent: true }
+  it('renders current item as span and others as links', () => {
+    const items: BreadcrumbItem[] = [
+      { label: 'Home', href: '/' },
+      { label: 'Products', href: '/products', isCurrent: true }
     ];
 
     render(<Breadcrumb items={items} />);

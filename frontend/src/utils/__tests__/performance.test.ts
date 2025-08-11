@@ -140,11 +140,11 @@ describe('Performance Utilities', () => {
       const mockObserve = jest.fn();
       
       class MockPerformanceObserver {
-        constructor(callback: unknown) {
+        constructor(callback: any) {
           this.callback = callback;
         }
         
-        callback: unknown;
+        callback: any;
         disconnect = mockDisconnect;
         observe = mockObserve;
         

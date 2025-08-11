@@ -30,38 +30,39 @@ const createMockStore = (initialState = {}) => {
   });
 };
 
+const mockDeliverySlots: DeliverySlot[] = [
   {
-    id: &apos;1&apos;,
-    name: &apos;Morning Slot&apos;,
-    start_time: &apos;09:00&apos;,
-    end_time: &apos;12:00&apos;,
+    id: '1',
+    name: 'Morning Slot',
+    start_time: '09:00',
+    end_time: '12:00',
     day_of_week: 1,
-    day_of_week_display: &apos;Monday&apos;,
+    day_of_week_display: 'Monday',
     additional_fee: 0,
     max_orders: 50,
     is_active: true,
     available_capacity: 25,
-    created_at: &apos;2024-01-01T00:00:00Z&apos;,
-    updated_at: &apos;2024-01-01T00:00:00Z&apos;
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
   },
   {
-    id: &apos;2&apos;,
-    name: &apos;Evening Slot&apos;,
-    start_time: &apos;18:00&apos;,
-    end_time: &apos;21:00&apos;,
+    id: '2',
+    name: 'Evening Slot',
+    start_time: '18:00',
+    end_time: '21:00',
     day_of_week: 1,
-    day_of_week_display: &apos;Monday&apos;,
+    day_of_week_display: 'Monday',
     additional_fee: 50,
     max_orders: 30,
     is_active: true,
     available_capacity: 15,
-    created_at: &apos;2024-01-01T00:00:00Z&apos;,
-    updated_at: &apos;2024-01-01T00:00:00Z&apos;
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
   }
 ];
 
-describe(&apos;DeliverySlotSelector&apos;, () => {
-  it(&apos;renders without pincode message when no pincode provided&apos;, () => {
+describe('DeliverySlotSelector', () => {
+  it('renders without pincode message when no pincode provided', () => {
     const store = createMockStore();
     
     render(
@@ -70,10 +71,10 @@ describe(&apos;DeliverySlotSelector&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Please enter a pincode to view available delivery slots.&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Please enter a pincode to view available delivery slots.')).toBeInTheDocument();
   });
 
-  it(&apos;renders loading state&apos;, () => {
+  it('renders loading state', () => {
     const store = createMockStore({ loading: true });
     
     render(
@@ -82,11 +83,11 @@ describe(&apos;DeliverySlotSelector&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Loading delivery slots...&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Loading delivery slots...')).toBeInTheDocument();
   });
 
-  it(&apos;renders error state&apos;, () => {
-    const store = createMockStore({ error: &apos;Failed to load slots&apos; });
+  it('renders error state', () => {
+    const store = createMockStore({ error: 'Failed to load slots' });
     
     render(
       <Provider store={store}>
@@ -94,10 +95,10 @@ describe(&apos;DeliverySlotSelector&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Error loading delivery slots: Failed to load slots&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Error loading delivery slots: Failed to load slots')).toBeInTheDocument();
   });
 
-  it(&apos;renders delivery slots when available&apos;, () => {
+  it('renders delivery slots when available', () => {
     const store = createMockStore({ deliverySlots: mockDeliverySlots });
     
     render(
@@ -106,13 +107,13 @@ describe(&apos;DeliverySlotSelector&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Select Delivery Date&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Select Delivery Time&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Morning Slot&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Evening Slot&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Select Delivery Date')).toBeInTheDocument();
+    expect(screen.getByText('Select Delivery Time')).toBeInTheDocument();
+    expect(screen.getByText('Morning Slot')).toBeInTheDocument();
+    expect(screen.getByText('Evening Slot')).toBeInTheDocument();
   });
 
-  it(&apos;handles slot selection&apos;, async () => {
+  it('handles slot selection', async () => {
     const mockOnSelect = jest.fn();
     const store = createMockStore({ deliverySlots: mockDeliverySlots });
     
@@ -125,7 +126,7 @@ describe(&apos;DeliverySlotSelector&apos;, () => {
       </Provider>
     );
 
-    const morningSlot = screen.getByText(&apos;Morning Slot&apos;).closest(&apos;div&apos;);
+    const morningSlot = screen.getByText('Morning Slot').closest('div');
     if (morningSlot) {
       fireEvent.click(morningSlot);
     }
@@ -135,7 +136,7 @@ describe(&apos;DeliverySlotSelector&apos;, () => {
     });
   });
 
-  it(&apos;shows additional fee for premium slots&apos;, () => {
+  it('shows additional fee for premium slots', () => {
     const store = createMockStore({ deliverySlots: mockDeliverySlots });
     
     render(
@@ -144,11 +145,11 @@ describe(&apos;DeliverySlotSelector&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Free&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;+₹50&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Free')).toBeInTheDocument();
+    expect(screen.getByText('+₹50')).toBeInTheDocument();
   });
 
-  it(&apos;shows slot availability&apos;, () => {
+  it('shows slot availability', () => {
     const store = createMockStore({ deliverySlots: mockDeliverySlots });
     
     render(
@@ -157,11 +158,11 @@ describe(&apos;DeliverySlotSelector&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;25 slots left&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;15 slots left&apos;)).toBeInTheDocument();
+    expect(screen.getByText('25 slots left')).toBeInTheDocument();
+    expect(screen.getByText('15 slots left')).toBeInTheDocument();
   });
 
-  it(&apos;disables unavailable slots&apos;, () => {
+  it('disables unavailable slots', () => {
     const unavailableSlots = [
       {
         ...mockDeliverySlots[0],
@@ -178,12 +179,12 @@ describe(&apos;DeliverySlotSelector&apos;, () => {
       </Provider>
     );
 
-    const slotCard = screen.getByText(&apos;Morning Slot&apos;).closest(&apos;div&apos;);
-    expect(slotCard).toHaveClass(&apos;opacity-50&apos;, &apos;cursor-not-allowed&apos;);
-    expect(screen.getByText(&apos;Not available&apos;)).toBeInTheDocument();
+    const slotCard = screen.getByText('Morning Slot').closest('div');
+    expect(slotCard).toHaveClass('opacity-50', 'cursor-not-allowed');
+    expect(screen.getByText('Not available')).toBeInTheDocument();
   });
 
-  it(&apos;shows selected slot state&apos;, () => {
+  it('shows selected slot state', () => {
     const selectedSlot = mockDeliverySlots[0];
     const store = createMockStore({ 
       deliverySlots: mockDeliverySlots,

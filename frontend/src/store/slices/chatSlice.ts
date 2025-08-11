@@ -30,6 +30,7 @@ interface UpdateChatMessagesPayload {
   message: ChatMessage;
 }
 
+const initialState: ChatState = {
   rooms: {},
   activeRoomId: null,
   loading: false,
@@ -37,10 +38,11 @@ interface UpdateChatMessagesPayload {
 };
 
 const chatSlice = createSlice({
-  name: &apos;chat&apos;,
+  name: 'chat',
   initialState,
   reducers: {
     setChatRooms: (state, action: PayloadAction<ChatRoom[]>) => {
+      const rooms: Record<string, ChatRoom> = {};
       action.payload.forEach((room) => {
         rooms[room.id] = room;
       });
@@ -67,13 +69,14 @@ const chatSlice = createSlice({
       state.loading = false;
     },
     updateChatMessages: (state, action: PayloadAction<UpdateChatMessagesPayload>) => {
+      const { roomId, message } = action.payload;
       
       if (!state.rooms[roomId]) {
-        // Room doesn&apos;t exist yet, create it
+        // Room doesn't exist yet, create it
         state.rooms[roomId] = {
           id: roomId,
           name: `Room ${roomId}`,
-          roomType: &apos;UNKNOWN&apos;,
+          roomType: 'UNKNOWN',
           participants: [],
           messages: [],
           unreadCount: 0,

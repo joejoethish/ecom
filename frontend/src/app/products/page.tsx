@@ -128,7 +128,7 @@ function ProductsPageContent() {
   const handleSortChange = (value: string) => {
     setSortBy(value);
     // Implement sorting logic here
-    const sortedProducts = [...products];
+    let sortedProducts = [...products];
     switch (value) {
       case 'price_asc':
         sortedProducts.sort((a, b) => a.price - b.price);

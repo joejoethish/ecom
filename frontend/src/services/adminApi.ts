@@ -57,7 +57,7 @@ export interface SalesReport {
     count: number;
     revenue: number;
   }>;
-  filters_applied: Record<string, unknown>;
+  filters_applied: Record<string, any>;
   period: {
     from: string;
     to: string;
@@ -148,7 +148,7 @@ export interface SystemHealthSummary {
     memory_usage: number;
     cpu_usage: number;
   };
-  health_status: &apos;healthy&apos; | &apos;warning&apos; | &apos;critical&apos;;
+  health_status: 'healthy' | 'warning' | 'critical';
 }
 
 export interface ContentAnalytics {
@@ -179,10 +179,10 @@ export interface ReportExport {
   file_size_human: string;
   date_from: string | null;
   date_to: string | null;
-  filters: Record<string, unknown>;
+  filters: Record<string, any>;
   exported_by: number;
   exported_by_email: string;
-  export_status: &apos;pending&apos; | &apos;processing&apos; | &apos;completed&apos; | &apos;failed&apos;;
+  export_status: 'pending' | 'processing' | 'completed' | 'failed';
   download_count: number;
   expires_at: string | null;
   is_expired: boolean;
@@ -190,17 +190,18 @@ export interface ReportExport {
   updated_at: string;
 }
 
+export const adminApi = {
   // Dashboard metrics
   async getDashboardMetrics(dateFrom?: string, dateTo?: string): Promise<DashboardMetrics> {
     const params = new URLSearchParams();
-    if (dateFrom) params.append(&apos;date_from&apos;, dateFrom);
-    if (dateTo) params.append(&apos;date_to&apos;, dateTo);
+    if (dateFrom) params.append('date_from', dateFrom);
+    if (dateTo) params.append('date_to', dateTo);
     
     const response = await apiClient.get<DashboardMetrics>(
       `${ANALYTICS_BASE_URL}/dashboard_metrics/?${params.toString()}`
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch dashboard metrics&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch dashboard metrics');
     }
     return response.data;
   },
@@ -227,7 +228,7 @@ export interface ReportExport {
       `${ANALYTICS_BASE_URL}/sales_report/?${params.toString()}`
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch sales report&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch sales report');
     }
     return response.data;
   },
@@ -238,15 +239,15 @@ export interface ReportExport {
     limit: number = 10
   ): Promise<TopSellingProduct[]> {
     const params = new URLSearchParams();
-    if (dateFrom) params.append(&apos;date_from&apos;, dateFrom);
-    if (dateTo) params.append(&apos;date_to&apos;, dateTo);
-    params.append(&apos;limit&apos;, limit.toString());
+    if (dateFrom) params.append('date_from', dateFrom);
+    if (dateTo) params.append('date_to', dateTo);
+    params.append('limit', limit.toString());
     
     const response = await apiClient.get<TopSellingProduct[]>(
       `${ANALYTICS_BASE_URL}/top_selling_products/?${params.toString()}`
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch top selling products&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch top selling products');
     }
     return response.data;
   },
@@ -257,7 +258,7 @@ export interface ReportExport {
       `${ANALYTICS_BASE_URL}/customer_analytics_summary/`
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch customer analytics summary&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch customer analytics summary');
     }
     return response.data;
   },
@@ -268,7 +269,7 @@ export interface ReportExport {
       `${ANALYTICS_BASE_URL}/stock_maintenance_report/`
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch stock maintenance report&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch stock maintenance report');
     }
     return response.data;
   },
@@ -279,7 +280,7 @@ export interface ReportExport {
       `${ANALYTICS_BASE_URL}/system_health/?hours=${hours}`
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch system health&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch system health');
     }
     return response.data;
   },
@@ -287,32 +288,32 @@ export interface ReportExport {
   // Content analytics
   async getContentAnalytics(dateFrom?: string, dateTo?: string): Promise<ContentAnalytics> {
     const params = new URLSearchParams();
-    if (dateFrom) params.append(&apos;date_from&apos;, dateFrom);
-    if (dateTo) params.append(&apos;date_to&apos;, dateTo);
+    if (dateFrom) params.append('date_from', dateFrom);
+    if (dateTo) params.append('date_to', dateTo);
     
     const response = await apiClient.get<ContentAnalytics>(
       `${CONTENT_BASE_URL}/content_management/performance_summary/?${params.toString()}`
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch content analytics&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch content analytics');
     }
     return response.data;
   },
 
   // Report exports
   async exportReport(data: {
-    report_type: &apos;sales&apos; | &apos;inventory&apos; | &apos;customer&apos; | &apos;product&apos; | &apos;profit_loss&apos;;
-    export_format: &apos;pdf&apos; | &apos;excel&apos; | &apos;csv&apos;;
+    report_type: 'sales' | 'inventory' | 'customer' | 'product' | 'profit_loss';
+    export_format: 'pdf' | 'excel' | 'csv';
     date_from?: string;
     date_to?: string;
-    filters?: Record<string, unknown>;
+    filters?: Record<string, any>;
   }): Promise<ReportExport> {
     const response = await apiClient.post<ReportExport>(
       `${ANALYTICS_BASE_URL}/export_report/`,
       data
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to export report&apos;);
+      throw new Error(response.error?.message || 'Failed to export report');
     }
     return response.data;
   },
@@ -322,7 +323,7 @@ export interface ReportExport {
       `${ANALYTICS_BASE_URL}/export_history/`
     );
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to fetch export history&apos;);
+      throw new Error(response.error?.message || 'Failed to fetch export history');
     }
     return response.data;
   },
@@ -330,18 +331,18 @@ export interface ReportExport {
   async downloadExport(exportId: number): Promise<void> {
     const response = await apiClient.get<Blob>(
       `${ANALYTICS_BASE_URL}/download_export/?export_id=${exportId}`,
-      { responseType: &apos;blob&apos; as any }
+      { responseType: 'blob' as any }
     );
     
     if (!response.success || !response.data) {
-      throw new Error(response.error?.message || &apos;Failed to download export&apos;);
+      throw new Error(response.error?.message || 'Failed to download export');
     }
     
     // Create download link
     const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement(&apos;a&apos;);
+    const link = document.createElement('a');
     link.href = url;
-    link.setAttribute(&apos;download&apos;, `report_${exportId}.csv`);
+    link.setAttribute('download', `report_${exportId}.csv`);
     document.body.appendChild(link);
     link.click();
     link.remove();

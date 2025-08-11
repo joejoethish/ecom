@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ReportReviewModal from '../ReportReviewModal';
 
@@ -17,105 +17,105 @@ describe('ReportReviewModal', () => {
     jest.clearAllMocks();
   });
 
-  it(&apos;renders modal when open&apos;, () => {
+  it('renders modal when open', () => {
     render(<ReportReviewModal {...defaultProps} />);
     
-    expect(screen.getByText(&apos;Report Review&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Why are you reporting this review?&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Additional details&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Report Review')).toBeInTheDocument();
+    expect(screen.getByText('Why are you reporting this review?')).toBeInTheDocument();
+    expect(screen.getByText('Additional details')).toBeInTheDocument();
   });
 
-  it(&apos;does not render when closed&apos;, () => {
+  it('does not render when closed', () => {
     render(<ReportReviewModal {...defaultProps} isOpen={false} />);
     
-    expect(screen.queryByText(&apos;Report Review&apos;)).not.toBeInTheDocument();
+    expect(screen.queryByText('Report Review')).not.toBeInTheDocument();
   });
 
-  it(&apos;displays all report reason options&apos;, () => {
+  it('displays all report reason options', () => {
     render(<ReportReviewModal {...defaultProps} />);
     
-    expect(screen.getByText(&apos;Spam or fake review&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Inappropriate content&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Offensive language&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Fake or misleading review&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Not relevant to the product&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Other reason&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Spam or fake review')).toBeInTheDocument();
+    expect(screen.getByText('Inappropriate content')).toBeInTheDocument();
+    expect(screen.getByText('Offensive language')).toBeInTheDocument();
+    expect(screen.getByText('Fake or misleading review')).toBeInTheDocument();
+    expect(screen.getByText('Not relevant to the product')).toBeInTheDocument();
+    expect(screen.getByText('Other reason')).toBeInTheDocument();
   });
 
-  it(&apos;validates required fields&apos;, async () => {
+  it('validates required fields', async () => {
     const user = userEvent.setup();
     render(<ReportReviewModal {...defaultProps} />);
     
-    const submitButton = screen.getByText(&apos;Report Review&apos;);
+    const submitButton = screen.getByText('Report Review');
     await user.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Please select a reason for reporting&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Please provide additional details&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Please select a reason for reporting')).toBeInTheDocument();
+      expect(screen.getByText('Please provide additional details')).toBeInTheDocument();
     });
     
     expect(mockOnSubmit).not.toHaveBeenCalled();
   });
 
-  it(&apos;validates minimum description length&apos;, async () => {
+  it('validates minimum description length', async () => {
     const user = userEvent.setup();
     render(<ReportReviewModal {...defaultProps} />);
     
     // Select a reason
-    const spamRadio = screen.getByLabelText(&apos;Spam or fake review&apos;);
+    const spamRadio = screen.getByLabelText('Spam or fake review');
     await user.click(spamRadio);
     
     // Enter short description
     const descriptionTextarea = screen.getByPlaceholderText(/please provide more details/i);
-    await user.type(descriptionTextarea, &apos;Too short&apos;);
+    await user.type(descriptionTextarea, 'Too short');
     
-    const submitButton = screen.getByText(&apos;Report Review&apos;);
+    const submitButton = screen.getByText('Report Review');
     await user.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Description should be at least 10 characters long&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Description should be at least 10 characters long')).toBeInTheDocument();
     });
   });
 
-  it(&apos;submits form with valid data&apos;, async () => {
+  it('submits form with valid data', async () => {
     const user = userEvent.setup();
     mockOnSubmit.mockResolvedValue(undefined);
     
     render(<ReportReviewModal {...defaultProps} />);
     
     // Select reason
-    const inappropriateRadio = screen.getByLabelText(&apos;Inappropriate content&apos;);
+    const inappropriateRadio = screen.getByLabelText('Inappropriate content');
     await user.click(inappropriateRadio);
     
     // Enter description
     const descriptionTextarea = screen.getByPlaceholderText(/please provide more details/i);
-    await user.type(descriptionTextarea, &apos;This review contains inappropriate language and content that violates community guidelines.&apos;);
+    await user.type(descriptionTextarea, 'This review contains inappropriate language and content that violates community guidelines.');
     
-    const submitButton = screen.getByText(&apos;Report Review&apos;);
+    const submitButton = screen.getByText('Report Review');
     await user.click(submitButton);
     
     await waitFor(() => {
       expect(mockOnSubmit).toHaveBeenCalledWith({
-        reason: &apos;inappropriate&apos;,
-        description: &apos;This review contains inappropriate language and content that violates community guidelines.&apos;,
+        reason: 'inappropriate',
+        description: 'This review contains inappropriate language and content that violates community guidelines.',
       });
     });
   });
 
-  it(&apos;closes modal after successful submission&apos;, async () => {
+  it('closes modal after successful submission', async () => {
     const user = userEvent.setup();
     mockOnSubmit.mockResolvedValue(undefined);
     
     render(<ReportReviewModal {...defaultProps} />);
     
     // Fill form
-    const spamRadio = screen.getByLabelText(&apos;Spam or fake review&apos;);
+    const spamRadio = screen.getByLabelText('Spam or fake review');
     await user.click(spamRadio);
     
     const descriptionTextarea = screen.getByPlaceholderText(/please provide more details/i);
-    await user.type(descriptionTextarea, &apos;This is clearly a fake review posted by the seller.&apos;);
+    await user.type(descriptionTextarea, 'This is clearly a fake review posted by the seller.');
     
-    const submitButton = screen.getByText(&apos;Report Review&apos;);
+    const submitButton = screen.getByText('Report Review');
     await user.click(submitButton);
     
     await waitFor(() => {
@@ -123,101 +123,102 @@ describe('ReportReviewModal', () => {
     });
   });
 
-  it(&apos;calls onClose when cancel button is clicked&apos;, async () => {
+  it('calls onClose when cancel button is clicked', async () => {
     const user = userEvent.setup();
     render(<ReportReviewModal {...defaultProps} />);
     
-    const cancelButton = screen.getByText(&apos;Cancel&apos;);
+    const cancelButton = screen.getByText('Cancel');
     await user.click(cancelButton);
     
     expect(mockOnClose).toHaveBeenCalled();
   });
 
-  it(&apos;calls onClose when X button is clicked&apos;, async () => {
+  it('calls onClose when X button is clicked', async () => {
     const user = userEvent.setup();
     render(<ReportReviewModal {...defaultProps} />);
     
-    const closeButton = screen.getByRole(&apos;button&apos;, { name: &apos;&apos; }); // X icon button
+    const closeButton = screen.getByRole('button', { name: '' }); // X icon button
     await user.click(closeButton);
     
     expect(mockOnClose).toHaveBeenCalled();
   });
 
-  it(&apos;shows loading state&apos;, () => {
+  it('shows loading state', () => {
     render(<ReportReviewModal {...defaultProps} loading />);
     
-    expect(screen.getByText(&apos;Reporting...&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Reporting...&apos;)).toBeDisabled();
-    expect(screen.getByText(&apos;Cancel&apos;)).toBeDisabled();
+    expect(screen.getByText('Reporting...')).toBeInTheDocument();
+    expect(screen.getByText('Reporting...')).toBeDisabled();
+    expect(screen.getByText('Cancel')).toBeDisabled();
   });
 
-  it(&apos;displays error message&apos;, () => {
-    const errorMessage = &apos;Failed to report review&apos;;
+  it('displays error message', () => {
+    const errorMessage = 'Failed to report review';
     render(<ReportReviewModal {...defaultProps} error={errorMessage} />);
     
     expect(screen.getByText(errorMessage)).toBeInTheDocument();
   });
 
-  it(&apos;clears field errors when user starts typing&apos;, async () => {
+  it('clears field errors when user starts typing', async () => {
     const user = userEvent.setup();
     render(<ReportReviewModal {...defaultProps} />);
     
     // Trigger validation errors
-    const submitButton = screen.getByText(&apos;Report Review&apos;);
+    const submitButton = screen.getByText('Report Review');
     await user.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Please provide additional details&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Please provide additional details')).toBeInTheDocument();
     });
     
     // Start typing in description field
     const descriptionTextarea = screen.getByPlaceholderText(/please provide more details/i);
-    await user.type(descriptionTextarea, &apos;A&apos;);
+    await user.type(descriptionTextarea, 'A');
     
     // Error should be cleared
-    expect(screen.queryByText(&apos;Please provide additional details&apos;)).not.toBeInTheDocument();
+    expect(screen.queryByText('Please provide additional details')).not.toBeInTheDocument();
   });
 
-  it(&apos;shows character count&apos;, async () => {
+  it('shows character count', async () => {
     const user = userEvent.setup();
     render(<ReportReviewModal {...defaultProps} />);
     
     const descriptionTextarea = screen.getByPlaceholderText(/please provide more details/i);
     
     // Initially shows 0/500
-    expect(screen.getByText(&apos;0/500&apos;)).toBeInTheDocument();
+    expect(screen.getByText('0/500')).toBeInTheDocument();
     
     // Type some text
-    await user.type(descriptionTextarea, &apos;This is a test description&apos;);
+    await user.type(descriptionTextarea, 'This is a test description');
     
     // Should update character count
-    expect(screen.getByText(&apos;26/500&apos;)).toBeInTheDocument();
+    expect(screen.getByText('26/500')).toBeInTheDocument();
   });
 
-  it(&apos;enforces maximum character limit&apos;, async () => {
+  it('enforces maximum character limit', async () => {
     const user = userEvent.setup();
     render(<ReportReviewModal {...defaultProps} />);
     
     const descriptionTextarea = screen.getByPlaceholderText(/please provide more details/i);
     
     // Try to type more than 500 characters
-    const longText = &apos;a&apos;.repeat(600);
+    const longText = 'a'.repeat(600);
     await user.type(descriptionTextarea, longText);
     
     // Should be limited to 500 characters
-    expect(descriptionTextarea).toHaveValue(&apos;a&apos;.repeat(500));
-    expect(screen.getByText(&apos;500/500&apos;)).toBeInTheDocument();
+    expect(descriptionTextarea).toHaveValue('a'.repeat(500));
+    expect(screen.getByText('500/500')).toBeInTheDocument();
   });
 
-  it(&apos;resets form when modal is closed and reopened&apos;, async () => {
+  it('resets form when modal is closed and reopened', async () => {
     const user = userEvent.setup();
+    const { rerender } = render(<ReportReviewModal {...defaultProps} />);
     
     // Fill form
-    const spamRadio = screen.getByLabelText(&apos;Spam or fake review&apos;);
+    const spamRadio = screen.getByLabelText('Spam or fake review');
     await user.click(spamRadio);
     
     const descriptionTextarea = screen.getByPlaceholderText(/please provide more details/i);
-    await user.type(descriptionTextarea, &apos;Test description&apos;);
+    await user.type(descriptionTextarea, 'Test description');
     
     // Close modal
     rerender(<ReportReviewModal {...defaultProps} isOpen={false} />);
@@ -226,14 +227,14 @@ describe('ReportReviewModal', () => {
     rerender(<ReportReviewModal {...defaultProps} isOpen={true} />);
     
     // Form should be reset
-    const newSpamRadio = screen.getByLabelText(&apos;Spam or fake review&apos;);
+    const newSpamRadio = screen.getByLabelText('Spam or fake review');
     const newDescriptionTextarea = screen.getByPlaceholderText(/please provide more details/i);
     
     expect(newSpamRadio).not.toBeChecked();
-    expect(newDescriptionTextarea).toHaveValue(&apos;&apos;);
+    expect(newDescriptionTextarea).toHaveValue('');
   });
 
-  it(&apos;prevents closing when loading&apos;, async () => {
+  it('prevents closing when loading', async () => {
     const user = userEvent.setup();
     render(<ReportReviewModal {...defaultProps} loading />);
     

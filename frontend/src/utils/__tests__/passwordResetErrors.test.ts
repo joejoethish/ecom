@@ -158,16 +158,16 @@ describe('passwordResetErrors', () => {
       logPasswordResetError(error, context, additionalData);
 
       // Should call the base logError function
-      import { logError }  from '../errorHandling';
+      const { logError } = require('../errorHandling');
       expect(logError).toHaveBeenCalledWith(error, 'PasswordReset.testContext');
     });
   });
 
   describe('logPasswordResetSecurityEvent', () => {
     it('logs security events with proper format', () => {
-      import mockLogSecurityEvent  from '../securityMonitoring'.logSecurityEvent;
+      const mockLogSecurityEvent = require('../securityMonitoring').logSecurityEvent;
       
-      import { logPasswordResetSecurityEvent }  from '../passwordResetErrors';
+      const { logPasswordResetSecurityEvent } = require('../passwordResetErrors');
       
       logPasswordResetSecurityEvent('request', {
         email: 'test@example.com',
@@ -190,9 +190,9 @@ describe('passwordResetErrors', () => {
     });
 
     it('sets appropriate severity for failed operations', () => {
-      import mockLogSecurityEvent  from '../securityMonitoring'.logSecurityEvent;
+      const mockLogSecurityEvent = require('../securityMonitoring').logSecurityEvent;
       
-      import { logPasswordResetSecurityEvent }  from '../passwordResetErrors';
+      const { logPasswordResetSecurityEvent } = require('../passwordResetErrors');
       
       logPasswordResetSecurityEvent('validate', {
         success: false,

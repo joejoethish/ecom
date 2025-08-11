@@ -4,23 +4,23 @@
 
 // Get authentication token from local storage
 export const getAuthToken = (): string => {
-  if (typeof window !== &apos;undefined&apos;) {
-    return localStorage.getItem(&apos;token&apos;) || &apos;&apos;;
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('token') || '';
   }
-  return &apos;&apos;;
+  return '';
 };
 
 // Set authentication token in local storage
 export const setAuthToken = (token: string): void => {
-  if (typeof window !== &apos;undefined&apos;) {
-    localStorage.setItem(&apos;token&apos;, token);
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('token', token);
   }
 };
 
 // Remove authentication token from local storage
 export const removeAuthToken = (): void => {
-  if (typeof window !== &apos;undefined&apos;) {
-    localStorage.removeItem(&apos;token&apos;);
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('token');
   }
 };
 
@@ -30,15 +30,15 @@ export const isAuthenticated = (): boolean => {
 };
 
 // Parse JWT token to get user information
-export const parseToken = (token: string): unknown => {
+export const parseToken = (token: string): any => {
   try {
-    const base64Url = token.split(&apos;.&apos;)[1];
-    const base64 = base64Url.replace(/-/g, &apos;+&apos;).replace(/_/g, &apos;/&apos;);
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(
       atob(base64)
-        .split(&apos;&apos;)
-        .map((c) => &apos;%&apos; + (&apos;00&apos; + c.charCodeAt(0).toString(16)).slice(-2))
-        .join(&apos;&apos;)
+        .split('')
+        .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+        .join('')
     );
     return JSON.parse(jsonPayload);
   } catch (error) {

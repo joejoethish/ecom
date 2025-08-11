@@ -15,55 +15,37 @@ jest.mock('../ProductCard', () => ({
 
 const mockStore = configureStore([]);
 
-describe(&apos;ProductGrid&apos;, () => {
+describe('ProductGrid', () => {
   const mockProducts = [
     {
-      id: &apos;1&apos;,
-      name: &apos;Product 1&apos;,
-      slug: &apos;product-1&apos;,
-      description: &apos;Description 1&apos;,
-      short_description: &apos;Short description 1&apos;,
-      category: {
-        id: &apos;cat1&apos;,
-        name: &apos;Category 1&apos;,
-        slug: &apos;category-1&apos;,
-        is_active: true,
-        created_at: &apos;2023-01-01&apos;,
-      },
-      brand: &apos;Brand 1&apos;,
-      sku: &apos;SKU1&apos;,
+      id: '1',
+      name: 'Product 1',
       price: 100,
-      is_active: true,
-      is_featured: false,
-      images: [],
-      created_at: &apos;2023-01-01&apos;,
-      updated_at: &apos;2023-01-01&apos;,
+      rating: 4.5,
+      reviewCount: 10,
+      image: '/product1.jpg',
+      brand: 'Brand 1',
+      features: ['Feature 1', 'Feature 2'],
+      freeDelivery: true,
+      exchangeOffer: true,
     },
     {
-      id: &apos;2&apos;,
-      name: &apos;Product 2&apos;,
-      slug: &apos;product-2&apos;,
-      description: &apos;Description 2&apos;,
-      short_description: &apos;Short description 2&apos;,
-      category: {
-        id: &apos;cat2&apos;,
-        name: &apos;Category 2&apos;,
-        slug: &apos;category-2&apos;,
-        is_active: true,
-        created_at: &apos;2023-01-01&apos;,
-      },
-      brand: &apos;Brand 2&apos;,
-      sku: &apos;SKU2&apos;,
+      id: '2',
+      name: 'Product 2',
       price: 200,
-      is_active: true,
-      is_featured: false,
-      images: [],
-      created_at: &apos;2023-01-01&apos;,
-      updated_at: &apos;2023-01-01&apos;,
+      originalPrice: 250,
+      discount: 20,
+      rating: 4.0,
+      reviewCount: 5,
+      image: '/product2.jpg',
+      brand: 'Brand 2',
+      features: ['Feature A', 'Feature B'],
+      freeDelivery: false,
+      exchangeOffer: true,
     },
   ];
 
-  it(&apos;renders loading state correctly&apos;, () => {
+  it('renders loading state correctly', () => {
     const store = mockStore({});
 
     render(
@@ -73,24 +55,23 @@ describe(&apos;ProductGrid&apos;, () => {
     );
 
     // Check if loading spinner is rendered
-    expect(screen.getByRole(&apos;status&apos;)).toBeInTheDocument();
+    expect(screen.getByRole('status')).toBeInTheDocument();
   });
 
-  it(&apos;renders empty state correctly&apos;, () => {
+  it('renders empty state correctly', () => {
     const store = mockStore({});
-    const emptyMessage = &apos;No products found&apos;;
 
     render(
       <Provider store={store}>
-        <ProductGrid products={[]} emptyMessage={emptyMessage} />
+        <ProductGrid products={[]} />
       </Provider>
     );
 
-    // Check if empty message is rendered
-    expect(screen.getByText(emptyMessage)).toBeInTheDocument();
+    // Check if empty state is rendered
+    expect(screen.getByText('No products found')).toBeInTheDocument();
   });
 
-  it(&apos;renders products correctly&apos;, () => {
+  it('renders products correctly', () => {
     const store = mockStore({});
 
     render(
@@ -100,23 +81,24 @@ describe(&apos;ProductGrid&apos;, () => {
     );
 
     // Check if product cards are rendered
-    expect(screen.getByTestId(&apos;product-card-1&apos;)).toBeInTheDocument();
-    expect(screen.getByTestId(&apos;product-card-2&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Product 1&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Product 2&apos;)).toBeInTheDocument();
+    expect(screen.getByTestId('product-card-1')).toBeInTheDocument();
+    expect(screen.getByTestId('product-card-2')).toBeInTheDocument();
+    expect(screen.getByText('Product 1')).toBeInTheDocument();
+    expect(screen.getByText('Product 2')).toBeInTheDocument();
   });
 
-  it(&apos;applies correct grid columns based on props&apos;, () => {
+  it('applies correct grid columns based on props', () => {
     const store = mockStore({});
 
+    const { container, rerender } = render(
       <Provider store={store}>
         <ProductGrid products={mockProducts} columns={2} />
       </Provider>
     );
 
     // Check if grid has the correct column classes for 2 columns
-    expect(container.firstChild).toHaveClass(&apos;grid-cols-1&apos;);
-    expect(container.firstChild).toHaveClass(&apos;sm:grid-cols-2&apos;);
+    expect(container.firstChild).toHaveClass('grid-cols-1');
+    expect(container.firstChild).toHaveClass('sm:grid-cols-2');
 
     // Rerender with 3 columns
     rerender(
@@ -126,9 +108,9 @@ describe(&apos;ProductGrid&apos;, () => {
     );
 
     // Check if grid has the correct column classes for 3 columns
-    expect(container.firstChild).toHaveClass(&apos;grid-cols-1&apos;);
-    expect(container.firstChild).toHaveClass(&apos;sm:grid-cols-2&apos;);
-    expect(container.firstChild).toHaveClass(&apos;lg:grid-cols-3&apos;);
+    expect(container.firstChild).toHaveClass('grid-cols-1');
+    expect(container.firstChild).toHaveClass('sm:grid-cols-2');
+    expect(container.firstChild).toHaveClass('lg:grid-cols-3');
 
     // Rerender with 4 columns
     rerender(

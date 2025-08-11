@@ -12,6 +12,7 @@ interface CustomerState {
   error: string | null;
 }
 
+const initialState: CustomerState = {
   profile: null,
   addresses: [],
   loading: false,
@@ -28,16 +29,16 @@ export const fetchCustomerProfile = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to fetch profile&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to fetch profile');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to fetch profile&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch profile');
     }
   }
 );
 
 export const updateCustomerProfile = createAsyncThunk(
-  &apos;customer/updateProfile&apos;,
+  'customer/updateProfile',
   async (profileData: Partial<CustomerProfile>, { rejectWithValue }) => {
     try {
       const response = await apiClient.put(API_ENDPOINTS.CUSTOMER.PROFILE, profileData);
@@ -45,16 +46,16 @@ export const updateCustomerProfile = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to update profile&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to update profile');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to update profile&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to update profile');
     }
   }
 );
 
 export const updateCustomerPreferences = createAsyncThunk(
-  &apos;customer/updatePreferences&apos;,
+  'customer/updatePreferences',
   async (preferences: CustomerPreferences, { rejectWithValue }) => {
     try {
       const response = await apiClient.put(API_ENDPOINTS.CUSTOMER.PREFERENCES, preferences);
@@ -62,16 +63,16 @@ export const updateCustomerPreferences = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to update preferences&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to update preferences');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to update preferences&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to update preferences');
     }
   }
 );
 
 export const fetchCustomerAddresses = createAsyncThunk(
-  &apos;customer/fetchAddresses&apos;,
+  'customer/fetchAddresses',
   async (_, { rejectWithValue }) => {
     try {
       const response = await apiClient.get(API_ENDPOINTS.CUSTOMER.ADDRESSES);
@@ -79,16 +80,16 @@ export const fetchCustomerAddresses = createAsyncThunk(
       if (response.success && response.data) {
         return response.data.results || response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to fetch addresses&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to fetch addresses');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to fetch addresses&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to fetch addresses');
     }
   }
 );
 
 export const createCustomerAddress = createAsyncThunk(
-  &apos;customer/createAddress&apos;,
+  'customer/createAddress',
   async (addressData: Omit<Address, 'id'>, { rejectWithValue }) => {
     try {
       const response = await apiClient.post(API_ENDPOINTS.CUSTOMER.ADDRESSES, addressData);
@@ -96,16 +97,16 @@ export const createCustomerAddress = createAsyncThunk(
       if (response.success && response.data) {
         return response.data;
       } else {
-        return rejectWithValue(response.error?.message || &apos;Failed to create address&apos;);
+        return rejectWithValue(response.error?.message || 'Failed to create address');
       }
-    } catch (error: unknown) {
-      return rejectWithValue(error.message || &apos;Failed to create address&apos;);
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Failed to create address');
     }
   }
 );
 
 export const updateCustomerAddress = createAsyncThunk(
-  &apos;customer/updateAddress&apos;,
+  'customer/updateAddress',
   async ({ id, addressData }: { id: string; addressData: Partial<Address> }, { rejectWithValue }) => {
     try {
       const response = await apiClient.put(API_ENDPOINTS.CUSTOMER.ADDRESS_DETAIL(id), addressData);
@@ -115,7 +116,7 @@ export const updateCustomerAddress = createAsyncThunk(
       } else {
         return rejectWithValue(response.error?.message || 'Failed to update address');
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       return rejectWithValue(error.message || 'Failed to update address');
     }
   }
@@ -132,7 +133,7 @@ export const deleteCustomerAddress = createAsyncThunk(
       } else {
         return rejectWithValue(response.error?.message || 'Failed to delete address');
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       return rejectWithValue(error.message || 'Failed to delete address');
     }
   }
@@ -260,4 +261,5 @@ const customerSlice = createSlice({
   },
 });
 
+export const { clearError } = customerSlice.actions;
 export default customerSlice.reducer;

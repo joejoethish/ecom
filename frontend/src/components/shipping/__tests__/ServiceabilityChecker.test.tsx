@@ -30,23 +30,24 @@ const createMockStore = (initialState = {}) => {
   });
 };
 
+const mockServiceableAreas: ServiceableArea[] = [
   {
-    id: &apos;1&apos;,
-    shipping_partner: &apos;partner1&apos;,
-    pin_code: &apos;110001&apos;,
-    city: &apos;New Delhi&apos;,
-    state: &apos;Delhi&apos;,
-    country: &apos;India&apos;,
+    id: '1',
+    shipping_partner: 'partner1',
+    pin_code: '110001',
+    city: 'New Delhi',
+    state: 'Delhi',
+    country: 'India',
     min_delivery_days: 2,
     max_delivery_days: 4,
     is_active: true,
-    created_at: &apos;2024-01-01T00:00:00Z&apos;,
-    updated_at: &apos;2024-01-01T00:00:00Z&apos;
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
   }
 ];
 
-describe(&apos;ServiceabilityChecker&apos;, () => {
-  it(&apos;renders serviceability checker form&apos;, () => {
+describe('ServiceabilityChecker', () => {
+  it('renders serviceability checker form', () => {
     const store = createMockStore();
     
     render(
@@ -55,13 +56,13 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Check Delivery Availability&apos;)).toBeInTheDocument();
-    expect(screen.getByLabelText(&apos;Enter Pin Code&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Check&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Enter a 6-digit pin code to check delivery availability&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Check Delivery Availability')).toBeInTheDocument();
+    expect(screen.getByLabelText('Enter Pin Code')).toBeInTheDocument();
+    expect(screen.getByText('Check')).toBeInTheDocument();
+    expect(screen.getByText('Enter a 6-digit pin code to check delivery availability')).toBeInTheDocument();
   });
 
-  it(&apos;pre-fills pin code when provided&apos;, () => {
+  it('pre-fills pin code when provided', () => {
     const store = createMockStore();
     
     render(
@@ -70,11 +71,11 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    const input = screen.getByLabelText(&apos;Enter Pin Code&apos;);
-    expect(input).toHaveValue(&apos;110001&apos;);
+    const input = screen.getByLabelText('Enter Pin Code');
+    expect(input).toHaveValue('110001');
   });
 
-  it(&apos;handles pin code input changes&apos;, () => {
+  it('handles pin code input changes', () => {
     const store = createMockStore();
     
     render(
@@ -83,13 +84,13 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    const input = screen.getByLabelText(&apos;Enter Pin Code&apos;);
-    fireEvent.change(input, { target: { value: &apos;110001&apos; } });
+    const input = screen.getByLabelText('Enter Pin Code');
+    fireEvent.change(input, { target: { value: '110001' } });
 
-    expect(input).toHaveValue(&apos;110001&apos;);
+    expect(input).toHaveValue('110001');
   });
 
-  it(&apos;restricts input to 6 digits only&apos;, () => {
+  it('restricts input to 6 digits only', () => {
     const store = createMockStore();
     
     render(
@@ -98,13 +99,13 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    const input = screen.getByLabelText(&apos;Enter Pin Code&apos;);
-    fireEvent.change(input, { target: { value: &apos;abc123def456789&apos; } });
+    const input = screen.getByLabelText('Enter Pin Code');
+    fireEvent.change(input, { target: { value: 'abc123def456789' } });
 
-    expect(input).toHaveValue(&apos;123456&apos;);
+    expect(input).toHaveValue('123456');
   });
 
-  it(&apos;disables check button for invalid pin codes&apos;, () => {
+  it('disables check button for invalid pin codes', () => {
     const store = createMockStore();
     
     render(
@@ -113,18 +114,18 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    const checkButton = screen.getByText(&apos;Check&apos;);
+    const checkButton = screen.getByText('Check');
     expect(checkButton).toBeDisabled();
 
-    const input = screen.getByLabelText(&apos;Enter Pin Code&apos;);
-    fireEvent.change(input, { target: { value: &apos;12345&apos; } });
+    const input = screen.getByLabelText('Enter Pin Code');
+    fireEvent.change(input, { target: { value: '12345' } });
     expect(checkButton).toBeDisabled();
 
-    fireEvent.change(input, { target: { value: &apos;123456&apos; } });
+    fireEvent.change(input, { target: { value: '123456' } });
     expect(checkButton).not.toBeDisabled();
   });
 
-  it(&apos;shows loading state during check&apos;, () => {
+  it('shows loading state during check', () => {
     const store = createMockStore({ loading: true });
     
     render(
@@ -133,10 +134,10 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Checking...&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Checking...')).toBeInTheDocument();
   });
 
-  it(&apos;handles form submission&apos;, async () => {
+  it('handles form submission', async () => {
     const store = createMockStore();
     
     render(
@@ -145,17 +146,17 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    const input = screen.getByLabelText(&apos;Enter Pin Code&apos;);
-    const checkButton = screen.getByText(&apos;Check&apos;);
+    const input = screen.getByLabelText('Enter Pin Code');
+    const checkButton = screen.getByText('Check');
 
-    fireEvent.change(input, { target: { value: &apos;110001&apos; } });
+    fireEvent.change(input, { target: { value: '110001' } });
     fireEvent.click(checkButton);
 
     // Form should submit
-    expect(input).toHaveValue(&apos;110001&apos;);
+    expect(input).toHaveValue('110001');
   });
 
-  it(&apos;shows serviceable result&apos;, async () => {
+  it('shows serviceable result', async () => {
     const mockOnServiceabilityCheck = jest.fn();
     const store = createMockStore();
     
@@ -169,17 +170,17 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
     );
 
     // Simulate successful serviceability check
-    const input = screen.getByLabelText(&apos;Enter Pin Code&apos;);
-    const checkButton = screen.getByText(&apos;Check&apos;);
+    const input = screen.getByLabelText('Enter Pin Code');
+    const checkButton = screen.getByText('Check');
 
-    fireEvent.change(input, { target: { value: &apos;110001&apos; } });
+    fireEvent.change(input, { target: { value: '110001' } });
     fireEvent.click(checkButton);
 
     // The component would show results after async operation
     // This would need to be mocked properly in a real test
   });
 
-  it(&apos;shows delivery time for serviceable areas&apos;, () => {
+  it('shows delivery time for serviceable areas', () => {
     const store = createMockStore();
     
     // Mock the component state to show results
@@ -190,10 +191,10 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
     );
 
     // This test would need the component to be in a state where it shows results
-    // In a real implementation, you&apos;d mock the Redux state or component state
+    // In a real implementation, you'd mock the Redux state or component state
   });
 
-  it(&apos;shows non-serviceable result&apos;, () => {
+  it('shows non-serviceable result', () => {
     const store = createMockStore();
     
     render(
@@ -206,8 +207,8 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
     // The actual implementation would need proper state management
   });
 
-  it(&apos;shows error state&apos;, () => {
-    const store = createMockStore({ error: &apos;Network error&apos; });
+  it('shows error state', () => {
+    const store = createMockStore({ error: 'Network error' });
     
     render(
       <Provider store={store}>
@@ -215,10 +216,10 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Network error&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Network error')).toBeInTheDocument();
   });
 
-  it(&apos;shows quick tips section&apos;, () => {
+  it('shows quick tips section', () => {
     const store = createMockStore();
     
     render(
@@ -227,14 +228,14 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    expect(screen.getByText(&apos;Quick Tips&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Quick Tips')).toBeInTheDocument();
     expect(screen.getByText(/Pin codes are 6-digit numbers/)).toBeInTheDocument();
     expect(screen.getByText(/Delivery times may vary/)).toBeInTheDocument();
     expect(screen.getByText(/Some areas may have additional delivery charges/)).toBeInTheDocument();
     expect(screen.getByText(/Contact support if your area is not serviceable/)).toBeInTheDocument();
   });
 
-  it(&apos;calls onServiceabilityCheck callback&apos;, async () => {
+  it('calls onServiceabilityCheck callback', async () => {
     const mockCallback = jest.fn();
     const store = createMockStore();
     
@@ -251,8 +252,9 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
     // This would need proper mocking of the async operation
   });
 
-  it(&apos;auto-checks when pinCode prop changes&apos;, () => {
+  it('auto-checks when pinCode prop changes', () => {
     const store = createMockStore();
+    const { rerender } = render(
       <Provider store={store}>
         <ServiceabilityChecker pinCode="110001" />
       </Provider>
@@ -265,11 +267,11 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    const input = screen.getByLabelText(&apos;Enter Pin Code&apos;);
-    expect(input).toHaveValue(&apos;400001&apos;);
+    const input = screen.getByLabelText('Enter Pin Code');
+    expect(input).toHaveValue('400001');
   });
 
-  it(&apos;prevents duplicate checks for same pin code&apos;, () => {
+  it('prevents duplicate checks for same pin code', () => {
     const store = createMockStore();
     
     render(
@@ -278,7 +280,7 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    const checkButton = screen.getByText(&apos;Check&apos;);
+    const checkButton = screen.getByText('Check');
     
     // Multiple clicks should not trigger multiple checks
     fireEvent.click(checkButton);
@@ -287,9 +289,9 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
     // The component should handle this internally
   });
 
-  it(&apos;formats delivery time correctly&apos;, () => {
+  it('formats delivery time correctly', () => {
     // This would test the formatDeliveryTime function
-    // In a real test, you&apos;d need to expose this function or test it through the UI
+    // In a real test, you'd need to expose this function or test it through the UI
     const store = createMockStore();
     
     render(
@@ -298,10 +300,10 @@ describe(&apos;ServiceabilityChecker&apos;, () => {
       </Provider>
     );
 
-    // Test would verify that delivery times are formatted as &quot;X days&quot; or &quot;X-Y days&quot;
+    // Test would verify that delivery times are formatted as "X days" or "X-Y days"
   });
 
-  it(&apos;handles multiple serviceable areas&apos;, () => {
+  it('handles multiple serviceable areas', () => {
     const store = createMockStore();
     
     render(

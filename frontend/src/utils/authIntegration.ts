@@ -183,6 +183,7 @@ export const authIntegration = {
 /**
  * Middleware for authentication routes
  */
+export const authMiddleware = {
   /**
    * Check if user can access password reset
    */
@@ -227,6 +228,7 @@ export const authIntegration = {
 /**
  * React hooks for authentication integration
  */
+export const useAuthIntegration = () => {
   return {
     onPasswordResetSuccess: authIntegration.onPasswordResetSuccess,
     onPasswordResetRequest: authIntegration.onPasswordResetRequest,

@@ -23,19 +23,21 @@ export enum InventoryNotificationType {
 }
 
 // Notification priority mapping
-  [InventoryNotificationType.OUT_OF_STOCK]: &apos;critical&apos;,
-  [InventoryNotificationType.EXPIRING_BATCH]: &apos;high&apos;,
-  [InventoryNotificationType.LOW_STOCK]: &apos;medium&apos;,
-  [InventoryNotificationType.BATCH_EXPIRED]: &apos;high&apos;,
-  [InventoryNotificationType.REORDER_ALERT]: &apos;medium&apos;,
-  [InventoryNotificationType.STOCK_ADJUSTMENT]: &apos;low&apos;,
-  [InventoryNotificationType.WAREHOUSE_UPDATE]: &apos;low&apos;,
-  [InventoryNotificationType.INVENTORY_CREATED]: &apos;low&apos;,
-  [InventoryNotificationType.INVENTORY_UPDATED]: &apos;low&apos;,
-  [InventoryNotificationType.INVENTORY_DELETED]: &apos;medium&apos;
+const NOTIFICATION_PRIORITY: Record<string, 'low' | 'medium' | 'high' | 'critical'> = {
+  [InventoryNotificationType.OUT_OF_STOCK]: 'critical',
+  [InventoryNotificationType.EXPIRING_BATCH]: 'high',
+  [InventoryNotificationType.LOW_STOCK]: 'medium',
+  [InventoryNotificationType.BATCH_EXPIRED]: 'high',
+  [InventoryNotificationType.REORDER_ALERT]: 'medium',
+  [InventoryNotificationType.STOCK_ADJUSTMENT]: 'low',
+  [InventoryNotificationType.WAREHOUSE_UPDATE]: 'low',
+  [InventoryNotificationType.INVENTORY_CREATED]: 'low',
+  [InventoryNotificationType.INVENTORY_UPDATED]: 'low',
+  [InventoryNotificationType.INVENTORY_DELETED]: 'medium'
 };
 
 // Notification message templates
+const NOTIFICATION_MESSAGES: Record<string, (data: any) => string> = {
   [InventoryNotificationType.LOW_STOCK]: (data) => 
     `Low stock alert: ${data.product_name} at ${data.warehouse_name} (${data.current_stock} remaining)`,
   [InventoryNotificationType.OUT_OF_STOCK]: (data) => 
@@ -43,7 +45,7 @@ export enum InventoryNotificationType {
   [InventoryNotificationType.EXPIRING_BATCH]: (data) => 
     `Batch expiring soon: ${data.product_name} batch ${data.batch_number} expires on ${new Date(data.expiration_date).toLocaleDateString()}`,
   [InventoryNotificationType.STOCK_ADJUSTMENT]: (data) => 
-    `Stock adjusted: ${data.product_name} at ${data.warehouse_name} (${data.adjustment > 0 ? &apos;+&apos; : &apos;&apos;}${data.adjustment})`,
+    `Stock adjusted: ${data.product_name} at ${data.warehouse_name} (${data.adjustment > 0 ? '+' : ''}${data.adjustment})`,
   [InventoryNotificationType.WAREHOUSE_UPDATE]: (data) => 
     `Warehouse updated: ${data.warehouse_name}`,
   [InventoryNotificationType.INVENTORY_CREATED]: (data) => 
@@ -64,22 +66,23 @@ export enum InventoryNotificationType {
 export const useInventoryNotifications = () => {
   const dispatch = useAppDispatch();
   const auth = useInventoryAuth();
+  const { isConnected, markAsRead, error } = useNotifications();
 
   // Process inventory-specific notifications
-  const processInventoryNotification = useCallback((notification: unknown) => {
+  const processInventoryNotification = useCallback((notification: any) => {
     // Only process if user has permission to view inventory
     if (!auth.canViewInventory) {
       return;
     }
 
     const notificationType = notification.type || notification.notification_type;
-    const priority = NOTIFICATION_PRIORITY[notificationType] || &apos;medium&apos;;
+    const priority = NOTIFICATION_PRIORITY[notificationType] || 'medium';
     
     // Generate appropriate message
     const messageGenerator = NOTIFICATION_MESSAGES[notificationType];
     const message = messageGenerator 
       ? messageGenerator(notification.data || {})
-      : notification.message || &apos;Inventory notification&apos;;
+      : notification.message || 'Inventory notification';
 
     // Add to notification store
     dispatch(addNotification({
@@ -89,32 +92,33 @@ export const useInventoryNotifications = () => {
       data: {
         ...notification.data,
         priority,
-        category: &apos;inventory&apos;
+        category: 'inventory'
       },
       timestamp: notification.timestamp || new Date().toISOString(),
       isRead: false
     }));
 
     // Show browser notification if supported and permitted
-    if (&apos;Notification&apos; in window && Notification.permission === &apos;granted&apos;) {
+    if ('Notification' in window && Notification.permission === 'granted') {
       showBrowserNotification(message, priority, notification.data);
     }
   }, [dispatch, auth.canViewInventory]);
 
   // Show browser notification
-  const showBrowserNotification = (message: string, priority: string, data: unknown) => {
+  const showBrowserNotification = (message: string, priority: string, data: any) => {
+    const options: NotificationOptions = {
       body: message,
-      icon: &apos;/favicon.ico&apos;,
-      badge: &apos;/favicon.ico&apos;,
-      tag: `inventory-${data?.inventory_id || &apos;general&apos;}`,
-      requireInteraction: priority === &apos;critical&apos;,
-      silent: priority === &apos;low&apos;
+      icon: '/favicon.ico',
+      badge: '/favicon.ico',
+      tag: `inventory-${data?.inventory_id || 'general'}`,
+      requireInteraction: priority === 'critical',
+      silent: priority === 'low'
     };
 
-    const notification = new Notification(&apos;Inventory Alert&apos;, options);
+    const notification = new Notification('Inventory Alert', options);
     
     // Auto-close after 5 seconds for non-critical notifications
-    if (priority !== &apos;critical&apos;) {
+    if (priority !== 'critical') {
       setTimeout(() => notification.close(), 5000);
     }
 
@@ -131,11 +135,11 @@ export const useInventoryNotifications = () => {
 
   // Request notification permission
   const requestNotificationPermission = useCallback(async () => {
-    if (&apos;Notification&apos; in window && Notification.permission === &apos;default&apos;) {
+    if ('Notification' in window && Notification.permission === 'default') {
       const permission = await Notification.requestPermission();
-      return permission === &apos;granted&apos;;
+      return permission === 'granted';
     }
-    return Notification.permission === &apos;granted&apos;;
+    return Notification.permission === 'granted';
   }, []);
 
   // Convert stock alert to notification format
@@ -155,7 +159,7 @@ export const useInventoryNotifications = () => {
       message,
       data: {
         priority: alert.priority,
-        category: &apos;inventory&apos;,
+        category: 'inventory',
         alert_id: alert.id,
         inventory_id: alert.inventory_item.id,
         product_name: alert.inventory_item.product_variant.product.name,
@@ -170,13 +174,13 @@ export const useInventoryNotifications = () => {
   // Send inventory notification
   const sendInventoryNotification = useCallback((
     type: InventoryNotificationType,
-    data: unknown,
+    data: any,
     options?: {
-      priority?: &apos;low&apos; | &apos;medium&apos; | &apos;high&apos; | &apos;critical&apos;;
+      priority?: 'low' | 'medium' | 'high' | 'critical';
       showBrowser?: boolean;
     }
   ) => {
-    const priority = options?.priority || NOTIFICATION_PRIORITY[type] || &apos;medium&apos;;
+    const priority = options?.priority || NOTIFICATION_PRIORITY[type] || 'medium';
     const messageGenerator = NOTIFICATION_MESSAGES[type];
     const message = messageGenerator ? messageGenerator(data) : `Inventory notification: ${type}`;
 
@@ -187,7 +191,7 @@ export const useInventoryNotifications = () => {
       data: {
         ...data,
         priority,
-        category: &apos;inventory&apos;
+        category: 'inventory'
       },
       timestamp: new Date().toISOString(),
       isRead: false
@@ -197,7 +201,7 @@ export const useInventoryNotifications = () => {
     dispatch(addNotification(notification));
 
     // Show browser notification if requested
-    if (options?.showBrowser && &apos;Notification&apos; in window && Notification.permission === &apos;granted&apos;) {
+    if (options?.showBrowser && 'Notification' in window && Notification.permission === 'granted') {
       showBrowserNotification(message, priority, data);
     }
 
@@ -212,13 +216,14 @@ export const useInventoryNotifications = () => {
     convertStockAlertToNotification,
     sendInventoryNotification,
     requestNotificationPermission,
-    hasNotificationPermission: &apos;Notification&apos; in window && Notification.permission === &apos;granted&apos;
+    hasNotificationPermission: 'Notification' in window && Notification.permission === 'granted'
   };
 };
 
 /**
  * Hook for managing inventory alert notifications
  */
+export const useInventoryAlertNotifications = () => {
   const inventoryNotifications = useInventoryNotifications();
   const auth = useInventoryAuth();
 
@@ -238,8 +243,8 @@ export const useInventoryNotifications = () => {
 
   // Send stock level notification
   const notifyStockLevel = useCallback((
-    inventoryItem: unknown,
-    type: &apos;low_stock&apos; | &apos;out_of_stock&apos; | &apos;reorder_alert&apos;
+    inventoryItem: any,
+    type: 'low_stock' | 'out_of_stock' | 'reorder_alert'
   ) => {
     return inventoryNotifications.sendInventoryNotification(
       type as InventoryNotificationType,
@@ -251,14 +256,14 @@ export const useInventoryNotifications = () => {
         reorder_level: inventoryItem.reorder_level
       },
       {
-        priority: type === &apos;out_of_stock&apos; ? &apos;critical&apos; : &apos;medium&apos;,
+        priority: type === 'out_of_stock' ? 'critical' : 'medium',
         showBrowser: true
       }
     );
   }, [inventoryNotifications]);
 
   // Send batch expiration notification
-  const notifyBatchExpiration = useCallback((batch: unknown, daysUntilExpiration: number) => {
+  const notifyBatchExpiration = useCallback((batch: any, daysUntilExpiration: number) => {
     const type = daysUntilExpiration <= 0 
       ? InventoryNotificationType.BATCH_EXPIRED 
       : InventoryNotificationType.EXPIRING_BATCH;
@@ -282,7 +287,7 @@ export const useInventoryNotifications = () => {
 
   // Send stock adjustment notification
   const notifyStockAdjustment = useCallback((
-    inventoryItem: unknown,
+    inventoryItem: any,
     adjustment: number,
     reason: string
   ) => {

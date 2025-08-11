@@ -30,57 +30,57 @@ global.WebSocket = jest.fn(() => mockWebSocket) as any;
 
 const mockAlerts = [
   {
-    id: &apos;1&apos;,
+    id: '1',
     inventory_item: {
-      id: &apos;1&apos;,
+      id: '1',
       product_variant: {
-        sku: &apos;TEST-001&apos;,
+        sku: 'TEST-001',
         product: {
-          name: &apos;Test Product&apos;,
+          name: 'Test Product',
         },
       },
       warehouse: {
-        name: &apos;Main Warehouse&apos;,
+        name: 'Main Warehouse',
       },
     },
-    alert_type: &apos;low_stock&apos; as const,
-    priority: &apos;high&apos; as const,
-    message: &apos;Stock level is below reorder point&apos;,
+    alert_type: 'low_stock' as const,
+    priority: 'high' as const,
+    message: 'Stock level is below reorder point',
     is_acknowledged: false,
     acknowledged_by: null,
     acknowledged_at: null,
-    created_at: &apos;2024-01-01T10:00:00Z&apos;,
+    created_at: '2024-01-01T10:00:00Z',
   },
   {
-    id: &apos;2&apos;,
+    id: '2',
     inventory_item: {
-      id: &apos;2&apos;,
+      id: '2',
       product_variant: {
-        sku: &apos;TEST-002&apos;,
+        sku: 'TEST-002',
         product: {
-          name: &apos;Another Product&apos;,
+          name: 'Another Product',
         },
       },
       warehouse: {
-        name: &apos;Secondary Warehouse&apos;,
+        name: 'Secondary Warehouse',
       },
     },
-    alert_type: &apos;out_of_stock&apos; as const,
-    priority: &apos;critical&apos; as const,
-    message: &apos;Product is completely out of stock&apos;,
+    alert_type: 'out_of_stock' as const,
+    priority: 'critical' as const,
+    message: 'Product is completely out of stock',
     is_acknowledged: true,
     acknowledged_by: {
-      id: &apos;1&apos;,
-      username: &apos;admin&apos;,
+      id: '1',
+      username: 'admin',
     },
-    acknowledged_at: &apos;2024-01-01T11:00:00Z&apos;,
-    created_at: &apos;2024-01-01T09:00:00Z&apos;,
+    acknowledged_at: '2024-01-01T11:00:00Z',
+    created_at: '2024-01-01T09:00:00Z',
   },
 ];
 
 const mockWarehouses = [
-  { id: &apos;1&apos;, name: &apos;Main Warehouse&apos;, code: &apos;MW001&apos; },
-  { id: &apos;2&apos;, name: &apos;Secondary Warehouse&apos;, code: &apos;SW002&apos; },
+  { id: '1', name: 'Main Warehouse', code: 'MW001' },
+  { id: '2', name: 'Secondary Warehouse', code: 'SW002' },
 ];
 
 const mockApiResponse = {
@@ -98,7 +98,7 @@ const mockApiResponse = {
   },
 };
 
-describe(&apos;StockAlerts&apos;, () => {
+describe('StockAlerts', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (inventoryManagementApi.getAlerts as jest.Mock).mockResolvedValue(mockApiResponse);
@@ -110,106 +110,106 @@ describe(&apos;StockAlerts&apos;, () => {
 
   afterEach(() => {
     // Clean up WebSocket mock
-    if (mockWebSocket.onclose) {
-      mockWebSocket.onclose();
+    if (mockWebSocket.onclose && typeof mockWebSocket.onclose === 'function') {
+      mockWebSocket.onclose(new CloseEvent('close'));
     }
   });
 
-  it(&apos;renders stock alerts component correctly&apos;, async () => {
+  it('renders stock alerts component correctly', async () => {
     render(<StockAlerts />);
     
-    expect(screen.getByText(&apos;Stock Alerts&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Monitor and manage inventory alerts&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Configure Alerts&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Stock Alerts')).toBeInTheDocument();
+    expect(screen.getByText('Monitor and manage inventory alerts')).toBeInTheDocument();
+    expect(screen.getByText('Configure Alerts')).toBeInTheDocument();
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Another Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
+      expect(screen.getByText('Another Product')).toBeInTheDocument();
     });
   });
 
-  it(&apos;displays alert statistics correctly&apos;, async () => {
+  it('displays alert statistics correctly', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;2&apos;)).toBeInTheDocument(); // Total alerts
-      expect(screen.getByText(&apos;1&apos;)).toBeInTheDocument(); // Critical alerts
-      expect(screen.getByText(&apos;1&apos;)).toBeInTheDocument(); // High priority alerts
-      expect(screen.getByText(&apos;1&apos;)).toBeInTheDocument(); // Unacknowledged alerts
+      expect(screen.getByText('2')).toBeInTheDocument(); // Total alerts
+      expect(screen.getByText('1')).toBeInTheDocument(); // Critical alerts
+      expect(screen.getByText('1')).toBeInTheDocument(); // High priority alerts
+      expect(screen.getByText('1')).toBeInTheDocument(); // Unacknowledged alerts
     });
   });
 
-  it(&apos;displays alert details correctly&apos;, async () => {
+  it('displays alert details correctly', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;SKU: TEST-001&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Stock level is below reorder point&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;HIGH&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;low stock&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
+      expect(screen.getByText('SKU: TEST-001')).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
+      expect(screen.getByText('Stock level is below reorder point')).toBeInTheDocument();
+      expect(screen.getByText('HIGH')).toBeInTheDocument();
+      expect(screen.getByText('low stock')).toBeInTheDocument();
     });
   });
 
-  it(&apos;displays correct alert status indicators&apos;, async () => {
+  it('displays correct alert status indicators', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Pending&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Acknowledged&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Pending')).toBeInTheDocument();
+      expect(screen.getByText('Acknowledged')).toBeInTheDocument();
     });
   });
 
-  it(&apos;handles alert type filter changes&apos;, async () => {
+  it('handles alert type filter changes', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const alertTypeSelect = screen.getByDisplayValue(&apos;All Types&apos;);
-    fireEvent.change(alertTypeSelect, { target: { value: &apos;low_stock&apos; } });
+    const alertTypeSelect = screen.getByDisplayValue('All Types');
+    fireEvent.change(alertTypeSelect, { target: { value: 'low_stock' } });
 
     await waitFor(() => {
       expect(inventoryManagementApi.getAlerts).toHaveBeenCalledWith(
         expect.objectContaining({
-          alert_type: &apos;low_stock&apos;,
+          alert_type: 'low_stock',
           page: 1,
         })
       );
     });
   });
 
-  it(&apos;handles priority filter changes&apos;, async () => {
+  it('handles priority filter changes', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const prioritySelect = screen.getByDisplayValue(&apos;All Priorities&apos;);
-    fireEvent.change(prioritySelect, { target: { value: &apos;critical&apos; } });
+    const prioritySelect = screen.getByDisplayValue('All Priorities');
+    fireEvent.change(prioritySelect, { target: { value: 'critical' } });
 
     await waitFor(() => {
       expect(inventoryManagementApi.getAlerts).toHaveBeenCalledWith(
         expect.objectContaining({
-          priority: &apos;critical&apos;,
+          priority: 'critical',
           page: 1,
         })
       );
     });
   });
 
-  it(&apos;handles status filter changes&apos;, async () => {
+  it('handles status filter changes', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const statusSelect = screen.getByDisplayValue(&apos;All Status&apos;);
-    fireEvent.change(statusSelect, { target: { value: &apos;false&apos; } });
+    const statusSelect = screen.getByDisplayValue('All Status');
+    fireEvent.change(statusSelect, { target: { value: 'false' } });
 
     await waitFor(() => {
       expect(inventoryManagementApi.getAlerts).toHaveBeenCalledWith(
@@ -221,39 +221,39 @@ describe(&apos;StockAlerts&apos;, () => {
     });
   });
 
-  it(&apos;handles warehouse filter changes&apos;, async () => {
+  it('handles warehouse filter changes', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const warehouseSelect = screen.getByDisplayValue(&apos;All Warehouses&apos;);
-    fireEvent.change(warehouseSelect, { target: { value: &apos;1&apos; } });
+    const warehouseSelect = screen.getByDisplayValue('All Warehouses');
+    fireEvent.change(warehouseSelect, { target: { value: '1' } });
 
     await waitFor(() => {
       expect(inventoryManagementApi.getAlerts).toHaveBeenCalledWith(
         expect.objectContaining({
-          warehouse: &apos;1&apos;,
+          warehouse: '1',
           page: 1,
         })
       );
     });
   });
 
-  it(&apos;clears filters when clear button is clicked&apos;, async () => {
+  it('clears filters when clear button is clicked', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Set some filters first
-    const alertTypeSelect = screen.getByDisplayValue(&apos;All Types&apos;);
-    fireEvent.change(alertTypeSelect, { target: { value: &apos;low_stock&apos; } });
+    const alertTypeSelect = screen.getByDisplayValue('All Types');
+    fireEvent.change(alertTypeSelect, { target: { value: 'low_stock' } });
 
     // Clear filters
-    const clearButton = screen.getByText(&apos;Clear Filters&apos;);
+    const clearButton = screen.getByText('Clear Filters');
     fireEvent.click(clearButton);
 
     await waitFor(() => {
@@ -262,14 +262,14 @@ describe(&apos;StockAlerts&apos;, () => {
           alert_type: undefined,
           priority: undefined,
           is_acknowledged: undefined,
-          warehouse: &apos;&apos;,
+          warehouse: '',
           page: 1,
         })
       );
     });
   });
 
-  it(&apos;handles alert acknowledgment&apos;, async () => {
+  it('handles alert acknowledgment', async () => {
     (inventoryManagementApi.acknowledgeAlert as jest.Mock).mockResolvedValue({
       success: true,
     });
@@ -277,42 +277,42 @@ describe(&apos;StockAlerts&apos;, () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Find and click acknowledge button for unacknowledged alert
-    const acknowledgeButtons = screen.getAllByRole(&apos;button&apos;);
+    const acknowledgeButtons = screen.getAllByRole('button');
     const acknowledgeButton = acknowledgeButtons.find(button => 
-      button.querySelector(&apos;svg&apos;) && button.className?.includes(&apos;text-green-600&apos;)
+      button.querySelector('svg') && button.className?.includes('text-green-600')
     );
     
     if (acknowledgeButton) {
       fireEvent.click(acknowledgeButton);
       
       await waitFor(() => {
-        expect(inventoryManagementApi.acknowledgeAlert).toHaveBeenCalledWith(&apos;1&apos;);
+        expect(inventoryManagementApi.acknowledgeAlert).toHaveBeenCalledWith('1');
       });
     }
   });
 
-  it(&apos;handles alert dismissal&apos;, async () => {
+  it('handles alert dismissal', async () => {
     (inventoryManagementApi.dismissAlert as jest.Mock).mockResolvedValue({
       success: true,
     });
 
     // Mock window.confirm
-    const confirmSpy = jest.spyOn(window, &apos;confirm&apos;).mockReturnValue(true);
+    const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(true);
 
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Find and click dismiss button
-    const dismissButtons = screen.getAllByRole(&apos;button&apos;);
+    const dismissButtons = screen.getAllByRole('button');
     const dismissButton = dismissButtons.find(button => 
-      button.querySelector(&apos;svg&apos;) && button.className?.includes(&apos;text-red-600&apos;)
+      button.querySelector('svg') && button.className?.includes('text-red-600')
     );
     
     if (dismissButton) {
@@ -320,56 +320,56 @@ describe(&apos;StockAlerts&apos;, () => {
       
       await waitFor(() => {
         expect(confirmSpy).toHaveBeenCalled();
-        expect(inventoryManagementApi.dismissAlert).toHaveBeenCalledWith(&apos;1&apos;);
+        expect(inventoryManagementApi.dismissAlert).toHaveBeenCalledWith('1');
       });
     }
 
     confirmSpy.mockRestore();
   });
 
-  it(&apos;opens alert details modal when view button is clicked&apos;, async () => {
+  it('opens alert details modal when view button is clicked', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Click view button
-    const viewButton = screen.getByText(&apos;View&apos;);
+    const viewButton = screen.getByText('View');
     fireEvent.click(viewButton);
 
-    expect(screen.getByText(&apos;Alert Details&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Alert ID&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Alert Details')).toBeInTheDocument();
+    expect(screen.getByText('Alert ID')).toBeInTheDocument();
   });
 
-  it(&apos;closes alert details modal when close button is clicked&apos;, async () => {
+  it('closes alert details modal when close button is clicked', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Open modal
-    const viewButton = screen.getByText(&apos;View&apos;);
+    const viewButton = screen.getByText('View');
     fireEvent.click(viewButton);
 
-    expect(screen.getByText(&apos;Alert Details&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Alert Details')).toBeInTheDocument();
 
     // Close modal
-    const closeButton = screen.getByText(&apos;×&apos;);
+    const closeButton = screen.getByText('×');
     fireEvent.click(closeButton);
 
-    expect(screen.queryByText(&apos;Alert Details&apos;)).not.toBeInTheDocument();
+    expect(screen.queryByText('Alert Details')).not.toBeInTheDocument();
   });
 
-  it(&apos;handles refresh functionality&apos;, async () => {
+  it('handles refresh functionality', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const refreshButton = screen.getByText(&apos;Refresh&apos;);
+    const refreshButton = screen.getByText('Refresh');
     fireEvent.click(refreshButton);
 
     await waitFor(() => {
@@ -377,41 +377,41 @@ describe(&apos;StockAlerts&apos;, () => {
     });
   });
 
-  it(&apos;displays correct priority colors&apos;, async () => {
+  it('displays correct priority colors', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      const highPriorityBadge = screen.getByText(&apos;HIGH&apos;);
-      const criticalPriorityBadge = screen.getByText(&apos;CRITICAL&apos;);
+      const highPriorityBadge = screen.getByText('HIGH');
+      const criticalPriorityBadge = screen.getByText('CRITICAL');
       
       expect(highPriorityBadge).toBeInTheDocument();
       expect(criticalPriorityBadge).toBeInTheDocument();
     });
   });
 
-  it(&apos;displays correct alert type icons and colors&apos;, async () => {
+  it('displays correct alert type icons and colors', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;low stock&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;out of stock&apos;)).toBeInTheDocument();
+      expect(screen.getByText('low stock')).toBeInTheDocument();
+      expect(screen.getByText('out of stock')).toBeInTheDocument();
     });
   });
 
-  it(&apos;highlights unacknowledged alerts&apos;, async () => {
+  it('highlights unacknowledged alerts', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      const rows = screen.getAllByRole(&apos;row&apos;);
+      const rows = screen.getAllByRole('row');
       // Find the row with unacknowledged alert (should have yellow background)
       const unacknowledgedRow = rows.find(row => 
-        row.textContent?.includes(&apos;Test Product&apos;) && row.textContent?.includes(&apos;Pending&apos;)
+        row.textContent?.includes('Test Product') && row.textContent?.includes('Pending')
       );
-      expect(unacknowledgedRow).toHaveClass(&apos;bg-yellow-50&apos;);
+      expect(unacknowledgedRow).toHaveClass('bg-yellow-50');
     });
   });
 
-  it(&apos;formats dates correctly&apos;, async () => {
+  it('formats dates correctly', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
@@ -421,51 +421,51 @@ describe(&apos;StockAlerts&apos;, () => {
     });
   });
 
-  it(&apos;handles loading state correctly&apos;, () => {
+  it('handles loading state correctly', () => {
     (inventoryManagementApi.getAlerts as jest.Mock).mockImplementation(
       () => new Promise(() => {}) // Never resolves
     );
 
     render(<StockAlerts />);
     
-    expect(screen.getByRole(&apos;progressbar&apos;)).toBeInTheDocument();
+    expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
 
-  it(&apos;handles API errors gracefully&apos;, async () => {
-    const consoleSpy = jest.spyOn(console, &apos;error&apos;).mockImplementation(() => {});
+  it('handles API errors gracefully', async () => {
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
     (inventoryManagementApi.getAlerts as jest.Mock).mockRejectedValue(
-      new Error(&apos;API Error&apos;)
+      new Error('API Error')
     );
 
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(consoleSpy).toHaveBeenCalledWith(&apos;Failed to fetch alerts:&apos;, expect.any(Error));
+      expect(consoleSpy).toHaveBeenCalledWith('Failed to fetch alerts:', expect.any(Error));
     });
 
     consoleSpy.mockRestore();
   });
 
-  it(&apos;sets up WebSocket connection for real-time updates&apos;, () => {
+  it('sets up WebSocket connection for real-time updates', () => {
     render(<StockAlerts />);
     
     expect(WebSocket).toHaveBeenCalledWith(
-      expect.stringContaining(&apos;/ws/inventory/alerts/&apos;)
+      expect.stringContaining('/ws/inventory/alerts/')
     );
   });
 
-  it(&apos;handles WebSocket messages for alert updates&apos;, async () => {
+  it('handles WebSocket messages for alert updates', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Simulate WebSocket message
-    if (mockWebSocket.onmessage) {
+    if (mockWebSocket.onmessage && typeof mockWebSocket.onmessage === 'function') {
       mockWebSocket.onmessage({
         data: JSON.stringify({
-          type: &apos;alert_created&apos;,
+          type: 'alert_created',
           alert: mockAlerts[0],
         }),
       } as MessageEvent);
@@ -477,16 +477,16 @@ describe(&apos;StockAlerts&apos;, () => {
     });
   });
 
-  it(&apos;displays warehouse options in filter&apos;, async () => {
+  it('displays warehouse options in filter', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Main Warehouse (MW001)&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Secondary Warehouse (SW002)&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse (MW001)')).toBeInTheDocument();
+      expect(screen.getByText('Secondary Warehouse (SW002)')).toBeInTheDocument();
     });
   });
 
-  it(&apos;updates statistics when alerts are acknowledged&apos;, async () => {
+  it('updates statistics when alerts are acknowledged', async () => {
     (inventoryManagementApi.acknowledgeAlert as jest.Mock).mockResolvedValue({
       success: true,
     });
@@ -494,15 +494,15 @@ describe(&apos;StockAlerts&apos;, () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
       // Initially 1 unacknowledged alert
-      expect(screen.getByText(&apos;1&apos;)).toBeInTheDocument();
+      expect(screen.getByText('1')).toBeInTheDocument();
     });
 
     // Acknowledge an alert
-    const acknowledgeButtons = screen.getAllByRole(&apos;button&apos;);
+    const acknowledgeButtons = screen.getAllByRole('button');
     const acknowledgeButton = acknowledgeButtons.find(button => 
-      button.querySelector(&apos;svg&apos;) && button.className?.includes(&apos;text-green-600&apos;)
+      button.querySelector('svg') && button.className?.includes('text-green-600')
     );
     
     if (acknowledgeButton) {
@@ -510,29 +510,29 @@ describe(&apos;StockAlerts&apos;, () => {
       
       await waitFor(() => {
         // Unacknowledged count should decrease
-        const statsCards = screen.getAllByText(&apos;0&apos;);
+        const statsCards = screen.getAllByText('0');
         expect(statsCards.length).toBeGreaterThan(0);
       });
     }
   });
 
-  it(&apos;updates statistics when alerts are dismissed&apos;, async () => {
+  it('updates statistics when alerts are dismissed', async () => {
     (inventoryManagementApi.dismissAlert as jest.Mock).mockResolvedValue({
       success: true,
     });
 
-    const confirmSpy = jest.spyOn(window, &apos;confirm&apos;).mockReturnValue(true);
+    const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(true);
 
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
     // Dismiss an alert
-    const dismissButtons = screen.getAllByRole(&apos;button&apos;);
+    const dismissButtons = screen.getAllByRole('button');
     const dismissButton = dismissButtons.find(button => 
-      button.querySelector(&apos;svg&apos;) && button.className?.includes(&apos;text-red-600&apos;)
+      button.querySelector('svg') && button.className?.includes('text-red-600')
     );
     
     if (dismissButton) {
@@ -540,7 +540,7 @@ describe(&apos;StockAlerts&apos;, () => {
       
       await waitFor(() => {
         // Total alerts count should decrease
-        const statsCards = screen.getAllByText(&apos;1&apos;);
+        const statsCards = screen.getAllByText('1');
         expect(statsCards.length).toBeGreaterThan(0);
       });
     }
@@ -548,14 +548,14 @@ describe(&apos;StockAlerts&apos;, () => {
     confirmSpy.mockRestore();
   });
 
-  it(&apos;opens configuration modal when Configure Alerts is clicked&apos;, async () => {
+  it('opens configuration modal when Configure Alerts is clicked', async () => {
     render(<StockAlerts />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Test Product&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Test Product')).toBeInTheDocument();
     });
 
-    const configureButton = screen.getByText(&apos;Configure Alerts&apos;);
+    const configureButton = screen.getByText('Configure Alerts');
     fireEvent.click(configureButton);
 
     // Note: The configuration modal is partially implemented in the component
@@ -563,10 +563,10 @@ describe(&apos;StockAlerts&apos;, () => {
     expect(configureButton).toBeInTheDocument();
   });
 
-  it(&apos;displays truncated messages with full text in title&apos;, async () => {
+  it('displays truncated messages with full text in title', async () => {
     const longMessageAlert = {
       ...mockAlerts[0],
-      message: &apos;This is a very long alert message that should be truncated in the display but shown in full in the title attribute for accessibility&apos;,
+      message: 'This is a very long alert message that should be truncated in the display but shown in full in the title attribute for accessibility',
     };
 
     (inventoryManagementApi.getAlerts as jest.Mock).mockResolvedValue({

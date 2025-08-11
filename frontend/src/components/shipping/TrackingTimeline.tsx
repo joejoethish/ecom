@@ -8,59 +8,60 @@ interface TrackingTimelineProps {
   className?: string;
 }
 
+const TrackingTimeline: React.FC<TrackingTimelineProps> = ({
   shipment,
-  className = &apos;&apos;
+  className = ''
 }) => {
   const getStatusIcon = (status: ShipmentStatus, isActive: boolean = false) => {
-    const baseClasses = `w-6 h-6 ${isActive ? &apos;text-white&apos; : &apos;text-gray-400&apos;}`;
+    const baseClasses = `w-6 h-6 ${isActive ? 'text-white' : 'text-gray-400'}`;
     
     switch (status) {
-      case &apos;PENDING&apos;:
+      case 'PENDING':
         return (
           <svg className={baseClasses} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
           </svg>
         );
-      case &apos;PROCESSING&apos;:
+      case 'PROCESSING':
         return (
           <svg className={baseClasses} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
           </svg>
         );
-      case &apos;SHIPPED&apos;:
+      case 'SHIPPED':
         return (
           <svg className={baseClasses} fill="currentColor" viewBox="0 0 20 20">
             <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
             <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707L16 7.586A1 1 0 0015.414 7H14z" />
           </svg>
         );
-      case &apos;IN_TRANSIT&apos;:
+      case 'IN_TRANSIT':
         return (
           <svg className={baseClasses} fill="currentColor" viewBox="0 0 20 20">
             <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
             <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707L16 7.586A1 1 0 0015.414 7H14z" />
           </svg>
         );
-      case &apos;OUT_FOR_DELIVERY&apos;:
+      case 'OUT_FOR_DELIVERY':
         return (
           <svg className={baseClasses} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
           </svg>
         );
-      case &apos;DELIVERED&apos;:
+      case 'DELIVERED':
         return (
           <svg className={baseClasses} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
           </svg>
         );
-      case &apos;FAILED_DELIVERY&apos;:
+      case 'FAILED_DELIVERY':
         return (
           <svg className={baseClasses} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
           </svg>
         );
-      case &apos;RETURNED&apos;:
-      case &apos;CANCELLED&apos;:
+      case 'RETURNED':
+      case 'CANCELLED':
         return (
           <svg className={baseClasses} fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -78,52 +79,53 @@ interface TrackingTimelineProps {
   const getStatusColor = (status: ShipmentStatus, isActive: boolean = false) => {
     if (isActive) {
       switch (status) {
-        case &apos;DELIVERED&apos;:
-          return &apos;bg-green-500&apos;;
-        case &apos;SHIPPED&apos;:
-        case &apos;IN_TRANSIT&apos;:
-        case &apos;OUT_FOR_DELIVERY&apos;:
-          return &apos;bg-blue-500&apos;;
-        case &apos;PROCESSING&apos;:
-          return &apos;bg-yellow-500&apos;;
-        case &apos;CANCELLED&apos;:
-        case &apos;RETURNED&apos;:
-          return &apos;bg-red-500&apos;;
-        case &apos;FAILED_DELIVERY&apos;:
-          return &apos;bg-orange-500&apos;;
+        case 'DELIVERED':
+          return 'bg-green-500';
+        case 'SHIPPED':
+        case 'IN_TRANSIT':
+        case 'OUT_FOR_DELIVERY':
+          return 'bg-blue-500';
+        case 'PROCESSING':
+          return 'bg-yellow-500';
+        case 'CANCELLED':
+        case 'RETURNED':
+          return 'bg-red-500';
+        case 'FAILED_DELIVERY':
+          return 'bg-orange-500';
         default:
-          return &apos;bg-gray-500&apos;;
+          return 'bg-gray-500';
       }
     }
-    return &apos;bg-gray-300&apos;;
+    return 'bg-gray-300';
   };
 
   const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
     return {
-      date: date.toLocaleDateString(&apos;en-US&apos;, {
-        year: &apos;numeric&apos;,
-        month: &apos;short&apos;,
-        day: &apos;numeric&apos;
+      date: date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
       }),
-      time: date.toLocaleTimeString(&apos;en-US&apos;, {
-        hour: &apos;2-digit&apos;,
-        minute: &apos;2-digit&apos;,
+      time: date.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
         hour12: true
       })
     };
   };
 
   const getStatusDisplayName = (status: ShipmentStatus) => {
-      &apos;PENDING&apos;: &apos;Order Placed&apos;,
-      &apos;PROCESSING&apos;: &apos;Processing&apos;,
-      &apos;SHIPPED&apos;: &apos;Shipped&apos;,
-      &apos;IN_TRANSIT&apos;: &apos;In Transit&apos;,
-      &apos;OUT_FOR_DELIVERY&apos;: &apos;Out for Delivery&apos;,
-      &apos;DELIVERED&apos;: &apos;Delivered&apos;,
-      &apos;FAILED_DELIVERY&apos;: &apos;Delivery Failed&apos;,
-      &apos;RETURNED&apos;: &apos;Returned&apos;,
-      &apos;CANCELLED&apos;: &apos;Cancelled&apos;
+    const statusMap: Record<ShipmentStatus, string> = {
+      'PENDING': 'Order Placed',
+      'PROCESSING': 'Processing',
+      'SHIPPED': 'Shipped',
+      'IN_TRANSIT': 'In Transit',
+      'OUT_FOR_DELIVERY': 'Out for Delivery',
+      'DELIVERED': 'Delivered',
+      'FAILED_DELIVERY': 'Delivery Failed',
+      'RETURNED': 'Returned',
+      'CANCELLED': 'Cancelled'
     };
     return statusMap[status] || status;
   };
@@ -157,33 +159,33 @@ interface TrackingTimelineProps {
     const trackingStatuses = new Set(timeline.map(t => t.status));
 
     // Add created event
-    if (!trackingStatuses.has(&apos;PENDING&apos;)) {
+    if (!trackingStatuses.has('PENDING')) {
       timeline.push({
-        status: &apos;PENDING&apos;,
-        status_display: &apos;Order Placed&apos;,
-        description: &apos;Your order has been placed and is being prepared for shipment.&apos;,
+        status: 'PENDING',
+        status_display: 'Order Placed',
+        description: 'Your order has been placed and is being prepared for shipment.',
         timestamp: shipment.created_at,
         isFromTracking: false
       });
     }
 
     // Add shipped event
-    if (shipment.shipped_at && !trackingStatuses.has(&apos;SHIPPED&apos;)) {
+    if (shipment.shipped_at && !trackingStatuses.has('SHIPPED')) {
       timeline.push({
-        status: &apos;SHIPPED&apos;,
-        status_display: &apos;Shipped&apos;,
-        description: &apos;Your order has been shipped and is on its way.&apos;,
+        status: 'SHIPPED',
+        status_display: 'Shipped',
+        description: 'Your order has been shipped and is on its way.',
         timestamp: shipment.shipped_at,
         isFromTracking: false
       });
     }
 
     // Add delivered event
-    if (shipment.delivered_at && !trackingStatuses.has(&apos;DELIVERED&apos;)) {
+    if (shipment.delivered_at && !trackingStatuses.has('DELIVERED')) {
       timeline.push({
-        status: &apos;DELIVERED&apos;,
-        status_display: &apos;Delivered&apos;,
-        description: &apos;Your order has been successfully delivered.&apos;,
+        status: 'DELIVERED',
+        status_display: 'Delivered',
+        description: 'Your order has been successfully delivered.',
         timestamp: shipment.delivered_at,
         isFromTracking: false
       });
@@ -197,12 +199,13 @@ interface TrackingTimelineProps {
   const currentStatus = shipment.status;
 
   // Define the standard status progression
-    &apos;PENDING&apos;,
-    &apos;PROCESSING&apos;, 
-    &apos;SHIPPED&apos;,
-    &apos;IN_TRANSIT&apos;,
-    &apos;OUT_FOR_DELIVERY&apos;,
-    &apos;DELIVERED&apos;
+  const statusProgression: ShipmentStatus[] = [
+    'PENDING',
+    'PROCESSING', 
+    'SHIPPED',
+    'IN_TRANSIT',
+    'OUT_FOR_DELIVERY',
+    'DELIVERED'
   ];
 
   const getCurrentStatusIndex = () => {
@@ -257,6 +260,7 @@ interface TrackingTimelineProps {
           <h4 className="font-medium text-gray-900 mb-4">Detailed History</h4>
           <div className="space-y-4">
             {timeline.map((event, index) => {
+              const { date, time } = formatDateTime(event.timestamp);
               const isLatest = index === 0;
               
               return (

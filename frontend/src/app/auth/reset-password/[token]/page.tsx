@@ -14,7 +14,7 @@ export default function ResetPasswordPage() {
     // Redirect to login after successful password reset
     // Give user time to read the success message
     setTimeout(() => {
-      router.push(ROUTES.LOGIN + &apos;?message=password-reset-success&apos;);
+      router.push(ROUTES.LOGIN + '?message=password-reset-success');
     }, 3000);
   };
 
@@ -76,8 +76,8 @@ export default function ResetPasswordPage() {
               cursor: 'pointer',
               transition: 'background-color 0.2s ease'
             }}
-            onMouseOver={(e) => e.currentTarget.style.backgroundColor = &apos;#1976d2&apos;}
-            onMouseOut={(e) => e.currentTarget.style.backgroundColor = &apos;#2196f3&apos;}
+           onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#1976d2'}
+            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#2196f3'}
           >
             Back to Login
           </button>

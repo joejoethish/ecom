@@ -13,9 +13,10 @@ import {
   PaginatedResponse
 } from '../types';
 
+export const shippingApi = {
   // Shipping Partners
   getShippingPartners: (): Promise<ApiResponse<ShippingPartner[]>> => {
-    return apiClient.get(&apos;/shipping/partners/&apos;);
+    return apiClient.get('/shipping/partners/');
   },
 
   getShippingPartner: (id: string): Promise<ApiResponse<ShippingPartner>> => {
@@ -63,12 +64,12 @@ import {
   },
 
   getAvailableDeliverySlots: (data: DeliverySlotAvailability): Promise<ApiResponse<DeliverySlot[]>> => {
-    return apiClient.post(&apos;/shipping/delivery-slots/available_slots/&apos;, data);
+    return apiClient.post('/shipping/delivery-slots/available_slots/', data);
   },
 
   // Shipping Rates
   calculateShippingRates: (data: ShippingRateCalculation): Promise<ApiResponse<ShippingRateResult[]>> => {
-    return apiClient.post(&apos;/shipping/shipping-rates/calculate/&apos;, data);
+    return apiClient.post('/shipping/shipping-rates/calculate/', data);
   },
 
   getShippingRates: (params?: {
@@ -110,7 +111,7 @@ import {
   },
 
   createShipment: (data: Partial<Shipment>): Promise<ApiResponse<Shipment>> => {
-    return apiClient.post(&apos;/shipping/shipments/&apos;, data);
+    return apiClient.post('/shipping/shipments/', data);
   },
 
   updateShipment: (id: string, data: Partial<Shipment>): Promise<ApiResponse<Shipment>> => {
@@ -141,7 +142,7 @@ import {
     description?: string;
     location?: string;
   }): Promise<ApiResponse<{ message: string; updated_count: number }>> => {
-    return apiClient.post(&apos;/shipping/shipments/bulk_update_status/&apos;, data);
+    return apiClient.post('/shipping/shipments/bulk_update_status/', data);
   },
 
   // Analytics (admin only)
@@ -150,8 +151,8 @@ import {
     date_to: string;
     shipping_partner_id?: string;
     status?: string;
-  }): Promise<ApiResponse<unknown>> => {
-    return apiClient.post(&apos;/shipping/shipments/analytics/&apos;, data);
+  }): Promise<ApiResponse<any>> => {
+    return apiClient.post('/shipping/shipments/analytics/', data);
   },
 
   // Webhooks (for shipping partners)
@@ -161,7 +162,7 @@ import {
     description?: string;
     location?: string;
     timestamp: string;
-    partner_data?: Record<string, unknown>;
+    partner_data?: Record<string, any>;
   }): Promise<ApiResponse<{ status: string; message: string }>> => {
     return apiClient.post('/shipping/shipments/webhook/', data);
   },

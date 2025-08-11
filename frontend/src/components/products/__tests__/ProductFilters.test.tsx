@@ -4,9 +4,9 @@ import { ProductFilters } from '../ProductFilters';
 
 describe('ProductFilters', () => {
   const mockBrands = [
-    { label: &apos;Brand 1&apos;, value: &apos;brand1&apos;, count: 10 },
-    { label: &apos;Brand 2&apos;, value: &apos;brand2&apos;, count: 5 },
-    { label: &apos;Brand 3&apos;, value: &apos;brand3&apos;, count: 3 },
+    { label: 'Brand 1', value: 'brand1', count: 10 },
+    { label: 'Brand 2', value: 'brand2', count: 5 },
+    { label: 'Brand 3', value: 'brand3', count: 3 },
   ];
 
   const mockPriceRange = {
@@ -14,7 +14,7 @@ describe('ProductFilters', () => {
     max: 1000,
   };
 
-  it(&apos;renders filter sections correctly&apos;, () => {
+  it('renders filter sections correctly', () => {
     const handleFilterChange = jest.fn();
     render(
       <ProductFilters
@@ -25,19 +25,19 @@ describe('ProductFilters', () => {
     );
 
     // Check if price range section is rendered
-    expect(screen.getByText(&apos;Price Range&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Price Range')).toBeInTheDocument();
     
     // Check if brands section is rendered
-    expect(screen.getByText(&apos;Brands&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Brands')).toBeInTheDocument();
     
     // Check if discount filter is rendered
-    expect(screen.getByText(&apos;On Sale&apos;)).toBeInTheDocument();
+    expect(screen.getByText('On Sale')).toBeInTheDocument();
     
     // Check if sort by section is rendered
-    expect(screen.getByText(&apos;Sort By&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Sort By')).toBeInTheDocument();
   });
 
-  it(&apos;renders brand options correctly&apos;, () => {
+  it('renders brand options correctly', () => {
     const handleFilterChange = jest.fn();
     render(
       <ProductFilters
@@ -48,12 +48,12 @@ describe('ProductFilters', () => {
     );
 
     // Check if brand options are rendered
-    expect(screen.getByText(&apos;Brand 1 (10)&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Brand 2 (5)&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Brand 3 (3)&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Brand 1 (10)')).toBeInTheDocument();
+    expect(screen.getByText('Brand 2 (5)')).toBeInTheDocument();
+    expect(screen.getByText('Brand 3 (3)')).toBeInTheDocument();
   });
 
-  it(&apos;updates price range inputs correctly&apos;, () => {
+  it('updates price range inputs correctly', () => {
     const handleFilterChange = jest.fn();
     render(
       <ProductFilters
@@ -68,15 +68,15 @@ describe('ProductFilters', () => {
     const maxPriceInput = screen.getByPlaceholderText(/max/i);
     
     // Change min price
-    fireEvent.change(minPriceInput, { target: { value: &apos;20&apos; } });
+    fireEvent.change(minPriceInput, { target: { value: '20' } });
     expect(minPriceInput).toHaveValue(20);
     
     // Change max price
-    fireEvent.change(maxPriceInput, { target: { value: &apos;500&apos; } });
+    fireEvent.change(maxPriceInput, { target: { value: '500' } });
     expect(maxPriceInput).toHaveValue(500);
   });
 
-  it(&apos;toggles brand checkboxes correctly&apos;, () => {
+  it('toggles brand checkboxes correctly', () => {
     const handleFilterChange = jest.fn();
     render(
       <ProductFilters
@@ -103,7 +103,7 @@ describe('ProductFilters', () => {
     expect(brand1Checkbox).not.toBeChecked();
   });
 
-  it(&apos;toggles discount filter correctly&apos;, () => {
+  it('toggles discount filter correctly', () => {
     const handleFilterChange = jest.fn();
     render(
       <ProductFilters
@@ -114,7 +114,7 @@ describe('ProductFilters', () => {
     );
 
     // Get discount checkbox
-    const discountCheckbox = screen.getByLabelText(&apos;On Sale&apos;);
+    const discountCheckbox = screen.getByLabelText('On Sale');
     
     // Check discount
     fireEvent.click(discountCheckbox);
@@ -125,7 +125,7 @@ describe('ProductFilters', () => {
     expect(discountCheckbox).not.toBeChecked();
   });
 
-  it(&apos;changes sort option correctly&apos;, () => {
+  it('changes sort option correctly', () => {
     const handleFilterChange = jest.fn();
     render(
       <ProductFilters
@@ -136,14 +136,14 @@ describe('ProductFilters', () => {
     );
 
     // Get sort select
-    const sortSelect = screen.getByRole(&apos;combobox&apos;);
+    const sortSelect = screen.getByRole('combobox');
     
     // Change sort option
-    fireEvent.change(sortSelect, { target: { value: &apos;price&apos; } });
-    expect(sortSelect).toHaveValue(&apos;price&apos;);
+    fireEvent.change(sortSelect, { target: { value: 'price' } });
+    expect(sortSelect).toHaveValue('price');
   });
 
-  it(&apos;calls onFilterChange with correct filters when Apply Filters button is clicked&apos;, () => {
+  it('calls onFilterChange with correct filters when Apply Filters button is clicked', () => {
     const handleFilterChange = jest.fn();
     render(
       <ProductFilters
@@ -154,27 +154,27 @@ describe('ProductFilters', () => {
     );
 
     // Set up filters
-    fireEvent.change(screen.getByPlaceholderText(/min/i), { target: { value: &apos;20&apos; } });
-    fireEvent.change(screen.getByPlaceholderText(/max/i), { target: { value: &apos;500&apos; } });
+    fireEvent.change(screen.getByPlaceholderText(/min/i), { target: { value: '20' } });
+    fireEvent.change(screen.getByPlaceholderText(/max/i), { target: { value: '500' } });
     fireEvent.click(screen.getByLabelText(/Brand 1/));
     fireEvent.click(screen.getByLabelText(/Brand 2/));
-    fireEvent.click(screen.getByLabelText(&apos;On Sale&apos;));
-    fireEvent.change(screen.getByRole(&apos;combobox&apos;), { target: { value: &apos;price&apos; } });
+    fireEvent.click(screen.getByLabelText('On Sale'));
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'price' } });
     
     // Click Apply Filters button
-    fireEvent.click(screen.getByText(&apos;Apply Filters&apos;));
+    fireEvent.click(screen.getByText('Apply Filters'));
     
     // Check if onFilterChange was called with correct filters
     expect(handleFilterChange).toHaveBeenCalledWith({
       min_price: 20,
       max_price: 500,
-      brand: &apos;brand1,brand2&apos;,
+      brand: 'brand1,brand2',
       has_discount: true,
-      sort: &apos;price&apos;,
+      sort: 'price',
     });
   });
 
-  it(&apos;resets filters when Reset button is clicked&apos;, () => {
+  it('resets filters when Reset button is clicked', () => {
     const handleFilterChange = jest.fn();
     render(
       <ProductFilters
@@ -192,21 +192,21 @@ describe('ProductFilters', () => {
     );
 
     // Click Reset button
-    fireEvent.click(screen.getByText(&apos;Reset&apos;));
+    fireEvent.click(screen.getByText('Reset'));
     
     // Check if onFilterChange was called with empty filters
     expect(handleFilterChange).toHaveBeenCalledWith({});
     
     // Check if inputs are reset
-    expect(screen.getByPlaceholderText(/min/i)).toHaveValue(&apos;&apos;);
-    expect(screen.getByPlaceholderText(/max/i)).toHaveValue(&apos;&apos;);
+    expect(screen.getByPlaceholderText(/min/i)).toHaveValue('');
+    expect(screen.getByPlaceholderText(/max/i)).toHaveValue('');
     expect(screen.getByLabelText(/Brand 1/)).not.toBeChecked();
     expect(screen.getByLabelText(/Brand 2/)).not.toBeChecked();
-    expect(screen.getByLabelText(&apos;On Sale&apos;)).not.toBeChecked();
-    expect(screen.getByRole(&apos;combobox&apos;)).toHaveValue(&apos;&apos;);
+    expect(screen.getByLabelText('On Sale')).not.toBeChecked();
+    expect(screen.getByRole('combobox')).toHaveValue('');
   });
 
-  it(&apos;initializes with provided initial filters&apos;, () => {
+  it('initializes with provided initial filters', () => {
     const handleFilterChange = jest.fn();
     render(
       <ProductFilters

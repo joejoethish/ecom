@@ -11,7 +11,7 @@ import { observeLongTasks } from '@/utils/performance';
 import { useEffect } from 'react';
 
 // Lazy load the AccessibilityMenu to improve initial load performance
-const LazyAccessibilityMenu = lazy(() => import(&apos;../common/AccessibilityMenu&apos;).then(
+const LazyAccessibilityMenu = lazy(() => import('../common/AccessibilityMenu').then(
   module => ({ default: module.AccessibilityMenu })
 ));
 

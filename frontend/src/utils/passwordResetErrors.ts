@@ -77,7 +77,7 @@ export const isRetryablePasswordResetError = (errorCode: string): boolean => {
 export const getPasswordResetErrorMessage = (error: unknown): string => {
   const errorInfo = extractErrorInfo(error);
   
-  // Check if it&apos;s a specific password reset error
+  // Check if it's a specific password reset error
   if (errorInfo.code in PASSWORD_RESET_ERROR_MESSAGES) {
     return PASSWORD_RESET_ERROR_MESSAGES[errorInfo.code as keyof typeof PASSWORD_RESET_ERROR_MESSAGES];
   }
@@ -92,13 +92,13 @@ export const getPasswordResetErrorMessage = (error: unknown): string => {
 export const logPasswordResetError = (
   error: unknown, 
   context: string, 
-  additionalData?: Record<string, unknown>
+  additionalData?: Record<string, any>
 ): void => {
   const errorInfo = extractErrorInfo(error);
   
   // Enhanced logging for password reset errors
-  if (process.env.NODE_ENV === &apos;development&apos;) {
-    console.error(&apos;Password Reset Error:&apos;, {
+  if (process.env.NODE_ENV === 'development') {
+    console.error('Password Reset Error:', {
       context,
       error: errorInfo,
       additionalData,
@@ -115,7 +115,8 @@ export const logPasswordResetError = (
 /**
  * Handle password reset API response errors
  */
-  const errorCode = response.error?.code || &apos;unknown_error&apos;;
+export const handlePasswordResetApiError = (response: any): never => {
+  const errorCode = response.error?.code || 'unknown_error';
   const errorMessage = getPasswordResetErrorMessage(response.error);
   
   const error = new Error(errorMessage);
@@ -140,6 +141,7 @@ export const PASSWORD_RESET_RETRY_CONFIG = {
 /**
  * Enhanced retry function specifically for password reset operations
  */
+export const retryPasswordResetOperation = async <T>(
   operation: () => Promise<T>,
   context: string,
   config = PASSWORD_RESET_RETRY_CONFIG
@@ -190,6 +192,7 @@ export const PASSWORD_RESET_RETRY_CONFIG = {
 /**
  * Validate password reset token format
  */
+export const isValidTokenFormat = (token: string): boolean => {
   // Token should be a hex string of at least 32 characters
   return /^[a-f0-9]{32,}$/i.test(token);
 };
@@ -197,7 +200,8 @@ export const PASSWORD_RESET_RETRY_CONFIG = {
 /**
  * Security event logging for password reset operations
  */
-  event: &apos;request&apos; | &apos;validate&apos; | &apos;reset&apos; | &apos;suspicious&apos;,
+export const logPasswordResetSecurityEvent = (
+  event: 'request' | 'validate' | 'reset' | 'suspicious',
   details: {
     email?: string;
     token?: string;
@@ -205,11 +209,11 @@ export const PASSWORD_RESET_RETRY_CONFIG = {
     userAgent?: string;
     success?: boolean;
     errorCode?: string;
-    additionalData?: Record<string, unknown>;
+    additionalData?: Record<string, any>;
   }
 ): void => {
   // Import here to avoid circular dependencies
-  import { logSecurityEvent }  from './securityMonitoring';
+  const { logSecurityEvent } = require('./securityMonitoring');
   
   const severity = details.success === false && details.errorCode ? 'medium' : 'low';
   

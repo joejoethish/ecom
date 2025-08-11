@@ -17,40 +17,40 @@ jest.mock('@/services/inventoryManagementApi', () => ({
 
 const mockWarehouses = [
   {
-    id: &apos;1&apos;,
-    name: &apos;Main Warehouse&apos;,
-    code: &apos;WH001&apos;,
-    address: &apos;123 Main St&apos;,
-    city: &apos;New York&apos;,
-    state: &apos;NY&apos;,
-    postal_code: &apos;10001&apos;,
-    country: &apos;USA&apos;,
-    phone: &apos;+1-555-0123&apos;,
-    email: &apos;main@warehouse.com&apos;,
-    manager: &apos;John Doe&apos;,
+    id: '1',
+    name: 'Main Warehouse',
+    code: 'WH001',
+    address: '123 Main St',
+    city: 'New York',
+    state: 'NY',
+    postal_code: '10001',
+    country: 'USA',
+    phone: '+1-555-0123',
+    email: 'main@warehouse.com',
+    manager: 'John Doe',
     is_active: true,
-    created_at: &apos;2024-01-01T00:00:00Z&apos;,
-    updated_at: &apos;2024-01-01T00:00:00Z&apos;,
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: &apos;2&apos;,
-    name: &apos;Secondary Warehouse&apos;,
-    code: &apos;WH002&apos;,
-    address: &apos;456 Oak Ave&apos;,
-    city: &apos;Los Angeles&apos;,
-    state: &apos;CA&apos;,
-    postal_code: &apos;90001&apos;,
-    country: &apos;USA&apos;,
-    phone: &apos;+1-555-0456&apos;,
-    email: &apos;secondary@warehouse.com&apos;,
-    manager: &apos;Jane Smith&apos;,
+    id: '2',
+    name: 'Secondary Warehouse',
+    code: 'WH002',
+    address: '456 Oak Ave',
+    city: 'Los Angeles',
+    state: 'CA',
+    postal_code: '90001',
+    country: 'USA',
+    phone: '+1-555-0456',
+    email: 'secondary@warehouse.com',
+    manager: 'Jane Smith',
     is_active: false,
-    created_at: &apos;2024-01-02T00:00:00Z&apos;,
-    updated_at: &apos;2024-01-02T00:00:00Z&apos;,
+    created_at: '2024-01-02T00:00:00Z',
+    updated_at: '2024-01-02T00:00:00Z',
   },
 ];
 
-describe(&apos;WarehouseManagement&apos;, () => {
+describe('WarehouseManagement', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (inventoryManagementApi.getWarehouses as jest.Mock).mockResolvedValue({
@@ -59,91 +59,91 @@ describe(&apos;WarehouseManagement&apos;, () => {
     });
   });
 
-  it(&apos;renders warehouse management header&apos;, async () => {
+  it('renders warehouse management header', async () => {
     render(<WarehouseManagement />);
     
-    expect(screen.getByText(&apos;Warehouse Management&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Manage warehouse locations and their details&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Add Warehouse&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Warehouse Management')).toBeInTheDocument();
+    expect(screen.getByText('Manage warehouse locations and their details')).toBeInTheDocument();
+    expect(screen.getByText('Add Warehouse')).toBeInTheDocument();
   });
 
-  it(&apos;displays loading state initially&apos;, () => {
+  it('displays loading state initially', () => {
     render(<WarehouseManagement />);
     
     // Check for loading spinner by class
-    const loadingElement = document.querySelector(&apos;.animate-spin&apos;);
+    const loadingElement = document.querySelector('.animate-spin');
     expect(loadingElement).toBeInTheDocument();
   });
 
-  it(&apos;displays warehouses after loading&apos;, async () => {
+  it('displays warehouses after loading', async () => {
     render(<WarehouseManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Code: WH001&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Secondary Warehouse&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Code: WH002&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
+      expect(screen.getByText('Code: WH001')).toBeInTheDocument();
+      expect(screen.getByText('Secondary Warehouse')).toBeInTheDocument();
+      expect(screen.getByText('Code: WH002')).toBeInTheDocument();
     });
   });
 
-  it(&apos;displays warehouse details correctly&apos;, async () => {
+  it('displays warehouse details correctly', async () => {
     render(<WarehouseManagement />);
     
     await waitFor(() => {
       // Check first warehouse details
-      expect(screen.getByText(&apos;123 Main St&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;New York, NY 10001&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;USA&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;+1-555-0123&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;main@warehouse.com&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Manager: John Doe&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Active&apos;)).toBeInTheDocument();
+      expect(screen.getByText('123 Main St')).toBeInTheDocument();
+      expect(screen.getByText('New York, NY 10001')).toBeInTheDocument();
+      expect(screen.getByText('USA')).toBeInTheDocument();
+      expect(screen.getByText('+1-555-0123')).toBeInTheDocument();
+      expect(screen.getByText('main@warehouse.com')).toBeInTheDocument();
+      expect(screen.getByText('Manager: John Doe')).toBeInTheDocument();
+      expect(screen.getByText('Active')).toBeInTheDocument();
       
       // Check second warehouse details
-      expect(screen.getByText(&apos;456 Oak Ave&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Los Angeles, CA 90001&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;secondary@warehouse.com&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Manager: Jane Smith&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Inactive&apos;)).toBeInTheDocument();
+      expect(screen.getByText('456 Oak Ave')).toBeInTheDocument();
+      expect(screen.getByText('Los Angeles, CA 90001')).toBeInTheDocument();
+      expect(screen.getByText('secondary@warehouse.com')).toBeInTheDocument();
+      expect(screen.getByText('Manager: Jane Smith')).toBeInTheDocument();
+      expect(screen.getByText('Inactive')).toBeInTheDocument();
     });
   });
 
-  it(&apos;opens warehouse form when Add Warehouse is clicked&apos;, async () => {
+  it('opens warehouse form when Add Warehouse is clicked', async () => {
     render(<WarehouseManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
     });
     
-    fireEvent.click(screen.getByText(&apos;Add Warehouse&apos;));
+    fireEvent.click(screen.getByText('Add Warehouse'));
     
-    expect(screen.getByText(&apos;Add Warehouse&apos;)).toBeInTheDocument();
-    expect(screen.getByLabelText(&apos;Warehouse Name *&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Add Warehouse')).toBeInTheDocument();
+    expect(screen.getByLabelText('Warehouse Name *')).toBeInTheDocument();
   });
 
-  it(&apos;opens warehouse form for editing when edit button is clicked&apos;, async () => {
+  it('opens warehouse form for editing when edit button is clicked', async () => {
     render(<WarehouseManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
     });
     
-    const editButtons = screen.getAllByRole(&apos;button&apos;);
+    const editButtons = screen.getAllByRole('button');
     const editButton = editButtons.find(button => 
-      button.querySelector(&apos;svg&apos;) && button.getAttribute(&apos;class&apos;)?.includes(&apos;ghost&apos;)
+      button.querySelector('svg') && button.getAttribute('class')?.includes('ghost')
     );
     
     if (editButton) {
       fireEvent.click(editButton);
       
       await waitFor(() => {
-        expect(screen.getByText(&apos;Edit Warehouse&apos;)).toBeInTheDocument();
-        expect(screen.getByDisplayValue(&apos;Main Warehouse&apos;)).toBeInTheDocument();
+        expect(screen.getByText('Edit Warehouse')).toBeInTheDocument();
+        expect(screen.getByDisplayValue('Main Warehouse')).toBeInTheDocument();
       });
     }
   });
 
-  it(&apos;shows empty state when no warehouses exist&apos;, async () => {
+  it('shows empty state when no warehouses exist', async () => {
     (inventoryManagementApi.getWarehouses as jest.Mock).mockResolvedValue({
       success: true,
       data: [],
@@ -152,12 +152,12 @@ describe(&apos;WarehouseManagement&apos;, () => {
     render(<WarehouseManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;No warehouses found&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Get started by creating your first warehouse&apos;)).toBeInTheDocument();
+      expect(screen.getByText('No warehouses found')).toBeInTheDocument();
+      expect(screen.getByText('Get started by creating your first warehouse')).toBeInTheDocument();
     });
   });
 
-  it(&apos;handles delete warehouse with dependencies&apos;, async () => {
+  it('handles delete warehouse with dependencies', async () => {
     // Mock inventory check to return items (has dependencies)
     (inventoryManagementApi.getInventory as jest.Mock).mockResolvedValue({
       success: true,
@@ -165,17 +165,17 @@ describe(&apos;WarehouseManagement&apos;, () => {
     });
     
     // Mock window.alert
-    const alertSpy = jest.spyOn(window, &apos;alert&apos;).mockImplementation(() => {});
+    const alertSpy = jest.spyOn(window, 'alert').mockImplementation(() => {});
     
     render(<WarehouseManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
     });
     
-    const deleteButtons = screen.getAllByRole(&apos;button&apos;);
+    const deleteButtons = screen.getAllByRole('button');
     const deleteButton = deleteButtons.find(button => 
-      button.querySelector(&apos;svg&apos;) && button.getAttribute(&apos;class&apos;)?.includes(&apos;text-red-600&apos;)
+      button.querySelector('svg') && button.getAttribute('class')?.includes('text-red-600')
     );
     
     if (deleteButton) {
@@ -183,7 +183,7 @@ describe(&apos;WarehouseManagement&apos;, () => {
       
       await waitFor(() => {
         expect(alertSpy).toHaveBeenCalledWith(
-          expect.stringContaining(&apos;Cannot delete warehouse &quot;Main Warehouse&quot; because it has inventory items&apos;)
+          expect.stringContaining('Cannot delete warehouse "Main Warehouse" because it has inventory items')
         );
       });
     }
@@ -191,7 +191,7 @@ describe(&apos;WarehouseManagement&apos;, () => {
     alertSpy.mockRestore();
   });
 
-  it(&apos;handles delete warehouse without dependencies&apos;, async () => {
+  it('handles delete warehouse without dependencies', async () => {
     // Mock inventory check to return no items (no dependencies)
     (inventoryManagementApi.getInventory as jest.Mock).mockResolvedValue({
       success: true,
@@ -204,17 +204,17 @@ describe(&apos;WarehouseManagement&apos;, () => {
     });
     
     // Mock window.confirm
-    const confirmSpy = jest.spyOn(window, &apos;confirm&apos;).mockReturnValue(true);
+    const confirmSpy = jest.spyOn(window, 'confirm').mockReturnValue(true);
     
     render(<WarehouseManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
     });
     
-    const deleteButtons = screen.getAllByRole(&apos;button&apos;);
+    const deleteButtons = screen.getAllByRole('button');
     const deleteButton = deleteButtons.find(button => 
-      button.querySelector(&apos;svg&apos;) && button.getAttribute(&apos;class&apos;)?.includes(&apos;text-red-600&apos;)
+      button.querySelector('svg') && button.getAttribute('class')?.includes('text-red-600')
     );
     
     if (deleteButton) {
@@ -222,9 +222,9 @@ describe(&apos;WarehouseManagement&apos;, () => {
       
       await waitFor(() => {
         expect(confirmSpy).toHaveBeenCalledWith(
-          expect.stringContaining(&apos;Are you sure you want to delete warehouse &quot;Main Warehouse&quot;?&apos;)
+          expect.stringContaining('Are you sure you want to delete warehouse "Main Warehouse"?')
         );
-        expect(inventoryManagementApi.deleteWarehouse).toHaveBeenCalledWith(&apos;1&apos;);
+        expect(inventoryManagementApi.deleteWarehouse).toHaveBeenCalledWith('1');
       });
     }
     
@@ -232,7 +232,7 @@ describe(&apos;WarehouseManagement&apos;, () => {
   });
 });
 
-describe(&apos;WarehouseForm&apos;, () => {
+describe('WarehouseForm', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (inventoryManagementApi.getWarehouses as jest.Mock).mockResolvedValue({
@@ -241,82 +241,82 @@ describe(&apos;WarehouseForm&apos;, () => {
     });
   });
 
-  it(&apos;validates required fields&apos;, async () => {
+  it('validates required fields', async () => {
     render(<WarehouseManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
     });
     
-    fireEvent.click(screen.getByText(&apos;Add Warehouse&apos;));
+    fireEvent.click(screen.getByText('Add Warehouse'));
     
     // Try to submit empty form
-    const submitButton = screen.getByText(&apos;Create Warehouse&apos;);
+    const submitButton = screen.getByText('Create Warehouse');
     fireEvent.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Warehouse name is required&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Warehouse code is required&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Address is required&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;City is required&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;State is required&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Postal code is required&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Country is required&apos;)).toBeInTheDocument();
-      expect(screen.getByText(&apos;Manager name is required&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Warehouse name is required')).toBeInTheDocument();
+      expect(screen.getByText('Warehouse code is required')).toBeInTheDocument();
+      expect(screen.getByText('Address is required')).toBeInTheDocument();
+      expect(screen.getByText('City is required')).toBeInTheDocument();
+      expect(screen.getByText('State is required')).toBeInTheDocument();
+      expect(screen.getByText('Postal code is required')).toBeInTheDocument();
+      expect(screen.getByText('Country is required')).toBeInTheDocument();
+      expect(screen.getByText('Manager name is required')).toBeInTheDocument();
     });
   });
 
-  it(&apos;validates warehouse code uniqueness&apos;, async () => {
+  it('validates warehouse code uniqueness', async () => {
     render(<WarehouseManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
     });
     
-    fireEvent.click(screen.getByText(&apos;Add Warehouse&apos;));
+    fireEvent.click(screen.getByText('Add Warehouse'));
     
     // Fill form with duplicate warehouse code
-    fireEvent.change(screen.getByLabelText(&apos;Warehouse Name *&apos;), {
-      target: { value: &apos;Test Warehouse&apos; },
+    fireEvent.change(screen.getByLabelText('Warehouse Name *'), {
+      target: { value: 'Test Warehouse' },
     });
-    fireEvent.change(screen.getByLabelText(&apos;Warehouse Code *&apos;), {
-      target: { value: &apos;WH001&apos; }, // This code already exists
+    fireEvent.change(screen.getByLabelText('Warehouse Code *'), {
+      target: { value: 'WH001' }, // This code already exists
     });
     
-    const submitButton = screen.getByText(&apos;Create Warehouse&apos;);
+    const submitButton = screen.getByText('Create Warehouse');
     fireEvent.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Warehouse code already exists. Please choose a different code.&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Warehouse code already exists. Please choose a different code.')).toBeInTheDocument();
     });
   });
 
-  it(&apos;validates email format&apos;, async () => {
+  it('validates email format', async () => {
     render(<WarehouseManagement />);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Main Warehouse&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Main Warehouse')).toBeInTheDocument();
     });
     
-    fireEvent.click(screen.getByText(&apos;Add Warehouse&apos;));
+    fireEvent.click(screen.getByText('Add Warehouse'));
     
     // Fill email with invalid format
-    fireEvent.change(screen.getByLabelText(&apos;Email Address&apos;), {
-      target: { value: &apos;invalid-email&apos; },
+    fireEvent.change(screen.getByLabelText('Email Address'), {
+      target: { value: 'invalid-email' },
     });
     
-    const submitButton = screen.getByText(&apos;Create Warehouse&apos;);
+    const submitButton = screen.getByText('Create Warehouse');
     fireEvent.click(submitButton);
     
     await waitFor(() => {
-      expect(screen.getByText(&apos;Please enter a valid email address&apos;)).toBeInTheDocument();
+      expect(screen.getByText('Please enter a valid email address')).toBeInTheDocument();
     });
   });
 
-  it(&apos;creates warehouse successfully&apos;, async () => {
+  it('creates warehouse successfully', async () => {
     (inventoryManagementApi.createWarehouse as jest.Mock).mockResolvedValue({
       success: true,
-      data: { id: &apos;3&apos;, ...mockWarehouses[0] },
+      data: { ...mockWarehouses[0], id: '3' },
     });
     
     render(<WarehouseManagement />);

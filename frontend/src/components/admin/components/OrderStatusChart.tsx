@@ -4,20 +4,22 @@ interface OrderStatusChartProps {
   data: Record<string, number>;
 }
 
-  pending: &apos;#f59e0b&apos;,
-  confirmed: &apos;#3b82f6&apos;,
-  shipped: &apos;#8b5cf6&apos;,
-  delivered: &apos;#10b981&apos;,
-  cancelled: &apos;#ef4444&apos;,
-  returned: &apos;#f97316&apos;,
+const statusColors: Record<string, string> = {
+  pending: '#f59e0b',
+  confirmed: '#3b82f6',
+  shipped: '#8b5cf6',
+  delivered: '#10b981',
+  cancelled: '#ef4444',
+  returned: '#f97316',
 };
 
-  pending: &apos;Pending&apos;,
-  confirmed: &apos;Confirmed&apos;,
-  shipped: &apos;Shipped&apos;,
-  delivered: &apos;Delivered&apos;,
-  cancelled: &apos;Cancelled&apos;,
-  returned: &apos;Returned&apos;,
+const statusLabels: Record<string, string> = {
+  pending: 'Pending',
+  confirmed: 'Confirmed',
+  shipped: 'Shipped',
+  delivered: 'Delivered',
+  cancelled: 'Cancelled',
+  returned: 'Returned',
 };
 
 export default function OrderStatusChart({ data }: OrderStatusChartProps) {
@@ -39,7 +41,7 @@ export default function OrderStatusChart({ data }: OrderStatusChartProps) {
       status,
       count,
       percentage,
-      color: statusColors[status] || &apos;#6b7280&apos;,
+      color: statusColors[status] || '#6b7280',
       label: statusLabels[status] || status,
       startAngle: cumulativePercentage * 3.6, // Convert to degrees
     };

@@ -34,6 +34,7 @@ const navItems = [
 
 export function SellerLayout({ children }: SellerLayoutProps) {
   const pathname = usePathname();
+  const { profile } = useSelector((state: RootState) => state.seller);
   const breadcrumbs = generateBreadcrumbs(pathname);
 
   const isActive = (path: string) => {
@@ -79,7 +80,7 @@ export function SellerLayout({ children }: SellerLayoutProps) {
         <header className="bg-white shadow-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <h1 className="text-lg font-semibold text-gray-900">
-              {navItems.find((item) => isActive(item.path))?.name || &apos;Seller Panel&apos;}
+              {navItems.find((item) => isActive(item.path))?.name || 'Seller Panel'}
             </h1>
             <div className="flex items-center space-x-4">
               {profile && (

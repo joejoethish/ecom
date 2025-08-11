@@ -17,20 +17,22 @@ interface NotificationBellProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
-  className = &apos;&apos;,
+const NotificationBell: React.FC<NotificationBellProps> = ({
+  className = '',
   showBadge = true,
-  size = &apos;md&apos;
+  size = 'md'
 }) => {
   const dispatch = useAppDispatch();
+  const { unreadCount, isNotificationCenterOpen } = useSelector((state: any) => state.notifications);
 
   const handleClick = () => {
     dispatch(toggleNotificationCenter());
   };
 
   const sizeClasses = {
-    sm: &apos;h-8 w-8&apos;,
-    md: &apos;h-10 w-10&apos;,
-    lg: &apos;h-12 w-12&apos;
+    sm: 'h-8 w-8',
+    md: 'h-10 w-10',
+    lg: 'h-12 w-12'
   };
 
   const iconSizes = {
@@ -46,7 +48,7 @@ interface NotificationBellProps {
         size="sm"
         className={`${sizeClasses[size]} relative hover:bg-gray-100 dark:hover:bg-gray-800`}
         onClick={handleClick}
-        aria-label={`Notifications${unreadCount > 0 ? ` (${unreadCount} unread)` : &apos;&apos;}`}
+        aria-label={`Notifications${unreadCount > 0 ? ` (${unreadCount} unread)` : ''}`}
       >
         {unreadCount > 0 ? (
           <BellRing 
@@ -65,7 +67,7 @@ interface NotificationBellProps {
             variant="destructive"
             className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs font-bold"
           >
-            {unreadCount > 99 ? &apos;99+&apos; : unreadCount}
+            {unreadCount > 99 ? '99+' : unreadCount}
           </Badge>
         )}
       </Button>

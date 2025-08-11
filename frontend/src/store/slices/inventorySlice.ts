@@ -16,17 +16,18 @@ interface UpdateInventoryLevelPayload {
   productId: string;
   quantity: number;
   updateType: string;
-  data: unknown;
+  data: any;
   timestamp: string;
 }
 
+const initialState: InventoryState = {
   items: {},
   loading: false,
   error: null,
 };
 
 const inventorySlice = createSlice({
-  name: &apos;inventory&apos;,
+  name: 'inventory',
   initialState,
   reducers: {
     setInventoryItems: (state, action: PayloadAction<Record<string, InventoryItem>>) => {
@@ -42,6 +43,7 @@ const inventorySlice = createSlice({
       state.loading = false;
     },
     updateInventoryLevel: (state, action: PayloadAction<UpdateInventoryLevelPayload>) => {
+      const { productId, quantity, timestamp } = action.payload;
       
       if (state.items[productId]) {
         state.items[productId].quantity = quantity;

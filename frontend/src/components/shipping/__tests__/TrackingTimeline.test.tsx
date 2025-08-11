@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import TrackingTimeline from '../TrackingTimeline';
 import { Shipment, ShipmentTracking } from '../../../types/shipping';
 
+const mockShipment: Shipment = {
   id: '1',
   order: 'ORD123456',
   shipping_partner: 'partner1',
@@ -60,48 +61,48 @@ import { Shipment, ShipmentTracking } from '../../../types/shipping';
 };
 
 describe('TrackingTimeline', () => {
-  it(&apos;renders tracking timeline title&apos;, () => {
+  it('renders tracking timeline title', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
-    expect(screen.getByText(&apos;Tracking Timeline&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Tracking Timeline')).toBeInTheDocument();
   });
 
-  it(&apos;displays status progress bar&apos;, () => {
+  it('displays status progress bar', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // Check for standard status progression
-    expect(screen.getByText(&apos;Order Placed&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Processing&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Shipped&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;In Transit&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Out for Delivery&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Delivered&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Order Placed')).toBeInTheDocument();
+    expect(screen.getByText('Processing')).toBeInTheDocument();
+    expect(screen.getByText('Shipped')).toBeInTheDocument();
+    expect(screen.getByText('In Transit')).toBeInTheDocument();
+    expect(screen.getByText('Out for Delivery')).toBeInTheDocument();
+    expect(screen.getByText('Delivered')).toBeInTheDocument();
   });
 
-  it(&apos;shows detailed history section&apos;, () => {
+  it('shows detailed history section', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
-    expect(screen.getByText(&apos;Detailed History&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Detailed History')).toBeInTheDocument();
   });
 
-  it(&apos;displays tracking updates in chronological order&apos;, () => {
+  it('displays tracking updates in chronological order', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // Check that tracking updates are displayed
-    expect(screen.getByText(&apos;Your order has been placed&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Package has been shipped&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Package is on the way&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Your order has been placed')).toBeInTheDocument();
+    expect(screen.getByText('Package has been shipped')).toBeInTheDocument();
+    expect(screen.getByText('Package is on the way')).toBeInTheDocument();
   });
 
-  it(&apos;shows location information for tracking updates&apos;, () => {
+  it('shows location information for tracking updates', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
-    expect(screen.getByText(&apos;Delhi&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Delhi Hub&apos;)).toBeInTheDocument();
-    expect(screen.getByText(&apos;Mumbai Hub&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Delhi')).toBeInTheDocument();
+    expect(screen.getByText('Delhi Hub')).toBeInTheDocument();
+    expect(screen.getByText('Mumbai Hub')).toBeInTheDocument();
   });
 
-  it(&apos;formats timestamps correctly&apos;, () => {
+  it('formats timestamps correctly', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // Check that dates and times are formatted
@@ -109,21 +110,21 @@ describe('TrackingTimeline', () => {
     expect(screen.getByText(/Jan 1, 2024/)).toBeInTheDocument();
   });
 
-  it(&apos;highlights current status in progress bar&apos;, () => {
+  it('highlights current status in progress bar', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // The current status (IN_TRANSIT) should be highlighted
     // This would need to check for specific CSS classes or styling
   });
 
-  it(&apos;shows active states for completed steps&apos;, () => {
+  it('shows active states for completed steps', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // Steps up to the current status should be marked as active
     // This would check for visual indicators of completed steps
   });
 
-  it(&apos;displays empty state when no tracking updates&apos;, () => {
+  it('displays empty state when no tracking updates', () => {
     const shipmentWithoutUpdates = {
       ...mockShipment,
       tracking_updates: []
@@ -131,15 +132,15 @@ describe('TrackingTimeline', () => {
     
     render(<TrackingTimeline shipment={shipmentWithoutUpdates} />);
     
-    expect(screen.getByText(&apos;No tracking information available yet&apos;)).toBeInTheDocument();
+    expect(screen.getByText('No tracking information available yet')).toBeInTheDocument();
   });
 
-  it(&apos;handles delivered status correctly&apos;, () => {
+  it('handles delivered status correctly', () => {
     const deliveredShipment = {
       ...mockShipment,
-      status: &apos;DELIVERED&apos; as const,
-      status_display: &apos;Delivered&apos;,
-      delivered_at: &apos;2024-01-02T15:00:00Z&apos;
+      status: 'DELIVERED' as const,
+      status_display: 'Delivered',
+      delivered_at: '2024-01-02T15:00:00Z'
     };
     
     render(<TrackingTimeline shipment={deliveredShipment} />);
@@ -148,11 +149,11 @@ describe('TrackingTimeline', () => {
     // This would check for specific styling or indicators
   });
 
-  it(&apos;handles cancelled status correctly&apos;, () => {
+  it('handles cancelled status correctly', () => {
     const cancelledShipment = {
       ...mockShipment,
-      status: &apos;CANCELLED&apos; as const,
-      status_display: &apos;Cancelled&apos;
+      status: 'CANCELLED' as const,
+      status_display: 'Cancelled'
     };
     
     render(<TrackingTimeline shipment={cancelledShipment} />);
@@ -160,34 +161,34 @@ describe('TrackingTimeline', () => {
     // Should handle cancelled status appropriately
   });
 
-  it(&apos;shows most recent update first in detailed history&apos;, () => {
+  it('shows most recent update first in detailed history', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // The most recent update should appear first
     // This would check the order of elements in the DOM
   });
 
-  it(&apos;displays status icons correctly&apos;, () => {
+  it('displays status icons correctly', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // Check that appropriate icons are displayed for each status
     // This would verify SVG elements or icon components
-    const svgElements = screen.getAllByRole(&apos;img&apos;, { hidden: true });
+    const svgElements = screen.getAllByRole('img', { hidden: true });
     expect(svgElements.length).toBeGreaterThan(0);
   });
 
-  it(&apos;applies correct styling for active vs inactive states&apos;, () => {
+  it('applies correct styling for active vs inactive states', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // This would check CSS classes or styling for different states
     // Active states should have different styling than inactive ones
   });
 
-  it(&apos;handles failed delivery status&apos;, () => {
+  it('handles failed delivery status', () => {
     const failedDeliveryShipment = {
       ...mockShipment,
-      status: &apos;FAILED_DELIVERY&apos; as const,
-      status_display: &apos;Delivery Failed&apos;
+      status: 'FAILED_DELIVERY' as const,
+      status_display: 'Delivery Failed'
     };
     
     render(<TrackingTimeline shipment={failedDeliveryShipment} />);
@@ -195,11 +196,11 @@ describe('TrackingTimeline', () => {
     // Should display failed delivery status appropriately
   });
 
-  it(&apos;shows return status when applicable&apos;, () => {
+  it('shows return status when applicable', () => {
     const returnedShipment = {
       ...mockShipment,
-      status: &apos;RETURNED&apos; as const,
-      status_display: &apos;Returned&apos;
+      status: 'RETURNED' as const,
+      status_display: 'Returned'
     };
     
     render(<TrackingTimeline shipment={returnedShipment} />);
@@ -207,14 +208,14 @@ describe('TrackingTimeline', () => {
     // Should handle returned status
   });
 
-  it(&apos;creates timeline from both tracking updates and shipment events&apos;, () => {
+  it('creates timeline from both tracking updates and shipment events', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // Should combine tracking updates with key shipment events
     // like created_at, shipped_at, delivered_at
   });
 
-  it(&apos;handles missing optional timestamps gracefully&apos;, () => {
+  it('handles missing optional timestamps gracefully', () => {
     const shipmentWithMissingDates = {
       ...mockShipment,
       shipped_at: undefined,
@@ -224,17 +225,17 @@ describe('TrackingTimeline', () => {
     render(<TrackingTimeline shipment={shipmentWithMissingDates} />);
     
     // Should not crash and should handle missing dates
-    expect(screen.getByText(&apos;Tracking Timeline&apos;)).toBeInTheDocument();
+    expect(screen.getByText('Tracking Timeline')).toBeInTheDocument();
   });
 
-  it(&apos;sorts timeline events by timestamp&apos;, () => {
+  it('sorts timeline events by timestamp', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // Events should be sorted by timestamp (most recent first)
     // This would verify the order of events in the DOM
   });
 
-  it(&apos;shows connecting lines between timeline events&apos;, () => {
+  it('shows connecting lines between timeline events', () => {
     render(<TrackingTimeline shipment={mockShipment} />);
     
     // Should show visual connections between timeline events

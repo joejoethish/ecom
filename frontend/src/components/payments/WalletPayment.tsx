@@ -8,7 +8,9 @@ interface WalletPaymentProps {
   onProceed: () => void;
 }
 
+const WalletPayment: React.FC<WalletPaymentProps> = ({ amount, onProceed }) => {
   const dispatch = useAppDispatch();
+  const { wallet, loading, error } = useSelector((state: RootState) => state.payments);
 
   useEffect(() => {
     dispatch(getWalletDetails());
@@ -50,7 +52,7 @@ interface WalletPaymentProps {
   if (!wallet) {
     return (
       <div className="p-4 bg-yellow-50 text-yellow-700 rounded-lg">
-        <p>You don&apos;t have a wallet yet. A wallet will be created for you when you proceed.</p>
+        <p>You don't have a wallet yet. A wallet will be created for you when you proceed.</p>
         <button 
           className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           onClick={handleProceed}
@@ -101,7 +103,7 @@ interface WalletPaymentProps {
         onClick={handleProceed}
         disabled={!hasSufficientBalance}
       >
-        {hasSufficientBalance ? &apos;Pay from Wallet&apos; : &apos;Insufficient Balance&apos;}
+        {hasSufficientBalance ? 'Pay from Wallet' : 'Insufficient Balance'}
       </button>
     </div>
   );
