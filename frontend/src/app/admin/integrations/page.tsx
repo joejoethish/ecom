@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Badge } from '@/components/ui/Badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { 
   Search, 
   Plus, 
@@ -108,7 +108,7 @@ export default function IntegrationsPage() {
       <IntegrationStats stats={stats} />
 
       {/* Main Content */}
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <Tabs defaultValue={activeTab} >
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="marketplace">Marketplace</TabsTrigger>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Badge } from '@/components/ui/Badge';
 import {
     Search,
     Star,
@@ -111,7 +111,7 @@ export default function IntegrationMarketplace({
 
                         <div className="flex items-center space-x-1 border border-gray-300 rounded-md">
                             <Button
-                                variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                                variant={viewMode === 'grid' ? 'primary' : 'ghost'}
                                 size="sm"
                                 onClick={() => setViewMode('grid')}
                                 className="rounded-r-none"
@@ -119,7 +119,7 @@ export default function IntegrationMarketplace({
                                 <Grid className="h-4 w-4" />
                             </Button>
                             <Button
-                                variant={viewMode === 'list' ? 'default' : 'ghost'}
+                                variant={viewMode === 'list' ? 'primary' : 'ghost'}
                                 size="sm"
                                 onClick={() => setViewMode('list')}
                                 className="rounded-l-none"

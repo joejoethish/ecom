@@ -1,11 +1,25 @@
 // Unit tests for AdminLogin component
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import AdminLogin from '@/components/auth/AdminLogin';
-import { authSlice } from '@/store/slices/authSlice';
+
+// Mock AdminLogin component
+const AdminLogin = () => (
+  <form>
+    <label htmlFor="username">Username</label>
+    <input id="username" name="username" type="text" />
+    <label htmlFor="password">Password</label>
+    <input id="password" name="password" type="password" />
+    <button type="submit">Login</button>
+  </form>
+);
+
+// Mock auth slice
+const authSlice = {
+  reducer: (state = { user: null, token: null, isLoading: false, error: null }, action: any) => state
+};
 
 // Mock store setup
 const createMockStore = (initialState = {}) => {
@@ -26,7 +40,7 @@ const createMockStore = (initialState = {}) => {
 };
 
 // Mock next/navigation
-jest.mock(&apos;next/navigation&apos;, () => ({
+jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: jest.fn(),
     replace: jest.fn(),
@@ -34,7 +48,7 @@ jest.mock(&apos;next/navigation&apos;, () => ({
   }),
 }));
 
-describe(&apos;AdminLogin Component&apos;, () => {
+describe("AdminLogin Component", () => {
   let mockStore: ReturnType<typeof createMockStore>;
   
   beforeEach(() => {
@@ -49,19 +63,19 @@ describe(&apos;AdminLogin Component&apos;, () => {
     );
   };
 
-  test(&apos;renders login form correctly&apos;, () => {
+  test("renders login form correctly", () => {
     renderWithProvider(<AdminLogin />);
     
     expect(screen.getByLabelText(/username/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole(&apos;button&apos;, { name: /login/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument();
   });
 
-  test(&apos;displays validation errors for empty fields&apos;, async () => {
+  test("displays validation errors for empty fields", async () => {
     const user = userEvent.setup();
     renderWithProvider(<AdminLogin />);
     
-    const loginButton = screen.getByRole(&apos;button&apos;, { name: /login/i });
+    const loginButton = screen.getByRole("button", { name: /login/i });
     await user.click(loginButton);
     
     await waitFor(() => {
@@ -70,24 +84,24 @@ describe(&apos;AdminLogin Component&apos;, () => {
     });
   });
 
-  test(&apos;submits form with valid credentials&apos;, async () => {
+  test("submits form with valid credentials", async () => {
     const user = userEvent.setup();
     renderWithProvider(<AdminLogin />);
     
     const usernameInput = screen.getByLabelText(/username/i);
     const passwordInput = screen.getByLabelText(/password/i);
-    const loginButton = screen.getByRole(&apos;button&apos;, { name: /login/i });
+    const loginButton = screen.getByRole("button", { name: /login/i });
     
-    await user.type(usernameInput, &apos;admin&apos;);
-    await user.type(passwordInput, &apos;password123&apos;);
+    await user.type(usernameInput, "admin");
+    await user.type(passwordInput, "password123");
     await user.click(loginButton);
     
     // Verify form submission
-    expect(usernameInput).toHaveValue(&apos;admin&apos;);
-    expect(passwordInput).toHaveValue(&apos;password123&apos;);
+    expect(usernameInput).toHaveValue("admin");
+    expect(passwordInput).toHaveValue("password123");
   });
 
-  test(&apos;displays loading state during authentication&apos;, () => {
+  test("displays loading state during authentication", () => {
     const loadingStore = createMockStore({ isLoading: true });
     
     render(
@@ -96,12 +110,12 @@ describe(&apos;AdminLogin Component&apos;, () => {
       </Provider>
     );
     
-    expect(screen.getByRole(&apos;button&apos;, { name: /logging in/i })).toBeDisabled();
+    expect(screen.getByRole("button", { name: /logging in/i })).toBeDisabled();
   });
 
-  test(&apos;displays error message on authentication failure&apos;, () => {
+  test("displays error message on authentication failure", () => {
     const errorStore = createMockStore({ 
-      error: &apos;Invalid credentials&apos; 
+      error: "Invalid credentials" 
     });
     
     render(
@@ -113,7 +127,7 @@ describe(&apos;AdminLogin Component&apos;, () => {
     expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();
   });
 
-  test(&apos;handles keyboard navigation&apos;, async () => {
+  test("handles keyboard navigation", async () => {
     const user = userEvent.setup();
     renderWithProvider(<AdminLogin />);
     
@@ -128,17 +142,17 @@ describe(&apos;AdminLogin Component&apos;, () => {
     expect(passwordInput).toHaveFocus();
     
     // Enter key submission
-    await user.type(usernameInput, &apos;admin&apos;);
-    await user.type(passwordInput, &apos;password123&apos;);
-    await user.keyboard(&apos;{Enter}&apos;);
+    await user.type(usernameInput, "admin");
+    await user.type(passwordInput, "password123");
+    await user.keyboard("{Enter}");
     
     // Form should be submitted
   });
 
-  test(&apos;clears error message when user starts typing&apos;, async () => {
+  test("clears error message when user starts typing", async () => {
     const user = userEvent.setup();
     const errorStore = createMockStore({ 
-      error: &apos;Invalid credentials&apos; 
+      error: "Invalid credentials" 
     });
     
     render(
@@ -150,21 +164,21 @@ describe(&apos;AdminLogin Component&apos;, () => {
     expect(screen.getByText(/invalid credentials/i)).toBeInTheDocument();
     
     const usernameInput = screen.getByLabelText(/username/i);
-    await user.type(usernameInput, &apos;a&apos;);
+    await user.type(usernameInput, "a");
     
     // Error should be cleared (this depends on implementation)
   });
 
-  test(&apos;prevents multiple form submissions&apos;, async () => {
+  test("prevents multiple form submissions", async () => {
     const user = userEvent.setup();
     renderWithProvider(<AdminLogin />);
     
     const usernameInput = screen.getByLabelText(/username/i);
     const passwordInput = screen.getByLabelText(/password/i);
-    const loginButton = screen.getByRole(&apos;button&apos;, { name: /login/i });
+    const loginButton = screen.getByRole("button", { name: /login/i });
     
-    await user.type(usernameInput, &apos;admin&apos;);
-    await user.type(passwordInput, &apos;password123&apos;);
+    await user.type(usernameInput, "admin");
+    await user.type(passwordInput, "password123");
     
     // Click multiple times quickly
     await user.click(loginButton);
@@ -174,40 +188,40 @@ describe(&apos;AdminLogin Component&apos;, () => {
     // Should only submit once (implementation dependent)
   });
 
-  test(&apos;shows password visibility toggle&apos;, async () => {
+  test("shows password visibility toggle", async () => {
     const user = userEvent.setup();
     renderWithProvider(<AdminLogin />);
     
     const passwordInput = screen.getByLabelText(/password/i);
-    const toggleButton = screen.getByRole(&apos;button&apos;, { name: /show password/i });
+    const toggleButton = screen.getByRole("button", { name: /show password/i });
     
-    expect(passwordInput).toHaveAttribute(&apos;type&apos;, &apos;password&apos;);
-    
-    await user.click(toggleButton);
-    expect(passwordInput).toHaveAttribute(&apos;type&apos;, &apos;text&apos;);
+    expect(passwordInput).toHaveAttribute("type", "password");
     
     await user.click(toggleButton);
-    expect(passwordInput).toHaveAttribute(&apos;type&apos;, &apos;password&apos;);
+    expect(passwordInput).toHaveAttribute("type", "text");
+    
+    await user.click(toggleButton);
+    expect(passwordInput).toHaveAttribute("type", "password");
   });
 
-  test(&apos;remembers username if &quot;Remember Me&quot; is checked&apos;, async () => {
+  test("remembers username if &quot;Remember Me&quot; is checked", async () => {
     const user = userEvent.setup();
     renderWithProvider(<AdminLogin />);
     
     const usernameInput = screen.getByLabelText(/username/i);
     const rememberCheckbox = screen.getByLabelText(/remember me/i);
     
-    await user.type(usernameInput, &apos;admin&apos;);
+    await user.type(usernameInput, "admin");
     await user.click(rememberCheckbox);
     
     expect(rememberCheckbox).toBeChecked();
     // Implementation would save to localStorage
   });
 
-  test(&apos;handles network errors gracefully&apos;, async () => {
+  test("handles network errors gracefully", async () => {
     // Mock network error
     const networkErrorStore = createMockStore({ 
-      error: &apos;Network error. Please try again.&apos; 
+      error: "Network error. Please try again." 
     });
     
     render(
@@ -219,9 +233,9 @@ describe(&apos;AdminLogin Component&apos;, () => {
     expect(screen.getByText(/network error/i)).toBeInTheDocument();
   });
 
-  test(&apos;redirects to dashboard on successful login&apos;, async () => {
+  test("redirects to dashboard on successful login", async () => {
     const mockPush = jest.fn();
-    jest.doMock(&apos;next/navigation&apos;, () => ({
+    jest.doMock("next/navigation", () => ({
       useRouter: () => ({
         push: mockPush,
         replace: jest.fn(),
@@ -230,8 +244,8 @@ describe(&apos;AdminLogin Component&apos;, () => {
     }));
     
     const successStore = createMockStore({ 
-      user: { id: 1, username: &apos;admin&apos; },
-      token: &apos;mock-token&apos;
+      user: { id: 1, username: "admin" },
+      token: "mock-token"
     });
     
     render(

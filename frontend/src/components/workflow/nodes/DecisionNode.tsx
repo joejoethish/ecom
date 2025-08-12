@@ -3,6 +3,7 @@
 import React from 'react';
 import { Handle, Position, NodeProps } from 'reactflow';
 
+export default function DecisionNode({ data, selected }: NodeProps) {
   return (
     <div className="relative">
       <div className={`w-24 h-24 transform rotate-45 bg-yellow-400 border-2 ${
@@ -40,7 +41,7 @@ import { Handle, Position, NodeProps } from 'reactflow';
             </svg>
           </div>
           <div className="text-xs font-medium text-yellow-800 whitespace-nowrap">
-            {data.label || &apos;Decision&apos;}
+            {data.label || 'Decision'}
           </div>
         </div>
       </div>
@@ -54,6 +55,4 @@ import { Handle, Position, NodeProps } from 'reactflow';
       </div>
     </div>
   );
-};
-
-export default DecisionNode;
+}

@@ -185,7 +185,7 @@ export function WidgetSelector({ onSelect }: WidgetSelectorProps) {
       {/* Widget Grid */}
       <Grid container spacing={2}>
         {filteredWidgets.map((widget) => (
-          <Grid item xs={12} sm={6} md={4} key={widget.id}>
+          <Grid {...({ item: true, xs: 12, sm: 6, md: 4 } as any)} key={widget.id}>
             <Card
               sx={{
                 height: '100%',

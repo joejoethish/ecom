@@ -3,6 +3,7 @@
 import React from 'react';
 import { Handle, Position, NodeProps } from 'reactflow';
 
+export default function DelayNode({ data, selected }: NodeProps) {
   const formatDuration = (seconds: number) => {
     if (seconds < 60) {
       return `${seconds}s`;
@@ -33,7 +34,7 @@ import { Handle, Position, NodeProps } from 'reactflow';
         </div>
         <div className="flex-1">
           <div className="text-sm font-medium text-gray-900">
-            {data.label || &apos;Delay&apos;}
+            {data.label || 'Delay'}
           </div>
           <div className="text-xs text-gray-500">
             Wait {formatDuration(data.config?.delay_seconds || 60)}
@@ -54,6 +55,4 @@ import { Handle, Position, NodeProps } from 'reactflow';
       />
     </div>
   );
-};
-
-export default DelayNode;
+}

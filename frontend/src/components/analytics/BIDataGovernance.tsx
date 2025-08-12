@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
     BarChart, Bar, PieChart, Pie, Cell
@@ -242,7 +242,7 @@ export default function BIDataGovernance({ dataSourceId }: BIDataGovernanceProps
                                             cx="50%"
                                             cy="50%"
                                             labelLine={false}
-                                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                                            label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
                                             outerRadius={80}
                                             fill="#8884d8"
                                             dataKey="value"
@@ -644,7 +644,7 @@ export default function BIDataGovernance({ dataSourceId }: BIDataGovernanceProps
             )}
 
             {/* Tabs */}
-            <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+            <Tabs defaultValue={selectedTab}>
                 <TabsList className="grid w-full grid-cols-3">
                     <TabsTrigger value="overview">
                         Overview

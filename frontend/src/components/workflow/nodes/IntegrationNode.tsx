@@ -3,18 +3,19 @@
 import React from 'react';
 import { Handle, Position, NodeProps } from 'reactflow';
 
+export default function IntegrationNode({ data, selected }: NodeProps) {
   const getMethodColor = (method: string) => {
     switch (method) {
-      case &apos;GET&apos;:
-        return &apos;text-green-600 bg-green-100&apos;;
-      case &apos;POST&apos;:
-        return &apos;text-blue-600 bg-blue-100&apos;;
-      case &apos;PUT&apos;:
-        return &apos;text-yellow-600 bg-yellow-100&apos;;
-      case &apos;DELETE&apos;:
-        return &apos;text-red-600 bg-red-100&apos;;
+      case 'GET':
+        return 'text-green-600 bg-green-100';
+      case 'POST':
+        return 'text-blue-600 bg-blue-100';
+      case 'PUT':
+        return 'text-yellow-600 bg-yellow-100';
+      case 'DELETE':
+        return 'text-red-600 bg-red-100';
       default:
-        return &apos;text-gray-600 bg-gray-100&apos;;
+        return 'text-gray-600 bg-gray-100';
     }
   };
 
@@ -36,10 +37,10 @@ import { Handle, Position, NodeProps } from 'reactflow';
         </div>
         <div className="flex-1">
           <div className="text-sm font-medium text-gray-900">
-            {data.label || &apos;Integration&apos;}
+            {data.label || 'Integration'}
           </div>
           <div className="text-xs text-gray-500">
-            {data.config?.integration_id || &apos;No integration&apos;}
+            {data.config?.integration_id || 'No integration'}
           </div>
         </div>
       </div>
@@ -74,6 +75,4 @@ import { Handle, Position, NodeProps } from 'reactflow';
       />
     </div>
   );
-};
-
-export default IntegrationNode;
+}

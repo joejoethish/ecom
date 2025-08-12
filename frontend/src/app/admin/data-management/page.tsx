@@ -9,7 +9,7 @@ import {
   Upload, 
   Download, 
   Database, 
-  Sync, 
+  RefreshCw as Sync, 
   Shield, 
   FileText,
   BarChart3,
@@ -84,7 +84,7 @@ export default function DataManagementPage() {
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs defaultValue={activeTab} className="space-y-6">
         <TabsList className="grid w-full grid-cols-9">
           <TabsTrigger value="overview" className="flex items-center gap-2">
             <BarChart3 className="h-4 w-4" />

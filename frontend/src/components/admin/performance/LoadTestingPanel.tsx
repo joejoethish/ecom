@@ -5,15 +5,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
+import { Badge } from '@/components/ui/Badge';
 import { Progress } from '@/components/ui/progress';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
-import { Play, Stop, Download, History, TrendingUp, AlertTriangle } from 'lucide-react';
+import { Play, Square as Stop, Download, History, TrendingUp, AlertTriangle } from 'lucide-react';
 
 interface LoadTestConfig {
   url: string;
@@ -166,7 +166,7 @@ const LoadTestingPanel: React.FC = () => {
             </div>
             <div>
               <Label htmlFor="method">HTTP Method</Label>
-              <Select value={testConfig.method} onValueChange={(value) => setTestConfig({...testConfig, method: value})}>
+              <Select value={testConfig.method} onChange={(value: string) => setTestConfig({...testConfig, method: value})}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -228,7 +228,7 @@ const LoadTestingPanel: React.FC = () => {
             {isRunning && (
               <Button 
                 onClick={stopLoadTest} 
-                variant="destructive"
+                variant="outline"
                 className="flex items-center gap-2"
               >
                 <Stop className="h-4 w-4" />
@@ -343,7 +343,7 @@ const LoadTestingPanel: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Badge variant={test.status === 'completed' ? 'default' : test.status === 'failed' ? 'destructive' : 'secondary'}>
+                <Badge variant={test.status === 'completed' ? 'default' : test.status === 'failed' ? 'outline' : 'secondary'}>
                   {test.status}
                 </Badge>
                 <Button
@@ -397,7 +397,7 @@ const LoadTestingPanel: React.FC = () => {
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <Tabs defaultValue={activeTab}>
         <TabsList>
           <TabsTrigger value="configure">Configure</TabsTrigger>
           <TabsTrigger value="results">Results</TabsTrigger>

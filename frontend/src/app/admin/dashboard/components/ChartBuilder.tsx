@@ -149,7 +149,7 @@ const ChartBuilder: React.FC<ChartBuilderProps> = ({
   const handleTemplateSelect = useCallback((templateId: string) => {
     const template = templates.find(t => t.id === templateId);
     if (template) {
-      setChart(prev => ({
+      setChart((prev: any) => ({
         ...prev,
         chartType: template.chartType,
         config: { ...prev.config, ...template.config },
@@ -223,11 +223,11 @@ const ChartBuilder: React.FC<ChartBuilderProps> = ({
 
   // Handle chart property changes
   const updateChart = useCallback((updates: any) => {
-    setChart(prev => ({ ...prev, ...updates }));
+    setChart((prev: any) => ({ ...prev, ...updates }));
   }, []);
 
   const updateConfig = useCallback((configUpdates: any) => {
-    setChart(prev => ({
+    setChart((prev: any) => ({
       ...prev,
       config: { ...prev.config, ...configUpdates },
     }));
@@ -588,7 +588,7 @@ const ChartBuilder: React.FC<ChartBuilderProps> = ({
                     Custom Colors
                   </h4>
                   <div className="space-y-3">
-                    {chart.colors.map((color, index) => (
+                    {chart.colors.map((color: string, index: number) => (
                       <div key={index} className="flex items-center space-x-3">
                         <input
                           type="color"

@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/components/ui/Badge';
 import { 
   BarChart3, Brain, TrendingUp, Database, Eye, 
   Zap, Globe, Settings, Users, Target
@@ -244,7 +244,7 @@ export default function BIAnalyticsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+      <Tabs defaultValue={selectedTab}>
         <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="overview" className="flex items-center space-x-2">
             <Globe className="w-4 h-4" />

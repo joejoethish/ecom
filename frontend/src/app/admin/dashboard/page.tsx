@@ -260,11 +260,7 @@ export default function DashboardPage() {
                                 >
                                     {(provided, snapshot) => (
                                         <Grid
-                                            item
-                                            xs={12}
-                                            sm={widget.width * 2}
-                                            md={widget.width * 2}
-                                            lg={widget.width}
+                                            {...({ item: true, xs: 12, sm: widget.width * 2, md: widget.width * 2, lg: widget.width } as any)}
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                         >

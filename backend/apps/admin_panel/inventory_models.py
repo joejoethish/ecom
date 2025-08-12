@@ -741,8 +741,8 @@ class InventoryForecast(TimestampedModel):
     forecast_type = models.CharField(max_length=20, choices=FORECAST_TYPE_CHOICES)
     
     # Product and location
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='forecasts')
-    warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, related_name='forecasts')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='admin_forecasts')
+    warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, related_name='admin_forecasts')
     
     # Forecast period
     forecast_date = models.DateField()

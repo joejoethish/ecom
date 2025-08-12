@@ -109,7 +109,7 @@ export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
           
           <Grid container spacing={1} sx={{ mb: 2 }}>
             {predefinedColors.map((color) => (
-              <Grid item xs={3} key={color}>
+              <Grid {...({ item: true, xs: 3 } as any)} key={color}>
                 <Button
                   onClick={() => handleColorSelect(color)}
                   sx={{

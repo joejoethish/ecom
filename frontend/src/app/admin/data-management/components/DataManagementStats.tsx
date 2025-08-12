@@ -3,14 +3,13 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  Upload, 
-  Download, 
-  Database, 
-  Sync,
+import { Badge } from '@/components/ui/Badge';
+import {
+  TrendingUp,
+  Upload,
+  Download,
+  Database,
+  RefreshCw,
   Shield,
   CheckCircle,
   AlertTriangle,
@@ -19,6 +18,7 @@ import {
 import { useDataManagement } from '../hooks/useDataManagement';
 
 export default function DataManagementStats() {
+  const { stats, loading } = useDataManagement();
 
   if (loading) {
     return (
@@ -44,9 +44,9 @@ export default function DataManagementStats() {
   };
 
   const getStatusColor = (rate: number) => {
-    if (rate >= 90) return &apos;text-green-600&apos;;
-    if (rate >= 70) return &apos;text-yellow-600&apos;;
-    return &apos;text-red-600&apos;;
+    if (rate >= 90) return 'text-green-600';
+    if (rate >= 70) return 'text-yellow-600';
+    return 'text-red-600';
   };
 
   const importSuccessRate = calculateSuccessRate(
@@ -130,14 +130,14 @@ export default function DataManagementStats() {
               <div className="flex justify-between text-xs text-muted-foreground mb-1">
                 <span>Active Rate</span>
                 <span className="text-green-600">
-                  {stats?.data_mappings?.total ? 
+                  {stats?.data_mappings?.total ?
                     Math.round((stats.data_mappings.active / stats.data_mappings.total) * 100) : 0}%
                 </span>
               </div>
-              <Progress 
-                value={stats?.data_mappings?.total ? 
-                  (stats.data_mappings.active / stats.data_mappings.total) * 100 : 0} 
-                className="h-1" 
+              <Progress
+                value={stats?.data_mappings?.total ?
+                  (stats.data_mappings.active / stats.data_mappings.total) * 100 : 0}
+                className="h-1"
               />
             </div>
           </CardContent>
@@ -146,7 +146,7 @@ export default function DataManagementStats() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Sync Jobs</CardTitle>
-            <Sync className="h-4 w-4 text-muted-foreground" />
+            <RefreshCw className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats?.sync_jobs?.total || 0}</div>
@@ -184,7 +184,7 @@ export default function DataManagementStats() {
                 <TrendingUp className="h-3 w-3 text-green-500" />
               </div>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Download className="h-4 w-4 text-green-500" />
@@ -195,7 +195,7 @@ export default function DataManagementStats() {
                 <TrendingUp className="h-3 w-3 text-green-500" />
               </div>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-purple-500" />
@@ -224,7 +224,7 @@ export default function DataManagementStats() {
               </div>
               <Progress value={importSuccessRate} className="h-2" />
             </div>
-            
+
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span>Export Success</span>
@@ -234,19 +234,19 @@ export default function DataManagementStats() {
               </div>
               <Progress value={exportSuccessRate} className="h-2" />
             </div>
-            
+
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span>Backup Success</span>
                 <span className="text-green-600">
-                  {stats?.backups?.total ? 
+                  {stats?.backups?.total ?
                     Math.round((stats.backups.successful / stats.backups.total) * 100) : 0}%
                 </span>
               </div>
-              <Progress 
-                value={stats?.backups?.total ? 
-                  (stats.backups.successful / stats.backups.total) * 100 : 0} 
-                className="h-2" 
+              <Progress
+                value={stats?.backups?.total ?
+                  (stats.backups.successful / stats.backups.total) * 100 : 0}
+                className="h-2"
               />
             </div>
           </CardContent>
@@ -261,24 +261,24 @@ export default function DataManagementStats() {
             <div className="flex items-center justify-between">
               <span className="text-sm">Import Queue</span>
               <Badge variant={stats?.import_jobs?.processing ? 'secondary' : 'default'}>
-                {stats?.import_jobs?.processing ? &apos;Active&apos; : &apos;Idle&apos;}
+                {stats?.import_jobs?.processing ? 'Active' : 'Idle'}
               </Badge>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <span className="text-sm">Export Queue</span>
               <Badge variant={stats?.export_jobs?.processing ? 'secondary' : 'default'}>
-                {stats?.export_jobs?.processing ? &apos;Active&apos; : &apos;Idle&apos;}
+                {stats?.export_jobs?.processing ? 'Active' : 'Idle'}
               </Badge>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <span className="text-sm">Sync Services</span>
               <Badge variant={stats?.sync_jobs?.active ? 'default' : 'outline'}>
-                {stats?.sync_jobs?.active ? &apos;Running&apos; : &apos;Stopped&apos;}
+                {stats?.sync_jobs?.active ? 'Running' : 'Stopped'}
               </Badge>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <span className="text-sm">Quality Rules</span>
               <Badge variant="default">

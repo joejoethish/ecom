@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/components/ui/Badge';
 import { Progress } from '@/components/ui/progress';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { 
   FileText, 
   AlertTriangle, 
@@ -31,13 +31,13 @@ export default function ImportJobDetailsModal({
 }: ImportJobDetailsModalProps) {
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case &apos;completed&apos;:
+      case 'completed':
         return <CheckCircle className="h-4 w-4 text-green-500" />;
-      case &apos;processing&apos;:
+      case 'processing':
         return <Clock className="h-4 w-4 text-blue-500" />;
-      case &apos;failed&apos;:
+      case 'failed':
         return <XCircle className="h-4 w-4 text-red-500" />;
-      case &apos;cancelled&apos;:
+      case 'cancelled':
         return <XCircle className="h-4 w-4 text-gray-500" />;
       default:
         return <AlertTriangle className="h-4 w-4 text-yellow-500" />;
@@ -45,15 +45,15 @@ export default function ImportJobDetailsModal({
   };
 
   const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return &apos;0 Bytes&apos;;
+    if (bytes === 0) return '0 Bytes';
     const k = 1024;
-    const sizes = [&apos;Bytes&apos;, &apos;KB&apos;, &apos;MB&apos;, &apos;GB&apos;];
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + &apos; &apos; + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   const formatDuration = (seconds?: number) => {
-    if (!seconds) return &apos;-&apos;;
+    if (!seconds) return '-';
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = Math.floor(seconds % 60);
     return `${minutes}m ${remainingSeconds}s`;
@@ -297,11 +297,11 @@ export default function ImportJobDetailsModal({
                   <CardContent className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Skip Duplicates:</span>
-                      <span>{job.skip_duplicates ? &apos;Yes&apos; : &apos;No&apos;}</span>
+                      <span>{job.skip_duplicates ? 'Yes' : 'No'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Update Existing:</span>
-                      <span>{job.update_existing ? &apos;Yes&apos; : &apos;No&apos;}</span>
+                      <span>{job.update_existing ? 'Yes' : 'No'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Batch Size:</span>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { 
   Brain, 
   TrendingUp, 
@@ -195,7 +195,7 @@ const MLAIDashboard: React.FC = () => {
       )}
 
       {/* Main Content */}
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <Tabs defaultValue={activeTab} >
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="models">ML Models</TabsTrigger>

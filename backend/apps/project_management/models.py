@@ -43,7 +43,7 @@ class ProjectTemplate(models.Model):
     category = models.CharField(max_length=100)
     template_data = models.JSONField(default=dict)
     is_active = models.BooleanField(default=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_templates')
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_project_templates')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -443,7 +443,7 @@ class ProjectChangeRequest(models.Model):
     
     # Approval workflow
     reviewed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviewed_changes')
-    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_changes')
+    approved_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='approved_project_changes')
     approval_date = models.DateTimeField(null=True, blank=True)
     implementation_date = models.DateTimeField(null=True, blank=True)
     

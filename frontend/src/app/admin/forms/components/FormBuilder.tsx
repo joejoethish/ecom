@@ -6,7 +6,7 @@ import {
   Plus, Save, Eye, Settings, Trash2, Copy, 
   GripVertical, Type, Mail, Hash, Calendar,
   FileText, Image, CheckSquare, Radio,
-  Slider, Star, Signature, Upload
+  BarChart3 as Slider, Star, Signature, Upload
 } from 'lucide-react';
 import { FieldEditor } from './FieldEditor';
 import { FormPreview } from './FormPreview';
@@ -48,17 +48,17 @@ export function FormBuilder({ form, onSave, onCancel }: FormBuilderProps) {
     slug: '',
     status: 'draft',
     is_multi_step: false,
-    steps_config: { steps: [{ name: 'Step 1', fields: [] }] },
+    steps_config: { steps: [{ name: 'Step 1', fields: [] as any[] }] },
     auto_save_enabled: true,
     requires_approval: false,
     encryption_enabled: false,
     spam_protection_enabled: true,
     analytics_enabled: true,
     settings: {},
-    fields: []
+    fields: [] as any[]
   });
 
-  const [selectedField, setSelectedField] = useState(null);
+  const [selectedField, setSelectedField] = useState<any>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
@@ -328,14 +328,14 @@ export function FormBuilder({ form, onSave, onCancel }: FormBuilderProps) {
                       </div>
                     ) : (
                       getCurrentStepFields().map((field, index) => (
-                        <Draggable key={field.id} draggableId={field.id} index={index}>
+                        <Draggable key={(field as any).id} draggableId={(field as any).id} index={index}>
                           {(provided, snapshot) => (
                             <div
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               className={`bg-white border rounded-lg p-4 ${
                                 snapshot.isDragging ? 'shadow-lg' : 'shadow-sm'
-                              } ${selectedField?.id === field.id ? 'ring-2 ring-blue-500' : ''}`}
+                              } ${selectedField?.id === (field as any).id ? 'ring-2 ring-blue-500' : ''}`}
                               onClick={() => setSelectedField(field)}
                             >
                               <div className="flex items-center justify-between">
@@ -352,7 +352,7 @@ export function FormBuilder({ form, onSave, onCancel }: FormBuilderProps) {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      duplicateField(field.id);
+                                      duplicateField((field as any).id);
                                     }}
                                     className="p-1 text-gray-400 hover:text-gray-600"
                                   >
@@ -361,7 +361,7 @@ export function FormBuilder({ form, onSave, onCancel }: FormBuilderProps) {
                                   <button
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      deleteField(field.id);
+                                      deleteField((field as any).id);
                                     }}
                                     className="p-1 text-gray-400 hover:text-red-600"
                                   >
@@ -386,7 +386,7 @@ export function FormBuilder({ form, onSave, onCancel }: FormBuilderProps) {
             <div className="w-80 bg-white border-l border-gray-200">
               <FieldEditor
                 field={selectedField}
-                onUpdate={(updates) => updateField(selectedField.id, updates)}
+                onUpdate={(updates) => updateField(selectedField?.id, updates)}
                 onClose={() => setSelectedField(null)}
               />
             </div>

@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+import { Badge } from '@/components/ui/Badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
     Dialog,
@@ -20,7 +20,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '@/components/ui/select';
+} from '@/components/ui/Select';
 import {
     Table,
     TableBody,
@@ -29,7 +29,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription } from '@/components/ui/Alert';
 import {
     Users, UserPlus, Mail, MoreHorizontal, Shield,
     CheckCircle, XCircle, Clock, AlertTriangle

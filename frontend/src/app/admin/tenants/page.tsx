@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@/components/ui/Badge';
 import {
   Building2, Users, Settings, BarChart3, Shield,
   Database, CreditCard, Activity
@@ -108,7 +108,7 @@ export default function TenantsPage() {
       </div>
 
       {/* Main Content */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+      <Tabs defaultValue={activeTab} className="space-y-6">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="dashboard" className="flex items-center space-x-2">
             <BarChart3 className="h-4 w-4" />

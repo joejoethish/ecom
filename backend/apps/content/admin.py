@@ -710,10 +710,10 @@ class ContentSyndicationAdmin(admin.ModelAdmin):
     """
     Admin interface for content syndication.
     """
-    list_display = ['name', 'platform_type', 'is_active', 'auto_sync', 'sync_frequency', 'last_sync', 'sync_count']
+    list_display = ['name', 'platform_type', 'is_active', 'auto_sync', 'sync_frequency', 'last_sync']
     list_filter = ['platform_type', 'is_active', 'auto_sync', 'created_at', 'is_deleted']
     search_fields = ['name', 'description']
-    readonly_fields = ['last_sync', 'sync_count', 'created_at', 'updated_at']
+    readonly_fields = ['last_sync', 'created_at', 'updated_at']
     filter_horizontal = ['categories', 'tags']
     ordering = ['name']
     

@@ -93,7 +93,7 @@ interface ChartConfig {
       text: string;
       font?: {
         size: number;
-        weight: string;
+        weight: number | 'bold' | 'normal' | 'bolder' | 'lighter';
       };
     };
     legend?: {
@@ -150,12 +150,12 @@ interface ChartConfig {
     };
   };
   interaction?: {
-    mode: string;
+    mode: 'x' | 'y' | 'index' | 'dataset' | 'nearest' | 'point';
     intersect: boolean;
   };
   animation?: {
     duration: number;
-    easing: string;
+    easing: 'linear' | 'easeInOutQuart' | 'easeInQuad' | 'easeOutQuad' | 'easeInOutQuad' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic' | 'easeInQuart' | 'easeOutQuart' | 'easeInQuint';
   };
 }
 
@@ -355,10 +355,10 @@ const AdvancedChart: React.FC<AdvancedChartProps> = ({
           ...config.plugins?.legend,
         },
         tooltip: {
-          enabled: true,
-          mode: 'index' as const,
-          intersect: false,
           ...config.plugins?.tooltip,
+          enabled: true,
+          mode: (config.plugins?.tooltip?.mode as any) || 'index',
+          intersect: false,
           callbacks: {
             afterLabel: (context: any) => {
               if (allowDrillDown && onDrillDown) {
@@ -388,7 +388,7 @@ const AdvancedChart: React.FC<AdvancedChartProps> = ({
           annotations: annotations
             .filter(annotation => visibleAnnotations.includes(annotation.id))
             .map(annotation => ({
-              type: annotation.type === 'threshold' ? 'line' : 'label',
+              type: (annotation.type === 'threshold' ? 'line' : 'label') as 'line' | 'label',
               ...annotation.position,
               content: annotation.title,
               backgroundColor: annotation.style.backgroundColor || 'rgba(255, 255, 255, 0.8)',
@@ -435,9 +435,9 @@ const AdvancedChart: React.FC<AdvancedChartProps> = ({
         }
       },
       animation: {
-        duration: 750,
-        easing: 'easeInOutQuart',
         ...config.animation,
+        duration: config.animation?.duration || 750,
+        easing: (config.animation?.easing as any) || 'easeInOutQuart',
       },
     };
 
@@ -729,7 +729,7 @@ const AdvancedChart: React.FC<AdvancedChartProps> = ({
         <ChartComponent
           ref={chartRef}
           data={processedData}
-          options={chartConfig}
+          options={chartConfig as any}
         />
         
         {/* Annotations Overlay */}

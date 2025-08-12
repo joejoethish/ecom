@@ -3,6 +3,7 @@
 import React from 'react';
 import { Handle, Position, NodeProps } from 'reactflow';
 
+export default function EndNode({ data, selected }: NodeProps) {
   return (
     <div className={`px-4 py-2 shadow-md rounded-full bg-red-500 text-white border-2 ${
       selected ? 'border-blue-500' : 'border-red-600'
@@ -14,7 +15,7 @@ import { Handle, Position, NodeProps } from 'reactflow';
           </svg>
         </div>
         <div className="text-sm font-medium">
-          {data.label || &apos;End&apos;}
+          {data.label || 'End'}
         </div>
       </div>
       
@@ -25,6 +26,4 @@ import { Handle, Position, NodeProps } from 'reactflow';
       />
     </div>
   );
-};
-
-export default EndNode;
+}

@@ -2,18 +2,17 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { 
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
-  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  AreaChart, Area, ScatterChart, Scatter
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 import { 
-  Search, Filter, Download, Share2, Bookmark, Play, 
+  Bookmark, Play, Download,
   Database, BarChart3, PieChart as PieChartIcon, TrendingUp,
-  Table, Map, Layers, Code, Save, RefreshCw, Eye, Settings
+  Table, Code, Save, RefreshCw, Eye
 } from 'lucide-react';
 
 interface BISelfServiceAnalyticsProps {
@@ -76,7 +75,7 @@ const CHART_TYPES = [
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8', '#82CA9D'];
 
-export default function BISelfServiceAnalytics({ userId }: BISelfServiceAnalyticsProps) {
+export default function BISelfServiceAnalytics({ userId: _userId }: BISelfServiceAnalyticsProps) {
   const [sessions, setSessions] = useState<AnalyticsSession[]>([]);
   const [currentSession, setCurrentSession] = useState<AnalyticsSession | null>(null);
   const [dataSources, setDataSources] = useState<DataSource[]>([]);
@@ -91,11 +90,11 @@ export default function BISelfServiceAnalytics({ userId }: BISelfServiceAnalytic
   });
   const [queryResult, setQueryResult] = useState<any[]>([]);
   const [selectedVisualization, setSelectedVisualization] = useState<string>('table');
-  const [visualizationConfig, setVisualizationConfig] = useState<any>({});
+  const [visualizationConfig] = useState<any>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [executingQuery, setExecutingQuery] = useState(false);
-  const [selectedTab, setSelectedTab] = useState('explore');
+  const [selectedTab] = useState('explore');
 
   const fetchSessions = useCallback(async () => {
     try {
@@ -335,7 +334,7 @@ export default function BISelfServiceAnalytics({ userId }: BISelfServiceAnalytic
                 <Button
                   key={field}
                   size="sm"
-                  variant={queryBuilder.select.includes(field) ? 'default' : 'outline'}
+                  variant={queryBuilder.select.includes(field) ? 'primary' : 'outline'}
                   onClick={() => {
                     if (field === '*') {
                       setQueryBuilder(prev => ({ ...prev, select: ['*'] }));
@@ -368,11 +367,11 @@ export default function BISelfServiceAnalytics({ userId }: BISelfServiceAnalytic
                   <option>customers</option>
                 </select>
                 <select className="px-3 py-2 border rounded-md">
-                  <option>></option>
-                  <option><</option>
-                  <option>=</option>
-                  <option>>=</option>
-                  <option><=</option>
+                  <option value="gt">Greater than</option>
+                  <option value="lt">Less than</option>
+                  <option value="eq">Equal to</option>
+                  <option value="gte">Greater than or equal</option>
+                  <option value="lte">Less than or equal</option>
                 </select>
                 <input
                   type="number"
@@ -523,13 +522,13 @@ export default function BISelfServiceAnalytics({ userId }: BISelfServiceAnalytic
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
                     outerRadius={80}
                     fill="#8884d8"
                     dataKey="revenue"
                     nameKey="category"
                   >
-                    {queryResult.slice(0, 6).map((entry, index) => (
+                    {queryResult.slice(0, 6).map((_entry, index) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
@@ -605,7 +604,7 @@ export default function BISelfServiceAnalytics({ userId }: BISelfServiceAnalytic
         </div>
         <div className="flex items-center space-x-2">
           {currentSession && (
-            <Badge variant="outline">
+            <Badge variant="secondary">
               Session: {currentSession.name}
             </Badge>
           )}
@@ -657,7 +656,7 @@ export default function BISelfServiceAnalytics({ userId }: BISelfServiceAnalytic
       )}
 
       {/* Main Content */}
-      <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+      <Tabs defaultValue={selectedTab}>
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="explore">Explore Data</TabsTrigger>
           <TabsTrigger value="visualizations">Visualizations</TabsTrigger>

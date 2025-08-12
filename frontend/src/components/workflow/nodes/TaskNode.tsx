@@ -2,22 +2,22 @@
 
 import React from 'react';
 import { Handle, Position, NodeProps } from 'reactflow';
-
+export default function TaskNode({ data, selected }: NodeProps) {
   const getTaskIcon = (taskType: string) => {
     switch (taskType) {
-      case &apos;data_transformation&apos;:
+      case "data_transformation":
         return (
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
           </svg>
         );
-      case &apos;api_call&apos;:
+      case "api_call":
         return (
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clipRule="evenodd" />
           </svg>
         );
-      case &apos;database_operation&apos;:
+      case "database_operation":
         return (
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
             <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
@@ -50,10 +50,10 @@ import { Handle, Position, NodeProps } from 'reactflow';
         </div>
         <div className="flex-1">
           <div className="text-sm font-medium text-gray-900">
-            {data.label || &apos;Task&apos;}
+            {data.label || "Task"}
           </div>
           <div className="text-xs text-gray-500 capitalize">
-            {data.config?.task_type?.replace(&apos;_&apos;, &apos; &apos;) || &apos;Custom&apos;}
+            {data.config?.task_type?.replace("_", " ") || "Custom"}
           </div>
         </div>
       </div>
@@ -73,4 +73,4 @@ import { Handle, Position, NodeProps } from 'reactflow';
   );
 };
 
-export default TaskNode;
+// export default TaskNode;

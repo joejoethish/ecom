@@ -5,10 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/Button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
+import { Badge } from '@/components/ui/Badge';
 import { Progress } from '@/components/ui/progress';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ScatterChart, Scatter, ReferenceLine } from 'recharts';
 import { Brain, TrendingUp, AlertTriangle, Target, Zap, Activity } from 'lucide-react';
@@ -493,7 +493,7 @@ const PredictiveAnalytics: React.FC = () => {
       <div className="flex justify-between items-center">
         <h2 className="text-3xl font-bold tracking-tight">Predictive Analytics</h2>
         <div className="flex items-center gap-4">
-          <Select value={selectedMetric} onValueChange={setSelectedMetric}>
+          <Select value={selectedMetric} onChange={setSelectedMetric}>
             <SelectTrigger className="w-48">
               <SelectValue />
             </SelectTrigger>
@@ -523,7 +523,7 @@ const PredictiveAnalytics: React.FC = () => {
         </Card>
       )}
 
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <Tabs defaultValue={activeTab} >
         <TabsList>
           <TabsTrigger value="predictions">Predictions</TabsTrigger>
           <TabsTrigger value="anomalies">Anomaly Detection</TabsTrigger>

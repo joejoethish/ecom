@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Sync } from 'lucide-react';
+import { Button } from '@/components/ui/Button';
+import { RefreshCw as Sync } from 'lucide-react';
 
 export default function SyncJobsList() {
   return (

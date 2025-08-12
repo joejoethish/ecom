@@ -206,7 +206,7 @@ export function DashboardSettings({ layout, onSave }: DashboardSettingsProps) {
     <Box sx={{ maxHeight: '70vh', overflow: 'auto' }}>
       <Grid container spacing={3}>
         {/* Dashboard Settings */}
-        <Grid item xs={12} md={6}>
+        <Grid {...({ item: true, xs: 12, md: 6 } as any)}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
@@ -353,21 +353,21 @@ export function DashboardSettings({ layout, onSave }: DashboardSettingsProps) {
                   Colors
                 </Typography>
                 <Grid container spacing={2}>
-                  <Grid item xs={4}>
+                  <Grid {...({ item: true, xs: 4 } as any)}>
                     <ColorPicker
                       label="Background"
                       value={settings.background_color}
                       onChange={(color) => handleSettingChange('background_color', color)}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid {...({ item: true, xs: 4 } as any)}>
                     <ColorPicker
                       label="Primary"
                       value={settings.primary_color}
                       onChange={(color) => handleSettingChange('primary_color', color)}
                     />
                   </Grid>
-                  <Grid item xs={4}>
+                  <Grid {...({ item: true, xs: 4 } as any)}>
                     <ColorPicker
                       label="Secondary"
                       value={settings.secondary_color}
@@ -381,7 +381,7 @@ export function DashboardSettings({ layout, onSave }: DashboardSettingsProps) {
         </Grid>
 
         {/* User Preferences */}
-        <Grid item xs={12} md={6}>
+        <Grid {...({ item: true, xs: 12, md: 6 } as any)}>
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>

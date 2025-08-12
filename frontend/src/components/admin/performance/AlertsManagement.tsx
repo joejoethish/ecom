@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/Badge';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription } from '@/components/ui/Alert';
 import { 
   AlertTriangle, CheckCircle, Clock, Filter, 
   Search, Eye, MessageSquare, X, RefreshCw
@@ -204,7 +204,7 @@ const AlertsManagement: React.FC = () => {
                 />
               </div>
             </div>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <Select value={statusFilter} onChange={setStatusFilter}>
               <SelectTrigger className="w-full md:w-48">
                 <SelectValue placeholder="Filter by status" />
               </SelectTrigger>
@@ -216,7 +216,7 @@ const AlertsManagement: React.FC = () => {
                 <SelectItem value="suppressed">Suppressed</SelectItem>
               </SelectContent>
             </Select>
-            <Select value={severityFilter} onValueChange={setSeverityFilter}>
+            <Select value={severityFilter} onChange={setSeverityFilter}>
               <SelectTrigger className="w-full md:w-48">
                 <SelectValue placeholder="Filter by severity" />
               </SelectTrigger>

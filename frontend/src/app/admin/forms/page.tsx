@@ -165,7 +165,7 @@ export default function FormsPage() {
             form={selectedForm}
             onSave={(formData) => {
               if (selectedForm) {
-                updateForm(selectedForm.id, formData);
+                updateForm((selectedForm as any).id, formData);
               } else {
                 createForm(formData);
               }

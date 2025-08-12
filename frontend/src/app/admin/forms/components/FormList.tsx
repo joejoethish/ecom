@@ -5,16 +5,29 @@ import {
   Edit, Trash2, Copy, Eye, BarChart3, 
   Play, Pause, Calendar, Users, TrendingUp 
 } from 'lucide-react';
+// Removed unused imports
+
+interface Form {
+  id: string;
+  name: string;
+  description?: string;
+  status: string;
+  is_multi_step?: boolean;
+  submission_count?: number;
+  conversion_rate?: number;
+  created_at: string;
+  slug: string;
+}
 
 interface FormListProps {
-  forms: unknown[];
+  forms: Form[];
   loading: boolean;
-  onEdit: (form: unknown) => void;
+  onEdit: (form: Form) => void;
   onDelete: (id: string) => void;
   onDuplicate: (id: string) => void;
   onPublish: (id: string) => void;
   onUnpublish: (id: string) => void;
-  onViewAnalytics: (form: unknown) => void;
+  onViewAnalytics: (form: Form) => void;
 }
 
 export function FormList({
@@ -29,10 +42,10 @@ export function FormList({
 }: FormListProps) {
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      draft: { color: &apos;bg-gray-100 text-gray-800&apos;, label: &apos;Draft&apos; },
-      active: { color: &apos;bg-green-100 text-green-800&apos;, label: &apos;Active&apos; },
-      inactive: { color: &apos;bg-yellow-100 text-yellow-800&apos;, label: &apos;Inactive&apos; },
-      archived: { color: &apos;bg-red-100 text-red-800&apos;, label: &apos;Archived&apos; }
+      draft: { color: 'bg-gray-100 text-gray-800', label: 'Draft' },
+      active: { color: 'bg-green-100 text-green-800', label: 'Active' },
+      inactive: { color: 'bg-yellow-100 text-yellow-800', label: 'Inactive' },
+      archived: { color: 'bg-red-100 text-red-800', label: 'Archived' }
     };
 
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.draft;
@@ -45,10 +58,10 @@ export function FormList({
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString(&apos;en-US&apos;, {
-      year: &apos;numeric&apos;,
-      month: &apos;short&apos;,
-      day: &apos;numeric&apos;
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
     });
   };
 
@@ -122,7 +135,7 @@ export function FormList({
                       {form.name}
                     </div>
                     <div className="text-sm text-gray-500">
-                      {form.description || &apos;No description&apos;}
+                      {form.description || 'No description'}
                     </div>
                     {form.is_multi_step && (
                       <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 mt-1">
@@ -143,7 +156,7 @@ export function FormList({
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center text-sm text-gray-900">
                     <TrendingUp className="h-4 w-4 mr-1 text-gray-400" />
-                    {form.conversion_rate ? `${form.conversion_rate.toFixed(1)}%` : &apos;0%&apos;}
+                    {form.conversion_rate ? `${form.conversion_rate.toFixed(1)}%` : '0%'}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -156,58 +169,58 @@ export function FormList({
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => onEdit(form)}
-                      className=&quot;text-blue-600 hover:text-blue-900 p-1&quot;
-                      title=&quot;Edit form&quot;
+                      className="text-blue-600 hover:text-blue-900 p-1"
+                      title="Edit form"
                     >
                       <Edit className="h-4 w-4" />
                     </button>
                     
                     <button
                       onClick={() => onViewAnalytics(form)}
-                      className=&quot;text-green-600 hover:text-green-900 p-1&quot;
-                      title=&quot;View analytics&quot;
+                      className="text-green-600 hover:text-green-900 p-1"
+                      title="View analytics"
                     >
                       <BarChart3 className="h-4 w-4" />
                     </button>
                     
                     <button
                       onClick={() => onDuplicate(form.id)}
-                      className=&quot;text-gray-600 hover:text-gray-900 p-1&quot;
-                      title=&quot;Duplicate form&quot;
+                      className="text-gray-600 hover:text-gray-900 p-1"
+                      title="Duplicate form"
                     >
                       <Copy className="h-4 w-4" />
                     </button>
                     
-                    {form.status === &apos;active&apos; ? (
+                    {form.status === 'active' ? (
                       <button
                         onClick={() => onUnpublish(form.id)}
-                        className=&quot;text-yellow-600 hover:text-yellow-900 p-1&quot;
-                        title=&quot;Unpublish form&quot;
+                        className="text-yellow-600 hover:text-yellow-900 p-1"
+                        title="Unpublish form"
                       >
                         <Pause className="h-4 w-4" />
                       </button>
                     ) : (
                       <button
                         onClick={() => onPublish(form.id)}
-                        className=&quot;text-green-600 hover:text-green-900 p-1&quot;
-                        title=&quot;Publish form&quot;
+                        className="text-green-600 hover:text-green-900 p-1"
+                        title="Publish form"
                       >
                         <Play className="h-4 w-4" />
                       </button>
                     )}
                     
                     <button
-                      onClick={() => window.open(`/forms/${form.slug}`, &apos;_blank&apos;)}
-                      className=&quot;text-purple-600 hover:text-purple-900 p-1&quot;
-                      title=&quot;Preview form&quot;
+                      onClick={() => window.open(`/forms/${form.slug}`, '_blank')}
+                      className="text-purple-600 hover:text-purple-900 p-1"
+                      title="Preview form"
                     >
                       <Eye className="h-4 w-4" />
                     </button>
                     
                     <button
                       onClick={() => onDelete(form.id)}
-                      className=&quot;text-red-600 hover:text-red-900 p-1&quot;
-                      title=&quot;Delete form&quot;
+                      className="text-red-600 hover:text-red-900 p-1"
+                      title="Delete form"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>

@@ -2,14 +2,14 @@
 
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
+import { Switch } from '@/components/ui/Switch';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { Upload, FileText, Settings, MapPin } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
@@ -147,7 +147,7 @@ export default function CreateImportJobModal({
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <Tabs defaultValue={activeTab}>
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="basic" className="flex items-center gap-2">
                 <FileText className="h-4 w-4" />
@@ -193,7 +193,7 @@ export default function CreateImportJobModal({
                       <Label htmlFor="target_model">Target Model *</Label>
                       <Select
                         value={watchedValues.target_model}
-                        onValueChange={(value) => setValue('target_model', value)}
+                        onChange={(value) => setValue('target_model', value)}
                       >
                         <SelectTrigger>
                           <SelectValue placeholder="Select target model" />
@@ -241,7 +241,7 @@ export default function CreateImportJobModal({
                     <Label htmlFor="file_format">File Format</Label>
                     <Select
                       value={watchedValues.file_format}
-                      onValueChange={(value) => setValue('file_format', value)}
+                      onChange={(value) => setValue('file_format', value)}
                     >
                       <SelectTrigger>
                         <SelectValue />

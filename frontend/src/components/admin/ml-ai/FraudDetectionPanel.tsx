@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+import { Badge } from '@/components/ui/Badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { Shield, AlertTriangle, CheckCircle, XCircle, TrendingUp } from 'lucide-react';
 
@@ -232,7 +232,7 @@ const FraudDetectionPanel: React.FC = () => {
                     cy="50%"
                     outerRadius={80}
                     dataKey="value"
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    label={({ name, percent }) => `${name} ${((percent || 0) * 100).toFixed(0)}%`}
                   >
                     {riskDistributionData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.color} />
@@ -296,7 +296,7 @@ const FraudDetectionPanel: React.FC = () => {
               <Label htmlFor="hour">Hour of Day</Label>
               <Select 
                 value={transactionData.hour_of_day.toString()} 
-                onValueChange={(value) => setTransactionData({...transactionData, hour_of_day: parseInt(value)})}
+                onChange={(value: string) => setTransactionData({...transactionData, hour_of_day: parseInt(value)})}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -312,7 +312,7 @@ const FraudDetectionPanel: React.FC = () => {
               <Label htmlFor="dayOfWeek">Day of Week</Label>
               <Select 
                 value={transactionData.day_of_week.toString()} 
-                onValueChange={(value) => setTransactionData({...transactionData, day_of_week: parseInt(value)})}
+                onChange={(value: string) => setTransactionData({...transactionData, day_of_week: parseInt(value)})}
               >
                 <SelectTrigger>
                   <SelectValue />
