@@ -170,13 +170,13 @@ const PerformanceDashboard: React.FC = () => {
       <div className="flex space-x-2">
         {['1h', '24h', '7d'].map((range) => (
           <Button
-            key={range}
-            variant={timeRange === range ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setTimeRange(range)}
-          >
-            {range}
-          </Button>
+          key={range}
+          variant={timeRange === range ? 'default' : 'outline'}
+          size="sm"
+          onClick={() => setTimeRange(range)}
+        >
+          {range}
+        </Button>
         ))}
       </div>
 

@@ -328,7 +328,7 @@ const FraudDetectionPanel: React.FC = () => {
               <Label htmlFor="paymentMethod">Payment Method</Label>
               <Select 
                 value={transactionData.payment_method.toString()} 
-                onValueChange={(value) => setTransactionData({...transactionData, payment_method: parseInt(value)})}
+                onChange={(value) => setTransactionData({...transactionData, payment_method: parseInt(value)})}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -344,7 +344,7 @@ const FraudDetectionPanel: React.FC = () => {
               <Label htmlFor="addressMatch">Address Match</Label>
               <Select 
                 value={transactionData.shipping_address_matches.toString()} 
-                onValueChange={(value) => setTransactionData({...transactionData, shipping_address_matches: value === 'true'})}
+                onChange={(value) => setTransactionData({...transactionData, shipping_address_matches: value === 'true'})}
               >
                 <SelectTrigger>
                   <SelectValue />
