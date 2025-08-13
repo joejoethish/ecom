@@ -1,0 +1,99 @@
+# Production Environment Configuration (Limited Testing)
+database:
+  host: prod-db.ecommerce.com
+  port: 5432
+  name: qa_test_production
+  user: qa_prod_user
+  password: qa_prod_password
+  pool_size: 5
+  max_overflow: 10
+
+web:
+  base_url: https://ecommerce.com
+  timeout: 60
+  implicit_wait: 20
+  page_load_timeout: 60
+  browsers:
+    - chrome
+  headless: true
+  window_size:
+    width: 1920
+    height: 1080
+
+mobile:
+  appium_server: http://prod-appium.ecommerce.com:4723
+  platform_name: Android
+  device_name: prod-device
+  app_package: com.ecommerce.app
+  app_activity: .MainActivity
+  timeout: 60
+  implicit_wait: 20
+  new_command_timeout: 900
+
+api:
+  base_url: https://api.ecommerce.com/api/v1
+  timeout: 60
+  auth_endpoint: /auth/login
+  rate_limit: 10000
+  retry_attempts: 3
+  retry_delay: 5
+
+reporting:
+  output_dir: reports/production
+  formats:
+    - html
+    - json
+    - allure
+  screenshot_on_failure: true
+  detailed_logs: false  # Minimal logging in production
+  video_recording: false
+  allure_results_dir: allure-results
+
+test_data:
+  users_count: 10  # Limited test data in production
+  products_count: 50
+  categories_count: 5
+  cleanup_after_test: false  # Don't cleanup in production
+  data_isolation: true
+
+notifications:
+  email:
+    smtp_server: smtp.ecommerce.com
+    smtp_port: 587
+    use_tls: true
+    test_email: qa.prod@ecommerce.com
+    test_password: prod_password
+  sms:
+    provider: twilio
+    test_number: "+1234567890"
+    account_sid: prod_sid
+    auth_token: prod_token
+
+payment_gateways:
+  stripe:
+    sandbox_mode: false  # Live mode for production smoke tests
+    api_key: sk_live_prod_key
+    webhook_secret: whsec_prod_secret
+  paypal:
+    sandbox_mode: false
+    client_id: prod_client_id
+    client_secret: prod_client_secret
+  razorpay:
+    sandbox_mode: false
+    key_id: prod_key_id
+    key_secret: prod_key_secret
+
+logging:
+  level: WARNING
+  console_level: ERROR
+  file_level: WARNING
+  max_file_size: 100MB
+  backup_count: 20
+  structured_logging: true
+
+performance:
+  load_test_users: 5  # Very limited load testing in production
+  stress_test_users: 10
+  response_time_threshold: 5000  # milliseconds
+  memory_threshold: 90  # percentage
+  cpu_threshold: 85  # percentage

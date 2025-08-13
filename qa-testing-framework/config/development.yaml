@@ -1,0 +1,100 @@
+# Development Environment Configuration
+database:
+  host: localhost
+  port: 5432
+  name: qa_test_development
+  user: qa_user
+  password: qa_password
+  pool_size: 5
+  max_overflow: 10
+
+web:
+  base_url: http://localhost:3000
+  timeout: 30
+  implicit_wait: 10
+  page_load_timeout: 30
+  browsers:
+    - chrome
+    - firefox
+  headless: false
+  window_size:
+    width: 1920
+    height: 1080
+
+mobile:
+  appium_server: http://localhost:4723
+  platform_name: Android
+  device_name: emulator-5554
+  app_package: com.ecommerce.app
+  app_activity: .MainActivity
+  timeout: 30
+  implicit_wait: 10
+  new_command_timeout: 300
+
+api:
+  base_url: http://localhost:8000/api/v1
+  timeout: 30
+  auth_endpoint: /auth/login
+  rate_limit: 1000
+  retry_attempts: 3
+  retry_delay: 1
+
+reporting:
+  output_dir: reports/development
+  formats:
+    - html
+    - json
+    - xml
+  screenshot_on_failure: true
+  detailed_logs: true
+  video_recording: false
+  allure_results_dir: allure-results
+
+test_data:
+  users_count: 50
+  products_count: 500
+  categories_count: 20
+  cleanup_after_test: true
+  data_isolation: true
+
+notifications:
+  email:
+    smtp_server: smtp.gmail.com
+    smtp_port: 587
+    use_tls: true
+    test_email: qa.test@example.com
+    test_password: test_password
+  sms:
+    provider: twilio
+    test_number: "+1234567890"
+    account_sid: test_sid
+    auth_token: test_token
+
+payment_gateways:
+  stripe:
+    sandbox_mode: true
+    api_key: sk_test_sandbox_key
+    webhook_secret: whsec_test_secret
+  paypal:
+    sandbox_mode: true
+    client_id: test_client_id
+    client_secret: test_client_secret
+  razorpay:
+    sandbox_mode: true
+    key_id: test_key_id
+    key_secret: test_key_secret
+
+logging:
+  level: DEBUG
+  console_level: INFO
+  file_level: DEBUG
+  max_file_size: 10MB
+  backup_count: 5
+  structured_logging: true
+
+performance:
+  load_test_users: 10
+  stress_test_users: 50
+  response_time_threshold: 2000  # milliseconds
+  memory_threshold: 85  # percentage
+  cpu_threshold: 80  # percentage
