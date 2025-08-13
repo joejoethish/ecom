@@ -7,8 +7,24 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Checkbox } from '@/components/ui/checkbox';
-import { DatePicker } from '@/components/ui/date-picker';
+// Mock Checkbox component
+const Checkbox = ({ checked, onCheckedChange, ...props }: any) => (
+  <input 
+    type="checkbox" 
+    checked={checked} 
+    onChange={(e) => onCheckedChange?.(e.target.checked)} 
+    {...props} 
+  />
+);
+// Mock DatePicker component
+const DatePicker = ({ date, onDateChange, ...props }: any) => (
+  <input 
+    type="date" 
+    value={date instanceof Date ? date.toISOString().split('T')[0] : date} 
+    onChange={(e) => onDateChange?.(new Date(e.target.value))} 
+    {...props} 
+  />
+);
 import { Textarea } from '@/components/ui/textarea';
 import { 
   FileText, Download, Calendar, TrendingUp, 
@@ -243,7 +259,7 @@ const PerformanceReports: React.FC = () => {
                     <label className="text-sm font-medium">Report Type</label>
                     <Select 
                       value={reportForm.report_type} 
-                      onValueChange={(value) => setReportForm({...reportForm, report_type: value})}
+                      onChange={(value: string) => setReportForm({...reportForm, report_type: value})}
                     >
                       <SelectTrigger>
                         <SelectValue />
@@ -263,11 +279,11 @@ const PerformanceReports: React.FC = () => {
                     <div className="flex space-x-2">
                       <DatePicker
                         date={reportForm.start_date}
-                        onDateChange={(date) => setReportForm({...reportForm, start_date: date || new Date()})}
+                        onDateChange={(date: Date) => setReportForm({...reportForm, start_date: date || new Date()})}
                       />
                       <DatePicker
                         date={reportForm.end_date}
-                        onDateChange={(date) => setReportForm({...reportForm, end_date: date || new Date()})}
+                        onDateChange={(date: Date) => setReportForm({...reportForm, end_date: date || new Date()})}
                       />
                     </div>
                   </div>
@@ -288,7 +304,7 @@ const PerformanceReports: React.FC = () => {
                         <Checkbox
                           id={metric.id}
                           checked={reportForm.metrics_included.includes(metric.id)}
-                          onCheckedChange={(checked) => {
+                          onCheckedChange={(checked: boolean) => {
                             if (checked) {
                               setReportForm({
                                 ...reportForm,

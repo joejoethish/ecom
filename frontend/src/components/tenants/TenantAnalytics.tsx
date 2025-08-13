@@ -186,7 +186,7 @@ export default function TenantAnalytics({ tenantId }: TenantAnalyticsProps) {
           </p>
         </div>
         <div className="flex items-center space-x-2">
-          <Select value={dateRange} onValueChange={setDateRange}>
+          <Select value={dateRange} onChange={setDateRange}>
             <SelectTrigger className="w-32">
               <SelectValue />
             </SelectTrigger>

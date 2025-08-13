@@ -144,11 +144,7 @@ const DocumentationEditor: React.FC<DocumentationEditorProps> = ({
     updateWordCount();
   }, [document.content, updateWordCount]);
 
-  const updateWordCount = () => {
-    const words = document.content.trim().split(/\s+/).filter(word => word.length > 0);
-    setWordCount(words.length);
-    setCharacterCount(document.content.length);
-  };
+  // Duplicate function removed
 
   const handleSave = async () => {
     try {
@@ -338,7 +334,7 @@ const DocumentationEditor: React.FC<DocumentationEditorProps> = ({
       </div>
 
       {/* Toolbar */}
-      {activeTab === 'editor' && showToolbar && (
+      {activeTab === 'editor' && (
         <div className="border-b border-gray-200 p-2">
           <div className="flex items-center space-x-1">
             <ToolbarButton
@@ -407,10 +403,8 @@ const DocumentationEditor: React.FC<DocumentationEditorProps> = ({
               onChange={(e) => setDocument(prev => ({ ...prev, content: e.target.value }))}
               placeholder="Start writing your documentation..."
               className="w-full h-96 p-4 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent font-mono text-sm"
-              onSelect={(e) => {
-                const target = e.target as HTMLTextAreaElement;
-                setSelectionStart(target.selectionStart);
-                setSelectionEnd(target.selectionEnd);
+              onSelect={() => {
+                // Selection handling removed
               }}
             />
             

@@ -324,8 +324,8 @@ const DocumentationAnalytics: React.FC<DocumentationAnalyticsProps> = ({
                     fill="#8884d8"
                     dataKey="documents"
                   >
-                    {analyticsData.categoryStats.map((entry: Record<string, unknown>) => (
-                      <Cell key={`cell-${entry.name as string}`} fill={COLORS[analyticsData.categoryStats.indexOf(entry) % COLORS.length]} />
+                    {analyticsData.categoryStats.map((entry: any, index: number) => (
+                      <Cell key={`cell-${entry.name}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
                   <Tooltip />

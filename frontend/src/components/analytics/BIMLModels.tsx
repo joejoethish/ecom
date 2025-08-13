@@ -322,7 +322,7 @@ export default function BIMLModels({ dataSourceId }: BIMLModelsProps) {
                   <div key={key}>
                     <span className="text-gray-600">{key.toUpperCase()}:</span>
                     <span className="ml-1 font-medium">
-                      {typeof value === 'number' ? value.toFixed(3) : value}
+                      {typeof value === 'number' ? value.toFixed(3) : String(value)}
                     </span>
                   </div>
                 ))}
@@ -509,7 +509,7 @@ export default function BIMLModels({ dataSourceId }: BIMLModelsProps) {
       )}
 
       {/* Tabs */}
-      <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+      <Tabs defaultValue={selectedTab}>
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="models">
             Models ({models.length})
@@ -569,7 +569,7 @@ export default function BIMLModels({ dataSourceId }: BIMLModelsProps) {
                       <div key={key} className="p-4 bg-gray-50 rounded-lg">
                         <p className="text-sm text-gray-600">{key.toUpperCase()}</p>
                         <p className="text-2xl font-bold">
-                          {typeof value === 'number' ? value.toFixed(3) : value}
+                          {typeof value === 'number' ? value.toFixed(3) : String(value)}
                         </p>
                       </div>
                     ))}

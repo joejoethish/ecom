@@ -1,20 +1,31 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { 
-  Search, 
-  Filter, 
-  Grid, 
-  List, 
-  Tag, 
-  Eye, 
-  Heart, 
+import {
+  Search,
+  Filter,
+  Grid,
+  List,
+  Tag,
+  Eye,
+  Heart,
   Star,
   BookOpen,
   X,
   ChevronDown
 } from 'lucide-react';
-import { debounce } from 'lodash';
+// Simple debounce implementation
+const debounce = (func: Function, wait: number) => {
+  let timeout: NodeJS.Timeout;
+  return function executedFunction(...args: any[]) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
 
 interface SearchFilters {
   query: string;
@@ -116,9 +127,9 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
   const searchDocuments = async () => {
     try {
       setLoading(true);
-      
+
       const params = new URLSearchParams();
-      
+
       if (filters.query) params.append('search', filters.query);
       if (filters.category) params.append('category', filters.category);
       if (filters.tags.length > 0) params.append('tags', filters.tags.join(','));
@@ -127,7 +138,7 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
       if (filters.visibility) params.append('visibility', filters.visibility);
       if (filters.dateRange.start) params.append('created_after', filters.dateRange.start);
       if (filters.dateRange.end) params.append('created_before', filters.dateRange.end);
-      
+
       const ordering = filters.sortOrder === 'desc' ? `-${filters.sortBy}` : filters.sortBy;
       params.append('ordering', ordering);
       params.append('page', currentPage.toString());
@@ -135,7 +146,7 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
 
       const response = await fetch(`/api/documentation/documents/?${params}`);
       const data = await response.json();
-      
+
       setResults(data.results || []);
       setTotalResults(data.count || 0);
     } catch (error) {
@@ -145,15 +156,13 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
     }
   };
 
-  const debouncedSearch = useCallback(() => {
-    const timeoutId = setTimeout(() => {
-      searchDocuments();
-    }, 300);
-    return () => clearTimeout(timeoutId);
-  }, [searchDocuments]);
+  const debouncedSearch = useCallback(
+    debounce(searchDocuments, 300),
+    [filters, currentPage]
+  );
 
   useEffect(() => {
-    if (filters.query || Object.values(filters).some(v => 
+    if (filters.query || Object.values(filters).some(v =>
       Array.isArray(v) ? v.length > 0 : v !== '' && v !== 'updated_at' && v !== 'desc'
     )) {
       debouncedSearch();
@@ -178,43 +187,6 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
       console.error('Error fetching initial data:', error);
     }
   };
-
-  const searchDocuments = async () => {
-    try {
-      setLoading(true);
-      
-      const params = new URLSearchParams();
-      
-      if (filters.query) params.append('search', filters.query);
-      if (filters.category) params.append('category', filters.category);
-      if (filters.tags.length > 0) params.append('tags', filters.tags.join(','));
-      if (filters.author) params.append('author', filters.author);
-      if (filters.status) params.append('status', filters.status);
-      if (filters.visibility) params.append('visibility', filters.visibility);
-      if (filters.dateRange.start) params.append('created_after', filters.dateRange.start);
-      if (filters.dateRange.end) params.append('created_before', filters.dateRange.end);
-      
-      const ordering = filters.sortOrder === 'desc' ? `-${filters.sortBy}` : filters.sortBy;
-      params.append('ordering', ordering);
-      params.append('page', currentPage.toString());
-      params.append('page_size', pageSize.toString());
-
-      const response = await fetch(`/api/documentation/documents/?${params}`);
-      const data = await response.json();
-      
-      setResults(data.results || []);
-      setTotalResults(data.count || 0);
-    } catch (error) {
-      console.error('Error searching documents:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const debouncedSearch = useCallback(
-    debounce(searchDocuments, 300),
-    [filters, currentPage]
-  );
 
   const fetchSearchSuggestions = async (query: string) => {
     if (!query || query.length < 2) {
@@ -278,12 +250,12 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
   };
 
   const ResultCard: React.FC<{ result: SearchResult; mode: 'grid' | 'list' }> = ({ result, mode }) => {
-    const cardClass = mode === 'grid' 
+    const cardClass = mode === 'grid'
       ? 'bg-white rounded-lg shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow cursor-pointer'
       : 'bg-white rounded-lg shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow cursor-pointer flex items-start space-x-4';
 
     return (
-      <div 
+      <div
         className={cardClass}
         onClick={() => onResultClick?.(result)}
       >
@@ -291,7 +263,7 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
           <div>
             <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">{result.title}</h3>
             <p className="text-gray-600 text-sm mb-3 line-clamp-3">{result.excerpt}</p>
-            
+
             <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
               <span>{result.category.name}</span>
               <span>{new Date(result.updated_at).toLocaleDateString()}</span>
@@ -339,7 +311,7 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
             <div className="flex-1">
               <h3 className="font-semibold text-gray-900 mb-1">{result.title}</h3>
               <p className="text-gray-600 text-sm mb-2 line-clamp-2">{result.excerpt}</p>
-              
+
               <div className="flex items-center space-x-4 text-xs text-gray-500 mb-2">
                 <span>{result.category.name}</span>
                 <span>by {result.author.first_name} {result.author.last_name}</span>
@@ -376,11 +348,10 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
                   {result.average_rating.toFixed(1)}
                 </div>
               </div>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                result.status === 'published' ? 'bg-green-100 text-green-800' :
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${result.status === 'published' ? 'bg-green-100 text-green-800' :
                 result.status === 'draft' ? 'bg-yellow-100 text-yellow-800' :
-                'bg-gray-100 text-gray-800'
-              }`}>
+                  'bg-gray-100 text-gray-800'
+                }`}>
                 {result.status}
               </span>
             </div>
@@ -406,7 +377,7 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
               onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
               className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            
+
             {/* Search Suggestions */}
             {showSuggestions && searchSuggestions.length > 0 && (
               <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg mt-1 z-10">
@@ -426,12 +397,11 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
               </div>
             )}
           </div>
-          
+
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className={`px-4 py-3 border rounded-lg flex items-center ${
-              showFilters ? 'bg-blue-50 border-blue-200 text-blue-600' : 'bg-white border-gray-300 text-gray-600'
-            } hover:bg-gray-50`}
+            className={`px-4 py-3 border rounded-lg flex items-center ${showFilters ? 'bg-blue-50 border-blue-200 text-blue-600' : 'bg-white border-gray-300 text-gray-600'
+              } hover:bg-gray-50`}
           >
             <Filter className="w-4 h-4 mr-2" />
             Filters
@@ -453,7 +423,7 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
                 </button>
               </span>
             )}
-            
+
             {getSelectedTagNames().map((tagName, index) => (
               <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800">
                 Tag: {tagName}
@@ -465,7 +435,7 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
                 </button>
               </span>
             ))}
-            
+
             {filters.status && (
               <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-100 text-purple-800">
                 Status: {filters.status}
@@ -477,7 +447,7 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
                 </button>
               </span>
             )}
-            
+
             <button
               onClick={clearFilters}
               className="text-sm text-gray-600 hover:text-gray-800 underline"
@@ -561,7 +531,7 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
             <span className="text-gray-600">for &quot;{filters.query}&quot;</span>
           )}
         </div>
-        
+
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setViewMode('list')}
@@ -585,7 +555,7 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
         </div>
       ) : results.length > 0 ? (
         <div className={
-          viewMode === 'grid' 
+          viewMode === 'grid'
             ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
             : 'space-y-4'
         }>
@@ -611,11 +581,11 @@ const DocumentationSearch: React.FC<DocumentationSearchProps> = ({
           >
             Previous
           </button>
-          
+
           <span className="px-4 py-2 text-sm text-gray-600">
             Page {currentPage} of {Math.ceil(totalResults / pageSize)}
           </span>
-          
+
           <button
             onClick={() => setCurrentPage(prev => prev + 1)}
             disabled={currentPage >= Math.ceil(totalResults / pageSize)}

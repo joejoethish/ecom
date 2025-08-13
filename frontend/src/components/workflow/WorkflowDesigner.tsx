@@ -78,10 +78,12 @@ const WorkflowDesigner: React.FC<WorkflowDesignerProps> = ({
 
   const onConnect = useCallback(
     (params: Connection) => {
-      if (readOnly) return;
+      if (readOnly || !params.source || !params.target) return;
       
       const edge: Edge = {
         ...params,
+        source: params.source,
+        target: params.target,
         id: `edge-${params.source}-${params.target}`,
         type: 'default',
         animated: false,
