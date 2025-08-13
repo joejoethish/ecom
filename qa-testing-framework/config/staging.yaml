@@ -1,12 +1,13 @@
 # Staging Environment Configuration
 database:
   host: staging-db.ecommerce.com
-  port: 5432
+  port: 3307
   name: qa_test_staging
   user: qa_staging_user
   password: qa_staging_password
   pool_size: 10
   max_overflow: 20
+  charset: utf8mb4
 
 web:
   base_url: https://staging.ecommerce.com

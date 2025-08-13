@@ -9,7 +9,8 @@ import unittest
 import os
 import tempfile
 from unittest.mock import patch, MagicMock, call
-import psycopg2
+import mysql.connector
+from mysql.connector import Error as MySQLError
 
 from core.database import DatabaseManager, get_database_manager
 from core.interfaces import Environment
@@ -26,10 +27,11 @@ class DatabaseManagerTests(unittest.TestCase):
         # Mock database configuration
         self.mock_config = {
             "host": "localhost",
-            "port": 5432,
+            "port": 3307,
             "name": "test_qa_framework",
             "user": "test_user",
-            "password": "test_password"
+            "password": "test_password",
+            "charset": "utf8mb4"
         }
     
     def test_initialization(self):
@@ -47,16 +49,17 @@ class DatabaseManagerTests(unittest.TestCase):
         db_manager = DatabaseManager(Environment.STAGING)
         
         self.assertEqual(db_manager.host, "localhost")
-        self.assertEqual(db_manager.port, 5432)
+        self.assertEqual(db_manager.port, 3307)
         self.assertEqual(db_manager.database, "test_qa_framework")
         self.assertEqual(db_manager.user, "test_user")
         self.assertEqual(db_manager.password, "test_password")
+        self.assertEqual(db_manager.charset, "utf8mb4")
     
-    @patch('psycopg2.connect')
+    @patch('mysql.connector.connect')
     def test_connect_success(self, mock_connect):
         """Test successful database connection"""
         mock_connection = MagicMock()
-        mock_connection.closed = 0
+        mock_connection.is_connected.return_value = True
         mock_connect.return_value = mock_connection
         
         result = self.db_manager.connect()
@@ -65,21 +68,21 @@ class DatabaseManagerTests(unittest.TestCase):
         self.assertEqual(self.db_manager.connection, mock_connection)
         mock_connect.assert_called_once_with(**self.db_manager.connection_params)
     
-    @patch('psycopg2.connect')
+    @patch('mysql.connector.connect')
     def test_connect_failure(self, mock_connect):
         """Test database connection failure"""
-        mock_connect.side_effect = psycopg2.Error("Connection failed")
+        mock_connect.side_effect = MySQLError("Connection failed")
         
         result = self.db_manager.connect()
         
         self.assertFalse(result)
         self.assertIsNone(self.db_manager.connection)
     
-    @patch('psycopg2.connect')
+    @patch('mysql.connector.connect')
     def test_connect_already_connected(self, mock_connect):
         """Test connection when already connected"""
         mock_connection = MagicMock()
-        mock_connection.closed = 0
+        mock_connection.is_connected.return_value = True
         self.db_manager.connection = mock_connection
         
         result = self.db_manager.connect()
@@ -90,7 +93,7 @@ class DatabaseManagerTests(unittest.TestCase):
     def test_disconnect_success(self):
         """Test successful database disconnection"""
         mock_connection = MagicMock()
-        mock_connection.closed = 0
+        mock_connection.is_connected.return_value = True
         self.db_manager.connection = mock_connection
         
         self.db_manager.disconnect()
@@ -100,7 +103,7 @@ class DatabaseManagerTests(unittest.TestCase):
     def test_disconnect_with_transactions(self):
         """Test disconnection with pending transactions"""
         mock_connection = MagicMock()
-        mock_connection.closed = 0
+        mock_connection.is_connected.return_value = True
         self.db_manager.connection = mock_connection
         self.db_manager.transaction_stack = ["sp_0", "sp_1"]
         
@@ -113,9 +116,9 @@ class DatabaseManagerTests(unittest.TestCase):
     def test_is_connected_true(self):
         """Test is_connected when connected"""
         mock_connection = MagicMock()
-        mock_connection.closed = 0
+        mock_connection.is_connected.return_value = True
         mock_cursor = MagicMock()
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
         result = self.db_manager.is_connected()
@@ -134,19 +137,19 @@ class DatabaseManagerTests(unittest.TestCase):
     def test_is_connected_false_closed_connection(self):
         """Test is_connected when connection is closed"""
         mock_connection = MagicMock()
-        mock_connection.closed = 1
+        mock_connection.is_connected.return_value = False
         self.db_manager.connection = mock_connection
         
         result = self.db_manager.is_connected()
         
         self.assertFalse(result)
     
-    @patch('psycopg2.connect')
+    @patch('mysql.connector.connect')
     def test_create_database_success(self, mock_connect):
         """Test successful database creation"""
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_connection.cursor.return_value = mock_cursor
         mock_connect.return_value.__enter__.return_value = mock_connection
         
         # Mock database doesn't exist
@@ -156,20 +159,20 @@ class DatabaseManagerTests(unittest.TestCase):
         
         self.assertTrue(result)
         mock_cursor.execute.assert_any_call(
-            "SELECT 1 FROM pg_database WHERE datname = %s",
+            "SHOW DATABASES LIKE %s",
             ("test_db",)
         )
     
-    @patch('psycopg2.connect')
+    @patch('mysql.connector.connect')
     def test_create_database_already_exists(self, mock_connect):
         """Test database creation when database already exists"""
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_connection.cursor.return_value = mock_cursor
         mock_connect.return_value.__enter__.return_value = mock_connection
         
         # Mock database exists
-        mock_cursor.fetchone.return_value = (1,)
+        mock_cursor.fetchone.return_value = ("test_db",)
         
         result = self.db_manager.create_database("test_db")
         
@@ -179,22 +182,23 @@ class DatabaseManagerTests(unittest.TestCase):
                        if "CREATE DATABASE" in str(call)]
         self.assertEqual(len(create_calls), 0)
     
-    @patch('psycopg2.connect')
+    @patch('mysql.connector.connect')
     def test_drop_database_success(self, mock_connect):
         """Test successful database drop"""
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_connection.cursor.return_value = mock_cursor
         mock_connect.return_value.__enter__.return_value = mock_connection
         
         # Mock existing connection
         self.db_manager.connection = MagicMock()
+        self.db_manager.connection.is_connected.return_value = True
         
         result = self.db_manager.drop_database("test_db")
         
         self.assertTrue(result)
-        # Should terminate connections and drop database
-        self.assertEqual(mock_cursor.execute.call_count, 2)
+        # Should drop database
+        self.assertEqual(mock_cursor.execute.call_count, 1)
     
     @patch('core.database.DatabaseManager.connect')
     def test_setup_test_schema_success(self, mock_connect):
@@ -202,13 +206,14 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_connect.return_value = True
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
         result = self.db_manager.setup_test_schema()
         
         self.assertTrue(result)
-        mock_cursor.execute.assert_called_once()
+        # Should execute multiple statements (one for each table)
+        self.assertGreater(mock_cursor.execute.call_count, 0)
         mock_connection.commit.assert_called_once()
     
     @patch('core.database.DatabaseManager.connect')
@@ -217,8 +222,8 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_connect.return_value = True
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_cursor.execute.side_effect = psycopg2.Error("Schema setup failed")
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_cursor.execute.side_effect = MySQLError("Schema setup failed")
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
         result = self.db_manager.setup_test_schema()
@@ -232,7 +237,7 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_connect.return_value = True
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
         # Mock table list
@@ -241,8 +246,8 @@ class DatabaseManagerTests(unittest.TestCase):
         result = self.db_manager.teardown_test_schema()
         
         self.assertTrue(result)
-        # Should execute SELECT for tables and DROP for each table
-        self.assertGreaterEqual(mock_cursor.execute.call_count, 3)
+        # Should execute SHOW TABLES, SET FOREIGN_KEY_CHECKS, DROP for each table, SET FOREIGN_KEY_CHECKS
+        self.assertGreaterEqual(mock_cursor.execute.call_count, 5)
         mock_connection.commit.assert_called_once()
     
     @patch('core.database.DatabaseManager.connect')
@@ -252,7 +257,7 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
         mock_cursor.fetchall.return_value = [(1, "test"), (2, "data")]
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
         result = self.db_manager.execute_query("SELECT * FROM test_table", ("param",))
@@ -266,8 +271,8 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_connect.return_value = True
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_cursor.execute.side_effect = psycopg2.Error("Query failed")
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_cursor.execute.side_effect = MySQLError("Query failed")
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
         result = self.db_manager.execute_query("SELECT * FROM test_table")
@@ -280,7 +285,7 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_connect.return_value = True
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
         result = self.db_manager.execute_command("INSERT INTO test_table VALUES (%s)", ("value",))
@@ -295,8 +300,8 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_connect.return_value = True
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_cursor.execute.side_effect = psycopg2.Error("Command failed")
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_cursor.execute.side_effect = MySQLError("Command failed")
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
         result = self.db_manager.execute_command("INSERT INTO test_table VALUES (%s)", ("value",))
@@ -325,11 +330,11 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_connect.return_value = True
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_cursor.execute.side_effect = psycopg2.Error("Transaction failed")
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_cursor.execute.side_effect = MySQLError("Transaction failed")
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
-        with self.assertRaises(psycopg2.Error):
+        with self.assertRaises(MySQLError):
             with self.db_manager.transaction() as cursor:
                 cursor.execute("INSERT INTO test_table VALUES (%s)", ("value",))
         
@@ -338,11 +343,14 @@ class DatabaseManagerTests(unittest.TestCase):
     
     @patch('subprocess.run')
     @patch('tempfile.gettempdir')
-    def test_backup_database_success(self, mock_tempdir, mock_subprocess):
+    @patch('builtins.open', create=True)
+    def test_backup_database_success(self, mock_open, mock_tempdir, mock_subprocess):
         """Test successful database backup"""
-        mock_tempdir.return_value = "/tmp"
+        import tempfile
+        mock_tempdir.return_value = tempfile.gettempdir()
         mock_result = MagicMock()
         mock_result.returncode = 0
+        mock_result.stdout = "-- MySQL dump content"
         mock_subprocess.return_value = mock_result
         
         backup_file = self.db_manager.backup_database("test_backup")
@@ -350,6 +358,7 @@ class DatabaseManagerTests(unittest.TestCase):
         self.assertTrue(backup_file.endswith("test_backup.sql"))
         self.assertIn("test_backup", self.db_manager._backup_files)
         mock_subprocess.assert_called_once()
+        mock_open.assert_called_once()
     
     @patch('subprocess.run')
     def test_backup_database_failure(self, mock_subprocess):
@@ -366,9 +375,10 @@ class DatabaseManagerTests(unittest.TestCase):
     
     @patch('subprocess.run')
     @patch('os.path.exists')
+    @patch('builtins.open', create=True)
     @patch('core.database.DatabaseManager.drop_database')
     @patch('core.database.DatabaseManager.create_database')
-    def test_restore_database_success(self, mock_create, mock_drop, mock_exists, mock_subprocess):
+    def test_restore_database_success(self, mock_create, mock_drop, mock_open, mock_exists, mock_subprocess):
         """Test successful database restore"""
         mock_exists.return_value = True
         mock_drop.return_value = True
@@ -376,6 +386,10 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_result = MagicMock()
         mock_result.returncode = 0
         mock_subprocess.return_value = mock_result
+        
+        # Mock file content
+        mock_file = MagicMock()
+        mock_open.return_value.__enter__.return_value = mock_file
         
         result = self.db_manager.restore_database("/tmp/backup.sql", "target_db")
         
@@ -414,10 +428,10 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_connect.return_value = True
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
-        # Mock column info and row count
+        # Mock column info and row count - need to handle multiple execute calls
         mock_cursor.fetchall.return_value = [
             ("id", "varchar", "NO", None),
             ("name", "varchar", "YES", "default_name")
@@ -439,13 +453,14 @@ class DatabaseManagerTests(unittest.TestCase):
         mock_connect.return_value = True
         mock_connection = MagicMock()
         mock_cursor = MagicMock()
-        mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_connection.cursor.return_value = mock_cursor
         self.db_manager.connection = mock_connection
         
         result = self.db_manager.truncate_tables(["table1", "table2"])
         
         self.assertTrue(result)
-        self.assertEqual(mock_cursor.execute.call_count, 2)
+        # Should execute: SET FOREIGN_KEY_CHECKS = 0, TRUNCATE table1, TRUNCATE table2, SET FOREIGN_KEY_CHECKS = 1
+        self.assertEqual(mock_cursor.execute.call_count, 4)
         mock_connection.commit.assert_called_once()
     
     def test_context_manager(self):

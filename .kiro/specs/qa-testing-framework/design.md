@@ -2,7 +2,7 @@
 
 ## Overview
 
-The QA Testing Framework is designed as a comprehensive end-to-end testing solution for a multi-vendor e-commerce platform. The framework provides 100% coverage of user journeys across all system layers (Next.js frontend, Django REST API backend, React Native mobile app, and PostgreSQL database) with automated test execution, detailed reporting, and continuous integration capabilities.
+The QA Testing Framework is designed as a comprehensive end-to-end testing solution for a multi-vendor e-commerce platform. The framework provides 100% coverage of user journeys across all system layers (Next.js frontend, Django REST API backend, React Native mobile app, and MySQL database) with automated test execution, detailed reporting, and continuous integration capabilities.
 
 ### Key Design Principles
 
@@ -47,7 +47,7 @@ graph TB
         FE[Next.js Frontend]
         BE[Django Backend]
         MA[React Native Mobile]
-        DB[PostgreSQL Database]
+        DB[MySQL Database]
     end
     
     TC --> TE
@@ -114,8 +114,8 @@ graph TB
   - Performance and load testing
 
 #### Database Testing Module (Custom)
-- **Purpose**: PostgreSQL database operations testing
-- **Technologies**: psycopg2, SQLAlchemy, Custom Python scripts
+- **Purpose**: MySQL database operations testing
+- **Technologies**: mysql-connector-python, PyMySQL, SQLAlchemy, Custom Python scripts
 - **Responsibilities**:
   - CRUD operations validation
   - Data integrity verification

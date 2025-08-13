@@ -56,7 +56,10 @@
 
 
 
-- [-] 3.2 Implement database connection and setup utilities
+- [x] 3.2 Implement database connection and setup utilities
+
+
+
 
 
 

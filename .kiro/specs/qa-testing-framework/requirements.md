@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document outlines the requirements for developing a comprehensive end-to-end QA testing framework for an enterprise-level multi-vendor e-commerce platform. The framework will validate 100% of user journeys across all system layers (Frontend: Next.js, Backend: Django REST API, Mobile: React Native, Database: PostgreSQL) ensuring complete functional coverage from user registration to order delivery and returns. The system must test all user roles (Guest, Registered Customers, Premium Customers, Sellers, Admin, Super Admin), validate all CRUD operations, verify frontend-backend-database integration, and provide detailed bug tracking with severity classification and comprehensive reporting capabilities.
+This document outlines the requirements for developing a comprehensive end-to-end QA testing framework for an enterprise-level multi-vendor e-commerce platform. The framework will validate 100% of user journeys across all system layers (Frontend: Next.js, Backend: Django REST API, Mobile: React Native, Database: MySQL) ensuring complete functional coverage from user registration to order delivery and returns. The system must test all user roles (Guest, Registered Customers, Premium Customers, Sellers, Admin, Super Admin), validate all CRUD operations, verify frontend-backend-database integration, and provide detailed bug tracking with severity classification and comprehensive reporting capabilities.
 
 ## Requirements
 
@@ -156,7 +156,7 @@ This document outlines the requirements for developing a comprehensive end-to-en
 
 1. WHEN testing frontend functionality THEN the system SHALL validate UI responsiveness, cross-browser compatibility, mobile responsiveness, accessibility compliance, and JavaScript functionality
 2. WHEN testing API endpoints THEN the system SHALL verify REST API responses, request/response formats, authentication tokens, rate limiting, and error handling
-3. WHEN testing database operations THEN the system SHALL validate data persistence, data integrity, transaction handling, backup/restore functionality, and query performance
+3. WHEN testing database operations THEN the system SHALL validate data persistence, data integrity, transaction handling, backup/restore functionality, and query performance with MySQL database
 4. WHEN testing frontend-backend integration THEN the system SHALL verify data synchronization, real-time updates, session management, and error propagation
 5. WHEN testing database-backend integration THEN the system SHALL validate data mapping, connection pooling, transaction rollbacks, and data consistency
 6. WHEN testing end-to-end data flow THEN the system SHALL verify data from frontend forms reaches database correctly, updates reflect in UI, and audit trails are maintained
