@@ -432,7 +432,7 @@ export default function BIInsights({ dataSourceId }: BIInsightsProps) {
       </Card>
 
       {/* Insights Tabs */}
-      <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+      <Tabs defaultValue={selectedTab}>
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="all">
             All ({insights.length})

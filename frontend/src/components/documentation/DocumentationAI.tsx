@@ -343,7 +343,7 @@ const DocumentationAI: React.FC<DocumentationAIProps> = ({
                             key={index}
                             onClick={() => {
                               if (action.action === 'generate_content') {
-                                generateContent(action.data?.prompt || '');
+                                generateContent((action.data as any)?.prompt || '');
                               }
                             }}
                             className="block w-full text-left text-xs p-2 bg-white bg-opacity-20 rounded hover:bg-opacity-30 transition-colors"

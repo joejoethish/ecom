@@ -19757,3 +19757,6 @@ INFO 2025-08-12 07:04:03,438 database_security 8208 13264 Database security moni
 INFO 2025-08-12 07:19:07,438 autoreload 4700 1368 Watching for file changes with StatReloader
 INFO 2025-08-12 07:19:10,416 database_security 4700 1368 Audit tables created successfully
 INFO 2025-08-12 07:19:10,416 database_security 4700 1368 Database security monitoring initialized successfully
+INFO 2025-08-13 15:33:06,792 autoreload 388 8740 Watching for file changes with StatReloader
+INFO 2025-08-13 15:33:12,636 database_security 388 3392 Audit tables created successfully
+INFO 2025-08-13 15:33:12,636 database_security 388 3392 Database security monitoring initialized successfully

@@ -14,7 +14,7 @@ import {
   Edit,
   History,
   Download,
-  Print,
+  Printer,
   Flag
 } from 'lucide-react';
 
@@ -130,7 +130,9 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
   }, [document]);
 
   const updateActiveSection = useCallback(() => {
-    const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    if (typeof window === 'undefined' || !window.document) return;
+    
+    const headings = window.document.querySelectorAll('h1, h2, h3, h4, h5, h6');
     let current = '';
 
     headings.forEach((heading) => {
@@ -183,41 +185,6 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [updateActiveSection]);
-
-  const updateActiveSection = () => {
-    const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-    let current = '';
-
-    headings.forEach((heading) => {
-      const rect = heading.getBoundingClientRect();
-      if (rect.top <= 100) {
-        current = heading.id;
-      }
-    });
-
-    setActiveSection(current);
-  };
-
-  const trackView = async () => {
-    try {
-      await fetch(`/api/documentation/analytics/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          documentation: documentId,
-          event_type: 'view',
-          event_data: {
-            timestamp: new Date().toISOString(),
-            user_agent: navigator.userAgent
-          }
-        })
-      });
-    } catch (error) {
-      console.error('Error tracking view:', error);
-    }
-  };
 
   const handleLike = async () => {
     try {
@@ -325,7 +292,7 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
   };
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
+    const element = window.document?.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -636,7 +603,7 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
                   Download PDF
                 </button>
                 <button className="w-full flex items-center p-2 text-left text-sm text-gray-600 hover:bg-gray-50 rounded">
-                  <Print className="w-4 h-4 mr-2" />
+                  <Printer className="w-4 h-4 mr-2" />
                   Print
                 </button>
                 <button className="w-full flex items-center p-2 text-left text-sm text-gray-600 hover:bg-gray-50 rounded">

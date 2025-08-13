@@ -129,7 +129,7 @@ export default function TenantUserManagement({ tenantId }: TenantUserManagementP
             }
         } catch (error) {
             console.error('Error sending invitation:', error);
-            setMessage({ type: 'error', text: error.message || 'Failed to send invitation' });
+            setMessage({ type: 'error', text: error instanceof Error ? error.message : 'Failed to send invitation' });
         }
     };
 
@@ -270,7 +270,7 @@ export default function TenantUserManagement({ tenantId }: TenantUserManagementP
                                 <Label htmlFor="role">Role</Label>
                                 <Select
                                     value={inviteForm.role}
-                                    onValueChange={(value) => setInviteForm({ ...inviteForm, role: value })}
+                                    onChange={(value) => setInviteForm({ ...inviteForm, role: value })}
                                 >
                                     <SelectTrigger>
                                         <SelectValue />
