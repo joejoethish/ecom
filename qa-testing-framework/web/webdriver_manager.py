@@ -22,9 +22,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.common.exceptions import WebDriverException, TimeoutException
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
+try:
+    from webdriver_manager.chrome import ChromeDriverManager
+    from webdriver_manager.firefox import GeckoDriverManager
+    from webdriver_manager.microsoft import EdgeChromiumDriverManager
+except ImportError:
+    # Fallback for environments where webdriver-manager is not available
+    ChromeDriverManager = None
+    GeckoDriverManager = None
+    EdgeChromiumDriverManager = None
 import logging
 from pathlib import Path
 
@@ -124,7 +130,10 @@ class WebDriverManager:
             options.add_argument(option)
         
         # Create service
-        service = ChromeService(ChromeDriverManager().install())
+        if ChromeDriverManager:
+            service = ChromeService(ChromeDriverManager().install())
+        else:
+            service = ChromeService()  # Use system chromedriver
         
         return webdriver.Chrome(service=service, options=options)
     
@@ -156,7 +165,10 @@ class WebDriverManager:
             options.set_preference(key, value)
         
         # Create service
-        service = FirefoxService(GeckoDriverManager().install())
+        if GeckoDriverManager:
+            service = FirefoxService(GeckoDriverManager().install())
+        else:
+            service = FirefoxService()  # Use system geckodriver
         
         return webdriver.Firefox(service=service, options=options)
     
@@ -194,7 +206,10 @@ class WebDriverManager:
         options.add_experimental_option("prefs", prefs)
         
         # Create service
-        service = EdgeService(EdgeChromiumDriverManager().install())
+        if EdgeChromiumDriverManager:
+            service = EdgeService(EdgeChromiumDriverManager().install())
+        else:
+            service = EdgeService()  # Use system edgedriver
         
         return webdriver.Edge(service=service, options=options)
     
