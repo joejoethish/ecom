@@ -85,7 +85,12 @@
   - Write unit tests for WebDriver utilities
   - _Requirements: 1.1, 1.3, 3.1_
 
-- [ ] 4.2 Implement authentication and user management tests
+- [x] 4.2 Implement authentication and user management tests
+
+
+
+
+
   - Create test cases for user registration, login, and logout flows
   - Implement password reset and account verification testing
   - Add role-based access control validation for all user types
