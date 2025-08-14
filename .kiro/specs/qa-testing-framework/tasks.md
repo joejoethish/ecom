@@ -111,7 +111,12 @@
   - Write test suite for product discovery workflows
   - _Requirements: 1.1, 2.2, 2.3_
 
-- [ ] 4.4 Implement shopping cart and checkout process tests
+- [x] 4.4 Implement shopping cart and checkout process tests
+
+
+
+
+
   - Create test cases for add to cart, update quantity, remove items
   - Implement guest and registered user checkout flow testing
   - Add address management and shipping option validation
