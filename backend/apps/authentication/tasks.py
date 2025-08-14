@@ -20,7 +20,7 @@ def cleanup_expired_password_reset_tokens(self):
     Requirements: 2.6, 5.4
     """
     try:
-        from apps.authentication.models import PasswordResetToken
+        from apps.authentication.models import PasswordReset
         
         logger.info("Starting cleanup of expired password reset tokens")
         
@@ -31,27 +31,27 @@ def cleanup_expired_password_reset_tokens(self):
         
         with transaction.atomic():
             # Count tokens before cleanup for monitoring
-            total_tokens_before = PasswordResetToken.objects.count()
+            total_tokens_before = PasswordReset.objects.count()
             
             # Delete expired tokens (past their expires_at time)
-            expired_deleted, _ = PasswordResetToken.objects.filter(
+            expired_deleted, _ = PasswordReset.objects.filter(
                 expires_at__lt=expired_cutoff
             ).delete()
             
             # Delete old tokens (older than 24 hours, regardless of expiry status)
-            old_deleted, _ = PasswordResetToken.objects.filter(
+            old_deleted, _ = PasswordReset.objects.filter(
                 created_at__lt=old_cutoff
             ).delete()
             
             # Delete used tokens older than 1 hour (keep recent ones for audit)
             used_cutoff = now - timedelta(hours=1)
-            used_deleted, _ = PasswordResetToken.objects.filter(
+            used_deleted, _ = PasswordReset.objects.filter(
                 is_used=True,
                 created_at__lt=used_cutoff
             ).delete()
             
             total_deleted = expired_deleted + old_deleted + used_deleted
-            total_tokens_after = PasswordResetToken.objects.count()
+            total_tokens_after = PasswordReset.objects.count()
         
         result = {
             "status": "success",
@@ -134,7 +134,7 @@ def monitor_password_reset_token_performance(self):
     Requirements: 2.6, 5.4
     """
     try:
-        from apps.authentication.models import PasswordResetToken, PasswordResetAttempt
+        from apps.authentication.models import PasswordReset, PasswordResetAttempt
         from django.db.models import Count, Avg
         from django.db.models.functions import TruncDate
         
@@ -145,21 +145,21 @@ def monitor_password_reset_token_performance(self):
         last_7d = now - timedelta(days=7)
         
         # Token statistics
-        total_tokens = PasswordResetToken.objects.count()
-        active_tokens = PasswordResetToken.objects.filter(
+        total_tokens = PasswordReset.objects.count()
+        active_tokens = PasswordReset.objects.filter(
             is_used=False,
             expires_at__gt=now
         ).count()
-        expired_tokens = PasswordResetToken.objects.filter(
+        expired_tokens = PasswordReset.objects.filter(
             expires_at__lt=now
         ).count()
-        used_tokens = PasswordResetToken.objects.filter(is_used=True).count()
+        used_tokens = PasswordReset.objects.filter(is_used=True).count()
         
         # Recent activity (last 24 hours)
-        recent_tokens_created = PasswordResetToken.objects.filter(
+        recent_tokens_created = PasswordReset.objects.filter(
             created_at__gte=last_24h
         ).count()
-        recent_tokens_used = PasswordResetToken.objects.filter(
+        recent_tokens_used = PasswordReset.objects.filter(
             is_used=True,
             updated_at__gte=last_24h
         ).count()
@@ -181,7 +181,7 @@ def monitor_password_reset_token_performance(self):
         success_rate = (successful_attempts / total_recent_attempts * 100) if total_recent_attempts > 0 else 0
         
         # Daily usage pattern (last 7 days)
-        daily_usage = list(PasswordResetToken.objects.filter(
+        daily_usage = list(PasswordReset.objects.filter(
             created_at__gte=last_7d
         ).annotate(
             date=TruncDate('created_at')

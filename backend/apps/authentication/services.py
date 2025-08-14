@@ -16,7 +16,7 @@ import hashlib
 import hmac
 from datetime import timedelta
 
-from .models import User, UserProfile, UserSession, PasswordResetToken, PasswordResetAttempt
+from .models import User, UserProfile, UserSession, PasswordReset, PasswordResetAttempt
 from .email_service import PasswordResetEmailService
 from .email_service import PasswordResetEmailService
 from .email_service import PasswordResetEmailService
@@ -507,23 +507,23 @@ class PasswordResetService:
         try:
             with transaction.atomic():
                 # Invalidate any existing tokens for this user
-                PasswordResetToken.objects.filter(
+                PasswordReset.objects.filter(
                     user=user,
                     is_used=False
                 ).update(is_used=True)
                 
                 # Generate new secure token
                 raw_token = PasswordResetService._generate_secure_token()
-                token_hash = PasswordResetService._hash_token(raw_token)
                 
                 # Create token record with expiration
                 expires_at = timezone.now() + timedelta(hours=PasswordResetService.TOKEN_EXPIRY_HOURS)
                 
-                reset_token = PasswordResetToken.objects.create(
+                reset_token = PasswordReset.objects.create(
                     user=user,
-                    token_hash=token_hash,
+                    token=raw_token,
                     expires_at=expires_at,
-                    ip_address=ip_address
+                    ip_address=ip_address,
+                    user_agent=user_agent
                 )
                 
                 # Log successful token generation
@@ -558,18 +558,18 @@ class PasswordResetService:
             if not token:
                 return None, "Token is required"
             
-            token_hash = PasswordResetService._hash_token(token)
+
             
             # Find all potential matching tokens (to prevent timing attacks)
-            potential_tokens = PasswordResetToken.objects.filter(
+            potential_tokens = PasswordReset.objects.filter(
                 is_used=False,
                 expires_at__gt=timezone.now()
             ).select_related('user')
             
-            # Use constant-time comparison to find matching token
+            # Use direct comparison since we're not hashing tokens anymore
             matching_token = None
             for db_token in potential_tokens:
-                if PasswordResetService._constant_time_compare(db_token.token_hash, token_hash):
+                if db_token.token == token:
                     matching_token = db_token
                     break
             
@@ -731,7 +731,7 @@ class PasswordResetService:
         Requirements: 2.6 - Token cleanup and maintenance
         """
         try:
-            expired_count = PasswordResetToken.objects.filter(
+            expired_count = PasswordReset.objects.filter(
                 expires_at__lt=timezone.now()
             ).delete()[0]
             
@@ -767,7 +767,7 @@ class PasswordResetService:
         Get password reset tokens for a user (for admin/debugging purposes).
         """
         try:
-            queryset = PasswordResetToken.objects.filter(user=user)
+            queryset = PasswordReset.objects.filter(user=user)
             if not include_used:
                 queryset = queryset.filter(is_used=False)
             
@@ -775,7 +775,7 @@ class PasswordResetService:
             
         except Exception as e:
             logger.error(f"Failed to get user reset tokens: {str(e)}")
-            return PasswordResetToken.objects.none()
+            return PasswordReset.objects.none()
     
     @staticmethod
     def get_ip_reset_attempts(ip_address, hours=24):
