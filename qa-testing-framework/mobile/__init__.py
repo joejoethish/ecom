@@ -27,6 +27,17 @@ from .test_push_notifications import (
     NotificationType, NotificationPriority
 )
 from .mobile_ecommerce_suite import MobileEcommerceTestSuite, create_test_config
+from .test_mobile_auth_integration import MobileAuthIntegrationTests, TestResult, UserTestData
+from .test_mobile_user_journeys import (
+    MobileUserJourneyTests, UserJourneyType, JourneyStep, UserJourney,
+    ProductListPage as JourneyProductListPage, ProductDetailPage as JourneyProductDetailPage,
+    ShoppingCartPage as JourneyShoppingCartPage, CheckoutPage as JourneyCheckoutPage,
+    OrderConfirmationPage
+)
+from .test_offline_functionality import (
+    MobileOfflineFunctionalityTests, NetworkManager, OfflineDataManager,
+    NetworkState, OfflineAction, OfflineActionData, SyncResult, OfflinePage
+)
 
 __all__ = [
     # Core components
@@ -54,6 +65,9 @@ __all__ = [
     'MobileShoppingTests',
     'PushNotificationTests',
     'MobileEcommerceTestSuite',
+    'MobileAuthIntegrationTests',
+    'MobileUserJourneyTests',
+    'MobileOfflineFunctionalityTests',
     
     # Page objects
     'LoginPage',
@@ -65,10 +79,31 @@ __all__ = [
     'ShoppingCartPage',
     'CheckoutPage',
     'PushNotificationPage',
+    'JourneyProductListPage',
+    'JourneyProductDetailPage',
+    'JourneyShoppingCartPage',
+    'JourneyCheckoutPage',
+    'OrderConfirmationPage',
+    'OfflinePage',
+    
+    # Data structures
+    'TestResult',
+    'UserTestData',
+    'JourneyStep',
+    'UserJourney',
+    'OfflineActionData',
+    'SyncResult',
+    
+    # Enums
+    'UserJourneyType',
+    'NetworkState',
+    'OfflineAction',
     
     # Utilities
     'MockNotificationService',
     'NotificationType',
     'NotificationPriority',
+    'NetworkManager',
+    'OfflineDataManager',
     'create_test_config'
 ]

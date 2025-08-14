@@ -157,7 +157,12 @@
 
 
 
-- [ ] 5.2 Implement mobile authentication and core functionality tests
+- [x] 5.2 Implement mobile authentication and core functionality tests
+
+
+
+
+
 
 
 

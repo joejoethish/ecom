@@ -1,0 +1,124 @@
+{
+  "platform": "android",
+  "device_name": "Android Emulator",
+  "app_path": "/path/to/ecommerce-app.apk",
+  "test_settings": {
+    "timeout": 30,
+    "retry_attempts": 3,
+    "screenshot_on_failure": true,
+    "parallel_execution": false
+  },
+  "test_data": {
+    "valid_users": [
+      {
+        "email": "test.user@example.com",
+        "password": "TestPassword123!",
+        "first_name": "Test",
+        "last_name": "User",
+        "user_type": "registered"
+      },
+      {
+        "email": "premium.user@example.com",
+        "password": "PremiumPass456!",
+        "first_name": "Premium",
+        "last_name": "User",
+        "user_type": "premium"
+      }
+    ],
+    "invalid_users": [
+      {
+        "email": "invalid.user@example.com",
+        "password": "WrongPassword",
+        "first_name": "Invalid",
+        "last_name": "User"
+      }
+    ],
+    "test_products": [
+      {
+        "id": "product_1",
+        "name": "Test Smartphone",
+        "category": "Electronics",
+        "price": 599.99
+      },
+      {
+        "id": "product_2",
+        "name": "Test Laptop",
+        "category": "Electronics",
+        "price": 1299.99
+      }
+    ],
+    "test_addresses": [
+      {
+        "first_name": "John",
+        "last_name": "Doe",
+        "address_line1": "123 Test Street",
+        "city": "Test City",
+        "state": "Test State",
+        "zip_code": "12345",
+        "country": "US"
+      }
+    ],
+    "test_payments": [
+      {
+        "card_number": "4111111111111111",
+        "expiry_date": "12/25",
+        "cvv": "123",
+        "cardholder_name": "Test User"
+      }
+    ]
+  },
+  "notification_tests": [
+    {
+      "title": "Welcome Notification",
+      "body": "Welcome to our mobile app!",
+      "type": "promotional",
+      "priority": "normal"
+    },
+    {
+      "title": "Order Update",
+      "body": "Your order has been shipped",
+      "type": "transactional",
+      "priority": "high",
+      "deep_link": "order_detail"
+    },
+    {
+      "title": "Flash Sale Alert",
+      "body": "50% off on selected items!",
+      "type": "marketing",
+      "priority": "normal"
+    }
+  ],
+  "offline_test_scenarios": [
+    {
+      "name": "Network Interruption",
+      "duration": 5,
+      "actions": ["add_to_cart", "update_profile"]
+    },
+    {
+      "name": "Extended Offline",
+      "duration": 30,
+      "actions": ["browse_products", "save_products", "search"]
+    }
+  ],
+  "device_configurations": {
+    "android": {
+      "platformName": "Android",
+      "automationName": "UiAutomator2",
+      "platformVersion": "11.0",
+      "appPackage": "com.example.ecommerce",
+      "appActivity": ".MainActivity",
+      "newCommandTimeout": 300,
+      "noReset": true,
+      "fullReset": false
+    },
+    "ios": {
+      "platformName": "iOS",
+      "automationName": "XCUITest",
+      "platformVersion": "15.0",
+      "bundleId": "com.example.ecommerce",
+      "newCommandTimeout": 300,
+      "noReset": true,
+      "fullReset": false
+    }
+  }
+}

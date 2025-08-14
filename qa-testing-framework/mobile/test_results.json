@@ -1,0 +1,397 @@
+{
+  "integration_tests": {
+    "setup_failed": true,
+    "results": []
+  },
+  "user_journeys": {
+    "summary": {
+      "total_journeys": 3,
+      "passed_journeys": 1,
+      "failed_journeys": 2,
+      "total_steps": 29,
+      "passed_steps": 15,
+      "failed_steps": 14,
+      "overall_success_rate": 51.724137931034484,
+      "total_duration": 21.730764389038086
+    },
+    "journeys": [
+      {
+        "journey_type": "guest_purchase",
+        "journey_name": "Guest Purchase Journey",
+        "description": "Complete purchase flow for guest user from product search to order confirmation",
+        "passed": false,
+        "success_rate": 16.666666666666664,
+        "total_duration": 4.29050087928772,
+        "steps": [
+          {
+            "step_name": "open_app",
+            "description": "Open mobile app",
+            "expected_result": "App opens successfully",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 3.004481315612793,
+            "screenshot": ""
+          },
+          {
+            "step_name": "browse_products",
+            "description": "Browse product catalog",
+            "expected_result": "Product list loads",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.10976576805114746,
+            "screenshot": ""
+          },
+          {
+            "step_name": "search_product",
+            "description": "Search for specific product",
+            "expected_result": "Search results display",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.0055255889892578125,
+            "screenshot": ""
+          },
+          {
+            "step_name": "select_product",
+            "description": "Select product from results",
+            "expected_result": "Product detail page opens",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.0010004043579101562,
+            "screenshot": ""
+          },
+          {
+            "step_name": "add_to_cart",
+            "description": "Add product to cart",
+            "expected_result": "Product added to cart",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.0032346248626708984,
+            "screenshot": ""
+          },
+          {
+            "step_name": "view_cart",
+            "description": "View shopping cart",
+            "expected_result": "Cart page displays with items",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.003002643585205078,
+            "screenshot": ""
+          },
+          {
+            "step_name": "proceed_checkout",
+            "description": "Proceed to checkout",
+            "expected_result": "Checkout page loads",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.04261636734008789,
+            "screenshot": ""
+          },
+          {
+            "step_name": "fill_guest_info",
+            "description": "Fill guest information",
+            "expected_result": "Guest details entered",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.0403587818145752,
+            "screenshot": ""
+          },
+          {
+            "step_name": "fill_address",
+            "description": "Fill shipping address",
+            "expected_result": "Address information entered",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.0,
+            "screenshot": ""
+          },
+          {
+            "step_name": "select_payment",
+            "description": "Select payment method",
+            "expected_result": "Payment method selected",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.0038979053497314453,
+            "screenshot": ""
+          },
+          {
+            "step_name": "place_order",
+            "description": "Place order",
+            "expected_result": "Order placed successfully",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.0,
+            "screenshot": ""
+          },
+          {
+            "step_name": "confirm_order",
+            "description": "Verify order confirmation",
+            "expected_result": "Order confirmation displayed",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.0,
+            "screenshot": ""
+          }
+        ]
+      },
+      {
+        "journey_type": "registered_purchase",
+        "journey_name": "Registered User Purchase Journey",
+        "description": "Complete purchase flow for registered user with saved preferences",
+        "passed": false,
+        "success_rate": 72.72727272727273,
+        "total_duration": 12.345304489135742,
+        "steps": [
+          {
+            "step_name": "open_app",
+            "description": "Open mobile app",
+            "expected_result": "App opens successfully",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 3.020000696182251,
+            "screenshot": ""
+          },
+          {
+            "step_name": "login",
+            "description": "Login with registered account",
+            "expected_result": "User logged in successfully",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.002010822296142578,
+            "screenshot": ""
+          },
+          {
+            "step_name": "browse_categories",
+            "description": "Browse product categories",
+            "expected_result": "Categories display correctly",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.016066312789917,
+            "screenshot": ""
+          },
+          {
+            "step_name": "filter_products",
+            "description": "Apply product filters",
+            "expected_result": "Filtered results display",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.0355980396270752,
+            "screenshot": ""
+          },
+          {
+            "step_name": "add_multiple_items",
+            "description": "Add multiple items to cart",
+            "expected_result": "Multiple items in cart",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 2.045745611190796,
+            "screenshot": ""
+          },
+          {
+            "step_name": "apply_coupon",
+            "description": "Apply discount coupon",
+            "expected_result": "Coupon applied successfully",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.0,
+            "screenshot": ""
+          },
+          {
+            "step_name": "checkout_saved_address",
+            "description": "Use saved address for checkout",
+            "expected_result": "Saved address selected",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.0030853748321533,
+            "screenshot": ""
+          },
+          {
+            "step_name": "saved_payment_method",
+            "description": "Use saved payment method",
+            "expected_result": "Saved payment selected",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.0040252208709717,
+            "screenshot": ""
+          },
+          {
+            "step_name": "review_order",
+            "description": "Review order details",
+            "expected_result": "Order details correct",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.022620677947998,
+            "screenshot": ""
+          },
+          {
+            "step_name": "complete_purchase",
+            "description": "Complete purchase",
+            "expected_result": "Purchase completed successfully",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.008039712905883789,
+            "screenshot": ""
+          },
+          {
+            "step_name": "view_order_history",
+            "description": "View order in history",
+            "expected_result": "Order appears in history",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 2.0081474781036377,
+            "screenshot": ""
+          }
+        ]
+      },
+      {
+        "journey_type": "premium_user_journey",
+        "journey_name": "Premium User Journey",
+        "description": "Premium user experience with exclusive features and benefits",
+        "passed": true,
+        "success_rate": 83.33333333333334,
+        "total_duration": 5.090938568115234,
+        "steps": [
+          {
+            "step_name": "login_premium",
+            "description": "Login as premium user",
+            "expected_result": "Premium user logged in",
+            "actual_result": "Failed",
+            "passed": false,
+            "duration": 0.014847517013549805,
+            "screenshot": ""
+          },
+          {
+            "step_name": "access_premium_section",
+            "description": "Access premium-only section",
+            "expected_result": "Premium section accessible",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.0304973125457764,
+            "screenshot": ""
+          },
+          {
+            "step_name": "view_exclusive_products",
+            "description": "View exclusive products",
+            "expected_result": "Exclusive products visible",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.0062963962554932,
+            "screenshot": ""
+          },
+          {
+            "step_name": "premium_discount",
+            "description": "Apply premium discount",
+            "expected_result": "Premium discount applied",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.0055427551269531,
+            "screenshot": ""
+          },
+          {
+            "step_name": "priority_support",
+            "description": "Access priority support",
+            "expected_result": "Priority support available",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.0152454376220703,
+            "screenshot": ""
+          },
+          {
+            "step_name": "free_shipping",
+            "description": "Verify free shipping",
+            "expected_result": "Free shipping applied",
+            "actual_result": "Passed",
+            "passed": true,
+            "duration": 1.009446382522583,
+            "screenshot": ""
+          }
+        ]
+      }
+    ]
+  },
+  "offline_functionality": {
+    "total_tests": 7,
+    "passed_tests": 2,
+    "failed_tests": 5,
+    "success_rate": 28.57142857142857,
+    "total_duration": 53.84727120399475,
+    "network_state": "online",
+    "pending_actions": 0,
+    "results": [
+      {
+        "test_name": "offline_mode_detection",
+        "passed": false,
+        "duration": 0.0,
+        "error_message": "Offline mode detection test failed: Can't instantiate abstract class OfflinePage with abstract method is_loaded",
+        "timestamp": 1755158914.9454997
+      },
+      {
+        "test_name": "offline_content_caching",
+        "passed": false,
+        "duration": 0.0,
+        "error_message": "Offline content caching test failed: Can't instantiate abstract class OfflinePage with abstract method is_loaded",
+        "timestamp": 1755158914.9454997
+      },
+      {
+        "test_name": "offline_user_actions",
+        "passed": false,
+        "duration": 0.0,
+        "error_message": "Offline user actions test failed: Can't instantiate abstract class OfflinePage with abstract method is_loaded",
+        "timestamp": 1755158914.9454997
+      },
+      {
+        "test_name": "data_synchronization",
+        "passed": true,
+        "duration": 4.614701509475708,
+        "error_message": null,
+        "timestamp": 1755158919.5602012
+      },
+      {
+        "test_name": "intermittent_connectivity",
+        "passed": true,
+        "duration": 26.064444303512573,
+        "error_message": null,
+        "timestamp": 1755158945.6246455
+      },
+      {
+        "test_name": "offline_cart_persistence",
+        "passed": false,
+        "duration": 7.03098726272583,
+        "error_message": "Offline cart persistence test failed: Can't instantiate abstract class OfflinePage with abstract method is_loaded",
+        "timestamp": 1755158952.6556327
+      },
+      {
+        "test_name": "network_recovery_handling",
+        "passed": false,
+        "duration": 16.135125875473022,
+        "error_message": null,
+        "timestamp": 1755158968.7907586
+      }
+    ]
+  },
+  "summary": {
+    "platform": "android",
+    "device_name": "Test Device",
+    "total_tests": 36,
+    "passed_tests": 17,
+    "failed_tests": 19,
+    "overall_success_rate": 47.22222222222222,
+    "total_duration": 93.97839832305908,
+    "test_suites": {
+      "integration_tests": {
+        "passed": 0,
+        "total": 0,
+        "success_rate": 0
+      },
+      "user_journeys": {
+        "passed": 15,
+        "total": 29,
+        "success_rate": 51.724137931034484
+      },
+      "offline_functionality": {
+        "passed": 2,
+        "total": 7,
+        "success_rate": 28.57142857142857
+      }
+    }
+  }
+}
