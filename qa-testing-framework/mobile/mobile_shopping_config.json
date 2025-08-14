@@ -1,0 +1,252 @@
+{
+  "mobile_shopping_test_config": {
+    "platforms": {
+      "android": {
+        "device_name": "Android Emulator",
+        "platform_version": "11.0",
+        "app_package": "com.ecommerce.mobile",
+        "app_activity": ".MainActivity",
+        "automation_name": "UiAutomator2"
+      },
+      "ios": {
+        "device_name": "iPhone Simulator",
+        "platform_version": "15.0",
+        "bundle_id": "com.ecommerce.mobile",
+        "automation_name": "XCUITest"
+      }
+    },
+    "test_data": {
+      "products": {
+        "search_terms": ["smartphone", "laptop", "headphones", "shoes", "books"],
+        "categories": ["Electronics", "Clothing", "Books", "Home & Garden", "Sports"],
+        "price_ranges": [
+          {"min": 0, "max": 50},
+          {"min": 50, "max": 200},
+          {"min": 200, "max": 1000}
+        ]
+      },
+      "shopping_cart": {
+        "test_quantities": [1, 2, 5, 10],
+        "promo_codes": ["SAVE10", "WELCOME20", "MOBILE15", "INVALID123"],
+        "max_cart_items": 50
+      },
+      "checkout": {
+        "shipping_addresses": [
+          {
+            "first_name": "John",
+            "last_name": "Doe",
+            "address_line1": "123 Main Street",
+            "address_line2": "Apt 4B",
+            "city": "New York",
+            "state": "NY",
+            "zip_code": "10001",
+            "country": "US",
+            "phone": "555-123-4567"
+          },
+          {
+            "first_name": "Jane",
+            "last_name": "Smith",
+            "address_line1": "456 Oak Avenue",
+            "city": "Los Angeles",
+            "state": "CA",
+            "zip_code": "90210",
+            "country": "US",
+            "phone": "555-987-6543"
+          }
+        ],
+        "payment_methods": {
+          "credit_cards": [
+            {
+              "card_number": "4111111111111111",
+              "expiry_date": "12/25",
+              "cvv": "123",
+              "cardholder_name": "John Doe",
+              "card_type": "Visa"
+            },
+            {
+              "card_number": "5555555555554444",
+              "expiry_date": "06/26",
+              "cvv": "456",
+              "cardholder_name": "Jane Smith",
+              "card_type": "Mastercard"
+            },
+            {
+              "card_number": "378282246310005",
+              "expiry_date": "09/27",
+              "cvv": "7890",
+              "cardholder_name": "Test User",
+              "card_type": "American Express"
+            }
+          ],
+          "digital_wallets": ["paypal", "apple_pay", "google_pay"],
+          "alternative_payments": ["cash_on_delivery", "bank_transfer"]
+        }
+      },
+      "guest_checkout": {
+        "guest_info": {
+          "email": "guest@example.com",
+          "phone": "555-000-0000"
+        }
+      }
+    },
+    "mobile_features": {
+      "camera": {
+        "barcode_scanning": true,
+        "product_image_capture": true,
+        "qr_code_scanning": true
+      },
+      "location_services": {
+        "store_locator": true,
+        "shipping_estimates": true,
+        "local_inventory": true
+      },
+      "notifications": {
+        "push_notifications": true,
+        "in_app_notifications": true,
+        "email_notifications": true
+      },
+      "offline_capabilities": {
+        "cart_persistence": true,
+        "product_caching": true,
+        "wishlist_sync": true
+      }
+    },
+    "touch_interactions": {
+      "gestures": {
+        "swipe": {
+          "directions": ["left", "right", "up", "down"],
+          "distances": [100, 200, 300],
+          "speeds": ["slow", "medium", "fast"]
+        },
+        "pinch_zoom": {
+          "scales": [0.5, 1.5, 2.0, 3.0],
+          "center_points": ["center", "top_left", "bottom_right"]
+        },
+        "long_press": {
+          "durations": [500, 1000, 1500, 2000]
+        },
+        "double_tap": {
+          "intervals": [100, 200, 300]
+        }
+      },
+      "scroll_behaviors": {
+        "infinite_scroll": true,
+        "pull_to_refresh": true,
+        "momentum_scrolling": true
+      }
+    },
+    "performance_thresholds": {
+      "page_load_time": 3.0,
+      "image_load_time": 2.0,
+      "search_response_time": 1.5,
+      "cart_update_time": 1.0,
+      "checkout_completion_time": 10.0
+    },
+    "accessibility": {
+      "screen_reader_support": true,
+      "voice_over_support": true,
+      "high_contrast_mode": true,
+      "font_scaling": true
+    },
+    "security": {
+      "ssl_verification": true,
+      "payment_encryption": true,
+      "biometric_authentication": true,
+      "session_timeout": 1800
+    },
+    "test_scenarios": {
+      "user_journeys": [
+        {
+          "name": "complete_purchase_journey",
+          "steps": [
+            "browse_products",
+            "search_product",
+            "view_product_details",
+            "add_to_cart",
+            "modify_cart",
+            "proceed_to_checkout",
+            "fill_shipping_info",
+            "select_payment_method",
+            "place_order",
+            "verify_confirmation"
+          ]
+        },
+        {
+          "name": "guest_checkout_journey",
+          "steps": [
+            "browse_products_as_guest",
+            "add_to_cart",
+            "guest_checkout",
+            "fill_guest_info",
+            "complete_payment",
+            "verify_order"
+          ]
+        },
+        {
+          "name": "mobile_wallet_journey",
+          "steps": [
+            "select_products",
+            "add_to_cart",
+            "express_checkout",
+            "select_mobile_wallet",
+            "authenticate_payment",
+            "confirm_order"
+          ]
+        },
+        {
+          "name": "offline_shopping_journey",
+          "steps": [
+            "browse_products_online",
+            "add_to_cart",
+            "go_offline",
+            "verify_cart_persistence",
+            "go_online",
+            "complete_checkout"
+          ]
+        }
+      ],
+      "edge_cases": [
+        {
+          "name": "network_interruption",
+          "description": "Test behavior during network interruptions"
+        },
+        {
+          "name": "low_memory_conditions",
+          "description": "Test app behavior under low memory conditions"
+        },
+        {
+          "name": "background_app_recovery",
+          "description": "Test cart persistence when app is backgrounded"
+        },
+        {
+          "name": "payment_failure_recovery",
+          "description": "Test recovery from payment failures"
+        }
+      ]
+    },
+    "validation_rules": {
+      "cart": {
+        "max_quantity_per_item": 99,
+        "max_total_items": 50,
+        "min_order_value": 1.00,
+        "max_order_value": 10000.00
+      },
+      "checkout": {
+        "required_fields": [
+          "first_name",
+          "last_name",
+          "address_line1",
+          "city",
+          "state",
+          "zip_code",
+          "country"
+        ],
+        "payment_validation": {
+          "card_number_length": [13, 16, 19],
+          "cvv_length": [3, 4],
+          "expiry_date_format": "MM/YY"
+        }
+      }
+    }
+  }
+}
