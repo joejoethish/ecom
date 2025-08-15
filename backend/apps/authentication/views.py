@@ -3,7 +3,7 @@ Authentication views for the ecommerce platform.
 """
 from rest_framework import status, generics
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -682,6 +682,632 @@ class CSRFTokenView(APIView):
                 'error': {
                     'code': 'CSRF_ERROR',
                     'message': 'Failed to generate CSRF token'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# ============================================================================
+# USER MANAGEMENT CRUD OPERATIONS - TASK 4.1, 4.2, 4.3
+# ============================================================================
+
+class UserManagementView(APIView):
+    """
+    User management API endpoints for admin operations.
+    GET /api/v1/users/ - List users with pagination and filtering
+    POST /api/v1/users/ - Create new user (admin only)
+    
+    Requirements: 6.1, 6.2 - User management CRUD operations
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        """Set permissions based on request method."""
+        if self.request.method == 'POST':
+            # Only admins can create users
+            return [IsAuthenticated(), IsAdminUser()]
+        return [IsAuthenticated()]
+
+    def get(self, request):
+        """
+        List users with pagination and filtering.
+        Requirements: 6.1 - GET /api/v1/users/ endpoint with pagination and filtering
+        """
+        try:
+            # Check if user has permission to view users
+            if not (request.user.is_staff or request.user.user_type in ['admin', 'super_admin']):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'PERMISSION_DENIED',
+                        'message': 'You do not have permission to view users'
+                    }
+                }, status=status.HTTP_403_FORBIDDEN)
+
+            # Get query parameters for filtering
+            user_type = request.query_params.get('user_type')
+            is_active = request.query_params.get('is_active')
+            is_verified = request.query_params.get('is_verified')
+            search = request.query_params.get('search')
+            
+            # Pagination parameters
+            page = int(request.query_params.get('page', 1))
+            page_size = min(int(request.query_params.get('page_size', 20)), 100)  # Max 100 items per page
+            
+            # Build queryset
+            queryset = User.objects.all().order_by('-created_at')
+            
+            # Apply filters
+            if user_type:
+                queryset = queryset.filter(user_type=user_type)
+            
+            if is_active is not None:
+                is_active_bool = is_active.lower() in ['true', '1', 'yes']
+                queryset = queryset.filter(is_active=is_active_bool)
+            
+            if is_verified is not None:
+                is_verified_bool = is_verified.lower() in ['true', '1', 'yes']
+                queryset = queryset.filter(is_email_verified=is_verified_bool)
+            
+            if search:
+                from django.db.models import Q
+                queryset = queryset.filter(
+                    Q(email__icontains=search) |
+                    Q(username__icontains=search) |
+                    Q(first_name__icontains=search) |
+                    Q(last_name__icontains=search)
+                )
+            
+            # Calculate pagination
+            total_count = queryset.count()
+            start_index = (page - 1) * page_size
+            end_index = start_index + page_size
+            
+            users = queryset[start_index:end_index]
+            
+            # Serialize data
+            from .serializers import UserListSerializer
+            serializer = UserListSerializer(users, many=True)
+            
+            return Response({
+                'success': True,
+                'data': {
+                    'users': serializer.data,
+                    'pagination': {
+                        'page': page,
+                        'page_size': page_size,
+                        'total_count': total_count,
+                        'total_pages': (total_count + page_size - 1) // page_size,
+                        'has_next': end_index < total_count,
+                        'has_previous': page > 1
+                    }
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except ValueError as e:
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'INVALID_PARAMETERS',
+                    'message': 'Invalid pagination parameters'
+                }
+            }, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            logger.error(f"User list retrieval failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'INTERNAL_ERROR',
+                    'message': 'Failed to retrieve users'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def post(self, request):
+        """
+        Create new user (admin only).
+        Requirements: 6.1 - POST /api/v1/users/ endpoint for admin user creation
+        """
+        try:
+            from .serializers import AdminUserCreateSerializer
+            
+            serializer = AdminUserCreateSerializer(data=request.data)
+            
+            if not serializer.is_valid():
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'VALIDATION_ERROR',
+                        'message': 'Invalid user data',
+                        'details': serializer.errors
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+            # Create user
+            user = serializer.save()
+            
+            # Log admin action
+            logger.info(f"User created by admin {request.user.email}: {user.email}")
+            
+            return Response({
+                'success': True,
+                'message': 'User created successfully',
+                'data': {
+                    'user': UserSerializer(user).data
+                }
+            }, status=status.HTTP_201_CREATED)
+            
+        except Exception as e:
+            logger.error(f"Admin user creation failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'CREATION_FAILED',
+                    'message': 'Failed to create user'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserDetailView(APIView):
+    """
+    User detail API endpoints for admin operations.
+    GET /api/v1/users/{id}/ - Get user profile
+    PUT /api/v1/users/{id}/ - Update user profile
+    DELETE /api/v1/users/{id}/ - Delete user account
+    
+    Requirements: 6.1, 6.2 - User profile retrieval, updates, and deletion
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get_user(self, user_id):
+        """Get user by ID with error handling."""
+        try:
+            return User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            return None
+        except ValueError:
+            return None
+
+    def check_admin_permission(self, request):
+        """Check if user has admin permissions."""
+        return request.user.is_staff or request.user.user_type in ['admin', 'super_admin']
+
+    def get(self, request, user_id):
+        """
+        Get user profile by ID.
+        Requirements: 6.1 - GET /api/v1/users/{id}/ endpoint for user profile retrieval
+        """
+        try:
+            # Check permissions
+            if not self.check_admin_permission(request):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'PERMISSION_DENIED',
+                        'message': 'You do not have permission to view user profiles'
+                    }
+                }, status=status.HTTP_403_FORBIDDEN)
+
+            # Get user
+            user = self.get_user(user_id)
+            if not user:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'USER_NOT_FOUND',
+                        'message': 'User not found'
+                    }
+                }, status=status.HTTP_404_NOT_FOUND)
+
+            # Serialize and return user data
+            serializer = UserSerializer(user)
+            
+            return Response({
+                'success': True,
+                'data': {
+                    'user': serializer.data
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"User profile retrieval failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'INTERNAL_ERROR',
+                    'message': 'Failed to retrieve user profile'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def put(self, request, user_id):
+        """
+        Update user profile by ID.
+        Requirements: 6.1 - PUT /api/v1/users/{id}/ endpoint for user profile updates
+        """
+        try:
+            # Check permissions
+            if not self.check_admin_permission(request):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'PERMISSION_DENIED',
+                        'message': 'You do not have permission to update user profiles'
+                    }
+                }, status=status.HTTP_403_FORBIDDEN)
+
+            # Get user
+            user = self.get_user(user_id)
+            if not user:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'USER_NOT_FOUND',
+                        'message': 'User not found'
+                    }
+                }, status=status.HTTP_404_NOT_FOUND)
+
+            # Update user
+            from .serializers import AdminUserUpdateSerializer
+            serializer = AdminUserUpdateSerializer(user, data=request.data, partial=True)
+            
+            if not serializer.is_valid():
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'VALIDATION_ERROR',
+                        'message': 'Invalid user data',
+                        'details': serializer.errors
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+            updated_user = serializer.save()
+            
+            # Log admin action
+            logger.info(f"User updated by admin {request.user.email}: {updated_user.email}")
+            
+            return Response({
+                'success': True,
+                'message': 'User updated successfully',
+                'data': {
+                    'user': UserSerializer(updated_user).data
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"User profile update failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'UPDATE_FAILED',
+                    'message': 'Failed to update user profile'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def delete(self, request, user_id):
+        """
+        Delete user account by ID.
+        Requirements: 6.2 - DELETE /api/v1/users/{id}/ endpoint for user account deletion
+        """
+        try:
+            # Check permissions
+            if not self.check_admin_permission(request):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'PERMISSION_DENIED',
+                        'message': 'You do not have permission to delete user accounts'
+                    }
+                }, status=status.HTTP_403_FORBIDDEN)
+
+            # Get user
+            user = self.get_user(user_id)
+            if not user:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'USER_NOT_FOUND',
+                        'message': 'User not found'
+                    }
+                }, status=status.HTTP_404_NOT_FOUND)
+
+            # Prevent deletion of super admin users
+            if user.is_superuser and not request.user.is_superuser:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'PERMISSION_DENIED',
+                        'message': 'Cannot delete super admin users'
+                    }
+                }, status=status.HTTP_403_FORBIDDEN)
+
+            # Prevent self-deletion
+            if user.id == request.user.id:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'SELF_DELETION_DENIED',
+                        'message': 'Cannot delete your own account'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+            # Store user info for logging
+            user_email = user.email
+            
+            # Delete user (this will cascade to related objects)
+            with transaction.atomic():
+                # Deactivate all user sessions first
+                UserSession.objects.filter(user=user).update(is_active=False)
+                
+                # Delete the user
+                user.delete()
+            
+            # Log admin action
+            logger.info(f"User deleted by admin {request.user.email}: {user_email}")
+            
+            return Response({
+                'success': True,
+                'message': 'User account deleted successfully'
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"User account deletion failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'DELETION_FAILED',
+                    'message': 'Failed to delete user account'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserSelfManagementView(APIView):
+    """
+    User self-management API endpoints.
+    GET /api/v1/users/me/ - Get current user profile
+    PUT /api/v1/users/me/ - Update current user profile
+    DELETE /api/v1/users/me/ - Delete current user account
+    
+    Requirements: 6.1, 6.2 - User self-management endpoints
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """
+        Get current user profile.
+        Requirements: 6.1 - GET /api/v1/users/me/ endpoint for current user profile
+        """
+        try:
+            serializer = UserSerializer(request.user)
+            
+            return Response({
+                'success': True,
+                'data': {
+                    'user': serializer.data
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"Current user profile retrieval failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'INTERNAL_ERROR',
+                    'message': 'Failed to retrieve user profile'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def put(self, request):
+        """
+        Update current user profile.
+        Requirements: 6.1 - PUT /api/v1/users/me/ endpoint for profile updates
+        """
+        try:
+            serializer = UserUpdateSerializer(request.user, data=request.data, partial=True)
+            
+            if not serializer.is_valid():
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'VALIDATION_ERROR',
+                        'message': 'Invalid profile data',
+                        'details': serializer.errors
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+            updated_user = serializer.save()
+            
+            logger.info(f"User profile updated: {updated_user.email}")
+            
+            return Response({
+                'success': True,
+                'message': 'Profile updated successfully',
+                'data': {
+                    'user': UserSerializer(updated_user).data
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"User profile update failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'UPDATE_FAILED',
+                    'message': 'Failed to update profile'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def delete(self, request):
+        """
+        Delete current user account (self-deletion).
+        Requirements: 6.2 - DELETE /api/v1/users/me/ endpoint for account self-deletion
+        """
+        try:
+            from .serializers import UserSelfDeleteSerializer
+            
+            serializer = UserSelfDeleteSerializer(data=request.data, context={'request': request})
+            
+            if not serializer.is_valid():
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'VALIDATION_ERROR',
+                        'message': 'Invalid deletion request',
+                        'details': serializer.errors
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+            user = request.user
+            user_email = user.email
+            
+            # Delete user account
+            with transaction.atomic():
+                # Deactivate all user sessions first
+                UserSession.objects.filter(user=user).update(is_active=False)
+                
+                # Delete the user
+                user.delete()
+            
+            logger.info(f"User account self-deleted: {user_email}")
+            
+            return Response({
+                'success': True,
+                'message': 'Account deleted successfully'
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"User account self-deletion failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'DELETION_FAILED',
+                    'message': 'Failed to delete account'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserSessionManagementView(APIView):
+    """
+    User session management API endpoints.
+    GET /api/v1/users/me/sessions/ - List user sessions
+    DELETE /api/v1/users/me/sessions/all/ - Logout all sessions
+    
+    Requirements: 5.1, 5.2 - Session management endpoints
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """
+        List current user's active sessions.
+        Requirements: 5.1 - GET /api/v1/users/me/sessions/ endpoint for session listing
+        """
+        try:
+            sessions = UserSession.objects.filter(
+                user=request.user,
+                is_active=True
+            ).order_by('-last_activity')
+            
+            serializer = UserSessionSerializer(sessions, many=True)
+            
+            return Response({
+                'success': True,
+                'data': {
+                    'sessions': serializer.data,
+                    'total_count': sessions.count()
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"User sessions retrieval failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'INTERNAL_ERROR',
+                    'message': 'Failed to retrieve sessions'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def delete(self, request):
+        """
+        Logout all user sessions.
+        Requirements: 5.2 - DELETE /api/v1/users/me/sessions/all/ endpoint for logout all
+        """
+        try:
+            # Get current session key to preserve it (optional)
+            current_session_key = request.session.session_key
+            
+            # Deactivate all sessions
+            sessions_count = UserSession.objects.filter(
+                user=request.user,
+                is_active=True
+            ).update(is_active=False)
+            
+            logger.info(f"All sessions terminated for user {request.user.email}: {sessions_count} sessions")
+            
+            return Response({
+                'success': True,
+                'message': f'All sessions terminated successfully ({sessions_count} sessions)',
+                'data': {
+                    'terminated_sessions': sessions_count
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"Session termination failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'TERMINATION_FAILED',
+                    'message': 'Failed to terminate sessions'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserSessionDetailView(APIView):
+    """
+    Individual session management API endpoint.
+    DELETE /api/v1/users/me/sessions/{session_id}/ - Terminate specific session
+    
+    Requirements: 5.2 - Session termination endpoint
+    """
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, session_id):
+        """
+        Terminate specific user session.
+        Requirements: 5.2 - DELETE /api/v1/users/me/sessions/{session_id}/ endpoint
+        """
+        try:
+            # Get session
+            try:
+                session = UserSession.objects.get(
+                    id=session_id,
+                    user=request.user,
+                    is_active=True
+                )
+            except UserSession.DoesNotExist:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'SESSION_NOT_FOUND',
+                        'message': 'Session not found or already terminated'
+                    }
+                }, status=status.HTTP_404_NOT_FOUND)
+
+            # Terminate session
+            session.terminate()
+            
+            logger.info(f"Session {session_id} terminated for user {request.user.email}")
+            
+            return Response({
+                'success': True,
+                'message': 'Session terminated successfully'
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"Session termination failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'TERMINATION_FAILED',
+                    'message': 'Failed to terminate session'
                 }
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

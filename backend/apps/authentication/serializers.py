@@ -375,10 +375,150 @@ class UserSessionSerializer(serializers.ModelSerializer):
     """
     Serializer for user sessions.
     """
+    device_name = serializers.ReadOnlyField()
+    
     class Meta:
         model = UserSession
         fields = (
-            'id', 'session_key', 'ip_address', 'user_agent', 'device_type',
-            'location', 'is_active', 'last_activity', 'created_at'
+            'id', 'session_key', 'ip_address', 'user_agent', 'device_info',
+            'location', 'is_active', 'last_activity', 'created_at', 'device_name',
+            'login_method'
         )
-        read_only_fields = ('id', 'created_at')
+        read_only_fields = ('id', 'created_at', 'device_name')
+
+
+class UserListSerializer(serializers.ModelSerializer):
+    """
+    Serializer for user list view with minimal fields for performance.
+    """
+    full_name = serializers.ReadOnlyField()
+    
+    class Meta:
+        model = User
+        fields = (
+            'id', 'username', 'email', 'first_name', 'last_name', 'full_name',
+            'user_type', 'is_active', 'is_email_verified', 'created_at', 'last_login'
+        )
+        read_only_fields = ('id', 'created_at', 'last_login', 'full_name')
+
+
+class AdminUserCreateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for admin user creation with enhanced validation.
+    """
+    password = serializers.CharField(write_only=True, validators=[validate_password])
+    password_confirm = serializers.CharField(write_only=True)
+    profile = UserProfileSerializer(required=False)
+
+    class Meta:
+        model = User
+        fields = (
+            'username', 'email', 'password', 'password_confirm', 'first_name', 
+            'last_name', 'user_type', 'phone_number', 'date_of_birth', 'gender',
+            'is_active', 'is_staff', 'is_superuser', 'newsletter_subscription', 
+            'sms_notifications', 'email_notifications', 'bio', 'website', 'profile'
+        )
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password_confirm']:
+            raise serializers.ValidationError({"password": "Passwords don't match"})
+        
+        # Validate email uniqueness
+        email = attrs.get('email')
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError({"email": "User with this email already exists"})
+        
+        return attrs
+
+    def validate_email(self, value):
+        """Validate email format and uniqueness."""
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("User with this email already exists")
+        return value
+
+    def validate_username(self, value):
+        """Validate username uniqueness."""
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError("User with this username already exists")
+        return value
+
+    def create(self, validated_data):
+        profile_data = validated_data.pop('profile', {})
+        validated_data.pop('password_confirm')
+        
+        user = User.objects.create_user(**validated_data)
+        
+        # Update user profile if profile data is provided
+        if profile_data:
+            profile = user.profile
+            for attr, value in profile_data.items():
+                setattr(profile, attr, value)
+            profile.save()
+        
+        return user
+
+
+class AdminUserUpdateSerializer(serializers.ModelSerializer):
+    """
+    Serializer for admin user updates.
+    """
+    profile = UserProfileSerializer(required=False)
+
+    class Meta:
+        model = User
+        fields = (
+            'username', 'email', 'first_name', 'last_name', 'user_type', 
+            'phone_number', 'date_of_birth', 'gender', 'is_active', 'is_staff', 
+            'is_superuser', 'newsletter_subscription', 'sms_notifications', 
+            'email_notifications', 'bio', 'website', 'profile'
+        )
+
+    def validate_email(self, value):
+        """Validate email uniqueness excluding current user."""
+        if self.instance and self.instance.email != value:
+            if User.objects.filter(email=value).exists():
+                raise serializers.ValidationError("User with this email already exists")
+        return value
+
+    def validate_username(self, value):
+        """Validate username uniqueness excluding current user."""
+        if self.instance and self.instance.username != value:
+            if User.objects.filter(username=value).exists():
+                raise serializers.ValidationError("User with this username already exists")
+        return value
+
+    def update(self, instance, validated_data):
+        profile_data = validated_data.pop('profile', {})
+        
+        # Update user fields
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        
+        # Update profile fields
+        if profile_data:
+            profile, created = UserProfile.objects.get_or_create(user=instance)
+            for attr, value in profile_data.items():
+                setattr(profile, attr, value)
+            profile.save()
+        
+        return instance
+
+
+class UserSelfDeleteSerializer(serializers.Serializer):
+    """
+    Serializer for user self-deletion confirmation.
+    """
+    password = serializers.CharField(required=True)
+    confirm_deletion = serializers.BooleanField(required=True)
+
+    def validate_confirm_deletion(self, value):
+        if not value:
+            raise serializers.ValidationError("You must confirm account deletion")
+        return value
+
+    def validate_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError("Password is incorrect")
+        return value

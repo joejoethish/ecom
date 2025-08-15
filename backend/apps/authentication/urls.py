@@ -36,6 +36,13 @@ urlpatterns = [
     # Session management
     path('sessions/', views.UserSessionsView.as_view(), name='user_sessions'),
     
+    # User management CRUD endpoints
+    path('users/', views.UserManagementView.as_view(), name='user_management'),
+    path('users/<int:user_id>/', views.UserDetailView.as_view(), name='user_detail'),
+    path('users/me/', views.UserSelfManagementView.as_view(), name='user_self_management'),
+    path('users/me/sessions/', views.UserSessionManagementView.as_view(), name='user_session_management'),
+    path('users/me/sessions/<int:session_id>/', views.UserSessionDetailView.as_view(), name='user_session_detail'),
+    
     # Admin authentication endpoints
     path('admin-auth/', include('apps.authentication.admin_urls')),
 ]
