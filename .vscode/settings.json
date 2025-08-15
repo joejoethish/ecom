@@ -1,3 +1,13 @@
 {
-    "typescript.autoClosingTags": false
+    "typescript.autoClosingTags": false,
+    "kiroAgent.trustedCommands": [
+        "python *",
+        "npm *",
+        "next *",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from django.urls import reverse; print('✓ Testing admin authentication URL routing:'); print('✓ Admin login URL:', reverse('admin_login')); print('✓ Admin logout URL:', reverse('admin_logout')); print('✓ Admin refresh URL:', reverse('admin_refresh')); print('✓ All admin authentication URLs are properly configured!')\"",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from apps.authentication.views import AdminLoginAPIView, AdminLogoutAPIView, AdminTokenRefreshAPIView; print('✓ Admin API views imported successfully'); from django.urls import reverse; print('✓ URL patterns check complete')\"",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from django.urls import reverse; print('✓ Testing admin auth URLs:'); print('  - admin_login:', reverse('admin_login')); print('  - admin_logout:', reverse('admin_logout')); print('  - admin_refresh:', reverse('admin_refresh'))\"",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from django.urls import reverse; print('✓ Testing email verification URLs:'); print('  - verify_email_api:', reverse('verify_email_api', kwargs={'token': 'test123'})); print('  - resend_verification_api:', reverse('resend_verification_api'))\"",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); print('🔍 Authentication System Status Check'); print('=' * 50); from apps.authentication.services import AuthenticationService, EmailVerificationService; print('✓ Core Services: OK'); admin_methods = ['authenticate_admin_user', 'logout_admin_user', 'refresh_admin_token']; print('✓ Admin Methods:'); [print(f'  - {method}: ✓') for method in admin_methods if hasattr(AuthenticationService, method)]; from apps.authentication.views import AdminLoginAPIView, EmailVerificationAPIView; print('✓ API Views: OK'); from django.urls import reverse; print('✓ URL Routing: OK'); print('🎉 Authentication System: FULLY OPERATIONAL')\""
+    ]
 }

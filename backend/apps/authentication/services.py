@@ -311,6 +311,182 @@ class AuthenticationService:
             logger.error(f"Error getting user by email: {str(e)}")
             return None
 
+    @staticmethod
+    def authenticate_admin_user(email: str, password: str, request_data: Optional[Dict[str, Any]] = None) -> Tuple[Optional[User], Optional[Dict[str, str]]]:
+        """
+        Authenticate admin user with enhanced security validation.
+        
+        Args:
+            email: Admin email address
+            password: Admin password
+            request_data: Request metadata for session creation
+            
+        Returns:
+            Tuple of (User instance or None, JWT tokens dict or None)
+            
+        Requirements: 2.1, 2.2 - Admin authentication with enhanced security
+        """
+        try:
+            email = email.lower().strip()
+            
+            # Get user and verify admin privileges
+            try:
+                user = User.objects.get(email=email, is_active=True)
+                
+                # Check if user has admin privileges
+                if not (user.is_staff or user.is_superuser or user.user_type in ['admin', 'super_admin']):
+                    logger.warning(f"Non-admin user attempted admin login: {email}")
+                    raise Exception("Not admin user")
+                
+                # Check if account is locked
+                if user.is_account_locked:
+                    logger.warning(f"Admin authentication attempt on locked account: {email}")
+                    raise Exception("Account locked")
+                    
+            except User.DoesNotExist:
+                logger.warning(f"Admin authentication attempt for non-existent user: {email}")
+                raise Exception("Invalid credentials")
+            
+            # Authenticate user
+            authenticated_user = authenticate(username=email, password=password)
+            
+            if authenticated_user and authenticated_user.is_active:
+                # Reset failed login attempts on successful login
+                user.reset_failed_login()
+                
+                # Update last login IP
+                if request_data and 'ip_address' in request_data:
+                    user.last_login_ip = request_data['ip_address']
+                    user.save(update_fields=['last_login_ip'])
+                
+                # Create admin session with enhanced tracking
+                if request_data:
+                    request_data['login_method'] = 'admin_password'
+                    SessionManagementService.create_session(user, request_data)
+                
+                # Generate JWT tokens with admin claims
+                refresh = RefreshToken.for_user(user)
+                refresh['user_type'] = user.user_type
+                refresh['is_admin'] = True
+                
+                tokens = {
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                }
+                
+                logger.info(f"Admin user authenticated successfully: {email}")
+                return user, tokens
+            else:
+                # Increment failed login attempts
+                user.increment_failed_login()
+                logger.warning(f"Admin authentication failed for: {email}")
+                raise Exception("Invalid credentials")
+                
+        except Exception as e:
+            logger.error(f"Admin authentication error: {str(e)}")
+            raise
+
+    @staticmethod
+    def logout_admin_user(user: User, refresh_token: Optional[str] = None, 
+                         session_id: Optional[str] = None) -> Tuple[bool, str]:
+        """
+        Logout admin user with enhanced audit logging.
+        
+        Args:
+            user: Admin user instance
+            refresh_token: JWT refresh token to blacklist
+            session_id: Specific session to logout
+            
+        Returns:
+            Tuple of (success: bool, message: str)
+            
+        Requirements: 2.1, 2.2 - Admin logout with audit logging
+        """
+        try:
+            with transaction.atomic():
+                # Blacklist refresh token if provided
+                if refresh_token:
+                    try:
+                        token = RefreshToken(refresh_token)
+                        token.blacklist()
+                        logger.info(f"Admin refresh token blacklisted for user: {user.email}")
+                    except Exception as e:
+                        logger.warning(f"Failed to blacklist admin refresh token: {str(e)}")
+                
+                # Terminate specific session or all sessions
+                if session_id:
+                    success = SessionManagementService.terminate_session(session_id)
+                    if success:
+                        logger.info(f"Admin session {session_id} terminated for user: {user.email}")
+                        return True, "Admin session terminated successfully"
+                    else:
+                        logger.warning(f"Failed to terminate admin session {session_id} for user: {user.email}")
+                        return False, "Failed to terminate admin session"
+                else:
+                    # Terminate all sessions for admin user
+                    count = SessionManagementService.terminate_all_sessions(user)
+                    logger.info(f"All admin sessions terminated for user {user.email}: {count} sessions")
+                    return True, f"All admin sessions terminated successfully ({count} sessions)"
+                
+        except Exception as e:
+            logger.error(f"Admin logout failed for user {user.email}: {str(e)}")
+            return False, f"Admin logout failed: {str(e)}"
+
+    @staticmethod
+    def refresh_admin_token(refresh_token: str) -> Optional[Dict[str, str]]:
+        """
+        Generate new admin access token from refresh token with enhanced validation.
+        
+        Args:
+            refresh_token: JWT refresh token string
+            
+        Returns:
+            Dictionary with new tokens or None if invalid
+            
+        Requirements: 2.1, 2.2 - Admin token refresh with enhanced validation
+        """
+        try:
+            refresh = RefreshToken(refresh_token)
+            
+            # Get user from token and verify admin privileges
+            user_id = refresh.payload.get('user_id')
+            if not user_id:
+                raise Exception("Invalid token")
+            
+            try:
+                user = User.objects.get(id=user_id, is_active=True)
+                
+                # Verify user still has admin privileges
+                if not (user.is_staff or user.is_superuser or user.user_type in ['admin', 'super_admin']):
+                    logger.warning(f"Token refresh denied - user no longer admin: {user.email}")
+                    raise Exception("Not admin user")
+                
+                # Check if account is locked
+                if user.is_account_locked:
+                    logger.warning(f"Token refresh denied - admin account locked: {user.email}")
+                    raise Exception("Account locked")
+                    
+            except User.DoesNotExist:
+                logger.warning(f"Token refresh failed - user not found: {user_id}")
+                raise Exception("Invalid token")
+            
+            # Generate new access token with admin claims
+            new_refresh = RefreshToken.for_user(user)
+            new_refresh['user_type'] = user.user_type
+            new_refresh['is_admin'] = True
+            
+            new_tokens = {
+                'access': str(new_refresh.access_token),
+                'refresh': str(new_refresh),
+            }
+            
+            logger.info(f"Admin token refreshed successfully for user: {user.email}")
+            return new_tokens
+            
+        except Exception as e:
+            logger.warning(f"Admin token refresh failed: {str(e)}")
+            raise
+
 class EmailVerificationService:
     """
     Service class for email verification workflow.

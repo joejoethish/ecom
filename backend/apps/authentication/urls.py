@@ -1,7 +1,7 @@
 """
 Authentication URL patterns.
 """
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -25,10 +25,17 @@ urlpatterns = [
     path('validate-reset-token/<str:token>/', views.ValidateResetTokenAPIView.as_view(), name='validate_reset_token_api'),
     path('csrf-token/', views.CSRFTokenView.as_view(), name='csrf_token'),
     
-    # Email verification
+    # Email verification - Updated to use complete API views
+    path('verify-email/<str:token>/', views.EmailVerificationAPIView.as_view(), name='verify_email_api'),
+    path('resend-verification/', views.ResendVerificationAPIView.as_view(), name='resend_verification_api'),
+    
+    # Legacy email verification endpoints (for backward compatibility)
     path('verify-email/', views.VerifyEmailView.as_view(), name='verify_email'),
-    path('resend-verification/', views.ResendVerificationView.as_view(), name='resend_verification'),
+    path('resend-verification-legacy/', views.ResendVerificationView.as_view(), name='resend_verification'),
     
     # Session management
     path('sessions/', views.UserSessionsView.as_view(), name='user_sessions'),
+    
+    # Admin authentication endpoints
+    path('admin-auth/', include('apps.authentication.admin_urls')),
 ]
