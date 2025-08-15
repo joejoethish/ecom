@@ -378,6 +378,162 @@ class UserSessionsView(APIView):
         })
 
 
+class UserSessionManagementView(APIView):
+    """
+    Session management API endpoints for authenticated users.
+    GET /api/v1/users/me/sessions/ - List user sessions
+    
+    Requirements: 5.1 - Session listing functionality
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """
+        List user sessions with device and activity information.
+        Requirements: 5.1 - Session listing with device and location information
+        """
+        try:
+            # Get user sessions using the service
+            sessions = SessionManagementService.get_user_sessions(
+                user=request.user,
+                active_only=True
+            )
+            
+            # Serialize the sessions
+            serializer = UserSessionSerializer(sessions, many=True)
+            
+            # Add current session indicator
+            current_session_key = getattr(request.session, 'session_key', None)
+            sessions_data = serializer.data
+            
+            for session_data in sessions_data:
+                session_data['is_current'] = session_data['session_key'] == current_session_key
+            
+            return Response({
+                'success': True,
+                'data': {
+                    'sessions': sessions_data,
+                    'total_count': len(sessions_data)
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"Failed to retrieve user sessions: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'SESSION_RETRIEVAL_FAILED',
+                    'message': 'Failed to retrieve sessions'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserSessionDetailView(APIView):
+    """
+    Individual session management API endpoint.
+    DELETE /api/v1/users/me/sessions/{session_id}/ - Terminate specific session
+    
+    Requirements: 5.2 - Session termination (single session)
+    """
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, session_id):
+        """
+        Terminate a specific user session.
+        Requirements: 5.2 - Session termination (single session)
+        """
+        try:
+            # Verify the session belongs to the current user
+            try:
+                session = UserSession.objects.get(
+                    id=session_id,
+                    user=request.user,
+                    is_active=True
+                )
+            except UserSession.DoesNotExist:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'SESSION_NOT_FOUND',
+                        'message': 'Session not found or already terminated'
+                    }
+                }, status=status.HTTP_404_NOT_FOUND)
+            
+            # Terminate the session using the service
+            success = SessionManagementService.terminate_session(session.session_key)
+            
+            if success:
+                return Response({
+                    'success': True,
+                    'message': 'Session terminated successfully',
+                    'data': {
+                        'session_id': session_id,
+                        'device_name': session.device_name
+                    }
+                }, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'SESSION_TERMINATION_FAILED',
+                        'message': 'Failed to terminate session'
+                    }
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                
+        except Exception as e:
+            logger.error(f"Failed to terminate session {session_id}: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'INTERNAL_ERROR',
+                    'message': 'An error occurred while terminating the session'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserSessionTerminateAllView(APIView):
+    """
+    Terminate all user sessions API endpoint.
+    DELETE /api/v1/users/me/sessions/all/ - Terminate all sessions
+    
+    Requirements: 5.2 - Session termination (all sessions)
+    """
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        """
+        Terminate all user sessions.
+        Requirements: 5.2 - Session termination (all sessions)
+        """
+        try:
+            # Get current session key to exclude it (optional)
+            current_session_key = getattr(request.session, 'session_key', None)
+            
+            # Terminate all sessions using the service
+            terminated_count = SessionManagementService.terminate_all_sessions(
+                user=request.user,
+                exclude_session_key=current_session_key
+            )
+            
+            return Response({
+                'success': True,
+                'message': f'All sessions terminated successfully',
+                'data': {
+                    'terminated_count': terminated_count
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"Failed to terminate all sessions: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'SESSION_TERMINATION_FAILED',
+                    'message': 'Failed to terminate sessions'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 class VerifyEmailView(APIView):
     """
     Email verification endpoint.

@@ -28,6 +28,17 @@ export interface PasswordResetError {
   details?: any;
 }
 
+export interface EmailVerificationResponse {
+  success: boolean;
+  message: string;
+  user?: any;
+}
+
+export interface ResendVerificationResponse {
+  success: boolean;
+  message: string;
+}
+
 export const authApi = {
   /**
    * Request a password reset for the given email address
@@ -119,6 +130,63 @@ export const authApi = {
         }
       },
       { token: token.substring(0, 8) + '...' }
+    );
+  },
+
+  /**
+   * Verify email using a verification token
+   * @param token - Email verification token from email link
+   * @returns Promise with verification result
+   */
+  async verifyEmail(token: string): Promise<ApiResponse<EmailVerificationResponse>> {
+    return withPerformanceMonitoring(
+      'email_verification',
+      async () => {
+        try {
+          const response = await apiClient.get<EmailVerificationResponse>(
+            API_ENDPOINTS.AUTH.VERIFY_EMAIL(token)
+          );
+          return response;
+        } catch (error) {
+          return {
+            success: false,
+            error: {
+              message: 'Failed to verify email',
+              code: 'verification_failed',
+              status_code: 500
+            }
+          };
+        }
+      },
+      { token: token.substring(0, 8) + '...' }
+    );
+  },
+
+  /**
+   * Resend email verification
+   * @returns Promise with resend result
+   */
+  async resendVerification(): Promise<ApiResponse<ResendVerificationResponse>> {
+    return withPerformanceMonitoring(
+      'resend_verification',
+      async () => {
+        try {
+          const response = await apiClient.post<ResendVerificationResponse>(
+            API_ENDPOINTS.AUTH.RESEND_VERIFICATION,
+            {}
+          );
+          return response;
+        } catch (error) {
+          return {
+            success: false,
+            error: {
+              message: 'Failed to resend verification email',
+              code: 'resend_failed',
+              status_code: 500
+            }
+          };
+        }
+      }
     );
   }
 };

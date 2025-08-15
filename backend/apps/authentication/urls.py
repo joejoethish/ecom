@@ -41,6 +41,7 @@ urlpatterns = [
     path('users/<int:user_id>/', views.UserDetailView.as_view(), name='user_detail'),
     path('users/me/', views.UserSelfManagementView.as_view(), name='user_self_management'),
     path('users/me/sessions/', views.UserSessionManagementView.as_view(), name='user_session_management'),
+    path('users/me/sessions/all/', views.UserSessionTerminateAllView.as_view(), name='user_session_terminate_all'),
     path('users/me/sessions/<int:session_id>/', views.UserSessionDetailView.as_view(), name='user_session_detail'),
     
     # Admin authentication endpoints

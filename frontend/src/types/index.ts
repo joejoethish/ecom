@@ -11,6 +11,7 @@ export interface User {
   user_type: 'customer' | 'seller' | 'admin' | 'inventory_manager' | 'warehouse_staff';
   phone_number?: string;
   is_verified: boolean;
+  is_email_verified?: boolean;
   is_staff?: boolean;
   is_superuser?: boolean;
   seller_profile?: any;
@@ -28,6 +29,27 @@ export interface AuthState {
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
+}
+
+export interface UserSession {
+  id: string;
+  session_key: string;
+  device_info: {
+    browser?: string;
+    os?: string;
+    device?: string;
+    user_agent?: string;
+  };
+  ip_address: string;
+  location?: {
+    country?: string;
+    city?: string;
+    region?: string;
+  };
+  created_at: string;
+  last_activity: string;
+  is_active: boolean;
+  is_current: boolean;
 }
 
 export interface ApiResponse<T = any> {
@@ -207,6 +229,18 @@ export interface RegisterData {
   password_confirm: string;
   user_type?: 'customer' | 'seller';
   phone_number?: string;
+}
+
+export interface EmailVerificationData {
+  token: string;
+  success: boolean;
+  message: string;
+  user?: User;
+}
+
+export interface ResendVerificationData {
+  success: boolean;
+  message: string;
 }
 
 export interface FormErrors {

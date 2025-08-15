@@ -13,6 +13,8 @@ export const API_ENDPOINTS = {
     FORGOT_PASSWORD: '/auth/forgot-password/',
     RESET_PASSWORD: '/auth/reset-password/',
     VALIDATE_RESET_TOKEN: (token: string) => `/auth/validate-reset-token/${token}/`,
+    VERIFY_EMAIL: (token: string) => `/auth/verify-email/${token}/`,
+    RESEND_VERIFICATION: '/auth/resend-verification/',
   },
   // Products
   PRODUCTS: {
