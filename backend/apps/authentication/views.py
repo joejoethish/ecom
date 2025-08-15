@@ -21,8 +21,11 @@ from django.utils.decorators import method_decorator
 from django.middleware.csrf import get_token
 import logging
 
-from .models import User, UserProfile, UserSession
-from .services import PasswordResetService
+from .models import User, UserProfile, UserSession, EmailVerification
+from .services import (
+    AuthenticationService, EmailVerificationService, 
+    PasswordResetService, SessionManagementService
+)
 from .serializers import (
     UserRegistrationSerializer, UserSerializer, UserUpdateSerializer,
     CustomTokenObtainPairSerializer, PasswordChangeSerializer,
@@ -681,3 +684,1110 @@ class CSRFTokenView(APIView):
                     'message': 'Failed to generate CSRF token'
                 }
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# ============================================================================
+# NEW API ENDPOINTS FOR TASK 3.1 - User Registration and Login API Endpoints
+# ============================================================================
+
+class UserRegistrationAPIView(APIView):
+    """
+    Enhanced user registration API endpoint with validation.
+    POST /api/v1/auth/register/
+    
+    Requirements: 1.1, 1.2 - User registration with email uniqueness validation
+    """
+    permission_classes = [AllowAny]
+
+    def _get_request_data(self, request):
+        """Extract request metadata for session creation."""
+        return {
+            'ip_address': self._get_client_ip(request),
+            'user_agent': request.META.get('HTTP_USER_AGENT', ''),
+            'location': request.data.get('location', ''),
+        }
+
+    def _get_client_ip(self, request):
+        """Get client IP address from request."""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
+
+    def post(self, request):
+        """Handle user registration with enhanced validation."""
+        try:
+            serializer = UserRegistrationSerializer(data=request.data)
+            
+            if not serializer.is_valid():
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'VALIDATION_ERROR',
+                        'message': 'Invalid registration data',
+                        'details': serializer.errors
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+
+            # Extract user and profile data
+            user_data = serializer.validated_data.copy()
+            profile_data = user_data.pop('profile', {})
+            user_data.pop('password_confirm', None)
+            
+            # Get request metadata
+            request_data = self._get_request_data(request)
+            
+            # Register user using service
+            user, tokens = AuthenticationService.register_user(
+                user_data=user_data,
+                profile_data=profile_data,
+                request_data=request_data
+            )
+            
+            # Return success response
+            return Response({
+                'success': True,
+                'message': 'Registration successful. Please check your email for verification.',
+                'data': {
+                    'user': UserSerializer(user).data,
+                    'tokens': tokens
+                }
+            }, status=status.HTTP_201_CREATED)
+            
+        except Exception as e:
+            logger.error(f"User registration failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'REGISTRATION_FAILED',
+                    'message': 'Registration failed. Please try again.'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserLoginAPIView(APIView):
+    """
+    Enhanced user login API endpoint with authentication.
+    POST /api/v1/auth/login/
+    
+    Requirements: 1.2, 2.2 - Secure user authentication with password verification
+    """
+    permission_classes = [AllowAny]
+
+    def _get_request_data(self, request):
+        """Extract request metadata for session creation."""
+        return {
+            'ip_address': self._get_client_ip(request),
+            'user_agent': request.META.get('HTTP_USER_AGENT', ''),
+            'location': request.data.get('location', ''),
+            'login_method': 'password'
+        }
+
+    def _get_client_ip(self, request):
+        """Get client IP address from request."""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
+
+    def post(self, request):
+        """Handle user login with enhanced security."""
+        try:
+            email = request.data.get('email', '').strip().lower()
+            password = request.data.get('password', '')
+            
+            if not email or not password:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'MISSING_CREDENTIALS',
+                        'message': 'Email and password are required'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Get request metadata
+            request_data = self._get_request_data(request)
+            
+            # Authenticate user using service
+            user, tokens = AuthenticationService.authenticate_user(
+                email=email,
+                password=password,
+                request_data=request_data
+            )
+            
+            # Return success response
+            return Response({
+                'success': True,
+                'message': 'Login successful',
+                'data': {
+                    'user': UserSerializer(user).data,
+                    'tokens': tokens
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"User login failed: {str(e)}")
+            
+            # Check if it's an authentication error
+            if 'Invalid credentials' in str(e):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'INVALID_CREDENTIALS',
+                        'message': 'Invalid email or password'
+                    }
+                }, status=status.HTTP_401_UNAUTHORIZED)
+            elif 'Account locked' in str(e):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'ACCOUNT_LOCKED',
+                        'message': 'Account temporarily locked due to multiple failed attempts'
+                    }
+                }, status=status.HTTP_423_LOCKED)
+            elif 'Email not verified' in str(e):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'EMAIL_NOT_VERIFIED',
+                        'message': 'Please verify your email address before logging in'
+                    }
+                }, status=status.HTTP_403_FORBIDDEN)
+            else:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'LOGIN_FAILED',
+                        'message': 'Login failed. Please try again.'
+                    }
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserLogoutAPIView(APIView):
+    """
+    Enhanced user logout API endpoint with session cleanup.
+    POST /api/v1/auth/logout/
+    
+    Requirements: 1.2, 2.2 - Logout functionality with session cleanup
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """Handle user logout with session cleanup."""
+        try:
+            refresh_token = request.data.get('refresh_token')
+            session_id = request.data.get('session_id')
+            
+            # Logout user using service
+            success, message = AuthenticationService.logout_user(
+                user=request.user,
+                refresh_token=refresh_token,
+                session_id=session_id
+            )
+            
+            if success:
+                return Response({
+                    'success': True,
+                    'message': 'Successfully logged out'
+                }, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'LOGOUT_FAILED',
+                        'message': message
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+                
+        except Exception as e:
+            logger.error(f"User logout failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'LOGOUT_ERROR',
+                    'message': 'An error occurred during logout'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class TokenRefreshAPIView(APIView):
+    """
+    Enhanced token refresh API endpoint.
+    POST /api/v1/auth/refresh/
+    
+    Requirements: 1.2, 2.2 - JWT token refresh functionality
+    """
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        """Handle token refresh."""
+        try:
+            refresh_token = request.data.get('refresh')
+            
+            if not refresh_token:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'MISSING_REFRESH_TOKEN',
+                        'message': 'Refresh token is required'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Refresh token using service
+            new_tokens = AuthenticationService.refresh_token(refresh_token)
+            
+            return Response({
+                'success': True,
+                'message': 'Token refreshed successfully',
+                'data': {
+                    'tokens': new_tokens
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"Token refresh failed: {str(e)}")
+            
+            if 'Invalid token' in str(e) or 'Token expired' in str(e):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'INVALID_REFRESH_TOKEN',
+                        'message': 'Invalid or expired refresh token'
+                    }
+                }, status=status.HTTP_401_UNAUTHORIZED)
+            else:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'REFRESH_ERROR',
+                        'message': 'An error occurred during token refresh'
+                    }
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# ============================================================================
+# PASSWORD RESET API ENDPOINTS FOR TASK 3.3
+# ============================================================================
+
+class PasswordResetRequestAPIView(APIView):
+    """
+    Enhanced password reset request API endpoint.
+    POST /api/v1/auth/password-reset/request/
+    
+    Requirements: 4.1, 4.2 - Password reset request with secure token generation
+    """
+    permission_classes = [AllowAny]
+
+    def _get_client_ip(self, request):
+        """Get client IP address from request."""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
+
+    def post(self, request):
+        """Handle password reset request."""
+        try:
+            serializer = ForgotPasswordSerializer(data=request.data)
+            
+            if not serializer.is_valid():
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'VALIDATION_ERROR',
+                        'message': 'Invalid input data',
+                        'details': serializer.errors
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            email = serializer.validated_data['email']
+            
+            # Get request metadata
+            ip_address = self._get_client_ip(request)
+            user_agent = request.META.get('HTTP_USER_AGENT', '')
+            
+            # Request password reset using service
+            success, message, token = PasswordResetService.request_password_reset(
+                email=email,
+                ip_address=ip_address,
+                user_agent=user_agent
+            )
+            
+            if success:
+                return Response({
+                    'success': True,
+                    'message': 'If the email exists, a password reset link has been sent'
+                }, status=status.HTTP_200_OK)
+            else:
+                # Check if it's a rate limit error
+                if "Too many requests" in message:
+                    return Response({
+                        'success': False,
+                        'error': {
+                            'code': 'RATE_LIMIT_EXCEEDED',
+                            'message': message
+                        }
+                    }, status=status.HTTP_429_TOO_MANY_REQUESTS)
+                else:
+                    return Response({
+                        'success': False,
+                        'error': {
+                            'code': 'REQUEST_FAILED',
+                            'message': 'Password reset request failed'
+                        }
+                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    
+        except Exception as e:
+            logger.error(f"Password reset request failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'REQUEST_ERROR',
+                    'message': 'An error occurred processing your request'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class PasswordResetConfirmAPIView(APIView):
+    """
+    Enhanced password reset confirmation API endpoint.
+    POST /api/v1/auth/password-reset/confirm/
+    
+    Requirements: 4.1, 4.2 - Secure password reset confirmation with token validation
+    """
+    permission_classes = [AllowAny]
+
+    def _get_client_ip(self, request):
+        """Get client IP address from request."""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
+
+    def post(self, request):
+        """Handle password reset confirmation."""
+        try:
+            serializer = ResetPasswordSerializer(data=request.data)
+            
+            if not serializer.is_valid():
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'VALIDATION_ERROR',
+                        'message': 'Invalid input data',
+                        'details': serializer.errors
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            token = serializer.validated_data['token']
+            new_password = serializer.validated_data['password']
+            
+            # Get request metadata
+            ip_address = self._get_client_ip(request)
+            user_agent = request.META.get('HTTP_USER_AGENT', '')
+            
+            # Reset password using service
+            success, message = PasswordResetService.reset_password(
+                token=token,
+                new_password=new_password,
+                ip_address=ip_address,
+                user_agent=user_agent
+            )
+            
+            if success:
+                return Response({
+                    'success': True,
+                    'message': 'Password reset successful. You can now login with your new password.'
+                }, status=status.HTTP_200_OK)
+            else:
+                # Determine error code based on message
+                error_code = 'RESET_FAILED'
+                status_code = status.HTTP_400_BAD_REQUEST
+                
+                if 'expired' in message.lower():
+                    error_code = 'TOKEN_EXPIRED'
+                elif 'invalid' in message.lower():
+                    error_code = 'TOKEN_INVALID'
+                elif 'used' in message.lower():
+                    error_code = 'TOKEN_USED'
+                
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': error_code,
+                        'message': message
+                    }
+                }, status=status_code)
+                
+        except Exception as e:
+            logger.error(f"Password reset confirmation failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'RESET_ERROR',
+                    'message': 'An error occurred during password reset'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserLogoutAPIView(APIView):
+    """
+    Enhanced user logout API endpoint with session cleanup.
+    POST /api/v1/auth/logout/
+    
+    Requirements: 1.2 - Logout functionality with session cleanup
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """Handle user logout with session cleanup."""
+        try:
+            # Get logout parameters
+            logout_all = request.data.get('logout_all', False)
+            session_key = request.data.get('session_key')
+            
+            # Logout user using service
+            success = AuthenticationService.logout_user(
+                user=request.user,
+                session_key=session_key,
+                logout_all=logout_all
+            )
+            
+            if success:
+                # Try to blacklist refresh token if provided
+                refresh_token = request.data.get('refresh_token')
+                if refresh_token:
+                    try:
+                        token = RefreshToken(refresh_token)
+                        token.blacklist()
+                    except Exception as e:
+                        logger.warning(f"Failed to blacklist token: {str(e)}")
+                
+                return Response({
+                    'success': True,
+                    'message': 'Logout successful'
+                }, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'LOGOUT_FAILED',
+                        'message': 'Logout failed'
+                    }
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                
+        except Exception as e:
+            logger.error(f"User logout failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'LOGOUT_ERROR',
+                    'message': 'An error occurred during logout'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class TokenRefreshAPIView(APIView):
+    """
+    Enhanced token refresh API endpoint.
+    POST /api/v1/auth/refresh/
+    
+    Requirements: 1.2 - JWT token generation and refresh token functionality
+    """
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        """Handle token refresh."""
+        try:
+            refresh_token = request.data.get('refresh')
+            
+            if not refresh_token:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'MISSING_TOKEN',
+                        'message': 'Refresh token is required'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Refresh token using service
+            tokens = AuthenticationService.refresh_token(refresh_token)
+            
+            if tokens:
+                return Response({
+                    'success': True,
+                    'message': 'Token refreshed successfully',
+                    'data': {
+                        'tokens': tokens
+                    }
+                }, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'INVALID_TOKEN',
+                        'message': 'Invalid or expired refresh token'
+                    }
+                }, status=status.HTTP_401_UNAUTHORIZED)
+                
+        except Exception as e:
+            logger.error(f"Token refresh failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'REFRESH_FAILED',
+                    'message': 'Token refresh failed'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# ============================================================================
+# EMAIL VERIFICATION API ENDPOINTS FOR TASK 3.2
+# ============================================================================
+
+class EmailVerificationAPIView(APIView):
+    """
+    Email verification API endpoint.
+    GET /api/v1/auth/verify-email/{token}/
+    
+    Requirements: 3.1, 3.2 - Email verification confirmation logic
+    """
+    permission_classes = [AllowAny]
+
+    def get(self, request, token):
+        """Handle email verification using token."""
+        try:
+            if not token:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'MISSING_TOKEN',
+                        'message': 'Verification token is required'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Verify email using service
+            success, error_message, user = EmailVerificationService.verify_email(token)
+            
+            if success and user:
+                return Response({
+                    'success': True,
+                    'message': 'Email verified successfully',
+                    'data': {
+                        'user': UserSerializer(user).data
+                    }
+                }, status=status.HTTP_200_OK)
+            else:
+                # Determine error code based on message
+                error_code = 'VERIFICATION_FAILED'
+                if 'expired' in error_message.lower():
+                    error_code = 'TOKEN_EXPIRED'
+                elif 'invalid' in error_message.lower():
+                    error_code = 'TOKEN_INVALID'
+                
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': error_code,
+                        'message': error_message or 'Email verification failed'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+                
+        except Exception as e:
+            logger.error(f"Email verification failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'VERIFICATION_ERROR',
+                    'message': 'An error occurred during email verification'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class ResendVerificationAPIView(APIView):
+    """
+    Resend email verification API endpoint.
+    POST /api/v1/auth/resend-verification/
+    
+    Requirements: 3.2 - Resend verification functionality with rate limiting
+    """
+    permission_classes = [IsAuthenticated]
+
+    def _get_request_data(self, request):
+        """Extract request metadata."""
+        return {
+            'ip_address': self._get_client_ip(request),
+            'user_agent': request.META.get('HTTP_USER_AGENT', ''),
+        }
+
+    def _get_client_ip(self, request):
+        """Get client IP address from request."""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
+
+    def post(self, request):
+        """Handle resend email verification."""
+        try:
+            user = request.user
+            
+            # Check if email is already verified
+            if user.is_email_verified:
+                return Response({
+                    'success': True,
+                    'message': 'Email is already verified'
+                }, status=status.HTTP_200_OK)
+            
+            # Get request metadata
+            request_data = self._get_request_data(request)
+            
+            # Resend verification using service
+            success, error_message = EmailVerificationService.resend_verification(
+                user=user,
+                request_data=request_data
+            )
+            
+            if success:
+                return Response({
+                    'success': True,
+                    'message': 'Verification email sent successfully'
+                }, status=status.HTTP_200_OK)
+            else:
+                # Check if it's a rate limit error
+                if "Too many" in error_message:
+                    return Response({
+                        'success': False,
+                        'error': {
+                            'code': 'RATE_LIMIT_EXCEEDED',
+                            'message': error_message
+                        }
+                    }, status=status.HTTP_429_TOO_MANY_REQUESTS)
+                else:
+                    return Response({
+                        'success': False,
+                        'error': {
+                            'code': 'RESEND_FAILED',
+                            'message': error_message or 'Failed to send verification email'
+                        }
+                    }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                
+        except Exception as e:
+            logger.error(f"Resend verification failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'RESEND_ERROR',
+                    'message': 'An error occurred while sending verification email'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# ============================================================================
+# PASSWORD RESET API ENDPOINTS FOR TASK 3.3 (DUPLICATE SECTION)
+# ============================================================================
+
+class PasswordResetRequestAPIView(APIView):
+    """
+    Password reset request API endpoint.
+    POST /api/v1/auth/password-reset/request/
+    
+    Requirements: 4.1, 4.2 - Secure password reset token generation and validation
+    """
+    permission_classes = [AllowAny]
+
+    def _get_client_ip(self, request):
+        """Get client IP address from request."""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
+
+    def post(self, request):
+        """Handle password reset request."""
+        try:
+            email = request.data.get('email', '').strip().lower()
+            
+            if not email:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'MISSING_EMAIL',
+                        'message': 'Email address is required'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Basic email format validation
+            import re
+            if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', email):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'INVALID_EMAIL',
+                        'message': 'Invalid email format'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Get request metadata
+            ip_address = self._get_client_ip(request)
+            user_agent = request.META.get('HTTP_USER_AGENT', '')
+            
+            # Request password reset using service
+            success, message, token = PasswordResetService.request_password_reset(
+                email=email,
+                ip_address=ip_address,
+                user_agent=user_agent
+            )
+            
+            if success:
+                # Always return success message to prevent email enumeration
+                return Response({
+                    'success': True,
+                    'message': 'If the email exists, a password reset link has been sent'
+                }, status=status.HTTP_200_OK)
+            else:
+                # Check if it's a rate limit error
+                if "Too many requests" in message:
+                    return Response({
+                        'success': False,
+                        'error': {
+                            'code': 'RATE_LIMIT_EXCEEDED',
+                            'message': message
+                        }
+                    }, status=status.HTTP_429_TOO_MANY_REQUESTS)
+                else:
+                    # Still return success to prevent email enumeration
+                    return Response({
+                        'success': True,
+                        'message': 'If the email exists, a password reset link has been sent'
+                    }, status=status.HTTP_200_OK)
+                
+        except Exception as e:
+            logger.error(f"Password reset request failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'REQUEST_ERROR',
+                    'message': 'An error occurred processing your request'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class PasswordResetConfirmAPIView(APIView):
+    """
+    Password reset confirmation API endpoint.
+    POST /api/v1/auth/password-reset/confirm/
+    
+    Requirements: 4.1, 4.2 - Secure password reset confirmation with token validation
+    """
+    permission_classes = [AllowAny]
+
+    def _get_client_ip(self, request):
+        """Get client IP address from request."""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
+
+    def post(self, request):
+        """Handle password reset confirmation."""
+        try:
+            serializer = ResetPasswordSerializer(data=request.data)
+            
+            if not serializer.is_valid():
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'VALIDATION_ERROR',
+                        'message': 'Invalid input data',
+                        'details': serializer.errors
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            token = serializer.validated_data['token']
+            new_password = serializer.validated_data['password']
+            
+            # Get request metadata
+            ip_address = self._get_client_ip(request)
+            user_agent = request.META.get('HTTP_USER_AGENT', '')
+            
+            # Reset password using service
+            success, message = PasswordResetService.reset_password(
+                token=token,
+                new_password=new_password,
+                ip_address=ip_address,
+                user_agent=user_agent
+            )
+            
+            if success:
+                return Response({
+                    'success': True,
+                    'message': 'Password reset successful. You can now login with your new password.'
+                }, status=status.HTTP_200_OK)
+            else:
+                # Determine error code based on message
+                error_code = 'RESET_FAILED'
+                status_code = status.HTTP_400_BAD_REQUEST
+                
+                if 'expired' in message.lower():
+                    error_code = 'TOKEN_EXPIRED'
+                elif 'invalid' in message.lower():
+                    error_code = 'TOKEN_INVALID'
+                elif 'used' in message.lower():
+                    error_code = 'TOKEN_USED'
+                
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': error_code,
+                        'message': message
+                    }
+                }, status=status_code)
+                
+        except Exception as e:
+            logger.error(f"Password reset confirmation failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'RESET_ERROR',
+                    'message': 'An error occurred during password reset'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+# ============================================================================
+# ADMIN AUTHENTICATION API ENDPOINTS FOR TASK 3.4
+# ============================================================================
+
+class AdminLoginAPIView(APIView):
+    """
+    Enhanced admin login API endpoint with enhanced security.
+    POST /api/v1/admin-auth/login/
+    
+    Requirements: 2.1, 2.2 - Admin authentication with enhanced security
+    """
+    permission_classes = [AllowAny]
+
+    def _get_request_data(self, request):
+        """Extract request metadata for session creation."""
+        return {
+            'ip_address': self._get_client_ip(request),
+            'user_agent': request.META.get('HTTP_USER_AGENT', ''),
+            'location': request.data.get('location', ''),
+            'login_method': 'admin_password'
+        }
+
+    def _get_client_ip(self, request):
+        """Get client IP address from request."""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR', '')
+        return ip
+
+    def post(self, request):
+        """Handle admin login with enhanced security."""
+        try:
+            email = request.data.get('email', '').strip().lower()
+            password = request.data.get('password', '')
+            
+            if not email or not password:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'MISSING_CREDENTIALS',
+                        'message': 'Email and password are required'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Get request metadata
+            request_data = self._get_request_data(request)
+            
+            # Authenticate admin user using service
+            user, tokens = AuthenticationService.authenticate_admin_user(
+                email=email,
+                password=password,
+                request_data=request_data
+            )
+            
+            # Return success response
+            return Response({
+                'success': True,
+                'message': 'Admin login successful',
+                'data': {
+                    'user': UserSerializer(user).data,
+                    'tokens': tokens
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"Admin login failed: {str(e)}")
+            
+            # Check if it's an authentication error
+            if 'Invalid credentials' in str(e):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'INVALID_ADMIN_CREDENTIALS',
+                        'message': 'Invalid admin credentials'
+                    }
+                }, status=status.HTTP_401_UNAUTHORIZED)
+            elif 'Not admin user' in str(e):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'ACCESS_DENIED',
+                        'message': 'Access denied. Admin privileges required.'
+                    }
+                }, status=status.HTTP_403_FORBIDDEN)
+            elif 'Account locked' in str(e):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'ADMIN_ACCOUNT_LOCKED',
+                        'message': 'Admin account temporarily locked due to security concerns'
+                    }
+                }, status=status.HTTP_423_LOCKED)
+            else:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'ADMIN_LOGIN_FAILED',
+                        'message': 'Admin login failed. Please try again.'
+                    }
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class AdminLogoutAPIView(APIView):
+    """
+    Enhanced admin logout API endpoint with audit logging.
+    POST /api/v1/admin-auth/logout/
+    
+    Requirements: 2.1, 2.2 - Admin logout with audit logging
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """Handle admin logout with audit logging."""
+        try:
+            # Verify user is admin
+            if not request.user.is_staff and not request.user.is_superuser:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'ACCESS_DENIED',
+                        'message': 'Admin privileges required'
+                    }
+                }, status=status.HTTP_403_FORBIDDEN)
+            
+            refresh_token = request.data.get('refresh_token')
+            session_id = request.data.get('session_id')
+            
+            # Logout admin user using service
+            success, message = AuthenticationService.logout_admin_user(
+                user=request.user,
+                refresh_token=refresh_token,
+                session_id=session_id
+            )
+            
+            if success:
+                return Response({
+                    'success': True,
+                    'message': 'Admin successfully logged out'
+                }, status=status.HTTP_200_OK)
+            else:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'ADMIN_LOGOUT_FAILED',
+                        'message': message
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+                
+        except Exception as e:
+            logger.error(f"Admin logout failed: {str(e)}")
+            return Response({
+                'success': False,
+                'error': {
+                    'code': 'ADMIN_LOGOUT_ERROR',
+                    'message': 'An error occurred during admin logout'
+                }
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class AdminTokenRefreshAPIView(APIView):
+    """
+    Enhanced admin token refresh API endpoint with admin-specific validation.
+    POST /api/v1/admin-auth/refresh/
+    
+    Requirements: 2.1, 2.2 - Admin token refresh with enhanced validation
+    """
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        """Handle admin token refresh with enhanced validation."""
+        try:
+            refresh_token = request.data.get('refresh')
+            
+            if not refresh_token:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'MISSING_REFRESH_TOKEN',
+                        'message': 'Refresh token is required'
+                    }
+                }, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Refresh admin token using service
+            new_tokens = AuthenticationService.refresh_admin_token(refresh_token)
+            
+            return Response({
+                'success': True,
+                'message': 'Admin token refreshed successfully',
+                'data': {
+                    'tokens': new_tokens
+                }
+            }, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            logger.error(f"Admin token refresh failed: {str(e)}")
+            
+            if 'Invalid token' in str(e) or 'Token expired' in str(e):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'INVALID_ADMIN_REFRESH_TOKEN',
+                        'message': 'Invalid or expired admin refresh token'
+                    }
+                }, status=status.HTTP_401_UNAUTHORIZED)
+            elif 'Not admin user' in str(e):
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'ACCESS_DENIED',
+                        'message': 'Admin privileges required'
+                    }
+                }, status=status.HTTP_403_FORBIDDEN)
+            else:
+                return Response({
+                    'success': False,
+                    'error': {
+                        'code': 'ADMIN_REFRESH_ERROR',
+                        'message': 'An error occurred during admin token refresh'
+                    }
+                }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+   
