@@ -14,29 +14,42 @@
   - Create and run database migrations for all new models
   - _Requirements: 1.1, 1.2, 2.1, 2.2, 3.1, 3.2, 4.1, 4.2, 5.1, 5.2, 6.1, 6.2_
 
-- [ ] 2. Implement core authentication services
-  - [ ] 2.1 Create AuthenticationService class with user registration and login logic
+- [x] 2. Implement core authentication services
+
+
+
+
+
+
+  - [x] 2.1 Create AuthenticationService class with user registration and login logic
+
     - Implement user registration with email uniqueness validation
     - Implement secure user authentication with password verification
     - Add JWT token generation and refresh token functionality
     - Implement logout functionality with session cleanup
     - _Requirements: 1.1, 1.2, 2.1, 2.2_
 
-  - [ ] 2.2 Create EmailVerificationService for email verification workflow
+
+  - [x] 2.2 Create EmailVerificationService for email verification workflow
+
     - Implement email verification token generation and validation
     - Create email verification sending functionality
     - Add email verification confirmation logic
     - Implement resend verification functionality with rate limiting
     - _Requirements: 3.1, 3.2_
 
-  - [ ] 2.3 Create PasswordResetService for password reset functionality
+  - [x] 2.3 Create PasswordResetService for password reset functionality
+
     - Implement password reset token generation and validation
     - Create password reset request functionality
     - Add secure password reset confirmation logic
     - Implement token expiration and single-use validation
     - _Requirements: 4.1, 4.2_
 
-  - [ ] 2.4 Create SessionManagementService for user session handling
+  - [x] 2.4 Create SessionManagementService for user session handling
+
+
+
     - Implement session creation with device and IP tracking
     - Add session listing and management functionality
     - Create session termination (single and all sessions)

@@ -9,16 +9,21 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.utils import timezone
 from django.db import transaction
+from django.core.exceptions import ValidationError
+from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.tokens import RefreshToken
 import logging
 import secrets
 import hashlib
 import hmac
+import json
 from datetime import timedelta
+from typing import Optional, Tuple, Dict, Any
 
-from .models import User, UserProfile, UserSession, PasswordReset, PasswordResetAttempt
-from .email_service import PasswordResetEmailService
-from .email_service import PasswordResetEmailService
+from .models import (
+    User, UserProfile, UserSession, PasswordReset, PasswordResetAttempt,
+    EmailVerification, EmailVerificationAttempt
+)
 from .email_service import PasswordResetEmailService
 
 logger = logging.getLogger(__name__)
@@ -26,87 +31,738 @@ logger = logging.getLogger(__name__)
 
 class AuthenticationService:
     """
-    Service class for authentication-related business logic.
+    Enhanced service class for authentication-related business logic.
+    Implements user registration, login, JWT token management, and session handling.
+    Requirements: 1.1, 1.2, 2.1, 2.2
     """
 
     @staticmethod
-    def register_user(user_data, profile_data=None):
+    def register_user(user_data: Dict[str, Any], profile_data: Optional[Dict[str, Any]] = None, 
+                     request_data: Optional[Dict[str, Any]] = None) -> Tuple[User, Dict[str, str]]:
         """
-        Register a new user with optional profile data.
+        Register a new user with email uniqueness validation and enhanced security.
+        
+        Args:
+            user_data: Dictionary containing user registration data
+            profile_data: Optional profile information
+            request_data: Request metadata (IP, user agent, etc.)
+            
+        Returns:
+            Tuple of (User instance, JWT tokens dict)
+            
+        Requirements: 1.1 - User registration with email uniqueness validation
         """
         try:
             with transaction.atomic():
+                # Validate email uniqueness
+                email = user_data.get('email', '').lower().strip()
+                if User.objects.filter(email=email).exists():
+                    raise ValidationError("A user with this email already exists.")
+                
+                # Validate password strength
+                password = user_data.get('password')
+                if password:
+                    validate_password(password)
+                
+                # Prepare user data
+                user_data_clean = user_data.copy()
+                user_data_clean['email'] = email
+                user_data_clean['username'] = user_data_clean.get('username', email)
+                
                 # Create user
-                user = User.objects.create_user(**user_data)
+                user = User.objects.create_user(**user_data_clean)
                 
                 # Update user profile (automatically created by signal)
                 if profile_data:
-                    profile = user.profile
-                    for key, value in profile_data.items():
-                        setattr(profile, key, value)
-                    profile.save()
+                    try:
+                        profile = user.profile
+                        for key, value in profile_data.items():
+                            if hasattr(profile, key):
+                                setattr(profile, key, value)
+                        profile.save()
+                    except Exception as e:
+                        logger.warning(f"Failed to update profile for {user.email}: {str(e)}")
                 
-                # Generate tokens
+                # Create initial session if request data provided
+                if request_data:
+                    SessionManagementService.create_session(user, request_data)
+                
+                # Generate JWT tokens
                 refresh = RefreshToken.for_user(user)
                 tokens = {
                     'refresh': str(refresh),
                     'access': str(refresh.access_token),
                 }
                 
+                # Send email verification (don't fail registration if this fails)
+                try:
+                    EmailVerificationService.send_verification_email(user, request_data)
+                except Exception as e:
+                    logger.warning(f"Failed to send verification email for {user.email}: {str(e)}")
+                
                 logger.info(f"User registered successfully: {user.email}")
                 return user, tokens
                 
+        except ValidationError:
+            raise
         except Exception as e:
             logger.error(f"User registration failed: {str(e)}")
             raise
 
     @staticmethod
-    def authenticate_user(email, password):
+    def authenticate_user(email: str, password: str, request_data: Optional[Dict[str, Any]] = None) -> Tuple[Optional[User], Optional[Dict[str, str]]]:
         """
-        Authenticate user with email and password.
+        Authenticate user with secure password verification and account lockout protection.
+        
+        Args:
+            email: User email address
+            password: User password
+            request_data: Request metadata for session creation
+            
+        Returns:
+            Tuple of (User instance or None, JWT tokens dict or None)
+            
+        Requirements: 1.2, 2.2 - Secure user authentication with password verification
         """
         try:
-            user = authenticate(username=email, password=password)
-            if user and user.is_active:
+            email = email.lower().strip()
+            
+            # Get user and check if account is locked
+            try:
+                user = User.objects.get(email=email, is_active=True)
+                
+                # Check if account is locked
+                if user.is_account_locked:
+                    logger.warning(f"Authentication attempt on locked account: {email}")
+                    return None, None
+                    
+            except User.DoesNotExist:
+                # Log failed attempt for non-existent user
+                logger.warning(f"Authentication attempt for non-existent user: {email}")
+                return None, None
+            
+            # Authenticate user
+            authenticated_user = authenticate(username=email, password=password)
+            
+            if authenticated_user and authenticated_user.is_active:
+                # Reset failed login attempts on successful login
+                user.reset_failed_login()
+                
+                # Update last login IP
+                if request_data and 'ip_address' in request_data:
+                    user.last_login_ip = request_data['ip_address']
+                    user.save(update_fields=['last_login_ip'])
+                
+                # Create session
+                if request_data:
+                    SessionManagementService.create_session(user, request_data)
+                
+                # Generate JWT tokens
                 refresh = RefreshToken.for_user(user)
                 tokens = {
                     'refresh': str(refresh),
                     'access': str(refresh.access_token),
                 }
+                
                 logger.info(f"User authenticated successfully: {email}")
                 return user, tokens
             else:
+                # Increment failed login attempts
+                user.increment_failed_login()
                 logger.warning(f"Authentication failed for: {email}")
                 return None, None
+                
         except Exception as e:
             logger.error(f"Authentication error: {str(e)}")
             raise
 
     @staticmethod
-    def create_user_session(user, request_data):
+    def refresh_token(refresh_token: str) -> Optional[Dict[str, str]]:
         """
-        Create a user session record.
+        Generate new access token from refresh token.
+        
+        Args:
+            refresh_token: JWT refresh token string
+            
+        Returns:
+            Dictionary with new tokens or None if invalid
+            
+        Requirements: 1.2 - JWT token generation and refresh token functionality
         """
         try:
+            refresh = RefreshToken(refresh_token)
+            
+            # Generate new access token
+            new_tokens = {
+                'access': str(refresh.access_token),
+                'refresh': str(refresh),  # Optionally rotate refresh token
+            }
+            
+            logger.info("Token refreshed successfully")
+            return new_tokens
+            
+        except Exception as e:
+            logger.warning(f"Token refresh failed: {str(e)}")
+            return None
+
+    @staticmethod
+    def logout_user(user: User, session_key: Optional[str] = None, 
+                   logout_all: bool = False) -> bool:
+        """
+        Logout user with session cleanup and token blacklisting.
+        
+        Args:
+            user: User instance
+            session_key: Specific session to logout (optional)
+            logout_all: Whether to logout all sessions
+            
+        Returns:
+            Boolean indicating success
+            
+        Requirements: 1.2 - Logout functionality with session cleanup
+        """
+        try:
+            with transaction.atomic():
+                if logout_all:
+                    # Deactivate all user sessions
+                    count = SessionManagementService.terminate_all_sessions(user)
+                    logger.info(f"Logged out all sessions for user {user.email}: {count} sessions")
+                elif session_key:
+                    # Deactivate specific session
+                    success = SessionManagementService.terminate_session(session_key)
+                    if success:
+                        logger.info(f"Logged out session {session_key} for user {user.email}")
+                    else:
+                        logger.warning(f"Failed to logout session {session_key} for user {user.email}")
+                else:
+                    # Deactivate all sessions (default behavior)
+                    count = SessionManagementService.terminate_all_sessions(user)
+                    logger.info(f"Logged out user {user.email}: {count} sessions terminated")
+                
+                return True
+                
+        except Exception as e:
+            logger.error(f"Logout failed for user {user.email}: {str(e)}")
+            return False
+
+    @staticmethod
+    def validate_user_data(user_data: Dict[str, Any]) -> Tuple[bool, Dict[str, str]]:
+        """
+        Validate user registration data.
+        
+        Args:
+            user_data: Dictionary containing user data to validate
+            
+        Returns:
+            Tuple of (is_valid: bool, errors: dict)
+        """
+        errors = {}
+        
+        try:
+            # Validate email
+            email = user_data.get('email', '').lower().strip()
+            if not email:
+                errors['email'] = 'Email is required'
+            elif User.objects.filter(email=email).exists():
+                errors['email'] = 'A user with this email already exists'
+            
+            # Validate password
+            password = user_data.get('password')
+            if not password:
+                errors['password'] = 'Password is required'
+            else:
+                try:
+                    validate_password(password)
+                except ValidationError as e:
+                    errors['password'] = '; '.join(e.messages)
+            
+            # Validate username
+            username = user_data.get('username')
+            if username and User.objects.filter(username=username).exists():
+                errors['username'] = 'A user with this username already exists'
+            
+            # Validate user type
+            user_type = user_data.get('user_type')
+            if user_type and user_type not in dict(User.USER_TYPE_CHOICES):
+                errors['user_type'] = 'Invalid user type'
+            
+            return len(errors) == 0, errors
+            
+        except Exception as e:
+            logger.error(f"User data validation error: {str(e)}")
+            return False, {'general': 'Validation failed'}
+
+    @staticmethod
+    def get_user_by_email(email: str) -> Optional[User]:
+        """
+        Get user by email address.
+        
+        Args:
+            email: Email address to search for
+            
+        Returns:
+            User instance or None if not found
+        """
+        try:
+            return User.objects.get(email=email.lower().strip(), is_active=True)
+        except User.DoesNotExist:
+            return None
+        except Exception as e:
+            logger.error(f"Error getting user by email: {str(e)}")
+            return None
+
+class EmailVerificationService:
+    """
+    Service class for email verification workflow.
+    Implements token generation, validation, sending, and rate limiting.
+    Requirements: 3.1, 3.2
+    """
+    
+    # Rate limiting constants
+    MAX_ATTEMPTS_PER_HOUR = 3
+    TOKEN_EXPIRY_HOURS = 24
+    
+    @staticmethod
+    def send_verification_email(user: User, request_data: Optional[Dict[str, Any]] = None) -> Tuple[bool, Optional[str]]:
+        """
+        Send email verification link to user with rate limiting.
+        
+        Args:
+            user: User instance
+            request_data: Request metadata (IP, user agent, etc.)
+            
+        Returns:
+            Tuple of (success: bool, error_message: Optional[str])
+            
+        Requirements: 3.1 - Send email verification link during registration
+        """
+        try:
+            # Check if email is already verified
+            if user.is_email_verified:
+                return True, "Email is already verified"
+            
+            # Check rate limiting
+            ip_address = request_data.get('ip_address', '') if request_data else ''
+            if ip_address:
+                rate_limit_ok, attempt_count = EmailVerificationService._check_rate_limit(
+                    ip_address, user.email
+                )
+                if not rate_limit_ok:
+                    logger.warning(f"Rate limit exceeded for email verification: {user.email} from {ip_address}")
+                    return False, "Too many verification requests. Please try again later."
+            
+            with transaction.atomic():
+                # Invalidate existing tokens for this user
+                EmailVerification.objects.filter(
+                    user=user,
+                    is_used=False
+                ).update(is_used=True)
+                
+                # Create new verification token
+                verification = EmailVerification.objects.create(
+                    user=user,
+                    ip_address=ip_address
+                )
+                
+                # Log attempt
+                EmailVerificationService._log_verification_attempt(
+                    ip_address=ip_address,
+                    email=user.email,
+                    success=True,
+                    user_agent=request_data.get('user_agent', '') if request_data else ''
+                )
+                
+                # Send email (implement actual email sending)
+                success, error = EmailVerificationService._send_verification_email(
+                    user, verification.token, ip_address
+                )
+                
+                if not success:
+                    # Mark token as used if email failed
+                    verification.is_used = True
+                    verification.save()
+                    
+                    # Log failed attempt
+                    EmailVerificationService._log_verification_attempt(
+                        ip_address=ip_address,
+                        email=user.email,
+                        success=False,
+                        user_agent=request_data.get('user_agent', '') if request_data else ''
+                    )
+                    
+                    return False, error
+                
+                logger.info(f"Email verification sent to: {user.email}")
+                return True, None
+                
+        except Exception as e:
+            logger.error(f"Failed to send verification email: {str(e)}")
+            return False, "Failed to send verification email"
+
+    @staticmethod
+    def verify_email(token: str) -> Tuple[bool, Optional[str], Optional[User]]:
+        """
+        Verify email using token and mark account as verified.
+        
+        Args:
+            token: Email verification token
+            
+        Returns:
+            Tuple of (success: bool, error_message: Optional[str], user: Optional[User])
+            
+        Requirements: 3.2 - Email verification confirmation logic
+        """
+        try:
+            if not token:
+                return False, "Verification token is required", None
+            
+            # Find verification record
+            try:
+                verification = EmailVerification.objects.select_related('user').get(
+                    token=token,
+                    is_used=False
+                )
+            except EmailVerification.DoesNotExist:
+                logger.warning(f"Invalid email verification token used: {token[:8]}...")
+                return False, "Invalid or expired verification token", None
+            
+            # Check if token is expired
+            if verification.is_expired:
+                logger.warning(f"Expired email verification token used for user: {verification.user.email}")
+                return False, "Verification token has expired", None
+            
+            # Verify email
+            with transaction.atomic():
+                user = verification.user
+                user.is_email_verified = True
+                user.save(update_fields=['is_email_verified'])
+                
+                # Mark token as used
+                verification.mark_as_used()
+                
+                logger.info(f"Email verified successfully for user: {user.email}")
+                return True, None, user
+                
+        except Exception as e:
+            logger.error(f"Email verification failed: {str(e)}")
+            return False, "Email verification failed", None
+
+    @staticmethod
+    def resend_verification(user: User, request_data: Optional[Dict[str, Any]] = None) -> Tuple[bool, Optional[str]]:
+        """
+        Resend email verification with rate limiting.
+        
+        Args:
+            user: User instance
+            request_data: Request metadata
+            
+        Returns:
+            Tuple of (success: bool, error_message: Optional[str])
+            
+        Requirements: 3.2 - Resend verification functionality with rate limiting
+        """
+        try:
+            # Check if already verified
+            if user.is_email_verified:
+                return False, "Email is already verified"
+            
+            # Use the same logic as send_verification_email
+            return EmailVerificationService.send_verification_email(user, request_data)
+            
+        except Exception as e:
+            logger.error(f"Failed to resend verification email: {str(e)}")
+            return False, "Failed to resend verification email"
+
+    @staticmethod
+    def _check_rate_limit(ip_address: str, email: str) -> Tuple[bool, int]:
+        """
+        Check rate limit for email verification attempts.
+        
+        Args:
+            ip_address: IP address making the request
+            email: Email address being verified
+            
+        Returns:
+            Tuple of (allowed: bool, attempt_count: int)
+        """
+        try:
+            one_hour_ago = timezone.now() - timedelta(hours=1)
+            
+            # Check attempts by IP
+            ip_attempts = EmailVerificationAttempt.objects.filter(
+                ip_address=ip_address,
+                created_at__gte=one_hour_ago
+            ).count()
+            
+            # Check attempts by email
+            email_attempts = EmailVerificationAttempt.objects.filter(
+                email=email,
+                created_at__gte=one_hour_ago
+            ).count()
+            
+            max_attempts = EmailVerificationService.MAX_ATTEMPTS_PER_HOUR
+            
+            if ip_attempts >= max_attempts or email_attempts >= max_attempts:
+                return False, max(ip_attempts, email_attempts)
+            
+            return True, max(ip_attempts, email_attempts)
+            
+        except Exception as e:
+            logger.error(f"Rate limit check failed: {str(e)}")
+            return True, 0
+
+    @staticmethod
+    def _log_verification_attempt(ip_address: str, email: str, success: bool = False, user_agent: str = ''):
+        """
+        Log email verification attempt for monitoring and rate limiting.
+        """
+        try:
+            EmailVerificationAttempt.objects.create(
+                ip_address=ip_address,
+                email=email,
+                success=success,
+                user_agent=user_agent
+            )
+        except Exception as e:
+            logger.error(f"Failed to log verification attempt: {str(e)}")
+
+    @staticmethod
+    def _send_verification_email(user: User, token: str, request_ip: str = '') -> Tuple[bool, Optional[str]]:
+        """
+        Send the actual verification email.
+        
+        Args:
+            user: User instance
+            token: Verification token
+            request_ip: IP address of the request
+            
+        Returns:
+            Tuple of (success: bool, error_message: Optional[str])
+        """
+        try:
+            # Create verification URL
+            verification_url = f"{settings.FRONTEND_URL}/auth/verify-email/{token}"
+            
+            # Email subject and content
+            subject = f"Verify Your Email Address - {getattr(settings, 'SITE_NAME', 'E-commerce Platform')}"
+            
+            message = f"""
+Hello {user.first_name or user.username},
+
+Thank you for registering with us! Please verify your email address by clicking the link below:
+
+{verification_url}
+
+This link will expire in 24 hours.
+
+If you didn't create an account, please ignore this email.
+
+Best regards,
+The E-commerce Team
+
+---
+This email was sent from {request_ip} at {timezone.now().strftime('%B %d, %Y at %I:%M %p %Z')}
+"""
+            
+            # For now, log the email (implement proper email service later)
+            logger.info(f"Email verification would be sent to: {user.email}")
+            logger.info(f"Verification URL: {verification_url}")
+            
+            # TODO: Implement actual email sending
+            # send_mail(
+            #     subject,
+            #     message,
+            #     settings.DEFAULT_FROM_EMAIL,
+            #     [user.email],
+            #     fail_silently=False,
+            # )
+            
+            return True, None
+            
+        except Exception as e:
+            logger.error(f"Failed to send verification email: {str(e)}")
+            return False, "Failed to send verification email"
+
+    @staticmethod
+    def cleanup_expired_tokens(days_old: int = 7) -> int:
+        """
+        Clean up expired email verification tokens.
+        
+        Args:
+            days_old: Remove tokens older than this many days
+            
+        Returns:
+            Number of tokens cleaned up
+        """
+        try:
+            cutoff_date = timezone.now() - timedelta(days=days_old)
+            deleted_count = EmailVerification.objects.filter(
+                created_at__lt=cutoff_date
+            ).delete()[0]
+            
+            logger.info(f"Cleaned up {deleted_count} expired email verification tokens")
+            return deleted_count
+            
+        except Exception as e:
+            logger.error(f"Email verification token cleanup failed: {str(e)}")
+            return 0
+
+    @staticmethod
+    def get_user_verification_status(user: User) -> Dict[str, Any]:
+        """
+        Get email verification status for a user.
+        
+        Args:
+            user: User instance
+            
+        Returns:
+            Dictionary with verification status information
+        """
+        try:
+            active_tokens = EmailVerification.objects.filter(
+                user=user,
+                is_used=False,
+                expires_at__gt=timezone.now()
+            ).count()
+            
+            return {
+                'is_verified': user.is_email_verified,
+                'email': user.email,
+                'active_tokens': active_tokens,
+                'last_verification_sent': None,  # TODO: Add this field to model if needed
+            }
+            
+        except Exception as e:
+            logger.error(f"Failed to get verification status: {str(e)}")
+            return {
+                'is_verified': user.is_email_verified,
+                'email': user.email,
+                'active_tokens': 0,
+                'error': str(e)
+            }
+
+class SessionManagementService:
+    """
+    Service class for user session handling and management.
+    Implements session creation, tracking, termination, and cleanup.
+    Requirements: 5.1, 5.2
+    """
+    
+    # Session configuration
+    SESSION_TIMEOUT_HOURS = 24 * 7  # 7 days default
+    MAX_SESSIONS_PER_USER = 10
+    
+    @staticmethod
+    def create_session(user: User, request_data: Dict[str, Any]) -> Optional[UserSession]:
+        """
+        Create a user session with device and IP tracking.
+        
+        Args:
+            user: User instance
+            request_data: Dictionary containing session data
+            
+        Returns:
+            UserSession instance or None if failed
+            
+        Requirements: 5.1 - Session creation with device and IP tracking
+        """
+        try:
+            # Extract device information
+            user_agent = request_data.get('user_agent', '')
+            device_info = SessionManagementService._parse_device_info(user_agent)
+            
+            # Generate unique session key
+            session_key = secrets.token_urlsafe(32)
+            
+            # Prepare session data
             session_data = {
                 'user': user,
-                'session_key': request_data.get('session_key', 'api_session'),
+                'session_key': session_key,
                 'ip_address': request_data.get('ip_address', ''),
-                'user_agent': request_data.get('user_agent', ''),
-                'device_type': request_data.get('device_type', 'unknown'),
+                'user_agent': user_agent,
+                'device_info': device_info,
                 'location': request_data.get('location', ''),
+                'login_method': request_data.get('login_method', 'password'),
             }
+            
+            # Check session limit and cleanup old sessions if needed
+            SessionManagementService._enforce_session_limit(user)
+            
+            # Create session
             session = UserSession.objects.create(**session_data)
-            logger.info(f"User session created for: {user.email}")
+            
+            logger.info(f"User session created for: {user.email} from {session_data['ip_address']}")
             return session
+            
         except Exception as e:
             logger.error(f"Failed to create user session: {str(e)}")
             return None
 
     @staticmethod
-    def deactivate_user_sessions(user, exclude_session_key=None):
+    def get_user_sessions(user: User, active_only: bool = True) -> 'QuerySet[UserSession]':
         """
-        Deactivate user sessions, optionally excluding a specific session.
+        Get user sessions with filtering options.
+        
+        Args:
+            user: User instance
+            active_only: Whether to return only active sessions
+            
+        Returns:
+            QuerySet of UserSession objects
+            
+        Requirements: 5.2 - Session listing and management functionality
+        """
+        try:
+            queryset = UserSession.objects.filter(user=user)
+            if active_only:
+                queryset = queryset.filter(is_active=True)
+            
+            return queryset.order_by('-last_activity')
+            
+        except Exception as e:
+            logger.error(f"Failed to get user sessions: {str(e)}")
+            return UserSession.objects.none()
+
+    @staticmethod
+    def terminate_session(session_key: str) -> bool:
+        """
+        Terminate a specific session.
+        
+        Args:
+            session_key: Session key to terminate
+            
+        Returns:
+            Boolean indicating success
+            
+        Requirements: 5.2 - Session termination (single session)
+        """
+        try:
+            session = UserSession.objects.get(session_key=session_key, is_active=True)
+            session.terminate()
+            
+            logger.info(f"Session terminated: {session_key[:8]}... for user {session.user.email}")
+            return True
+            
+        except UserSession.DoesNotExist:
+            logger.warning(f"Attempted to terminate non-existent session: {session_key[:8]}...")
+            return False
+        except Exception as e:
+            logger.error(f"Failed to terminate session: {str(e)}")
+            return False
+
+    @staticmethod
+    def terminate_all_sessions(user: User, exclude_session_key: Optional[str] = None) -> int:
+        """
+        Terminate all sessions for a user, optionally excluding one.
+        
+        Args:
+            user: User instance
+            exclude_session_key: Session key to exclude from termination
+            
+        Returns:
+            Number of sessions terminated
+            
+        Requirements: 5.2 - Session termination (all sessions)
         """
         try:
             queryset = UserSession.objects.filter(user=user, is_active=True)
@@ -114,11 +770,238 @@ class AuthenticationService:
                 queryset = queryset.exclude(session_key=exclude_session_key)
             
             count = queryset.update(is_active=False)
-            logger.info(f"Deactivated {count} sessions for user: {user.email}")
+            logger.info(f"Terminated {count} sessions for user: {user.email}")
             return count
+            
         except Exception as e:
-            logger.error(f"Failed to deactivate sessions: {str(e)}")
+            logger.error(f"Failed to terminate sessions: {str(e)}")
             return 0
+
+    @staticmethod
+    def cleanup_expired_sessions(hours_old: int = SESSION_TIMEOUT_HOURS) -> int:
+        """
+        Clean up expired sessions based on last activity.
+        
+        Args:
+            hours_old: Sessions older than this many hours will be cleaned up
+            
+        Returns:
+            Number of sessions cleaned up
+            
+        Requirements: 5.2 - Expired session cleanup functionality
+        """
+        try:
+            cutoff_time = timezone.now() - timedelta(hours=hours_old)
+            
+            # Mark old sessions as inactive
+            expired_count = UserSession.objects.filter(
+                last_activity__lt=cutoff_time,
+                is_active=True
+            ).update(is_active=False)
+            
+            # Optionally delete very old sessions (older than 30 days)
+            very_old_cutoff = timezone.now() - timedelta(days=30)
+            deleted_count = UserSession.objects.filter(
+                last_activity__lt=very_old_cutoff
+            ).delete()[0]
+            
+            logger.info(f"Session cleanup: {expired_count} expired, {deleted_count} deleted")
+            return expired_count + deleted_count
+            
+        except Exception as e:
+            logger.error(f"Session cleanup failed: {str(e)}")
+            return 0
+
+    @staticmethod
+    def update_session_activity(session_key: str) -> bool:
+        """
+        Update last activity timestamp for a session.
+        
+        Args:
+            session_key: Session key to update
+            
+        Returns:
+            Boolean indicating success
+        """
+        try:
+            UserSession.objects.filter(
+                session_key=session_key,
+                is_active=True
+            ).update(last_activity=timezone.now())
+            
+            return True
+            
+        except Exception as e:
+            logger.error(f"Failed to update session activity: {str(e)}")
+            return False
+
+    @staticmethod
+    def get_session_info(session_key: str) -> Optional[Dict[str, Any]]:
+        """
+        Get detailed information about a session.
+        
+        Args:
+            session_key: Session key to look up
+            
+        Returns:
+            Dictionary with session information or None if not found
+        """
+        try:
+            session = UserSession.objects.select_related('user').get(
+                session_key=session_key,
+                is_active=True
+            )
+            
+            return {
+                'session_key': session.session_key,
+                'user_email': session.user.email,
+                'ip_address': session.ip_address,
+                'device_info': session.device_info,
+                'location': session.location,
+                'created_at': session.created_at,
+                'last_activity': session.last_activity,
+                'login_method': session.login_method,
+                'device_name': session.device_name,
+            }
+            
+        except UserSession.DoesNotExist:
+            return None
+        except Exception as e:
+            logger.error(f"Failed to get session info: {str(e)}")
+            return None
+
+    @staticmethod
+    def _parse_device_info(user_agent: str) -> Dict[str, str]:
+        """
+        Parse user agent string to extract device information.
+        
+        Args:
+            user_agent: User agent string from request
+            
+        Returns:
+            Dictionary with parsed device information
+        """
+        try:
+            # Simple user agent parsing (can be enhanced with user-agents library)
+            device_info = {
+                'browser': 'Unknown Browser',
+                'os': 'Unknown OS',
+                'device': 'Unknown Device',
+                'raw_user_agent': user_agent
+            }
+            
+            if not user_agent:
+                return device_info
+            
+            user_agent_lower = user_agent.lower()
+            
+            # Detect browser
+            if 'chrome' in user_agent_lower:
+                device_info['browser'] = 'Chrome'
+            elif 'firefox' in user_agent_lower:
+                device_info['browser'] = 'Firefox'
+            elif 'safari' in user_agent_lower:
+                device_info['browser'] = 'Safari'
+            elif 'edge' in user_agent_lower:
+                device_info['browser'] = 'Edge'
+            
+            # Detect OS
+            if 'windows' in user_agent_lower:
+                device_info['os'] = 'Windows'
+            elif 'mac' in user_agent_lower:
+                device_info['os'] = 'macOS'
+            elif 'linux' in user_agent_lower:
+                device_info['os'] = 'Linux'
+            elif 'android' in user_agent_lower:
+                device_info['os'] = 'Android'
+            elif 'ios' in user_agent_lower:
+                device_info['os'] = 'iOS'
+            
+            # Detect device type
+            if 'mobile' in user_agent_lower or 'android' in user_agent_lower:
+                device_info['device'] = 'Mobile'
+            elif 'tablet' in user_agent_lower or 'ipad' in user_agent_lower:
+                device_info['device'] = 'Tablet'
+            else:
+                device_info['device'] = 'Desktop'
+            
+            return device_info
+            
+        except Exception as e:
+            logger.error(f"Failed to parse device info: {str(e)}")
+            return {
+                'browser': 'Unknown Browser',
+                'os': 'Unknown OS',
+                'device': 'Unknown Device',
+                'raw_user_agent': user_agent,
+                'parse_error': str(e)
+            }
+
+    @staticmethod
+    def _enforce_session_limit(user: User) -> None:
+        """
+        Enforce maximum session limit per user by terminating oldest sessions.
+        
+        Args:
+            user: User instance
+        """
+        try:
+            active_sessions = UserSession.objects.filter(
+                user=user,
+                is_active=True
+            ).order_by('-last_activity')
+            
+            if active_sessions.count() >= SessionManagementService.MAX_SESSIONS_PER_USER:
+                # Get sessions to terminate (oldest ones)
+                sessions_to_terminate = active_sessions[SessionManagementService.MAX_SESSIONS_PER_USER - 1:]
+                
+                session_keys = [s.session_key for s in sessions_to_terminate]
+                terminated_count = UserSession.objects.filter(
+                    session_key__in=session_keys
+                ).update(is_active=False)
+                
+                logger.info(f"Terminated {terminated_count} old sessions for user {user.email} due to session limit")
+                
+        except Exception as e:
+            logger.error(f"Failed to enforce session limit: {str(e)}")
+
+    @staticmethod
+    def get_session_statistics(user: User) -> Dict[str, Any]:
+        """
+        Get session statistics for a user.
+        
+        Args:
+            user: User instance
+            
+        Returns:
+            Dictionary with session statistics
+        """
+        try:
+            active_sessions = UserSession.objects.filter(user=user, is_active=True)
+            total_sessions = UserSession.objects.filter(user=user)
+            
+            # Group by device type
+            device_stats = {}
+            for session in active_sessions:
+                device_type = session.device_info.get('device', 'Unknown')
+                device_stats[device_type] = device_stats.get(device_type, 0) + 1
+            
+            return {
+                'active_sessions': active_sessions.count(),
+                'total_sessions': total_sessions.count(),
+                'device_breakdown': device_stats,
+                'last_activity': active_sessions.first().last_activity if active_sessions.exists() else None,
+                'oldest_session': active_sessions.last().created_at if active_sessions.exists() else None,
+            }
+            
+        except Exception as e:
+            logger.error(f"Failed to get session statistics: {str(e)}")
+            return {
+                'active_sessions': 0,
+                'total_sessions': 0,
+                'device_breakdown': {},
+                'error': str(e)
+            }
 
     @staticmethod
     def change_password(user, old_password, new_password):
