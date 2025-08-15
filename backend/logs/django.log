@@ -38,3 +38,993 @@ INFO 2025-08-15 08:48:15,881 database_security 16144 16812 Audit tables created 
 INFO 2025-08-15 08:48:15,881 database_security 16144 16812 Database security monitoring initialized successfully
 INFO 2025-08-15 08:49:50,739 database_security 7956 9128 Audit tables created successfully
 INFO 2025-08-15 08:49:50,739 database_security 7956 9128 Database security monitoring initialized successfully
+INFO 2025-08-15 09:01:28,227 database_security 17384 11900 Audit tables created successfully
+INFO 2025-08-15 09:01:28,260 database_security 17384 11900 Database security monitoring initialized successfully
+INFO 2025-08-15 09:08:02,117 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,117 signals 16900 15456 Updating Elasticsearch document: authentication.user ID: 108
+INFO 2025-08-15 09:08:02,117 signals 16900 15456 Successfully updated document in Elasticsearch: authentication.user ID: 108
+INFO 2025-08-15 09:08:02,127 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,151 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,151 signals 16900 15456 Updating Elasticsearch document: authentication.userprofile ID: 53
+INFO 2025-08-15 09:08:02,155 signals 16900 15456 Successfully updated document in Elasticsearch: authentication.userprofile ID: 53
+INFO 2025-08-15 09:08:02,156 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,156 signals 16900 15456 Profile created for user: test123@example.com
+INFO 2025-08-15 09:08:02,163 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,164 signals 16900 15456 Updating Elasticsearch document: authentication.userprofile ID: 53
+INFO 2025-08-15 09:08:02,168 signals 16900 15456 Successfully updated document in Elasticsearch: authentication.userprofile ID: 53
+INFO 2025-08-15 09:08:02,168 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,184 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,185 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,189 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,189 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,196 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,197 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,200 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,201 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,205 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,205 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,210 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,211 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,220 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,220 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,223 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,224 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,234 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,234 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,237 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,238 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,243 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,244 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,249 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,249 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,254 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,254 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,259 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,261 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,270 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,270 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,270 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,270 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,281 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,281 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,285 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,286 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,291 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,291 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,296 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,297 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,304 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,304 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,308 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,308 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,319 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,320 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,323 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,323 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,330 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,331 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,334 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,334 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,341 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,341 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,345 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,345 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,352 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,352 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,356 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,358 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,366 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,366 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,368 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,370 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,375 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,375 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,380 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,380 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,384 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,384 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,392 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,392 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,401 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,401 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,404 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,405 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,414 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,414 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,417 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,418 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,421 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,426 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,432 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,432 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,437 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,438 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,442 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,443 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,448 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,448 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,448 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,448 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,448 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,460 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,464 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,464 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,469 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,469 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,474 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,476 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,480 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,480 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,487 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,487 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,498 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,498 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,502 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,502 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,510 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,512 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,516 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,516 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,516 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,523 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,528 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,530 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,536 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,538 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,539 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,539 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,546 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,546 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,554 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,554 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,565 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,565 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,568 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,568 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,570 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,570 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,579 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,581 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,586 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,586 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,586 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,586 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,601 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,601 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,608 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,608 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,615 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,617 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,619 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,621 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,627 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,629 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,631 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,634 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,634 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,634 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,643 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,645 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,649 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,649 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,649 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,649 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,665 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,665 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,667 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,667 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,667 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,667 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,680 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,680 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,684 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,684 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,684 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,684 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,700 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,700 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,700 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,700 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,714 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,714 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,714 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,714 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,725 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,729 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,729 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,729 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,739 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,739 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,739 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,743 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,751 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,751 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,754 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,754 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,765 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,765 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,770 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,770 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,777 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,779 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,783 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,785 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,790 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,790 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,796 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,796 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,798 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,798 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,806 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,806 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,813 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,813 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,813 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,813 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,824 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,824 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,828 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,830 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,837 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,837 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,840 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,840 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,848 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,848 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,855 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,855 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,865 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,865 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,869 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,869 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,889 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,889 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,904 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,916 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,928 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,930 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,938 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,940 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,948 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,950 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,956 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,958 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,968 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,971 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,973 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,973 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,984 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,986 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,988 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,988 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,997 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,997 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,999 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:02,999 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:02,999 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:02,999 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,008 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,008 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,015 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,015 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,015 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,015 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,015 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,029 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,031 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,031 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,038 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,038 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,040 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,043 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,049 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,049 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,049 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,049 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,063 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,063 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,065 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,065 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,065 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,065 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,081 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,081 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,089 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,089 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,094 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,094 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,098 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,098 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,107 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,107 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,119 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,119 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,119 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,123 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,129 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,129 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,135 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,135 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,138 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,138 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,148 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,148 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,154 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,154 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,154 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,163 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,170 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,170 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,172 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,172 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,185 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,187 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,187 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,187 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,197 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,201 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,203 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,203 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,210 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,210 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,214 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,214 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,219 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,219 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,225 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,225 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,233 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,233 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,233 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,233 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,250 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,250 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,250 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,250 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,266 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,266 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,266 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,266 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,282 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,282 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,282 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,282 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,289 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,294 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,298 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,298 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,301 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,301 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,308 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,310 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,316 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,316 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,316 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,316 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,332 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,334 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,334 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,334 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,348 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,348 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,350 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,350 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,359 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,359 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,363 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,363 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,368 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,368 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,379 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,379 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,387 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,387 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,390 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,390 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,400 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,400 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,404 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,404 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,413 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,413 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,419 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,419 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,429 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,429 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,429 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,429 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,440 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,440 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,446 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,446 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,454 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,454 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,454 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,463 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,470 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,472 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,474 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,476 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,486 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,486 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,490 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,492 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,496 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,501 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,503 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,503 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,510 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,512 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,516 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,516 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,517 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,517 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,525 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,528 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,536 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,536 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,538 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,538 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,549 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,549 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,553 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,553 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,562 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,562 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,565 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,565 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,565 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,565 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,581 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,581 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,581 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,581 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,590 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,590 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,601 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,601 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,603 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,603 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,612 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,615 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,617 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,617 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,619 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,619 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,631 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,631 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,638 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,638 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,642 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,644 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,652 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,652 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,652 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,652 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,668 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,670 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,670 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,670 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,681 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,681 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,685 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,685 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,691 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,693 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,697 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,697 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,701 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,707 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,712 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,716 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,723 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,723 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,723 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,723 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,734 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,736 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,738 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,738 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,746 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,746 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,746 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,746 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,754 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,760 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,764 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,764 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,770 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,770 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,772 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,772 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,779 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,779 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,786 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,786 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,796 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,796 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,796 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,796 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,802 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,802 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,813 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,813 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,821 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,821 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,828 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,830 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,833 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,833 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,841 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,843 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,853 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,855 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,855 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,855 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,867 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,867 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,867 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,867 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,880 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,880 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,884 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,884 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,888 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,888 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,898 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,898 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,905 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,905 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,914 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,914 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,914 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,914 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,925 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,925 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,930 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,930 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,937 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,937 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,946 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,946 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,948 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,948 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,948 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,948 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,960 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,960 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,966 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,966 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,966 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,966 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,976 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:03,980 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,984 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:03,986 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:03,999 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,001 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,006 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,007 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,019 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,023 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,033 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,033 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,043 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,045 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,051 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,053 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,071 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,079 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,083 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,085 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,086 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,086 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,095 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,095 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,102 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,102 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,106 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,106 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,112 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,112 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,117 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,118 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,118 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,118 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,129 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,129 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,134 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,134 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,140 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,140 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,145 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,145 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,150 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,153 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,153 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,153 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,162 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,162 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,166 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,166 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,172 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,172 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,178 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,178 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,182 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,182 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,182 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,182 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,182 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,182 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,198 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,198 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,198 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,198 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,207 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,207 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,214 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,214 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,219 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,219 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,221 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,221 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,230 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,230 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,230 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,230 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,230 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,230 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,246 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,248 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,252 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,252 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,256 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,258 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,264 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,264 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,271 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,271 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,279 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,279 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,281 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,283 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,283 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,283 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,283 signals 16900 15456 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 1
+INFO 2025-08-15 09:08:04,283 monitoring 16900 15456 Task update_document (None) completed successfully
+INFO 2025-08-15 09:08:04,297 monitoring 16900 15456 Task update_document (None) started
+INFO 2025-08-15 09:08:04,297 signals 16900 15456 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 1
+ERROR 2025-08-15 09:08:04,297 signals 16900 15456 Error updating Elasticsearch document: maximum recursion depth exceeded while calling a Python object
+WARNING 2025-08-15 09:08:04,297 monitoring 16900 15456 Retrying task tasks.monitoring.wrapper due to: maximum recursion depth exceeded while calling a Python object
+ERROR 2025-08-15 09:08:04,297 monitoring 16900 15456 Task retry failed: maximum recursion depth exceeded while calling a Python object
+ERROR 2025-08-15 09:08:04,297 monitoring 16900 15456 Task update_document (None) failed: maximum recursion depth exceeded while calling a Python object
+INFO 2025-08-15 09:10:04,517 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,518 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,525 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,525 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,526 signals 16624 15912 Profile created for user: test1755229204@example.com
+INFO 2025-08-15 09:10:04,529 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,531 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,541 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,541 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,546 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,548 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,563 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,563 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,578 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,581 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,600 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,602 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,618 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,618 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,635 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,637 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,647 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,648 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,654 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,655 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,670 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,677 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,803 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,827 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,866 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,868 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,883 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,883 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,915 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,916 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,935 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,936 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,952 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,956 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,966 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,967 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,977 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,978 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,985 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,985 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,991 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:04,991 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:04,991 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,006 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,019 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,020 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,031 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,032 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,045 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,045 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,053 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,056 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,066 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,066 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,079 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,080 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,092 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,093 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,102 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,103 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,114 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,115 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,124 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,126 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,134 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,135 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,148 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,149 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,162 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,163 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,175 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,176 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,183 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,184 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,194 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,195 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,202 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,208 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,216 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,217 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,240 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,244 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,261 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,263 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,283 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,283 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,293 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,293 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,311 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,313 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,334 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,334 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,344 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,345 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,352 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,353 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,368 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,378 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,409 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,413 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,451 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,452 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,461 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,462 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,475 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,476 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,483 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,483 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,502 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,502 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,511 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,513 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,522 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,524 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,530 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,532 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,550 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,553 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,567 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,573 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,583 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,583 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,591 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,591 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,608 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,608 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,615 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,615 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,626 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,626 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,640 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,641 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,652 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,653 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,666 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,667 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,677 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,681 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,695 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,697 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,716 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,717 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,730 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,731 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,745 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,746 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,782 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,796 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,829 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,830 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,850 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,850 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,866 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,867 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,877 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,877 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,888 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,889 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,909 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,912 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,929 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,929 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,936 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,938 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,956 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,962 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:05,992 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:05,996 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,010 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,010 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,018 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,018 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,027 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,027 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,039 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,039 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,047 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,047 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,059 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,059 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,062 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,062 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,080 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,080 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,095 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,095 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,104 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,105 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,118 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,119 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,140 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,141 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,154 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,154 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,170 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,170 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,183 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,184 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,207 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,207 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,231 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,232 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,243 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,244 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,258 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,263 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,273 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,273 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,288 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,290 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,315 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,315 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,330 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,331 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,344 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,345 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,354 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,356 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,368 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,368 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,379 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,379 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,393 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,394 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,402 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,402 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,413 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,414 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,424 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,425 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,434 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,434 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,447 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,448 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,460 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,460 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,471 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,475 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,485 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,485 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,498 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,498 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,513 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,514 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,527 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,528 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,535 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,536 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,551 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,551 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,563 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,563 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,576 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,577 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,584 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,585 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,598 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,599 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,611 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,612 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,622 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,623 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,636 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,636 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,649 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,650 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,663 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,664 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,679 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,679 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,695 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,697 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,719 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,725 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,745 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,746 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,759 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,760 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,769 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,775 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,791 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,791 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,799 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,799 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,821 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,826 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,836 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,837 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,851 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,851 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,859 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,861 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,875 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,875 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,885 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,891 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,902 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,904 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,916 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,918 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,930 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,930 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,944 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,944 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,960 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,964 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:06,980 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:06,980 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:07,005 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:07,009 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:07,035 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:07,049 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:07,100 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:07,108 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:07,132 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:07,132 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:07,150 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:07,150 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:07,168 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:07,168 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:07,179 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:07,180 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-15 09:10:07,191 monitoring 16624 15912 Task delete_document (None) started
+ERROR 2025-08-15 09:10:07,191 monitoring 16624 15912 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given

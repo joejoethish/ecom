@@ -121,7 +121,13 @@
 
 
 
-  - [ ] 4.2 Create user self-management endpoints
+  - [x] 4.2 Create user self-management endpoints
+
+
+
+
+
+
     - Implement GET /api/v1/users/me/ endpoint for current user profile
     - Create PUT /api/v1/users/me/ endpoint for profile updates
 

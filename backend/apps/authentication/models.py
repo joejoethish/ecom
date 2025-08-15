@@ -8,6 +8,7 @@ from django.utils import timezone
 from datetime import timedelta
 import secrets
 import hashlib
+import uuid
 from core.models import TimestampedModel
 
 
@@ -32,6 +33,7 @@ class User(AbstractUser, TimestampedModel):
     # Core fields
     email = models.EmailField(unique=True)
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES, default='customer')
+    uuid = models.CharField(max_length=32, unique=True)
     
     # Profile fields
     phone_number = models.CharField(
@@ -85,6 +87,12 @@ class User(AbstractUser, TimestampedModel):
 
     def __str__(self):
         return self.email
+
+    def save(self, *args, **kwargs):
+        """Override save to generate UUID if not present."""
+        if not self.uuid:
+            self.uuid = uuid.uuid4().hex
+        super().save(*args, **kwargs)
 
     @property
     def full_name(self):
