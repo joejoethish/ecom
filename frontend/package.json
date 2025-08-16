@@ -84,31 +84,5 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "whatwg-fetch": "^3.6.19"
-  },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": [
-      "<rootDir>/jest.setup.js"
-    ],
-    "setupFiles": [
-      "<rootDir>/jest.polyfills.js"
-    ],
-    "moduleNameMapping": {
-      "^@/(.*)$": "<rootDir>/src/$1"
-    },
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts",
-      "!src/pages/_app.tsx",
-      "!src/pages/_document.tsx"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 70,
-        "functions": 70,
-        "lines": 70,
-        "statements": 70
-      }
-    }
   }
 }

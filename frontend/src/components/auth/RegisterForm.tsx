@@ -109,6 +109,7 @@ export function RegisterForm() {
           <div className="space-y-4">
             <Input
               label="Username"
+              key="username-input"
               name="username"
               type="text"
               autoComplete="username"
@@ -122,6 +123,7 @@ export function RegisterForm() {
             
             <Input
               label="Email address"
+              key="email-input"
               name="email"
               type="email"
               autoComplete="email"
@@ -134,6 +136,7 @@ export function RegisterForm() {
             
             <Input
               label="Password"
+              key="password-input"
               name="password"
               type="password"
               autoComplete="new-password"
@@ -160,6 +163,7 @@ export function RegisterForm() {
             <Input
               label="Phone Number (Optional)"
               name="phone_number"
+              key="phone-number-input"
               type="tel"
               autoComplete="tel"
               value={formData.phone_number}
@@ -177,7 +181,7 @@ export function RegisterForm() {
                 name="user_type"
                 value={formData.user_type}
                 onChange={handleChange}
-                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-900 "
               >
                 <option value={USER_TYPES.CUSTOMER}>Customer</option>
                 <option value={USER_TYPES.SELLER}>Seller</option>

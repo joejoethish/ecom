@@ -9,3 +9,6 @@ export { GuestRoute } from './GuestRoute';
 export { UserProfile } from './UserProfile';
 export { ForgotPasswordForm } from './ForgotPasswordForm';
 export { ResetPasswordForm } from './ResetPasswordForm';
+export { default as EmailVerificationPage } from './EmailVerificationPage';
+export { default as ResendVerificationForm } from './ResendVerificationForm';
+export { default as EmailVerificationStatus } from './EmailVerificationStatus';

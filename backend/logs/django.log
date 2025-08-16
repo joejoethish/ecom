@@ -1896,3 +1896,421 @@ Traceback (most recent call last):
     _mysql.connection.query(self, query)
 django.db.utils.ProgrammingError: (1146, "Table 'ecommerce_db.tenants' doesn't exist")
 ERROR 2025-08-15 15:09:01,076 basehttp 4100 10544 "POST /api/v1/auth/register/ HTTP/1.1" 500 202989
+INFO 2025-08-15 03:57:20,533 autoreload 1732 13372 Watching for file changes with StatReloader
+INFO 2025-08-15 03:57:33,609 database_security 1732 13372 Audit tables created successfully
+INFO 2025-08-15 03:57:33,622 database_security 1732 13372 Database security monitoring initialized successfully
+INFO 2025-08-15 03:58:33,562 basehttp 1732 13920 "OPTIONS /api/v1/auth/register/ HTTP/1.1" 200 0
+ERROR 2025-08-15 03:58:34,100 log 1732 13920 Internal Server Error: /api/v1/auth/register/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\mysql\base.py", line 75, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\cursors.py", line 206, in execute
+    res = self._query(query)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\cursors.py", line 319, in _query
+    db.query(q)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\connections.py", line 254, in query
+    _mysql.connection.query(self, query)
+MySQLdb._exceptions.ProgrammingError: (1146, "Table 'ecommerce_db.tenants' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Local_ecom\backend\apps\tenants\middleware.py", line 32, in process_request
+    tenant = Tenant.objects.get(subdomain=subdomain, is_active=True)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\query.py", line 633, in get
+    num = len(clone)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\query.py", line 380, in __len__
+    self._fetch_all()
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\sql\compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 84, in _execute
+    with self.db.wrap_database_errors:
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\mysql\base.py", line 75, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\cursors.py", line 206, in execute
+    res = self._query(query)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\cursors.py", line 319, in _query
+    db.query(q)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\connections.py", line 254, in query
+    _mysql.connection.query(self, query)
+django.db.utils.ProgrammingError: (1146, "Table 'ecommerce_db.tenants' doesn't exist")
+ERROR 2025-08-15 03:58:34,114 basehttp 1732 13920 "POST /api/v1/auth/register/ HTTP/1.1" 500 202549
+INFO 2025-08-15 03:59:40,358 database_security 6124 14840 Audit tables created successfully
+INFO 2025-08-15 03:59:40,358 database_security 6124 14840 Database security monitoring initialized successfully
+INFO 2025-08-15 04:01:44,836 database_security 2228 13636 Audit tables created successfully
+INFO 2025-08-15 04:01:44,836 database_security 2228 13636 Database security monitoring initialized successfully
+INFO 2025-08-15 04:02:30,499 database_security 13876 14872 Audit tables created successfully
+INFO 2025-08-15 04:02:30,499 database_security 13876 14872 Database security monitoring initialized successfully
+INFO 2025-08-15 04:02:38,773 monitoring 13876 14872 Task update_document (None) started
+INFO 2025-08-15 04:02:38,773 signals 13876 14872 Updating Elasticsearch document: migrations.migration ID: 59
+ERROR 2025-08-15 04:02:38,773 signals 13876 14872 Error updating Elasticsearch document: No installed app with label 'migrations'.
+WARNING 2025-08-15 04:02:38,773 monitoring 13876 14872 Retrying task tasks.monitoring.wrapper due to: No installed app with label 'migrations'.
+ERROR 2025-08-15 04:02:38,773 monitoring 13876 14872 Task retry failed: No installed app with label 'migrations'.
+ERROR 2025-08-15 04:02:38,773 monitoring 13876 14872 Task update_document (None) failed: No installed app with label 'migrations'.
+INFO 2025-08-15 04:02:38,773 monitoring 13876 14872 Task update_document (None) started
+INFO 2025-08-15 04:02:38,773 signals 13876 14872 Updating Elasticsearch document: migrations.migration ID: 60
+ERROR 2025-08-15 04:02:38,773 signals 13876 14872 Error updating Elasticsearch document: No installed app with label 'migrations'.
+WARNING 2025-08-15 04:02:38,773 monitoring 13876 14872 Retrying task tasks.monitoring.wrapper due to: No installed app with label 'migrations'.
+ERROR 2025-08-15 04:02:38,773 monitoring 13876 14872 Task retry failed: No installed app with label 'migrations'.
+ERROR 2025-08-15 04:02:38,786 monitoring 13876 14872 Task update_document (None) failed: No installed app with label 'migrations'.
+INFO 2025-08-15 04:02:47,177 monitoring 13876 14872 Task update_document (None) started
+INFO 2025-08-15 04:02:47,177 signals 13876 14872 Updating Elasticsearch document: migrations.migration ID: 61
+ERROR 2025-08-15 04:02:47,177 signals 13876 14872 Error updating Elasticsearch document: No installed app with label 'migrations'.
+WARNING 2025-08-15 04:02:47,177 monitoring 13876 14872 Retrying task tasks.monitoring.wrapper due to: No installed app with label 'migrations'.
+ERROR 2025-08-15 04:02:47,177 monitoring 13876 14872 Task retry failed: No installed app with label 'migrations'.
+ERROR 2025-08-15 04:02:47,177 monitoring 13876 14872 Task update_document (None) failed: No installed app with label 'migrations'.
+INFO 2025-08-16 11:02:46,865 database_security 20012 18408 Audit tables created successfully
+INFO 2025-08-16 11:02:46,865 database_security 20012 18408 Database security monitoring initialized successfully
+INFO 2025-08-16 11:04:02,281 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,282 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,307 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,307 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,307 signals 18568 7356 Profile created for user: testuser@example.com
+INFO 2025-08-16 11:04:02,314 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,316 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,346 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,347 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,354 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,354 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,365 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,367 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,375 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,375 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,391 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,391 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,405 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,405 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,418 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,419 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,427 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,428 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,442 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,442 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,456 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,457 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,472 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,472 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,483 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,483 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,492 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,492 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,503 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,505 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,515 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,517 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,531 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,533 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,541 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,541 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,553 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,553 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,561 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,565 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,576 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,576 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,587 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,588 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,596 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,599 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,607 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,607 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,620 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,620 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,632 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,634 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,641 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,641 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,654 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,655 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,665 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,667 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,675 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,678 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,691 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,692 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,703 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,703 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,711 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,711 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,724 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,725 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,740 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,742 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,753 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,754 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,761 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,767 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,776 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,776 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,790 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,790 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,900 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,900 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,908 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,908 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,920 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,920 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,935 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,935 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,943 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,943 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,956 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,956 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,966 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,968 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,976 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,976 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:02,990 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:02,990 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,001 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,001 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,009 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,009 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,025 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,026 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,037 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,037 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,047 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,049 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,058 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,059 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,070 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,070 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,078 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,086 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,093 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,093 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,105 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,105 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,120 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,120 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,127 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,128 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,141 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,141 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,155 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,155 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,168 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,170 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,178 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,179 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,192 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,193 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,207 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,207 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,222 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,222 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,235 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,237 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,243 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,243 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,255 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,255 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,268 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,268 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,276 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,276 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,287 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,288 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,295 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,298 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,309 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,309 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,320 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,320 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,330 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,330 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,344 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,344 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,358 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,358 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,371 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,371 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,388 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,388 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,401 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,403 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,411 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,412 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,424 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,425 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,441 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,441 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,458 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,459 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,470 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,471 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,479 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,480 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,491 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,492 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,509 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,510 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,523 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,524 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,548 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,548 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,559 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,559 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,574 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,575 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,584 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,585 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,592 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,594 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,607 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,608 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,620 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,620 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,628 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,630 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,650 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,651 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,658 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,658 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,691 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,691 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,706 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,706 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,722 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,722 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,731 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,731 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,753 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,757 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,776 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,776 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,790 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,790 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,808 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,810 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,825 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,827 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,842 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,842 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,853 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,854 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,881 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,881 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,951 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,958 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:03,994 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:03,994 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,010 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,010 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,024 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,027 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,041 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,042 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,056 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,056 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,071 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,072 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,083 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,084 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,093 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,094 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,108 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,108 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,121 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,122 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,130 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,132 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,139 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,141 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,156 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,156 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,165 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,165 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,173 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,175 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,188 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,188 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,201 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,201 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,210 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,210 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,224 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,224 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,239 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,239 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,251 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,253 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,259 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,259 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,278 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,283 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,292 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,292 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,310 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,320 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,335 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,336 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,351 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,351 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,359 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,360 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,374 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,374 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,388 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,388 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,399 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,400 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,407 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,408 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,422 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,423 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,437 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,437 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,446 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,449 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,457 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,458 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,470 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,470 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,478 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,481 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,489 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,490 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,505 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,505 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,518 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,519 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,526 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,527 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,549 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,550 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,558 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,558 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,570 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,571 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,585 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,586 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,672 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,672 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:04:04,685 monitoring 18568 7356 Task delete_document (None) started
+ERROR 2025-08-16 11:04:04,685 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-16 11:05:18,102 database_security 10332 296 Audit tables created successfully
+INFO 2025-08-16 11:05:18,103 database_security 10332 296 Database security monitoring initialized successfully

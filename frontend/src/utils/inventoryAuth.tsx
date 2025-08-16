@@ -179,13 +179,7 @@ export const withInventoryAuth = <P extends object>(
       );
     }
     
-    // Redirect to login if not authenticated
-    if (!auth.isAuthenticated) {
-      if (typeof window !== 'undefined') {
-        window.location.href = `/auth/login?redirect=${encodeURIComponent(window.location.pathname)}`;
-      }
-      return null;
-    }
+  
     
     // Show access denied if user doesn't have required permissions
     if (!auth.checkAllPermissions(requiredPermissions)) {

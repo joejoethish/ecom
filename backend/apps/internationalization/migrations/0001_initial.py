@@ -185,7 +185,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AddConstraint(
-            model_name='regionlcompliance',
+            model_name='regionalcompliance',
             constraint=models.UniqueConstraint(fields=('region_code', 'compliance_type'), name='unique_region_compliance'),
         ),
         migrations.AddConstraint(
