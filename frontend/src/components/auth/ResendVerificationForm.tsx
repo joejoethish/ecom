@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { EnvelopeIcon, CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/24/outline';
+import { EnvelopeIcon, CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { authApi } from '@/services/authApi';
 import { useAuth } from '@/hooks/useAuth';
 

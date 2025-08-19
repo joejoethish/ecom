@@ -2314,3 +2314,84 @@ INFO 2025-08-16 11:04:04,685 monitoring 18568 7356 Task delete_document (None) s
 ERROR 2025-08-16 11:04:04,685 monitoring 18568 7356 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
 INFO 2025-08-16 11:05:18,102 database_security 10332 296 Audit tables created successfully
 INFO 2025-08-16 11:05:18,103 database_security 10332 296 Database security monitoring initialized successfully
+INFO 2025-08-19 07:42:35,791 autoreload 10592 16644 Watching for file changes with StatReloader
+INFO 2025-08-19 07:42:42,133 database_security 10592 16644 Audit tables created successfully
+INFO 2025-08-19 07:42:42,133 database_security 10592 16644 Database security monitoring initialized successfully
+INFO 2025-08-19 07:45:27,061 basehttp 10592 18940 "OPTIONS /api/v1/auth/register/ HTTP/1.1" 200 0
+ERROR 2025-08-19 07:45:29,498 log 10592 18940 Internal Server Error: /api/v1/auth/register/
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\mysql\base.py", line 75, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\cursors.py", line 206, in execute
+    res = self._query(query)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\cursors.py", line 319, in _query
+    db.query(q)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\connections.py", line 254, in query
+    _mysql.connection.query(self, query)
+MySQLdb._exceptions.ProgrammingError: (1146, "Table 'ecommerce_db.tenants' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Local_ecom\backend\apps\tenants\middleware.py", line 32, in process_request
+    tenant = Tenant.objects.get(subdomain=subdomain, is_active=True)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\query.py", line 633, in get
+    num = len(clone)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\query.py", line 380, in __len__
+    self._fetch_all()
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\models\sql\compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 84, in _execute
+    with self.db.wrap_database_errors:
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\django\db\backends\mysql\base.py", line 75, in execute
+    return self.cursor.execute(query, args)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\cursors.py", line 206, in execute
+    res = self._query(query)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\cursors.py", line 319, in _query
+    db.query(q)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\MySQLdb\connections.py", line 254, in query
+    _mysql.connection.query(self, query)
+django.db.utils.ProgrammingError: (1146, "Table 'ecommerce_db.tenants' doesn't exist")
+ERROR 2025-08-19 07:45:29,593 basehttp 10592 18940 "POST /api/v1/auth/register/ HTTP/1.1" 500 203056
+INFO 2025-08-19 07:46:52,424 database_security 8864 1420 Audit tables created successfully
+INFO 2025-08-19 07:46:52,425 database_security 8864 1420 Database security monitoring initialized successfully
+INFO 2025-08-19 07:48:23,654 database_security 10040 20848 Audit tables created successfully
+INFO 2025-08-19 07:48:23,655 database_security 10040 20848 Database security monitoring initialized successfully
+INFO 2025-08-19 07:48:37,398 database_security 11396 3624 Audit tables created successfully
+INFO 2025-08-19 07:48:37,399 database_security 11396 3624 Database security monitoring initialized successfully
+INFO 2025-08-19 08:12:07,851 autoreload 10592 16644 C:\Local_ecom\backend\core\middleware\database_security_middleware.py changed, reloading.
+INFO 2025-08-19 08:12:21,761 autoreload 10140 12344 Watching for file changes with StatReloader
+INFO 2025-08-19 08:13:31,645 autoreload 10140 12344 C:\Local_ecom\backend\core\database_security.py changed, reloading.
+INFO 2025-08-19 08:13:41,831 autoreload 18744 2956 Watching for file changes with StatReloader
+INFO 2025-08-19 08:14:08,099 autoreload 18744 2956 C:\Local_ecom\backend\core\database_security.py changed, reloading.
+INFO 2025-08-19 08:14:13,297 autoreload 10940 20392 Watching for file changes with StatReloader
+INFO 2025-08-19 08:16:30,355 autoreload 10940 20392 C:\Local_ecom\backend\core\database_security.py changed, reloading.
+INFO 2025-08-19 08:16:35,878 autoreload 2900 8124 Watching for file changes with StatReloader
+ERROR 2025-08-19 08:16:37,876 database_security 2900 8124 Failed to create audit tables: near "INDEX": syntax error
+INFO 2025-08-19 08:16:37,876 database_security 2900 8124 Database security monitoring initialized successfully
+ERROR 2025-08-19 08:17:01,592 database_security 15284 7276 Failed to create audit tables: near "INDEX": syntax error
+INFO 2025-08-19 08:17:01,593 database_security 15284 7276 Database security monitoring initialized successfully
+ERROR 2025-08-19 08:17:33,497 database_security 17212 4860 Failed to create audit tables: near "INDEX": syntax error
+INFO 2025-08-19 08:17:33,499 database_security 17212 4860 Database security monitoring initialized successfully

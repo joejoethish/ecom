@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ExclamationTriangleIcon, CheckCircleIcon, XMarkIcon } from '@heroicons/24/outline';
+import { ExclamationTriangleIcon, CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '@/hooks/useAuth';
 import { authApi } from '@/services/authApi';
 

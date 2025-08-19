@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { CheckCircleIcon, XCircleIcon, ExclamationTriangleIcon } from '@heroicons/24/outline';
+import { CheckCircleIcon, XCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 import { authApi } from '@/services/authApi';
 import { useAuth } from '@/hooks/useAuth';
 import { AUTH_ROUTES } from '@/constants/routes';
