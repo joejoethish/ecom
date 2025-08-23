@@ -4473,3 +4473,441 @@ INFO 2025-08-23 21:50:46,875 database_security 3896 15568 Audit tables created s
 INFO 2025-08-23 21:50:46,875 database_security 3896 15568 Database security monitoring initialized successfully
 WARNING 2025-08-23 21:51:01,194 log 3896 4652 Not Found: /api/v1/auth/login/
 WARNING 2025-08-23 21:51:01,201 basehttp 3896 4652 "POST /api/v1/auth/login/ HTTP/1.1" 404 1878
+INFO 2025-08-23 22:06:12,503 autoreload 14972 14960 Watching for file changes with StatReloader
+INFO 2025-08-23 22:06:13,924 database_security 14972 4580 Audit tables created successfully
+INFO 2025-08-23 22:06:13,926 database_security 14972 4580 Database security monitoring initialized successfully
+INFO 2025-08-23 22:06:48,774 basehttp 14972 15172 "OPTIONS /api/v1/auth/register/ HTTP/1.1" 200 0
+WARNING 2025-08-23 22:06:48,887 log 14972 15172 Not Found: /api/v1/auth/register/
+WARNING 2025-08-23 22:06:48,887 basehttp 14972 15172 "POST /api/v1/auth/register/ HTTP/1.1" 404 1887
+INFO 2025-08-23 22:31:26,771 autoreload 14316 14288 Watching for file changes with StatReloader
+INFO 2025-08-23 22:31:29,998 database_security 14316 13324 Audit tables created successfully
+INFO 2025-08-23 22:31:29,998 database_security 14316 13324 Database security monitoring initialized successfully
+WARNING 2025-08-23 22:31:50,152 log 14316 13960 Not Found: /
+WARNING 2025-08-23 22:31:50,153 basehttp 14316 13960 "GET / HTTP/1.1" 404 1730
+WARNING 2025-08-23 22:31:50,302 log 14316 13964 Not Found: /favicon.ico
+WARNING 2025-08-23 22:31:50,302 basehttp 14316 13964 "GET /favicon.ico HTTP/1.1" 404 1752
+WARNING 2025-08-23 22:31:54,984 log 14316 3276 Not Found: /
+WARNING 2025-08-23 22:31:54,984 basehttp 14316 3276 "GET / HTTP/1.1" 404 1730
+WARNING 2025-08-23 22:32:05,413 log 14316 11088 Not Found: /api/docs/
+WARNING 2025-08-23 22:32:05,413 basehttp 14316 11088 "GET //api/docs/ HTTP/1.1" 404 1748
+WARNING 2025-08-23 22:32:09,644 log 14316 14256 Not Found: /api/docs/
+WARNING 2025-08-23 22:32:09,644 basehttp 14316 14256 "GET /api/docs/ HTTP/1.1" 404 1748
+WARNING 2025-08-23 22:37:28,991 log 14316 9348 Not Found: /api/v1/categories/featured/
+WARNING 2025-08-23 22:37:28,999 basehttp 14316 9348 "GET /api/v1/categories/featured/ HTTP/1.1" 404 1901
+WARNING 2025-08-23 22:53:52,807 log 14316 13352 Not Found: /api/docs/
+WARNING 2025-08-23 22:53:52,807 basehttp 14316 13352 "GET //api/docs/ HTTP/1.1" 404 1748
+WARNING 2025-08-23 22:53:53,614 log 14316 9008 Not Found: /
+WARNING 2025-08-23 22:53:53,614 basehttp 14316 9008 "GET / HTTP/1.1" 404 1730
+WARNING 2025-08-23 22:53:59,772 log 14316 10148 Not Found: /api/v1/categories/featured/
+WARNING 2025-08-23 22:53:59,774 basehttp 14316 10148 "GET /api/v1/categories/featured/ HTTP/1.1" 404 1901
+INFO 2025-08-23 22:54:15,627 basehttp 14316 10888 "OPTIONS /api/v1/auth/login/ HTTP/1.1" 200 0
+WARNING 2025-08-23 22:54:15,648 log 14316 10888 Not Found: /api/v1/auth/login/
+WARNING 2025-08-23 22:54:15,648 basehttp 14316 10888 "POST /api/v1/auth/login/ HTTP/1.1" 404 1878
+WARNING 2025-08-23 22:54:29,331 log 14316 9872 Not Found: /api/v1/auth/login/
+WARNING 2025-08-23 22:54:29,333 basehttp 14316 9872 "POST /api/v1/auth/login/ HTTP/1.1" 404 1878
+INFO 2025-08-23 22:59:02,142 autoreload 8796 4984 Watching for file changes with StatReloader
+INFO 2025-08-23 22:59:03,108 database_security 8796 7092 Audit tables created successfully
+INFO 2025-08-23 22:59:03,109 database_security 8796 7092 Database security monitoring initialized successfully
+INFO 2025-08-23 22:59:22,241 basehttp 8796 11496 "OPTIONS /auth/login/ HTTP/1.1" 200 0
+WARNING 2025-08-23 22:59:22,277 log 8796 11496 Not Found: /auth/login/
+WARNING 2025-08-23 22:59:22,277 basehttp 8796 11496 "POST /auth/login/ HTTP/1.1" 404 1753
+INFO 2025-08-23 22:59:55,475 basehttp 8796 9648 "OPTIONS /api/v1/auth/login/ HTTP/1.1" 200 0
+WARNING 2025-08-23 22:59:55,516 log 8796 9648 Not Found: /api/v1/auth/login/
+WARNING 2025-08-23 22:59:55,516 basehttp 8796 9648 "POST /api/v1/auth/login/ HTTP/1.1" 404 1878
+INFO 2025-08-23 23:21:03,371 autoreload 8796 4984 C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
+INFO 2025-08-23 23:21:08,960 autoreload 10920 7612 Watching for file changes with StatReloader
+INFO 2025-08-23 23:21:11,088 database_security 10920 4700 Audit tables created successfully
+INFO 2025-08-23 23:21:11,088 database_security 10920 4700 Database security monitoring initialized successfully
+INFO 2025-08-23 23:21:28,380 autoreload 10920 7612 C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
+INFO 2025-08-23 23:21:33,776 autoreload 7888 8016 Watching for file changes with StatReloader
+INFO 2025-08-23 23:21:35,219 database_security 7888 11636 Audit tables created successfully
+INFO 2025-08-23 23:21:35,219 database_security 7888 11636 Database security monitoring initialized successfully
+INFO 2025-08-23 23:21:50,651 database_security 9756 5664 Audit tables created successfully
+INFO 2025-08-23 23:21:50,651 database_security 9756 5664 Database security monitoring initialized successfully
+INFO 2025-08-23 23:22:14,385 autoreload 7888 8016 C:\Local_ecom\backend\apps\debugging\models.py changed, reloading.
+INFO 2025-08-23 23:22:19,268 autoreload 14272 868 Watching for file changes with StatReloader
+INFO 2025-08-23 23:22:25,728 autoreload 14272 868 C:\Local_ecom\backend\apps\debugging\models.py changed, reloading.
+INFO 2025-08-23 23:22:30,415 autoreload 9488 7384 Watching for file changes with StatReloader
+INFO 2025-08-23 23:22:57,408 database_security 14160 11796 Audit tables created successfully
+INFO 2025-08-23 23:22:57,410 database_security 14160 11796 Database security monitoring initialized successfully
+INFO 2025-08-23 23:23:33,852 database_security 4188 5716 Audit tables created successfully
+INFO 2025-08-23 23:23:33,852 database_security 4188 5716 Database security monitoring initialized successfully
+INFO 2025-08-23 23:23:57,324 monitoring 4188 5716 Task update_document (None) started
+INFO 2025-08-23 23:23:57,324 signals 4188 5716 Updating Elasticsearch document: migrations.migration ID: 76
+ERROR 2025-08-23 23:23:57,324 signals 4188 5716 Error updating Elasticsearch document: No installed app with label 'migrations'.
+WARNING 2025-08-23 23:23:57,324 monitoring 4188 5716 Retrying task tasks.monitoring.wrapper due to: No installed app with label 'migrations'.
+ERROR 2025-08-23 23:23:57,326 monitoring 4188 5716 Task retry failed: No installed app with label 'migrations'.
+ERROR 2025-08-23 23:23:57,326 monitoring 4188 5716 Task update_document (None) failed: No installed app with label 'migrations'.
+INFO 2025-08-23 23:25:06,470 database_security 7128 4588 Audit tables created successfully
+INFO 2025-08-23 23:25:06,471 database_security 7128 4588 Database security monitoring initialized successfully
+INFO 2025-08-23 23:25:17,412 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,413 signals 7128 4588 Updating Elasticsearch document: debugging.debugconfiguration ID: 1
+INFO 2025-08-23 23:25:17,417 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.debugconfiguration ID: 1
+INFO 2025-08-23 23:25:17,418 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:25:17,426 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,426 signals 7128 4588 Updating Elasticsearch document: debugging.debugconfiguration ID: 2
+INFO 2025-08-23 23:25:17,429 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.debugconfiguration ID: 2
+INFO 2025-08-23 23:25:17,429 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:25:17,436 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,437 signals 7128 4588 Updating Elasticsearch document: debugging.debugconfiguration ID: 3
+INFO 2025-08-23 23:25:17,439 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.debugconfiguration ID: 3
+INFO 2025-08-23 23:25:17,439 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:25:17,446 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,447 signals 7128 4588 Updating Elasticsearch document: debugging.debugconfiguration ID: 4
+INFO 2025-08-23 23:25:17,450 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.debugconfiguration ID: 4
+INFO 2025-08-23 23:25:17,451 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:25:17,460 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,461 signals 7128 4588 Updating Elasticsearch document: debugging.performancethreshold ID: 1
+INFO 2025-08-23 23:25:17,465 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.performancethreshold ID: 1
+INFO 2025-08-23 23:25:17,465 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:25:17,475 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,476 signals 7128 4588 Updating Elasticsearch document: debugging.performancethreshold ID: 2
+INFO 2025-08-23 23:25:17,479 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.performancethreshold ID: 2
+INFO 2025-08-23 23:25:17,479 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:25:17,520 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,522 signals 7128 4588 Updating Elasticsearch document: debugging.performancethreshold ID: 3
+INFO 2025-08-23 23:25:17,526 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.performancethreshold ID: 3
+INFO 2025-08-23 23:25:17,526 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:25:17,534 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,535 signals 7128 4588 Updating Elasticsearch document: debugging.performancethreshold ID: 4
+INFO 2025-08-23 23:25:17,537 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.performancethreshold ID: 4
+INFO 2025-08-23 23:25:17,538 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:25:17,546 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,546 signals 7128 4588 Updating Elasticsearch document: debugging.performancethreshold ID: 5
+INFO 2025-08-23 23:25:17,549 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.performancethreshold ID: 5
+INFO 2025-08-23 23:25:17,550 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:25:17,559 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,560 signals 7128 4588 Updating Elasticsearch document: debugging.performancethreshold ID: 6
+INFO 2025-08-23 23:25:17,562 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.performancethreshold ID: 6
+INFO 2025-08-23 23:25:17,563 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:25:17,571 monitoring 7128 4588 Task update_document (None) started
+INFO 2025-08-23 23:25:17,572 signals 7128 4588 Updating Elasticsearch document: debugging.performancethreshold ID: 7
+INFO 2025-08-23 23:25:17,574 signals 7128 4588 Successfully updated document in Elasticsearch: debugging.performancethreshold ID: 7
+INFO 2025-08-23 23:25:17,575 monitoring 7128 4588 Task update_document (None) completed successfully
+INFO 2025-08-23 23:33:01,893 database_security 12340 12584 Audit tables created successfully
+INFO 2025-08-23 23:33:01,893 database_security 12340 12584 Database security monitoring initialized successfully
+INFO 2025-08-23 23:40:03,651 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,651 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,678 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,678 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,679 signals 6680 7972 Profile created for user: demo@example.com
+INFO 2025-08-23 23:40:03,681 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,682 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,707 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,707 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,710 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,710 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,720 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,720 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,728 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,730 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,737 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,737 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,758 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,758 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,764 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,766 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,773 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,774 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,781 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,781 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,789 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,790 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,797 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,797 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,806 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,807 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,814 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,815 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,822 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,822 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,828 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,831 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,839 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,839 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,849 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,849 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,858 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,858 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,867 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,868 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,876 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,876 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,885 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,887 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,893 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,895 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,903 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,903 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,911 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,911 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,920 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,920 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,928 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,928 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,939 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,939 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,947 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,947 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,956 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,956 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:03,962 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:03,962 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,075 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,075 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,082 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,083 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,089 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,090 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,097 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,098 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,106 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,106 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,114 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,115 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,139 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,143 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,156 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,156 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,162 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,164 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,172 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,172 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,181 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,181 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,189 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,189 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,197 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,197 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,207 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,207 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,216 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,216 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,226 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,226 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,234 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,237 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,246 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,247 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,255 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,257 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,266 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,266 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,276 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,276 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,289 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,289 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,298 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,298 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,306 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,306 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,315 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,318 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,324 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,324 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,335 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,337 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,344 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,344 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,353 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,353 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,355 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,362 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,371 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,371 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,379 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,380 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,389 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,389 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,400 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,401 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,407 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,412 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,421 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,423 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,430 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,432 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,441 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,441 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,451 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,453 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,461 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,462 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,472 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,472 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,481 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,481 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,489 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,493 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,501 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,503 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,511 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,512 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,522 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,522 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,526 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,526 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,538 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,538 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,548 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,548 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,560 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,561 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,568 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,570 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,579 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,580 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,589 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,589 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,598 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,599 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,607 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,607 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,619 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,623 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,631 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,633 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,645 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,646 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,656 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,656 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,667 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,667 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,676 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,676 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,688 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,690 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,697 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,697 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,707 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,707 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,714 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,716 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,725 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,726 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,736 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,736 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,746 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,747 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,756 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,756 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,761 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,761 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,773 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,773 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,782 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,783 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,793 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,793 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,802 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,803 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,814 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,814 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,824 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,825 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,833 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,835 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,844 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,845 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,853 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,853 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,864 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,864 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,872 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,872 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,881 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,882 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,893 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,893 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,901 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,901 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,910 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,912 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,923 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,923 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,927 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,927 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,940 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,940 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,946 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,946 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,956 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,956 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,964 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,964 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,976 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,976 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,985 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,985 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:04,994 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:04,994 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,001 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,001 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,009 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,011 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,021 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,021 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,029 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,029 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,043 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,043 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,051 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,051 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,061 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,061 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,068 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,068 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,074 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,074 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,086 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,088 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,095 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,095 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,104 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,105 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,116 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,118 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,120 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,120 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,135 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,137 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,143 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,143 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,152 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,154 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,162 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,163 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,173 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,173 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,180 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,180 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,189 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,189 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,197 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,197 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,203 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,203 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,215 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,218 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,224 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,224 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,234 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,235 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,243 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,244 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,251 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,251 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,257 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,257 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,268 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,270 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,278 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,278 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,287 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,289 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,305 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,306 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,312 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,312 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:40:05,322 monitoring 6680 7972 Task delete_document (None) started
+ERROR 2025-08-23 23:40:05,322 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given

@@ -55,6 +55,9 @@ urlpatterns = [
     # Internationalization system
     path('', include('apps.internationalization.urls')),
     
+    # E2E Workflow Debugging System
+    path('', include('apps.debugging.urls')),
+    
     path('api/v1/', include('api.v1.urls')),
     # path('api/v2/', include('api.v2.urls')),  # Temporarily disabled
     
