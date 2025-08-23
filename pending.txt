@@ -7,4 +7,6 @@
 7) In Footer, when i click "Advertise" is not working,  i think code is missing.
 8) In Footer, when i click "Gift Cards" is not working,  i think code is missing.
 9) In Header, when i click "More" drop down, there is no listing under the "more" dropdown.
-10) 
+10) http://localhost:3000/terms  - 404 showing
+11) http://localhost:3000/privacy - 404 showing
+12) http://localhost:3000/contact - 404 showing

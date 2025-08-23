@@ -33,7 +33,7 @@ class User(AbstractUser, TimestampedModel):
     # Core fields
     email = models.EmailField(unique=True)
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES, default='customer')
-    uuid = models.CharField(max_length=32, unique=True)
+    uuid = models.CharField(max_length=32, unique=True, blank=True)
     
     # Profile fields
     phone_number = models.CharField(
