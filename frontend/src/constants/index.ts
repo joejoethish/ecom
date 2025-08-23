@@ -10,6 +10,7 @@ export const API_ENDPOINTS = {
     LOGOUT: '/auth/logout/',
     REFRESH: '/auth/refresh/',
     PROFILE: '/auth/profile/',
+    ADMIN_LOGIN: '/admin-auth/login/',
     FORGOT_PASSWORD: '/auth/forgot-password/',
     RESET_PASSWORD: '/auth/reset-password/',
     VALIDATE_RESET_TOKEN: (token: string) => `/auth/validate-reset-token/${token}/`,

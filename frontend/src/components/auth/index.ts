@@ -12,3 +12,8 @@ export { ResetPasswordForm } from './ResetPasswordForm';
 export { default as EmailVerificationPage } from './EmailVerificationPage';
 export { default as ResendVerificationForm } from './ResendVerificationForm';
 export { default as EmailVerificationStatus } from './EmailVerificationStatus';
+
+// New navigation and layout components
+export { AuthNavigation, AuthFooter } from './AuthNavigation';
+export { AuthBreadcrumb } from './AuthBreadcrumb';
+export { AuthPageWrapper } from './AuthPageWrapper';
