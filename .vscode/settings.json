@@ -23,6 +23,10 @@
         "python -c \"import ecommerce_project.settings.development; print('Settings import successful')\"",
         "python -c \"import py_compile; import os; [py_compile.compile(os.path.join(root, file)) for root, dirs, files in os.walk('apps') for file in files if file.endswith('.py')]\"",
         "git checkout HEAD -- apps/customers/tests/test_services.py",
-        "git checkout HEAD -- apps/customers/tests/test_models.py"
+        "git checkout HEAD -- apps/customers/tests/test_models.py",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from apps.authentication.middleware import AuthenticationRateLimitMiddleware; print('Middleware syntax is correct')\"",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from apps.authentication.security_monitor import security_monitor, security_event_logger, security_notification_service; print('Security monitoring system imported successfully')\"",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from apps.authentication.tests.test_security_middleware import *; print('Security middleware tests imported successfully')\"",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from apps.authentication.tests.test_authentication_services import *; from apps.authentication.tests.test_authentication_api import *; print('Authentication tests imported successfully')\""
     ]
 }

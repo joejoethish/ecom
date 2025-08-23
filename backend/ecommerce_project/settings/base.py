@@ -88,8 +88,10 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'apps.authentication.middleware.CSRFPasswordResetMiddleware',
-    'apps.authentication.middleware.PasswordResetRateLimitMiddleware',
+    'apps.authentication.middleware.CSRFAuthenticationMiddleware',
+    'apps.authentication.middleware.AuthenticationRateLimitMiddleware',
+    'apps.authentication.middleware.AccountLockoutMiddleware',
+    'apps.authentication.middleware.IPSecurityMonitoringMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'core.middleware.database_security_middleware.DatabaseSecurityMiddleware',
     'core.middleware.database_security_middleware.AuthenticationSecurityMiddleware',
@@ -293,6 +295,38 @@ AUTH_PASSWORD_VALIDATORS = [
 # Additional password security settings
 PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds
 PASSWORD_RESET_RATE_LIMIT = 5  # Maximum requests per hour per IP
+
+# Authentication Rate Limiting Settings
+AUTH_RATE_LIMITING = {
+    'ENABLED': config('AUTH_RATE_LIMITING_ENABLED', default=True, cast=bool),
+    'LOGIN_ATTEMPTS': config('AUTH_LOGIN_RATE_LIMIT', default=5, cast=int),
+    'LOGIN_WINDOW': config('AUTH_LOGIN_RATE_WINDOW', default=900, cast=int),  # 15 minutes
+    'REGISTER_ATTEMPTS': config('AUTH_REGISTER_RATE_LIMIT', default=10, cast=int),
+    'REGISTER_WINDOW': config('AUTH_REGISTER_RATE_WINDOW', default=3600, cast=int),  # 1 hour
+    'PASSWORD_RESET_ATTEMPTS': config('AUTH_PASSWORD_RESET_RATE_LIMIT', default=5, cast=int),
+    'PASSWORD_RESET_WINDOW': config('AUTH_PASSWORD_RESET_RATE_WINDOW', default=3600, cast=int),  # 1 hour
+    'EMAIL_VERIFICATION_ATTEMPTS': config('AUTH_EMAIL_VERIFICATION_RATE_LIMIT', default=3, cast=int),
+    'EMAIL_VERIFICATION_WINDOW': config('AUTH_EMAIL_VERIFICATION_RATE_WINDOW', default=3600, cast=int),  # 1 hour
+    'ADMIN_LOGIN_ATTEMPTS': config('AUTH_ADMIN_LOGIN_RATE_LIMIT', default=3, cast=int),
+    'ADMIN_LOGIN_WINDOW': config('AUTH_ADMIN_LOGIN_RATE_WINDOW', default=900, cast=int),  # 15 minutes
+}
+
+# Account Lockout Settings
+ACCOUNT_LOCKOUT = {
+    'ENABLED': config('ACCOUNT_LOCKOUT_ENABLED', default=True, cast=bool),
+    'MAX_FAILED_ATTEMPTS': config('ACCOUNT_LOCKOUT_MAX_ATTEMPTS', default=5, cast=int),
+    'LOCKOUT_DURATION_MINUTES': config('ACCOUNT_LOCKOUT_DURATION', default=30, cast=int),
+    'RESET_ON_SUCCESS': config('ACCOUNT_LOCKOUT_RESET_ON_SUCCESS', default=True, cast=bool),
+}
+
+# IP Security Monitoring Settings
+IP_SECURITY_MONITORING = {
+    'ENABLED': config('IP_SECURITY_MONITORING_ENABLED', default=True, cast=bool),
+    'REQUESTS_PER_MINUTE_THRESHOLD': config('IP_REQUESTS_PER_MINUTE_THRESHOLD', default=30, cast=int),
+    'FAILED_LOGINS_PER_HOUR_THRESHOLD': config('IP_FAILED_LOGINS_PER_HOUR_THRESHOLD', default=10, cast=int),
+    'ENDPOINTS_PER_MINUTE_THRESHOLD': config('IP_ENDPOINTS_PER_MINUTE_THRESHOLD', default=10, cast=int),
+    'LOG_SUSPICIOUS_ACTIVITY': config('IP_LOG_SUSPICIOUS_ACTIVITY', default=True, cast=bool),
+}
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'

@@ -2542,3 +2542,1321 @@ INFO 2025-08-23 18:55:16,821 database_security 7500 3496 Audit tables created su
 INFO 2025-08-23 18:55:16,821 database_security 7500 3496 Database security monitoring initialized successfully
 INFO 2025-08-23 18:56:36,485 database_security 3212 9484 Audit tables created successfully
 INFO 2025-08-23 18:56:36,485 database_security 3212 9484 Database security monitoring initialized successfully
+INFO 2025-08-23 19:21:03,816 database_security 7072 13876 Audit tables created successfully
+INFO 2025-08-23 19:21:03,816 database_security 7072 13876 Database security monitoring initialized successfully
+INFO 2025-08-23 19:55:24,792 security_monitor 11728 1492 AUTH_EVENT: LOGIN_ATTEMPT - User: test@example.com, IP: 192.168.1.1, Success: True
+WARNING 2025-08-23 19:55:24,817 security_monitor 11728 1492 AUTH_EVENT: REGISTRATION_ATTEMPT - User: test@example.com, IP: 192.168.1.1, Success: False
+INFO 2025-08-23 19:55:24,818 security_monitor 11728 1492 AUTH_EVENT: PASSWORD_RESET_REQUEST - User: test@example.com, IP: 192.168.1.1, Success: True
+INFO 2025-08-23 20:02:40,752 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,752 signals 1888 12320 Updating Elasticsearch document: authentication.user ID: 115
+INFO 2025-08-23 20:02:40,760 signals 1888 12320 Successfully updated document in Elasticsearch: authentication.user ID: 115
+INFO 2025-08-23 20:02:40,761 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,774 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,774 signals 1888 12320 Updating Elasticsearch document: authentication.userprofile ID: 57
+INFO 2025-08-23 20:02:40,783 signals 1888 12320 Successfully updated document in Elasticsearch: authentication.userprofile ID: 57
+INFO 2025-08-23 20:02:40,785 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,785 signals 1888 12320 Profile created for user: servicetest@example.com
+INFO 2025-08-23 20:02:40,788 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,789 signals 1888 12320 Updating Elasticsearch document: authentication.userprofile ID: 57
+INFO 2025-08-23 20:02:40,791 signals 1888 12320 Successfully updated document in Elasticsearch: authentication.userprofile ID: 57
+INFO 2025-08-23 20:02:40,791 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,813 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,813 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,823 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,826 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,831 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,832 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,834 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,834 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,841 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,841 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,847 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,848 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,855 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,855 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,858 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,858 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,872 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,872 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,873 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,873 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,880 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,880 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,882 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,882 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,892 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,892 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,896 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,896 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,896 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,896 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,908 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,908 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,916 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,916 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,920 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,920 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,930 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,931 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,933 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,935 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,937 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,937 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,942 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,942 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,952 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,953 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,955 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,955 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,958 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,958 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,966 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,966 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,974 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,974 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,978 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,978 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,984 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,984 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,990 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:40,990 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:40,996 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:40,999 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,001 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,001 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,019 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,019 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,077 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,077 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,095 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,095 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,100 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,100 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,109 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,111 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,118 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,121 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,131 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,133 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,138 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,138 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,146 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,146 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,148 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,150 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,156 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,158 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,161 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,161 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,164 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,164 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,171 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,171 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,177 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,179 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,182 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,182 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,189 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,191 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,195 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,195 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,209 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,209 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,212 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,212 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,225 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,228 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,230 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,230 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,234 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,234 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,242 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,243 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,246 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,246 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,251 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,251 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,254 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,254 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,264 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,264 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,271 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,271 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,272 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,272 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,280 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,280 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,284 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,286 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,288 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,288 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,295 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,295 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,302 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,304 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,307 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,307 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,310 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,310 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,317 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,317 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,324 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,325 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,327 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,329 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,335 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,335 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,340 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,340 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,353 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,353 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,359 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,359 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,375 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,375 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,379 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,379 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,394 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,394 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,398 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,398 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,410 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,410 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,416 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,416 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,423 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,423 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,430 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,431 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,440 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,440 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,444 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,444 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,453 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,453 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,456 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,456 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,459 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,459 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,464 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,464 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,475 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,476 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,477 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,477 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,480 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,480 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,486 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,489 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,496 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,496 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,499 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,500 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,505 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,505 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,508 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,511 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,517 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,517 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,522 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,522 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,527 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,527 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,534 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,535 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,540 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,540 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,544 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,544 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,551 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,553 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,558 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,558 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,562 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,562 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,566 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,566 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,573 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,573 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,579 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,579 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,582 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,582 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,587 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,587 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,598 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,598 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,601 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,601 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,603 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,603 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,610 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,610 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,617 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,617 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,622 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,622 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,625 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,625 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,631 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,631 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,640 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,640 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,643 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,643 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,647 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,647 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,652 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,652 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,662 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,664 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,665 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,665 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,671 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,673 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,677 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,679 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,684 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,684 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,688 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,688 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,695 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,698 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,703 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,703 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,703 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,703 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,712 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,712 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,728 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,729 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,732 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,734 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,743 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,743 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,748 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,749 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,750 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,750 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,757 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,760 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,772 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,772 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,776 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,776 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,786 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,786 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,790 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,790 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,798 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,798 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,804 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,806 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,814 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,814 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,817 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,817 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,826 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,826 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,830 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,830 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,839 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,839 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,843 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,844 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,855 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,855 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,857 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,857 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,870 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,871 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,874 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,874 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,884 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,885 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,890 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,890 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,895 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,895 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,900 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,900 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,909 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,910 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,913 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,913 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,916 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,916 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,921 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,921 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,931 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,931 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,933 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,933 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,937 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,937 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,943 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,943 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,951 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,951 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,955 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,955 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,960 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,960 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,964 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,964 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,976 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,977 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,979 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,979 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,985 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,985 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,988 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:41,990 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:41,996 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:41,996 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,000 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,002 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,009 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,010 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,014 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,016 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,016 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,016 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,024 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,026 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,035 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,035 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,038 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,038 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,040 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,040 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,047 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,047 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,055 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,055 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,058 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,058 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,061 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,061 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,068 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,069 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,076 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,076 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,080 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,080 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,080 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,080 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,089 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,089 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,099 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,099 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,103 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,103 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,121 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,123 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,125 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,127 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,140 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,140 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,145 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,145 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,152 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,152 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,158 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,159 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,166 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,166 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,171 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,172 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,180 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,182 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,185 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,185 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,195 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,195 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,199 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,200 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,208 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,208 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,208 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,208 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,218 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,218 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,223 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,223 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,226 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,226 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,232 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,234 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,239 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,241 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,245 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,245 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,250 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,250 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,255 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,255 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,264 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,264 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,268 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,268 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,274 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,275 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,276 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,276 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,286 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,286 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,288 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,288 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,291 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,291 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,298 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,298 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,305 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,307 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,310 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,310 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,313 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,313 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,318 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,318 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,326 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,326 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,331 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,331 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,333 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,333 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,339 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,339 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,348 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,348 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,348 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,348 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,356 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,356 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,360 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,360 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,370 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,370 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,372 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,372 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,375 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,375 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,381 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,381 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,390 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,390 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,392 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,392 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,396 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,396 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,403 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,403 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,412 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,412 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,414 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,414 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,417 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,417 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,424 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,426 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,434 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,434 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,434 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,434 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,442 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,442 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,448 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,449 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,454 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,454 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,459 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,459 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,462 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,462 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,470 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,470 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,478 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,478 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,480 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,480 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,486 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,486 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,495 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,495 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,500 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,500 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,505 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,505 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,522 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,522 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,525 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,527 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,540 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,540 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,545 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,545 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,556 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,557 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,560 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,561 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,563 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,563 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,570 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,570 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,578 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,578 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,581 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,581 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,593 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,595 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,602 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,603 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,607 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,607 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,618 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,620 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,629 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,629 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,634 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,637 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,644 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,644 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,648 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,650 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,658 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,660 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,663 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,663 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,671 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,671 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,678 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,680 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,688 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,688 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,691 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,691 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,703 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,703 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,706 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,708 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,713 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,713 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,715 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,719 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,723 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,723 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,728 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,730 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,732 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,732 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,740 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,741 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,746 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,746 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,750 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,750 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,757 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,757 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,763 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,764 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,766 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,766 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,773 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,773 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,774 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,779 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,783 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,783 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,787 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,787 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,795 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,795 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,811 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,811 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,813 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,813 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,827 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,827 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,831 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,831 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,836 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,836 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,844 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,846 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,853 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,853 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,857 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,857 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,871 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,871 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,873 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,876 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,884 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,886 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,893 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 5
+INFO 2025-08-23 20:02:42,894 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:42,896 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:42,896 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 5
+ERROR 2025-08-23 20:02:42,904 signals 1888 12320 Error updating Elasticsearch document: maximum recursion depth exceeded while calling a Python object
+WARNING 2025-08-23 20:02:42,907 monitoring 1888 12320 Retrying task tasks.monitoring.wrapper due to: maximum recursion depth exceeded while calling a Python object
+ERROR 2025-08-23 20:02:42,908 monitoring 1888 12320 Task retry failed: maximum recursion depth exceeded while calling a Python object
+ERROR 2025-08-23 20:02:42,908 monitoring 1888 12320 Task update_document (None) failed: maximum recursion depth exceeded while calling a Python object
+ERROR 2025-08-23 20:02:42,920 services 1888 12320 User registration failed: maximum recursion depth exceeded in comparison
+INFO 2025-08-23 20:02:42,951 security_monitor 1888 12320 AUTH_EVENT: LOGIN_ATTEMPT - User: test@example.com, IP: 192.168.1.1, Success: True
+INFO 2025-08-23 20:02:43,447 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,447 signals 1888 12320 Updating Elasticsearch document: authentication.user ID: 116
+INFO 2025-08-23 20:02:43,449 signals 1888 12320 Successfully updated document in Elasticsearch: authentication.user ID: 116
+INFO 2025-08-23 20:02:43,449 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,457 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,458 signals 1888 12320 Updating Elasticsearch document: authentication.userprofile ID: 58
+INFO 2025-08-23 20:02:43,458 signals 1888 12320 Successfully updated document in Elasticsearch: authentication.userprofile ID: 58
+INFO 2025-08-23 20:02:43,458 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,458 signals 1888 12320 Profile created for user: dbtest@example.com
+INFO 2025-08-23 20:02:43,467 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,468 signals 1888 12320 Updating Elasticsearch document: authentication.userprofile ID: 58
+INFO 2025-08-23 20:02:43,473 signals 1888 12320 Successfully updated document in Elasticsearch: authentication.userprofile ID: 58
+INFO 2025-08-23 20:02:43,473 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,478 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,478 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,482 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,483 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,486 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,486 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,492 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,492 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,496 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,496 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,502 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,503 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,509 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,509 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,517 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,518 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,520 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,520 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,526 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,527 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,536 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,536 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,538 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,538 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,542 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,546 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,550 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,550 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,559 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,561 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,563 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,563 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,566 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,566 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,576 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,576 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,581 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,581 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,585 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,587 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,593 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,593 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,598 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,598 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,598 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,598 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,607 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,609 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,618 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,618 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,621 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,623 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,628 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,628 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,632 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,633 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,642 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,642 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,642 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,642 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,650 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,653 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,660 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,660 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,666 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,666 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,671 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,671 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,679 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,680 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,683 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,683 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,685 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,685 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,692 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,692 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,702 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,703 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,704 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,706 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,709 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,709 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,714 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,715 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,726 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,726 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,731 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,731 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,733 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,738 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,743 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,743 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,747 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,747 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,753 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,754 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,760 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,761 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,765 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,765 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,769 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,769 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,774 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,775 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,783 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,783 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,786 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,788 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,789 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,789 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,797 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,797 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,805 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,806 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,809 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,810 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,812 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,815 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,818 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,819 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,828 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,828 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,830 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,830 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,836 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,839 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,840 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,842 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,850 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,851 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,854 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,854 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,857 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,857 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,869 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,871 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,873 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,873 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,891 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,891 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,896 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,896 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,907 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,910 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,917 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,917 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,924 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,927 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,935 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,935 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,940 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,940 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,953 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,953 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,959 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,959 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,969 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,970 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,975 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,975 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,977 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,977 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,983 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,983 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,992 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,992 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,995 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:43,995 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:43,999 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:43,999 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,005 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,005 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,018 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,019 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,023 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,023 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,035 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,035 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,039 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,039 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,047 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,049 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,052 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,054 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,060 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,060 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,066 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,066 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,075 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,075 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,078 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,080 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,086 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,086 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,090 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,090 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,097 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,100 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,103 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,103 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,111 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,111 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,115 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,117 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,124 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,124 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,129 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,129 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,138 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,138 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,142 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,142 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,149 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,149 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,153 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,153 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,164 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,164 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,167 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,167 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,174 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,174 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,178 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,179 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,186 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,186 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,188 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,189 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,191 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,191 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,199 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,199 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,204 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,204 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,210 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,210 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,212 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,212 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,220 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,222 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,228 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,228 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,232 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,232 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,242 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,243 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,246 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,247 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,251 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,251 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,256 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,256 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,266 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,266 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,269 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,269 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,273 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,273 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,279 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,281 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,288 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,288 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,291 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,291 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,299 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,299 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,304 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,306 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,312 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,312 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,316 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,316 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,323 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,325 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,328 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,329 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,334 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,334 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,339 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,340 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,349 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,350 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,351 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,351 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,356 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,356 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,364 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,365 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,372 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,372 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,375 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,375 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,378 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,378 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,390 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,390 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,394 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,394 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,403 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,403 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,417 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,417 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,422 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,422 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,436 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,436 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,443 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,443 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,454 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,454 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,457 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,457 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,460 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,460 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,470 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,471 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,477 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,477 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,482 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,482 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,492 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,494 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,498 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,498 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,510 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,510 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,516 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,517 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,521 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,521 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,528 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,528 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,540 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,540 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,544 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,544 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,554 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,556 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,559 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,559 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,563 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,563 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,571 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,574 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,579 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,579 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,588 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,588 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,598 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,599 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,599 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,599 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,606 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,606 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,619 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,620 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,623 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,623 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,630 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,630 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,643 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,643 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,645 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,645 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,655 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,657 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,661 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,661 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,666 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,666 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,674 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,674 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,684 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,684 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,689 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,689 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,691 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,691 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,701 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,701 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,704 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,704 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,710 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,711 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,712 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,716 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,721 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,721 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,728 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,728 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,732 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,732 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,739 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,739 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,742 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,742 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,746 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,746 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,753 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,753 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,759 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,759 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,765 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,765 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,769 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,769 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,774 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,774 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,780 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,780 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,786 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,786 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,788 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,788 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,795 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,795 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,801 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,803 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,807 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,807 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,811 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,811 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,816 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,816 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,826 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,827 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,832 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,832 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,835 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,844 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,853 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,853 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,860 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,860 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,866 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,866 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,872 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,872 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,878 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,878 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,887 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,888 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,890 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,890 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,897 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,897 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,900 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,900 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,911 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,912 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,913 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,913 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,920 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,920 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,924 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,924 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,933 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,933 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,938 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,938 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,939 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,939 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,948 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,950 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,953 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,953 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,960 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,961 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,968 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,968 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,974 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,974 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,978 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,978 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,984 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,984 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:44,994 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:44,994 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,997 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:44,997 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,003 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,003 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,007 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,007 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,019 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,019 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,022 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,022 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,028 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,028 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,035 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,036 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,038 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,038 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,044 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,046 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,054 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,055 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,058 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,058 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,062 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,062 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,069 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,069 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,079 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,079 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,083 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,083 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,085 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,092 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,098 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,099 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,106 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,111 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,117 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,119 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,127 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,127 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,137 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,137 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,145 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,145 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,155 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,158 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,169 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,169 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,182 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,182 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,185 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,185 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,194 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,194 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,204 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,204 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,208 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,208 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,215 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,215 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,220 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,220 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,228 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,228 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,232 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,232 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,241 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,241 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,244 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,244 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,253 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,253 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,257 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,258 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,268 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,268 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,274 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,274 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,284 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,284 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,286 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,286 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,293 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,293 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,297 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,297 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,306 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,307 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,308 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,308 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,311 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,311 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,319 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,319 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,328 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,328 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,332 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,332 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,337 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,337 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,341 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,341 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,351 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,351 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,352 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,352 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,358 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,358 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,363 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,365 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,369 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,369 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,374 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,374 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,377 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,377 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,385 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,387 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,393 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,393 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,395 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,395 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,395 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,395 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,408 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,408 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,413 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,413 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,417 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,417 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,423 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,423 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,429 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,429 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,436 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,436 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,438 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,438 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,444 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,445 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,450 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,450 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,452 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,452 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,458 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,460 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,462 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,462 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,469 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,471 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,474 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,474 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,480 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,482 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,483 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,488 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,492 signals 1888 12320 Successfully updated document in Elasticsearch: customer_analytics.customeranalytics ID: 6
+INFO 2025-08-23 20:02:45,492 monitoring 1888 12320 Task update_document (None) completed successfully
+INFO 2025-08-23 20:02:45,496 monitoring 1888 12320 Task update_document (None) started
+INFO 2025-08-23 20:02:45,496 signals 1888 12320 Updating Elasticsearch document: customer_analytics.customeranalytics ID: 6
+ERROR 2025-08-23 20:02:45,501 signals 1888 12320 Error updating Elasticsearch document: maximum recursion depth exceeded while calling a Python object
+WARNING 2025-08-23 20:02:45,502 monitoring 1888 12320 Retrying task tasks.monitoring.wrapper due to: maximum recursion depth exceeded while calling a Python object
+ERROR 2025-08-23 20:02:45,502 monitoring 1888 12320 Task retry failed: maximum recursion depth exceeded while calling a Python object
+ERROR 2025-08-23 20:02:45,502 monitoring 1888 12320 Task update_document (None) failed: maximum recursion depth exceeded while calling a Python object
+INFO 2025-08-23 20:03:53,702 security_monitor 9244 12988 AUTH_EVENT: TEST_EVENT - User: test@example.com, IP: 192.168.1.1, Success: True
