@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { ProtectedRoute } from '@/components/auth';
+import { AdminAuthProvider } from '@/contexts/AdminAuthContext';
+import { AdminRouteGuard } from '@/components/admin/auth';
 import AdminLayout from '@/components/layout/AdminLayout';
 
 interface AdminLayoutProps {
@@ -10,10 +11,12 @@ interface AdminLayoutProps {
 
 export default function AdminLayoutWrapper({ children }: AdminLayoutProps) {
   return (
-    <ProtectedRoute allowedUserTypes={['admin']}>
-      <AdminLayout>
-        {children}
-      </AdminLayout>
-    </ProtectedRoute>
+    <AdminAuthProvider>
+      <AdminRouteGuard>
+        <AdminLayout>
+          {children}
+        </AdminLayout>
+      </AdminRouteGuard>
+    </AdminAuthProvider>
   );
 }

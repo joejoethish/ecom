@@ -7,7 +7,7 @@ import { Select } from '@/components/ui/Select';
 import { Badge } from '@/components/ui/Badge';
 import { Avatar } from '@/components/ui/avatar';
 import { Card } from '@/components/ui/card';
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { Alert } from '@/components/ui/Alert';
 import { User, PaginatedResponse } from '@/types';
 import { formatDate } from '@/utils/format';
@@ -182,7 +182,7 @@ export function UserListView({
 
   if (error) {
     return (
-      <Alert variant="error" className="m-6">
+      <Alert variant="destructive" className="m-6">
         <div className="flex items-center justify-between">
           <span>{error}</span>
           {onRefresh && (
@@ -240,7 +240,7 @@ export function UserListView({
           
           <Select
             value={filters.user_type || ''}
-            onChange={(e) => handleFilterChange('user_type', e.target.value)}
+            onChange={(value) => handleFilterChange('user_type', value)}
           >
             <option value="">All User Types</option>
             <option value="customer">Customer</option>
@@ -250,7 +250,7 @@ export function UserListView({
           
           <Select
             value={filters.is_verified?.toString() || ''}
-            onChange={(e) => handleFilterChange('is_verified', e.target.value === 'true')}
+            onChange={(value) => handleFilterChange('is_verified', value === 'true')}
           >
             <option value="">All Statuses</option>
             <option value="true">Verified</option>
@@ -259,7 +259,7 @@ export function UserListView({
           
           <Select
             value={filters.ordering || ''}
-            onChange={(e) => handleFilterChange('ordering', e.target.value)}
+            onChange={(value) => handleFilterChange('ordering', value)}
           >
             <option value="-created_at">Newest First</option>
             <option value="created_at">Oldest First</option>

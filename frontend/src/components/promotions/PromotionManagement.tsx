@@ -70,7 +70,9 @@ const PromotionManagement: React.FC = () => {
       if (response.ok) {
         handleCloseForm();
         // Refresh the data - in a real app, you might want to use a state management solution
-        window.location.reload();
+        if (typeof window !== 'undefined') {
+          window.location.reload();
+        }
       } else {
         const errorData = await response.json();
         console.error('Error saving promotion:', errorData);

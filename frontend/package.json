@@ -44,6 +44,7 @@
     "chart.js": "^4.5.0",
     "chartjs-plugin-annotation": "^3.1.0",
     "chartjs-plugin-zoom": "^2.2.0",
+    "date-fns": "^4.1.0",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.525.0",

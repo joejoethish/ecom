@@ -139,7 +139,7 @@ export function UserDeleteConfirmDialog({
                 </Alert>
 
                 {(user.user_type === 'seller' || user.user_type === 'admin') && (
-                  <Alert variant="error">
+                  <Alert variant="destructive">
                     <div className="text-sm">
                       <p className="font-medium">⚠️ Special Account Type Warning</p>
                       <p className="mt-1">

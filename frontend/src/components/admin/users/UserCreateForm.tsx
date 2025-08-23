@@ -14,6 +14,23 @@ import { ProfileImageUpload } from '@/components/user/ProfileImageUpload';
 import { VALIDATION } from '@/constants';
 import toast from 'react-hot-toast';
 
+interface UserCreateFormData {
+  username: string;
+  email: string;
+  password: string;
+  password_confirm: string;
+  first_name: string;
+  last_name: string;
+  phone_number?: string | null;
+  user_type: 'customer' | 'seller' | 'admin';
+  is_verified: boolean;
+  is_email_verified: boolean;
+  is_staff: boolean;
+  is_superuser: boolean;
+  send_welcome_email: boolean;
+  profile_image?: File;
+}
+
 // Validation schema
 const createUserSchema = yup.object({
   username: yup
@@ -41,6 +58,7 @@ const createUserSchema = yup.object({
   last_name: yup.string().required('Last name is required'),
   phone_number: yup
     .string()
+    .optional()
     .nullable()
     .matches(VALIDATION.PHONE_REGEX, 'Please enter a valid phone number'),
   user_type: yup
@@ -48,23 +66,6 @@ const createUserSchema = yup.object({
     .oneOf(['customer', 'seller', 'admin'], 'Please select a valid user type')
     .required('User type is required'),
 });
-
-interface UserCreateFormData {
-  username: string;
-  email: string;
-  password: string;
-  password_confirm: string;
-  first_name: string;
-  last_name: string;
-  phone_number?: string;
-  user_type: 'customer' | 'seller' | 'admin';
-  is_verified: boolean;
-  is_email_verified: boolean;
-  is_staff: boolean;
-  is_superuser: boolean;
-  send_welcome_email: boolean;
-  profile_image?: File;
-}
 
 interface UserCreateFormProps {
   onSubmit: (data: UserCreateFormData) => Promise<void>;
@@ -88,7 +89,7 @@ export function UserCreateForm({
     watch,
     setValue,
   } = useForm<UserCreateFormData>({
-    resolver: yupResolver(createUserSchema),
+    resolver: yupResolver(createUserSchema) as any,
     defaultValues: {
       user_type: 'customer',
       is_verified: true,
@@ -126,8 +127,8 @@ export function UserCreateForm({
   };
 
   // Auto-set staff status based on user type
-  const handleUserTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newUserType = e.target.value as 'customer' | 'seller' | 'admin';
+  const handleUserTypeChange = (value: string) => {
+    const newUserType = value as 'customer' | 'seller' | 'admin';
     setValue('user_type', newUserType);
     
     if (newUserType === 'admin') {
@@ -243,7 +244,7 @@ export function UserCreateForm({
             />
           </div>
           
-          <Alert variant="info" className="mt-4">
+          <Alert variant="default" className="mt-4">
             <div className="text-sm">
               <p className="font-medium">Password Requirements:</p>
               <ul className="mt-1 list-disc list-inside space-y-1">
@@ -281,7 +282,8 @@ export function UserCreateForm({
                 </p>
               </div>
               <Switch
-                {...register('is_verified')}
+                checked={watch('is_verified')}
+                onCheckedChange={(checked) => setValue('is_verified', checked)}
                 disabled={loading}
               />
             </div>
@@ -296,7 +298,8 @@ export function UserCreateForm({
                 </p>
               </div>
               <Switch
-                {...register('send_welcome_email')}
+                checked={watch('send_welcome_email')}
+                onCheckedChange={(checked) => setValue('send_welcome_email', checked)}
                 disabled={loading}
               />
             </div>
@@ -313,7 +316,8 @@ export function UserCreateForm({
                     </p>
                   </div>
                   <Switch
-                    {...register('is_email_verified')}
+                    checked={watch('is_email_verified')}
+                    onCheckedChange={(checked) => setValue('is_email_verified', checked)}
                     disabled={loading}
                   />
                 </div>
@@ -330,7 +334,8 @@ export function UserCreateForm({
                         </p>
                       </div>
                       <Switch
-                        {...register('is_staff')}
+                        checked={watch('is_staff')}
+                        onCheckedChange={(checked) => setValue('is_staff', checked)}
                         disabled={loading}
                       />
                     </div>
@@ -345,7 +350,8 @@ export function UserCreateForm({
                         </p>
                       </div>
                       <Switch
-                        {...register('is_superuser')}
+                        checked={watch('is_superuser')}
+                        onCheckedChange={(checked) => setValue('is_superuser', checked)}
                         disabled={loading}
                       />
                     </div>

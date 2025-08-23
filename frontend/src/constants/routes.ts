@@ -40,6 +40,8 @@ export const PROFILE_ROUTES = {
 // Admin routes
 export const ADMIN_ROUTES = {
   DASHBOARD: '/admin',
+  LOGIN: '/admin/login',
+  SESSIONS: '/admin/sessions',
   ANALYTICS: '/admin/analytics',
   ORDERS: '/admin/orders',
   ORDER_DETAIL: (id: string) => `/admin/orders/${id}`,
@@ -98,6 +100,8 @@ export const ROUTE_LABELS: Record<string, string> = {
   '/profile/notifications': 'Notifications',
   
   '/admin': 'Admin Dashboard',
+  '/admin/login': 'Admin Login',
+  '/admin/sessions': 'Session Management',
   '/admin/analytics': 'Analytics',
   '/admin/orders': 'Orders Management',
   '/admin/products': 'Products Management',

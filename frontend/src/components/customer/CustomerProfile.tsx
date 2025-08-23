@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { fetchCustomerProfile, updateCustomerProfile } from '@/store/slices/customerSlice';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { EmailVerificationStatus } from '@/components/auth';
 import toast from 'react-hot-toast';
 
 export function CustomerProfile() {
@@ -109,33 +110,37 @@ export function CustomerProfile() {
     }
 
     return (
-        <div className="bg-white shadow rounded-lg">
-            <div className="px-6 py-4 border-b border-gray-200">
-                <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold text-gray-900">Customer Profile</h2>
-                    <div className="flex space-x-2">
-                        <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={handleRefresh}
-                            loading={loading}
-                        >
-                            Refresh
-                        </Button>
-                        {!isEditing && (
+        <div className="space-y-4">
+            {/* Email Verification Status */}
+            <EmailVerificationStatus />
+            
+            <div className="bg-white shadow rounded-lg">
+                <div className="px-6 py-4 border-b border-gray-200">
+                    <div className="flex items-center justify-between">
+                        <h2 className="text-xl font-semibold text-gray-900">Customer Profile</h2>
+                        <div className="flex space-x-2">
                             <Button
-                                variant="primary"
+                                variant="outline"
                                 size="sm"
-                                onClick={() => setIsEditing(true)}
+                                onClick={handleRefresh}
+                                loading={loading}
                             >
-                                Edit Profile
+                                Refresh
                             </Button>
-                        )}
+                            {!isEditing && (
+                                <Button
+                                    variant="primary"
+                                    size="sm"
+                                    onClick={() => setIsEditing(true)}
+                                >
+                                    Edit Profile
+                                </Button>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="px-6 py-4">
+                <div className="px-6 py-4">
                 {!isEditing ? (
                     <div className="space-y-4">
                         {/* Basic User Info */}
@@ -252,6 +257,7 @@ export function CustomerProfile() {
                         </div>
                     </form>
                 )}
+                </div>
             </div>
         </div>
     );

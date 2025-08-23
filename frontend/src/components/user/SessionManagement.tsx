@@ -121,7 +121,7 @@ export function SessionManagement({ className = '' }: SessionManagementProps) {
       />
 
       <SessionTerminateConfirmDialog
-        session={selectedSession}
+        session={selectedSession || undefined}
         isOpen={showTerminateDialog}
         onConfirm={handleConfirmTermination}
         onCancel={handleCancelTermination}

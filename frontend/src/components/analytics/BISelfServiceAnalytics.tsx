@@ -260,7 +260,7 @@ export default function BISelfServiceAnalytics({ userId: _userId }: BISelfServic
         id: Date.now().toString(),
         name,
         description: 'Bookmarked query and filters',
-        url: window.location.href,
+        url: typeof window !== 'undefined' ? window.location.href : '',
         filters: queryBuilder,
         created_at: new Date().toISOString()
       };
