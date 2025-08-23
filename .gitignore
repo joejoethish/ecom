@@ -9,3 +9,4 @@ build/
 *.pyc
 /backend/ecommerce_project/__pycache__
 /backend/api/v1/__pycache__
+backend/logs/django.log
