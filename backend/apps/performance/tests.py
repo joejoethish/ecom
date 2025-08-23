@@ -589,8 +589,7 @@ class CapacityPlannerTest(TestCase):
             self.assertIn('recommendation', recommendations[0])
             self.assertIn('urgency', recommendations[0])
 
-class Pe
-rformanceMetricAPITest(APITestCase):
+class PerformanceMetricAPITest(APITestCase):
     """Test PerformanceMetric API endpoints"""
     
     def setUp(self):
@@ -853,8 +852,7 @@ class DatabasePerformanceLogAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsInstance(response.data, list)
 
-class Se
-rverMetricsModelTest(TestCase):
+class ServerMetricsModelTest(TestCase):
     """Test ServerMetrics model"""
     
     def setUp(self):
@@ -1828,8 +1826,7 @@ class PerformanceIntegrationTest(TransactionTestCase):
         
         self.assertIsNotNone(report.id)
         self.assertEqual(report.report_type, 'capacity')
-class Pe
-rformanceReportAPITest(APITestCase):
+class PerformanceReportAPITest(APITestCase):
     """Test PerformanceReport API endpoints"""
     
     def setUp(self):

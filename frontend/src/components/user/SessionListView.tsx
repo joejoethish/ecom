@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/card';
 import { Alert } from '@/components/ui/Alert';
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { UserSession } from '@/types';
 import { formatDate, formatRelativeTime } from '@/utils/format';
 import toast from 'react-hot-toast';
@@ -126,7 +126,7 @@ export function SessionListView({
 
     if (error) {
         return (
-            <Alert variant="error" className="m-6">
+            <Alert variant="destructive" className="m-6">
                 <div className="flex items-center justify-between">
                     <span>{error}</span>
                     {onRefresh && (
@@ -298,7 +298,7 @@ export function SessionListView({
 
             {/* Security Notice */}
             <div className="px-6 py-4 bg-blue-50 border-t border-gray-200">
-                <Alert variant="info">
+                <Alert variant="default">
                     <div className="text-sm">
                         <p className="font-medium">Security Notice</p>
                         <p className="mt-1">

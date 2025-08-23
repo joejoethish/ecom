@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { fetchSellerProfile, fetchSellerAnalytics } from '../../store/slices/sellerSlice';
+import { EmailVerificationStatus } from '@/components/auth';
 import Link from 'next/link';
 
 const SellerDashboard: React.FC = () => {
@@ -36,7 +37,10 @@ const SellerDashboard: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="space-y-6">
+      {/* Email Verification Status */}
+      <EmailVerificationStatus />
+      
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-2">Welcome, {profile.business_name}!</h2>
         <p className="text-gray-600">

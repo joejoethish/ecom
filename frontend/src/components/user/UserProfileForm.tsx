@@ -31,7 +31,7 @@ const profileSchema = yup.object({
     .matches(VALIDATION.PHONE_REGEX, 'Please enter a valid phone number'),
   user_type: yup
     .string()
-    .oneOf(['customer', 'seller'], 'Please select a valid user type')
+    .oneOf(['customer', 'seller', 'admin', 'inventory_manager', 'warehouse_staff'], 'Please select a valid user type')
     .required('User type is required'),
 });
 
@@ -41,7 +41,7 @@ interface UserProfileFormData {
   first_name: string;
   last_name: string;
   phone_number?: string;
-  user_type: 'customer' | 'seller';
+  user_type: 'customer' | 'seller' | 'admin' | 'inventory_manager' | 'warehouse_staff';
   profile_image?: File;
 }
 
@@ -73,7 +73,7 @@ export function UserProfileForm({
     setValue,
     watch,
   } = useForm<UserProfileFormData>({
-    resolver: yupResolver(profileSchema),
+    resolver: yupResolver(profileSchema) as any,
     defaultValues: {
       username: user?.username || '',
       email: user?.email || '',
@@ -244,12 +244,16 @@ export function UserProfileForm({
 
         <Select
           label="User Type"
-          {...register('user_type')}
+          value={watch('user_type')}
+          onChange={(value) => setValue('user_type', value as any)}
           error={errors.user_type?.message}
           disabled={loading}
         >
           <option value="customer">Customer</option>
           <option value="seller">Seller</option>
+          <option value="admin">Admin</option>
+          <option value="inventory_manager">Inventory Manager</option>
+          <option value="warehouse_staff">Warehouse Staff</option>
         </Select>
       </div>
 
@@ -270,7 +274,7 @@ export function UserProfileForm({
                 size="sm"
                 onClick={() => {
                   // This would trigger email verification resend
-                  toast.info('Verification email sent!');
+                  toast.success('Verification email sent!');
                 }}
               >
                 Resend Verification

@@ -59,10 +59,7 @@ urlpatterns = [
     # path('api/v2/', include('api.v2.urls')),  # Temporarily disabled
     
     # Core monitoring endpoints
-    path('api/core/', include('core.urls')),
-    
-    # Security admin interface
-    path('', include('core.urls')),
+    path('api/core/', include('core.urls', namespace='core_api')),
     
     # API Documentation - drf-spectacular (OpenAPI 3.0) - Temporarily disabled
     # path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

@@ -57,7 +57,7 @@ const editUserSchema = yup.object({
     .matches(VALIDATION.PHONE_REGEX, 'Please enter a valid phone number'),
   user_type: yup
     .string()
-    .oneOf(['customer', 'seller', 'admin'], 'Please select a valid user type')
+    .oneOf(['customer', 'seller', 'admin', 'inventory_manager', 'warehouse_staff'], 'Please select a valid user type')
     .required('User type is required'),
 });
 
@@ -69,7 +69,7 @@ interface UserEditFormData {
   first_name: string;
   last_name: string;
   phone_number?: string;
-  user_type: 'customer' | 'seller' | 'admin';
+  user_type: 'customer' | 'seller' | 'admin' | 'inventory_manager' | 'warehouse_staff';
   is_verified: boolean;
   is_email_verified: boolean;
   is_staff: boolean;
@@ -104,7 +104,7 @@ export function UserEditForm({
     watch,
     setValue,
   } = useForm<UserEditFormData>({
-    resolver: yupResolver(editUserSchema),
+    resolver: yupResolver(editUserSchema) as any,
     defaultValues: {
       username: user.username,
       email: user.email,
@@ -181,13 +181,13 @@ export function UserEditForm({
   };
 
   // Auto-set staff status based on user type
-  const handleUserTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newUserType = e.target.value as 'customer' | 'seller' | 'admin';
+  const handleUserTypeChange = (value: string) => {
+    const newUserType = value as 'customer' | 'seller' | 'admin' | 'inventory_manager' | 'warehouse_staff';
     setValue('user_type', newUserType);
     
     if (newUserType === 'admin') {
       setValue('is_staff', true);
-    } else if (newUserType !== 'admin' && user.user_type !== 'admin') {
+    } else {
       setValue('is_staff', false);
       setValue('is_superuser', false);
     }
@@ -341,7 +341,7 @@ export function UserEditForm({
           )}
 
           {!changePassword && (
-            <Alert variant="info">
+            <Alert variant="default">
               <p className="text-sm">
                 Password is not being changed. Click "Change Password" to update the user's password.
               </p>
@@ -374,7 +374,8 @@ export function UserEditForm({
                 </p>
               </div>
               <Switch
-                {...register('is_verified')}
+                checked={watch('is_verified')}
+                onCheckedChange={(checked) => setValue('is_verified', checked)}
                 disabled={loading}
               />
             </div>
@@ -391,7 +392,8 @@ export function UserEditForm({
                     </p>
                   </div>
                   <Switch
-                    {...register('is_email_verified')}
+                    checked={watch('is_email_verified')}
+                    onCheckedChange={(checked) => setValue('is_email_verified', checked)}
                     disabled={loading}
                   />
                 </div>
@@ -408,7 +410,8 @@ export function UserEditForm({
                         </p>
                       </div>
                       <Switch
-                        {...register('is_staff')}
+                        checked={watch('is_staff')}
+                        onCheckedChange={(checked) => setValue('is_staff', checked)}
                         disabled={loading}
                       />
                     </div>
@@ -423,7 +426,8 @@ export function UserEditForm({
                         </p>
                       </div>
                       <Switch
-                        {...register('is_superuser')}
+                        checked={watch('is_superuser')}
+                        onCheckedChange={(checked) => setValue('is_superuser', checked)}
                         disabled={loading}
                       />
                     </div>

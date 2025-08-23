@@ -8,13 +8,31 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-  params: {
+  params: Promise<{
     token: string;
-  };
+  }>;
 }
 
-export default function VerifyEmailPage({ params }: PageProps) {
-  return <EmailVerificationPage token={params.token} />;
+export default async function VerifyEmailPage({ params }: PageProps) {
+  const { token } = await params;
+  
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-indigo-600">
+            E-Commerce Platform
+          </h1>
+        </div>
+      </div>
+      
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <EmailVerificationPage token={token} />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export async function generateStaticParams() {

@@ -15,18 +15,13 @@ interface ResendVerificationFormProps {
 }
 
 interface FormData {
-  email?: string;
+  email: string;
 }
 
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Please enter a valid email address')
-    .when('$isAuthenticated', {
-      is: false,
-      then: (schema) => schema.required('Email is required'),
-      otherwise: (schema) => schema.notRequired(),
-    }),
+const createSchema = (isAuthenticated: boolean) => yup.object().shape({
+  email: isAuthenticated 
+    ? yup.string().email('Please enter a valid email address').notRequired()
+    : yup.string().email('Please enter a valid email address').required('Email is required'),
 });
 
 type NotificationStatus = 'idle' | 'success' | 'error' | 'loading';
@@ -46,10 +41,9 @@ const ResendVerificationForm: React.FC<ResendVerificationFormProps> = ({
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormData>({
-    resolver: yupResolver(schema),
-    context: { isAuthenticated },
+    resolver: yupResolver(createSchema(isAuthenticated)) as any,
     defaultValues: {
-      email: isAuthenticated ? user?.email : '',
+      email: isAuthenticated ? user?.email || '' : '',
     },
   });
 

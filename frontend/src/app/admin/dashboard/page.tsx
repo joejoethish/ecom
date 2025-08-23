@@ -220,7 +220,11 @@ export default function DashboardPage() {
 
                 <Box display="flex" gap={1}>
                     <Tooltip title="Refresh All">
-                        <IconButton onClick={() => window.location.reload()}>
+                        <IconButton onClick={() => {
+                          if (typeof window !== 'undefined') {
+                            window.location.reload();
+                          }
+                        }}>
                             <RefreshIcon />
                         </IconButton>
                     </Tooltip>

@@ -17,6 +17,12 @@
         "python manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); print([f.name for f in User._meta.fields])\"",
         "python manage.py *",
         "python manage.py shell -c \"from django.db import connection; cursor = connection.cursor(); cursor.execute('DESCRIBE auth_user'); print([row for row in cursor.fetchall()])\"",
-        "npx jest --clearCache"
+        "npx jest --clearCache",
+        "npx tsc --noEmit --skipLibCheck src/components/auth/EmailVerificationPage.tsx src/components/auth/ResendVerificationForm.tsx src/components/auth/EmailVerificationStatus.tsx",
+        "npx tsc --noEmit --skipLibCheck src/components/admin/auth/*.tsx src/contexts/AdminAuthContext.tsx src/services/adminAuthApi.ts",
+        "python -c \"import ecommerce_project.settings.development; print('Settings import successful')\"",
+        "python -c \"import py_compile; import os; [py_compile.compile(os.path.join(root, file)) for root, dirs, files in os.walk('apps') for file in files if file.endswith('.py')]\"",
+        "git checkout HEAD -- apps/customers/tests/test_services.py",
+        "git checkout HEAD -- apps/customers/tests/test_models.py"
     ]
 }

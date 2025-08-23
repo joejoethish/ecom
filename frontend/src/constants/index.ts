@@ -97,6 +97,17 @@ export const API_ENDPOINTS = {
     CUSTOMERS: '/admin/customers/',
     SETTINGS: '/admin/settings/',
   },
+  // Admin Authentication
+  ADMIN_AUTH: {
+    LOGIN: '/admin-auth/login/',
+    LOGOUT: '/admin-auth/logout/',
+    LOGOUT_ALL: '/admin-auth/logout-all/',
+    REFRESH: '/admin-auth/refresh/',
+    SESSIONS: '/admin-auth/sessions/',
+    TERMINATE_SESSION: (sessionId: string) => `/admin-auth/sessions/${sessionId}/terminate/`,
+    SECURITY_EVENTS: '/admin-auth/security-events/',
+    VALIDATE_SESSION: '/admin-auth/validate-session/',
+  },
   // Seller
   SELLER: {
     DASHBOARD: '/seller/dashboard/',

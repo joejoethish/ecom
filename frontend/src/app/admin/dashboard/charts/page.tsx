@@ -302,7 +302,9 @@ const ChartManagementPage: React.FC = () => {
       const data = await response.json();
       
       if (shareType === 'public_link') {
-        const shareUrl = `${window.location.origin}/shared/chart/${data.share_token}`;
+        const shareUrl = typeof window !== 'undefined' ? 
+          `${window.location.origin}/shared/chart/${data.share_token}` : 
+          `/shared/chart/${data.share_token}`;
         navigator.clipboard.writeText(shareUrl);
         alert('Share link copied to clipboard!');
       } else if (shareType === 'embed_code') {

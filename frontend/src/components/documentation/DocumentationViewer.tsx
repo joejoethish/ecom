@@ -226,14 +226,16 @@ const DocumentationViewer: React.FC<DocumentationViewerProps> = ({
         await navigator.share({
           title: document?.title,
           text: document?.excerpt,
-          url: window.location.href
+          url: typeof window !== 'undefined' ? window.location.href : ''
         });
       } catch (error) {
         console.error('Error sharing:', error);
       }
     } else {
       // Fallback: copy to clipboard
-      navigator.clipboard.writeText(window.location.href);
+      if (typeof window !== 'undefined') {
+        navigator.clipboard.writeText(window.location.href);
+      }
     }
   };
 

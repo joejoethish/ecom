@@ -87,7 +87,9 @@ const DocumentationDashboard: React.FC = () => {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      window.location.href = `/documentation/search?q=${encodeURIComponent(searchQuery)}`;
+      if (typeof window !== 'undefined') {
+        window.location.href = `/documentation/search?q=${encodeURIComponent(searchQuery)}`;
+      }
     }
   };
 

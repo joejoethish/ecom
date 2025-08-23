@@ -215,7 +215,7 @@ export function ProfileImageUpload({
 
       {/* Loading State */}
       {loading && (
-        <Alert variant="info">
+        <Alert variant="default">
           <div className="flex items-center space-x-2">
             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
             <span>Uploading image...</span>
