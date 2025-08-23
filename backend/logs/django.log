@@ -2530,3 +2530,9 @@ INFO 2025-08-23 15:38:28,648 autoreload 8488 14692 Watching for file changes wit
 INFO 2025-08-23 15:38:30,236 database_security 8488 6772 Audit tables created successfully
 INFO 2025-08-23 15:38:30,236 database_security 8488 6772 Database security monitoring initialized successfully
 >>>>>>> Stashed changes
+INFO 2025-08-23 17:56:48,674 database_security 7876 2764 Audit tables created successfully
+INFO 2025-08-23 17:56:48,677 database_security 7876 2764 Database security monitoring initialized successfully
+WARNING 2025-08-23 17:58:52,492 exceptions 12388 7456 Security Event: TEST_EVENT
+WARNING 2025-08-23 17:59:41,441 exceptions 3440 12100 Security Event: TEST_EVENT
+WARNING 2025-08-23 18:00:12,217 exceptions 14956 5776 Security Event: TEST_EVENT
+ERROR 2025-08-23 18:00:12,217 exceptions 14956 5776 Authentication error: invalid_credentials

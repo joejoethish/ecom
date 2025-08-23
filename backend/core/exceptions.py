@@ -83,6 +83,15 @@ def custom_exception_handler(exc, context):
     """
     Custom exception handler that provides consistent error responses.
     """
+    # Check if this is an authentication-related request
+    request = context.get('request')
+    if request and _is_authentication_request(request):
+        # Use authentication-specific error handler
+        from apps.authentication.error_handlers import authentication_exception_handler
+        auth_response = authentication_exception_handler(exc, context)
+        if auth_response:
+            return auth_response
+    
     # Call REST framework's default exception handler first
     response = exception_handler(exc, context)
 
@@ -119,3 +128,14 @@ def custom_exception_handler(exc, context):
         response = Response(custom_response_data, status=exc.status_code)
 
     return response
+
+
+def _is_authentication_request(request):
+    """Check if the request is authentication-related."""
+    auth_paths = [
+        '/api/v1/auth/',
+        '/api/v1/admin-auth/',
+        '/api/v1/users/me/',
+        '/api/v1/users/',
+    ]
+    return any(request.path.startswith(path) for path in auth_paths)
