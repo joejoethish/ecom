@@ -4911,3 +4911,8 @@ INFO 2025-08-23 23:40:05,312 monitoring 6680 7972 Task delete_document (None) st
 ERROR 2025-08-23 23:40:05,312 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
 INFO 2025-08-23 23:40:05,322 monitoring 6680 7972 Task delete_document (None) started
 ERROR 2025-08-23 23:40:05,322 monitoring 6680 7972 Task delete_document (None) failed: delete_document() takes 4 positional arguments but 5 were given
+INFO 2025-08-23 23:43:32,844 autoreload 9488 7384 C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
+INFO 2025-08-23 23:43:36,555 autoreload 5604 12076 Watching for file changes with StatReloader
+INFO 2025-08-23 23:43:38,367 database_security 5604 10000 Audit tables created successfully
+INFO 2025-08-23 23:43:38,367 database_security 5604 10000 Database security monitoring initialized successfully
+INFO 2025-08-23 23:45:57,018 autoreload 9632 11500 C:\Local_ecom\backend\apps\debugging\admin.py changed, reloading.
