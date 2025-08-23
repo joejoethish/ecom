@@ -2536,3 +2536,9 @@ WARNING 2025-08-23 17:58:52,492 exceptions 12388 7456 Security Event: TEST_EVENT
 WARNING 2025-08-23 17:59:41,441 exceptions 3440 12100 Security Event: TEST_EVENT
 WARNING 2025-08-23 18:00:12,217 exceptions 14956 5776 Security Event: TEST_EVENT
 ERROR 2025-08-23 18:00:12,217 exceptions 14956 5776 Authentication error: invalid_credentials
+INFO 2025-08-23 18:35:48,920 database_security 16320 7848 Audit tables created successfully
+INFO 2025-08-23 18:35:48,925 database_security 16320 7848 Database security monitoring initialized successfully
+INFO 2025-08-23 18:55:16,821 database_security 7500 3496 Audit tables created successfully
+INFO 2025-08-23 18:55:16,821 database_security 7500 3496 Database security monitoring initialized successfully
+INFO 2025-08-23 18:56:36,485 database_security 3212 9484 Audit tables created successfully
+INFO 2025-08-23 18:56:36,485 database_security 3212 9484 Database security monitoring initialized successfully

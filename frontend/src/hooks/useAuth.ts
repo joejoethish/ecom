@@ -80,7 +80,7 @@ export function useAuth() {
     refreshProfile,
     updateProfile,
     clearError: clearAuthError,
-    isAdmin: authState.user?.user_type === 'admin' || authState.user?.user_type === 'super_admin',
+    isAdmin: authState.user?.user_type === 'admin' || authState.user?.is_superuser === true,
     isSeller: authState.user?.user_type === 'seller',
     isCustomer: authState.user?.user_type === 'customer',
   };

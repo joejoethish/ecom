@@ -321,4 +321,168 @@ export class AuthErrorHandler {
   }
 }
 
+/**
+ * Enhanced form validation error handling
+ */
+export class FormErrorHandler {
+  /**
+   * Process form validation errors from API response
+   */
+  static processFormErrors(error: any): Record<string, string> {
+    const fieldErrors: Record<string, string> = {};
+
+    if (error?.response?.data) {
+      const data = error.response.data;
+
+      // Handle Django REST framework validation errors
+      if (data.errors && typeof data.errors === 'object') {
+        Object.entries(data.errors).forEach(([field, messages]) => {
+          if (Array.isArray(messages) && messages.length > 0) {
+            fieldErrors[field] = messages[0];
+          } else if (typeof messages === 'string') {
+            fieldErrors[field] = messages;
+          }
+        });
+      }
+
+      // Handle non_field_errors
+      if (data.non_field_errors && Array.isArray(data.non_field_errors)) {
+        fieldErrors.general = data.non_field_errors[0];
+      }
+
+      // Handle individual field errors in root level
+      Object.keys(data).forEach(key => {
+        if (key !== 'error' && key !== 'errors' && Array.isArray(data[key])) {
+          fieldErrors[key] = data[key][0];
+        }
+      });
+    }
+
+    return fieldErrors;
+  }
+
+  /**
+   * Get general error message from form errors
+   */
+  static getGeneralError(error: any): string | null {
+    const authError = AuthErrorHandler.handleError(error);
+    
+    // Check for general form errors
+    if (error?.response?.data?.non_field_errors) {
+      return error.response.data.non_field_errors[0];
+    }
+
+    // Return the processed auth error message
+    return authError.userMessage;
+  }
+
+  /**
+   * Check if error has field-specific validation errors
+   */
+  static hasFieldErrors(error: any): boolean {
+    const fieldErrors = this.processFormErrors(error);
+    return Object.keys(fieldErrors).length > 0;
+  }
+}
+
+/**
+ * Notification error handler for displaying errors to users
+ */
+export class NotificationErrorHandler {
+  /**
+   * Show error notification with appropriate styling and actions
+   */
+  static showError(error: any, options?: {
+    title?: string;
+    duration?: number;
+    showRetry?: boolean;
+    onRetry?: () => void;
+  }): void {
+    const authError = AuthErrorHandler.handleError(error);
+    const { title, duration = 5000, showRetry = false, onRetry } = options || {};
+
+    // Import toast dynamically to avoid SSR issues
+    import('react-hot-toast').then(({ default: toast }) => {
+      toast.error(authError.userMessage, {
+        duration,
+        style: {
+          background: '#FEF2F2',
+          border: '1px solid #FECACA',
+          color: '#991B1B',
+        },
+        iconTheme: {
+          primary: '#DC2626',
+          secondary: '#FEF2F2',
+        },
+      });
+    });
+  }
+
+  /**
+   * Show success notification
+   */
+  static showSuccess(message: string, options?: {
+    duration?: number;
+  }): void {
+    const { duration = 3000 } = options || {};
+
+    import('react-hot-toast').then(({ default: toast }) => {
+      toast.success(message, {
+        duration,
+        style: {
+          background: '#F0FDF4',
+          border: '1px solid #BBF7D0',
+          color: '#166534',
+        },
+        iconTheme: {
+          primary: '#16A34A',
+          secondary: '#F0FDF4',
+        },
+      });
+    });
+  }
+
+  /**
+   * Show warning notification
+   */
+  static showWarning(message: string, options?: {
+    duration?: number;
+  }): void {
+    const { duration = 4000 } = options || {};
+
+    import('react-hot-toast').then(({ default: toast }) => {
+      toast(message, {
+        duration,
+        icon: '⚠️',
+        style: {
+          background: '#FFFBEB',
+          border: '1px solid #FED7AA',
+          color: '#92400E',
+        },
+      });
+    });
+  }
+
+  /**
+   * Show info notification
+   */
+  static showInfo(message: string, options?: {
+    duration?: number;
+  }): void {
+    const { duration = 4000 } = options || {};
+
+    import('react-hot-toast').then(({ default: toast }) => {
+      toast(message, {
+        duration,
+        icon: 'ℹ️',
+        style: {
+          background: '#EFF6FF',
+          border: '1px solid #BFDBFE',
+          color: '#1E40AF',
+        },
+      });
+    });
+  }
+}
+
 export default AuthErrorHandler;

@@ -12,3 +12,13 @@ export { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';
 export { Switch } from './Switch';
 export { Label } from './Label';
 export { Alert, AlertDescription } from './Alert';
+
+// Error handling components
+export {
+  ErrorDisplay,
+  FieldError,
+  FormErrorSummary,
+  SuccessDisplay,
+  NetworkErrorDisplay,
+  LoadingErrorDisplay,
+} from './ErrorDisplay';
