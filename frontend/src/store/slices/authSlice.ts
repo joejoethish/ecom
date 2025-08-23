@@ -123,6 +123,32 @@ export const updateUserProfile = createAsyncThunk(
   }
 );
 
+export const adminLogin = createAsyncThunk(
+  'auth/adminLogin',
+  async (credentials: LoginCredentials & { rememberMe?: boolean }, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.post(API_ENDPOINTS.AUTH.ADMIN_LOGIN, credentials);
+      
+      if (response.success && response.data) {
+        const { user, tokens } = response.data;
+        
+        // Verify user has admin privileges
+        if (user.user_type !== 'admin' && user.user_type !== 'super_admin') {
+          return rejectWithValue('Access denied. Admin privileges required.');
+        }
+        
+        setStoredTokens(tokens);
+        setStoredUser(user);
+        return { user, tokens };
+      } else {
+        return rejectWithValue(response.error?.message || 'Admin login failed');
+      }
+    } catch (error: any) {
+      return rejectWithValue(error.message || 'Admin login failed');
+    }
+  }
+);
+
 export const initializeAuth = createAsyncThunk(
   'auth/initialize',
   async (_, { dispatch }) => {
@@ -231,6 +257,24 @@ const authSlice = createSlice({
       .addCase(updateUserProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      
+      // Admin Login
+      .addCase(adminLogin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(adminLogin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.tokens = action.payload.tokens;
+        state.isAuthenticated = true;
+        state.error = null;
+      })
+      .addCase(adminLogin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+        state.isAuthenticated = false;
       })
       
       // Initialize Auth

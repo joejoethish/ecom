@@ -3,7 +3,9 @@
 import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ResetPasswordForm } from '@/components/auth/ResetPasswordForm';
-import { ROUTES } from '@/constants';
+import { AUTH_ROUTES } from '@/constants';
+import Link from 'next/link';
+import { Button } from '@/components/ui/Button';
 
 export default function ResetPasswordPage() {
   const params = useParams();
@@ -14,92 +16,91 @@ export default function ResetPasswordPage() {
     // Redirect to login after successful password reset
     // Give user time to read the success message
     setTimeout(() => {
-      router.push(ROUTES.LOGIN + '?message=password-reset-success');
+      router.push(AUTH_ROUTES.LOGIN + '?message=password-reset-success');
     }, 3000);
   };
 
   const handleBackToLogin = () => {
-    router.push(ROUTES.LOGIN);
+    router.push(AUTH_ROUTES.LOGIN);
   };
 
   if (!token) {
     return (
-      <div style={{ 
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#f5f5f5',
-        padding: '20px'
-      }}>
-        <div style={{ 
-          maxWidth: '400px', 
-          margin: '0 auto', 
-          padding: '32px', 
-          backgroundColor: 'white', 
-          borderRadius: '8px', 
-          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-          textAlign: 'center'
-        }}>
-          <div style={{ 
-            width: '80px', 
-            height: '80px', 
-            backgroundColor: '#f44336', 
-            borderRadius: '50%', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            margin: '0 auto 24px auto',
-            boxShadow: '0 4px 16px rgba(244, 67, 54, 0.3)'
-          }}>
-            <svg style={{ width: '40px', height: '40px', color: 'white' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <div className="text-center">
+              <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-4">
+                <svg className="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                Invalid Reset Link
+              </h2>
+              <p className="text-gray-600 mb-6">
+                This password reset link is missing or invalid. Please request a new password reset.
+              </p>
+              <div className="space-y-4">
+                <Button
+                  onClick={handleBackToLogin}
+                  className="w-full"
+                >
+                  Back to Login
+                </Button>
+                <Link
+                  href={AUTH_ROUTES.FORGOT_PASSWORD}
+                  className="block text-sm text-indigo-600 hover:text-indigo-500 transition-colors"
+                >
+                  Request new reset link
+                </Link>
+              </div>
+            </div>
           </div>
-          <h1 style={{ fontSize: '28px', fontWeight: 'bold', color: '#212121', marginBottom: '12px' }}>
-            Invalid Reset Link
-          </h1>
-          <p style={{ color: '#757575', fontSize: '16px', lineHeight: '1.6', marginBottom: '24px' }}>
-            This password reset link is missing or invalid. Please request a new password reset.
-          </p>
-          <button
-            onClick={handleBackToLogin}
-            style={{
-              width: '100%',
-              padding: '14px',
-              backgroundColor: '#2196f3',
-              color: 'white',
-              border: 'none',
-              borderRadius: '8px',
-              fontSize: '16px',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'background-color 0.2s ease'
-            }}
-           onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#1976d2'}
-            onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#2196f3'}
-          >
-            Back to Login
-          </button>
         </div>
       </div>
     );
   }
 
   return (
-    <div style={{ 
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#f5f5f5',
-      padding: '20px'
-    }}>
-      <ResetPasswordForm
-        token={token}
-        onSuccess={handleSuccess}
-        onBackToLogin={handleBackToLogin}
-      />
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-indigo-600">
+            E-Commerce Platform
+          </h1>
+        </div>
+      </div>
+      
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <div className="space-y-6">
+            <div>
+              <h2 className="text-center text-3xl font-extrabold text-gray-900">
+                Reset your password
+              </h2>
+              <p className="mt-2 text-center text-sm text-gray-600">
+                Enter your new password below.
+              </p>
+            </div>
+            
+            <ResetPasswordForm
+              token={token}
+              onSuccess={handleSuccess}
+              onBackToLogin={handleBackToLogin}
+            />
+            
+            <div className="text-center">
+              <Link
+                href={AUTH_ROUTES.LOGIN}
+                className="text-sm text-indigo-600 hover:text-indigo-500 transition-colors"
+              >
+                ← Back to sign in
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

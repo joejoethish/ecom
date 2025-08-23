@@ -2523,3 +2523,10 @@ Traceback (most recent call last):
     _mysql.connection.query(self, query)
 django.db.utils.ProgrammingError: (1146, "Table 'ecommerce_db.tenants' doesn't exist")
 ERROR 2025-08-23 14:49:34,248 basehttp 5524 10100 "POST /api/v1/auth/register/ HTTP/1.1" 500 203046
+<<<<<<< Updated upstream
+=======
+INFO 2025-08-23 15:38:21,059 autoreload 5524 13840 C:\Local_ecom\backend\ecommerce_project\urls.py changed, reloading.
+INFO 2025-08-23 15:38:28,648 autoreload 8488 14692 Watching for file changes with StatReloader
+INFO 2025-08-23 15:38:30,236 database_security 8488 6772 Audit tables created successfully
+INFO 2025-08-23 15:38:30,236 database_security 8488 6772 Database security monitoring initialized successfully
+>>>>>>> Stashed changes
