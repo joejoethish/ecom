@@ -2523,7 +2523,13 @@ Traceback (most recent call last):
     _mysql.connection.query(self, query)
 django.db.utils.ProgrammingError: (1146, "Table 'ecommerce_db.tenants' doesn't exist")
 ERROR 2025-08-23 14:49:34,248 basehttp 5524 10100 "POST /api/v1/auth/register/ HTTP/1.1" 500 203046
-
+<<<<<<< Updated upstream
+=======
+INFO 2025-08-23 15:38:21,059 autoreload 5524 13840 C:\Local_ecom\backend\ecommerce_project\urls.py changed, reloading.
+INFO 2025-08-23 15:38:28,648 autoreload 8488 14692 Watching for file changes with StatReloader
+INFO 2025-08-23 15:38:30,236 database_security 8488 6772 Audit tables created successfully
+INFO 2025-08-23 15:38:30,236 database_security 8488 6772 Database security monitoring initialized successfully
+>>>>>>> Stashed changes
 INFO 2025-08-23 17:56:48,674 database_security 7876 2764 Audit tables created successfully
 INFO 2025-08-23 17:56:48,677 database_security 7876 2764 Database security monitoring initialized successfully
 WARNING 2025-08-23 17:58:52,492 exceptions 12388 7456 Security Event: TEST_EVENT
@@ -4952,7 +4958,6 @@ INFO 2025-08-24 12:12:14,151 correlation_service 15288 9816 [test-e2e-correlatio
 INFO 2025-08-24 12:12:14,151 correlation_service 15288 9816 [test-e2e-correlation-id-12345] Operation completed - Correlation ID: test-e2e-correlation-id-12345, Operation: external_api_call, Function: call_external_api
 INFO 2025-08-24 12:12:14,151 correlation_id_middleware 15288 9816 [test-e2e-correlation-id-12345] Request completed - Correlation ID: test-e2e-correlation-id-12345, Status: 200, Method: GET, Path: /api/test
 INFO 2025-08-24 12:12:14,160 correlation_id_middleware 15288 9816 [834a4da4-21de-4cef-a44a-9ab431d220d5] Request started - Correlation ID: 834a4da4-21de-4cef-a44a-9ab431d220d5, Method: GET, Path: /api/test, User: Anonymous
-
 INFO 2025-08-24 18:18:23,404 autoreload 14404 7140 [N/A] C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
 INFO 2025-08-24 18:18:32,704 autoreload 5248 16312 Watching for file changes with StatReloader
 INFO 2025-08-24 18:18:38,155 database_security 5248 7492 Audit tables created successfully
@@ -5033,5 +5038,8 @@ WARNING 2025-08-24 19:25:29,163 log 14432 1920 Not Found: /api/v1/shipping/servi
 WARNING 2025-08-24 19:25:29,165 basehttp 14432 1920 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
 WARNING 2025-08-24 19:25:49,508 log 14432 12424 Not Found: /api/v1/shipping/shipments/TRK987654321/track/
 WARNING 2025-08-24 19:25:49,548 basehttp 14432 12424 "GET /api/v1/shipping/shipments/TRK987654321/track/ HTTP/1.1" 404 1931
-
-
+INFO 2025-08-24 19:44:01,529 autoreload 14432 15880 C:\Local_ecom\backend\apps\debugging\models.py changed, reloading.
+INFO 2025-08-24 19:44:18,827 autoreload 7344 6424 Watching for file changes with StatReloader
+INFO 2025-08-24 19:44:23,126 database_security 7344 1996 Audit tables created successfully
+INFO 2025-08-24 19:44:23,126 database_security 7344 1996 Database security monitoring initialized successfully
+INFO 2025-08-24 22:14:51,634 autoreload 1400 17368 [N/A] C:\Local_ecom\backend\apps\debugging\models.py changed, reloading.
