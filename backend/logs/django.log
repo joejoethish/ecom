@@ -5042,3 +5042,4 @@ INFO 2025-08-24 19:44:01,529 autoreload 14432 15880 C:\Local_ecom\backend\apps\d
 INFO 2025-08-24 19:44:18,827 autoreload 7344 6424 Watching for file changes with StatReloader
 INFO 2025-08-24 19:44:23,126 database_security 7344 1996 Audit tables created successfully
 INFO 2025-08-24 19:44:23,126 database_security 7344 1996 Database security monitoring initialized successfully
+INFO 2025-08-24 22:14:51,634 autoreload 1400 17368 [N/A] C:\Local_ecom\backend\apps\debugging\models.py changed, reloading.
