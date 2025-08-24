@@ -97,6 +97,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'core.middleware.database_security_middleware.DatabaseSecurityMiddleware',
     'core.middleware.database_security_middleware.AuthenticationSecurityMiddleware',
+    'apps.debugging.middleware.CorrelationIdMiddleware',  # Correlation ID tracking
+    'apps.debugging.middleware.DebuggingMiddleware',  # Debugging and monitoring
     # 'core.middleware.APIVersionMiddleware',  # Not implemented yet
     # 'core.middleware.RequestLoggingMiddleware',  # Not implemented yet
     'django.contrib.messages.middleware.MessageMiddleware',
