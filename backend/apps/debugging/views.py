@@ -12,14 +12,20 @@ from datetime import timedelta
 
 from .models import (
     WorkflowSession, TraceStep, PerformanceSnapshot, 
-    ErrorLog, DebugConfiguration, PerformanceThreshold
+    ErrorLog, DebugConfiguration, PerformanceThreshold,
+    FrontendRoute, APICallDiscovery, RouteDiscoverySession, RouteDependency
 )
+from .route_discovery import RouteDiscoveryService
 from .serializers import (
     WorkflowSessionSerializer, WorkflowSessionCreateSerializer,
     TraceStepSerializer, PerformanceSnapshotSerializer,
     ErrorLogSerializer, ErrorLogCreateSerializer,
     DebugConfigurationSerializer, PerformanceThresholdSerializer,
-    SystemHealthSerializer, WorkflowStatsSerializer
+    SystemHealthSerializer, WorkflowStatsSerializer,
+    FrontendRouteSerializer, APICallDiscoverySerializer,
+    RouteDiscoverySessionSerializer, RouteDependencySerializer,
+    RouteDiscoveryResultSerializer, DependencyMapSerializer,
+    RouteValidationResultSerializer
 )
 
 
@@ -335,3 +341,167 @@ class SystemHealthViewSet(viewsets.ViewSet):
         
         serializer = SystemHealthSerializer(health_data)
         return Response(serializer.data)
+
+
+class RouteDiscoveryViewSet(viewsets.ViewSet):
+    """ViewSet for frontend route discovery operations"""
+    permission_classes = [IsAuthenticated]
+    
+    @action(detail=False, methods=['post'])
+    def scan(self, request):
+        """Trigger a new route discovery scan"""
+        try:
+            service = RouteDiscoveryService()
+            session = service.run_discovery()
+            
+            serializer = RouteDiscoverySessionSerializer(session)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        except Exception as e:
+            return Response(
+                {'error': f'Route discovery failed: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['get'])
+    def results(self, request):
+        """Get the latest route discovery results"""
+        try:
+            service = RouteDiscoveryService()
+            results = service.get_discovery_results()
+            
+            serializer = RouteDiscoveryResultSerializer(results)
+            return Response(serializer.data)
+        
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to get discovery results: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['get'])
+    def dependencies(self, request):
+        """Get dependency mapping between frontend routes and API endpoints"""
+        try:
+            # Get all routes with their API calls
+            routes = FrontendRoute.objects.prefetch_related('api_calls').all()
+            
+            # Get unique API endpoints
+            api_endpoints = list(
+                APICallDiscovery.objects.values_list('endpoint', flat=True).distinct()
+            )
+            
+            # Get dependencies
+            dependencies = []
+            for route in routes:
+                for api_call in route.api_calls.all():
+                    dependencies.append({
+                        'frontend_route': route.path,
+                        'api_endpoint': api_call.endpoint,
+                        'method': api_call.method,
+                        'component': route.component_name
+                    })
+            
+            data = {
+                'frontend_routes': routes,
+                'api_endpoints': api_endpoints,
+                'dependencies': dependencies
+            }
+            
+            serializer = DependencyMapSerializer(data)
+            return Response(serializer.data)
+        
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to get dependency map: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['get'])
+    def routes(self, request):
+        """Get routes filtered by type"""
+        route_type = request.query_params.get('type')
+        
+        queryset = FrontendRoute.objects.prefetch_related('api_calls').all()
+        
+        if route_type:
+            queryset = queryset.filter(route_type=route_type)
+        
+        serializer = FrontendRouteSerializer(queryset, many=True)
+        return Response({'results': serializer.data})
+    
+    @action(detail=False, methods=['get'], url_path='routes/(?P<route_path>.+)/api-calls')
+    def route_api_calls(self, request, route_path=None):
+        """Get API calls for a specific route"""
+        try:
+            # Decode the route path
+            import urllib.parse
+            decoded_path = urllib.parse.unquote(route_path)
+            
+            route = FrontendRoute.objects.get(path=decoded_path)
+            api_calls = APICallDiscovery.objects.filter(frontend_route=route)
+            
+            serializer = APICallDiscoverySerializer(api_calls, many=True)
+            return Response(serializer.data)
+        
+        except FrontendRoute.DoesNotExist:
+            return Response(
+                {'error': f'Route not found: {route_path}'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to get API calls: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['post'])
+    def validate(self, request):
+        """Validate route discovery accuracy"""
+        try:
+            service = RouteDiscoveryService()
+            results = service.validate_discovery_accuracy()
+            
+            serializer = RouteValidationResultSerializer(results)
+            return Response(serializer.data)
+        
+        except Exception as e:
+            return Response(
+                {'error': f'Validation failed: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+class FrontendRouteViewSet(viewsets.ModelViewSet):
+    """ViewSet for managing frontend routes"""
+    queryset = FrontendRoute.objects.all().prefetch_related('api_calls')
+    serializer_class = FrontendRouteSerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filterset_fields = ['route_type', 'is_dynamic', 'is_valid']
+    ordering_fields = ['path', 'discovered_at', 'route_type']
+    ordering = ['path']
+    search_fields = ['path', 'component_name']
+
+
+class APICallDiscoveryViewSet(viewsets.ModelViewSet):
+    """ViewSet for managing discovered API calls"""
+    queryset = APICallDiscovery.objects.all().select_related('frontend_route')
+    serializer_class = APICallDiscoverySerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filterset_fields = ['method', 'requires_authentication', 'is_valid', 'frontend_route']
+    ordering_fields = ['endpoint', 'discovered_at', 'method']
+    ordering = ['endpoint']
+    search_fields = ['endpoint', 'component_file', 'function_name']
+
+
+class RouteDiscoverySessionViewSet(viewsets.ModelViewSet):
+    """ViewSet for managing route discovery sessions"""
+    queryset = RouteDiscoverySession.objects.all()
+    serializer_class = RouteDiscoverySessionSerializer
+    permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_fields = ['status']
+    ordering_fields = ['start_time', 'scan_duration_ms']
+    ordering = ['-start_time']

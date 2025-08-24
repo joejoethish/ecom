@@ -74,6 +74,7 @@ LOCAL_APPS = [
     'apps.project_management',  # Advanced task and project management system
     'apps.tenants',  # Comprehensive multi-tenant architecture
     'apps.internationalization',  # Comprehensive internationalization system
+    'apps.debugging',  # E2E workflow debugging and validation system
     # 'apps.logs',  # Temporarily disabled due to import issues
     'tasks',
 ]
