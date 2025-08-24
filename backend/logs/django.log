@@ -4915,3 +4915,50 @@ INFO 2025-08-23 23:43:32,844 autoreload 9488 7384 C:\Local_ecom\backend\ecommerc
 INFO 2025-08-23 23:43:36,555 autoreload 5604 12076 Watching for file changes with StatReloader
 INFO 2025-08-23 23:43:38,367 database_security 5604 10000 Audit tables created successfully
 INFO 2025-08-23 23:43:38,367 database_security 5604 10000 Database security monitoring initialized successfully
+INFO 2025-08-23 23:55:49,028 autoreload 11428 9696 C:\Local_ecom\backend\core\middleware\__init__.py changed, reloading.
+INFO 2025-08-23 23:55:57,423 autoreload 13144 4020 Watching for file changes with StatReloader
+INFO 2025-08-23 23:55:59,584 database_security 13144 11000 Audit tables created successfully
+INFO 2025-08-23 23:55:59,585 database_security 13144 11000 Database security monitoring initialized successfully
+INFO 2025-08-24 00:08:30,698 autoreload 13144 4020 C:\Local_ecom\backend\core\middleware\correlation_id_middleware.py changed, reloading.
+INFO 2025-08-24 00:08:41,330 autoreload 14404 7140 [N/A] Watching for file changes with StatReloader
+INFO 2025-08-24 00:08:43,367 database_security 14404 11668 [N/A] Audit tables created successfully
+INFO 2025-08-24 00:08:43,369 database_security 14404 11668 [N/A] Database security monitoring initialized successfully
+INFO 2025-08-24 00:09:06,216 correlation_id_middleware 15608 11172 [0fe853ac-f5c0-4e1a-8079-f1d1b9db8a86] Request started - Correlation ID: 0fe853ac-f5c0-4e1a-8079-f1d1b9db8a86, Method: GET, Path: /, User: Anonymous
+INFO 2025-08-24 00:09:06,310 correlation_id_middleware 15608 11172 [b069930f-a8f0-4267-bec3-7c8c7d0625b4] Request started - Correlation ID: b069930f-a8f0-4267-bec3-7c8c7d0625b4, Method: GET, Path: /, User: Anonymous
+INFO 2025-08-24 00:09:06,384 correlation_id_middleware 15608 11172 [b069930f-a8f0-4267-bec3-7c8c7d0625b4] Request completed - Correlation ID: b069930f-a8f0-4267-bec3-7c8c7d0625b4, Status: 200, Method: GET, Path: /
+INFO 2025-08-24 00:10:56,829 correlation_id_middleware 14404 5260 [923e70c2-febb-439f-a89f-d4cf9e02c090] Request started - Correlation ID: 923e70c2-febb-439f-a89f-d4cf9e02c090, Method: GET, Path: /api/v1/shipping/serviceable-areas/check_serviceability/, User: Anonymous
+INFO 2025-08-24 00:10:56,874 correlation_id_middleware 14404 12320 [79ec50b2-b1aa-49ed-9919-ce13e95ab1cb] Request started - Correlation ID: 79ec50b2-b1aa-49ed-9919-ce13e95ab1cb, Method: GET, Path: /api/v1/shipping/serviceable-areas/check_serviceability/, User: Anonymous
+INFO 2025-08-24 00:10:56,927 correlation_id_middleware 14404 7396 [b46deec6-f8f3-464d-966b-d218b11ed44e] Request started - Correlation ID: b46deec6-f8f3-464d-966b-d218b11ed44e, Method: GET, Path: /api/v1/shipping/serviceable-areas/check_serviceability/, User: Anonymous
+INFO 2025-08-24 00:10:56,939 correlation_id_middleware 14404 5260 [923e70c2-febb-439f-a89f-d4cf9e02c090] Request completed - Correlation ID: 923e70c2-febb-439f-a89f-d4cf9e02c090, Status: 404, Method: GET, Path: /api/v1/shipping/serviceable-areas/check_serviceability/
+INFO 2025-08-24 00:10:56,951 correlation_id_middleware 14404 9532 [28fffbe8-7a9f-488e-9642-171bc738b287] Request started - Correlation ID: 28fffbe8-7a9f-488e-9642-171bc738b287, Method: GET, Path: /api/v1/shipping/serviceable-areas/check_serviceability/, User: Anonymous
+WARNING 2025-08-24 00:10:56,969 log 14404 5260 [923e70c2-febb-439f-a89f-d4cf9e02c090] Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 00:10:56,975 basehttp 14404 5260 [923e70c2-febb-439f-a89f-d4cf9e02c090] "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+INFO 2025-08-24 00:10:57,004 correlation_id_middleware 14404 12320 [79ec50b2-b1aa-49ed-9919-ce13e95ab1cb] Request completed - Correlation ID: 79ec50b2-b1aa-49ed-9919-ce13e95ab1cb, Status: 404, Method: GET, Path: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 00:10:57,008 log 14404 12320 [79ec50b2-b1aa-49ed-9919-ce13e95ab1cb] Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 00:10:57,010 basehttp 14404 12320 [79ec50b2-b1aa-49ed-9919-ce13e95ab1cb] "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+INFO 2025-08-24 00:10:57,030 correlation_id_middleware 14404 14792 [5dce7dae-9c22-4544-8a2b-6e70e05cb2c4] Request started - Correlation ID: 5dce7dae-9c22-4544-8a2b-6e70e05cb2c4, Method: GET, Path: /api/v1/shipping/serviceable-areas/check_serviceability/, User: Anonymous
+INFO 2025-08-24 00:10:57,093 correlation_id_middleware 14404 14792 [5dce7dae-9c22-4544-8a2b-6e70e05cb2c4] Request completed - Correlation ID: 5dce7dae-9c22-4544-8a2b-6e70e05cb2c4, Status: 404, Method: GET, Path: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 00:10:57,095 log 14404 14792 [5dce7dae-9c22-4544-8a2b-6e70e05cb2c4] Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 00:10:57,099 basehttp 14404 14792 [5dce7dae-9c22-4544-8a2b-6e70e05cb2c4] "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+INFO 2025-08-24 00:10:57,123 correlation_id_middleware 14404 7396 [b46deec6-f8f3-464d-966b-d218b11ed44e] Request completed - Correlation ID: b46deec6-f8f3-464d-966b-d218b11ed44e, Status: 404, Method: GET, Path: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 00:10:57,123 log 14404 7396 [b46deec6-f8f3-464d-966b-d218b11ed44e] Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 00:10:57,125 basehttp 14404 7396 [b46deec6-f8f3-464d-966b-d218b11ed44e] "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=999999 HTTP/1.1" 404 1856
+INFO 2025-08-24 00:10:57,209 correlation_id_middleware 14404 9532 [28fffbe8-7a9f-488e-9642-171bc738b287] Request completed - Correlation ID: 28fffbe8-7a9f-488e-9642-171bc738b287, Status: 404, Method: GET, Path: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 00:10:57,209 log 14404 9532 [28fffbe8-7a9f-488e-9642-171bc738b287] Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 00:10:57,213 basehttp 14404 9532 [28fffbe8-7a9f-488e-9642-171bc738b287] "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+INFO 2025-08-24 00:11:27,595 correlation_id_middleware 14404 11580 [ee130498-76de-4e4b-aca5-ee971650d039] Request started - Correlation ID: ee130498-76de-4e4b-aca5-ee971650d039, Method: GET, Path: /api/v1/shipping/shipments/TRK987654321/track/, User: Anonymous
+INFO 2025-08-24 00:11:27,668 correlation_id_middleware 14404 11580 [ee130498-76de-4e4b-aca5-ee971650d039] Request completed - Correlation ID: ee130498-76de-4e4b-aca5-ee971650d039, Status: 404, Method: GET, Path: /api/v1/shipping/shipments/TRK987654321/track/
+WARNING 2025-08-24 00:11:27,676 log 14404 11580 [ee130498-76de-4e4b-aca5-ee971650d039] Not Found: /api/v1/shipping/shipments/TRK987654321/track/
+WARNING 2025-08-24 00:11:27,682 basehttp 14404 11580 [ee130498-76de-4e4b-aca5-ee971650d039] "GET /api/v1/shipping/shipments/TRK987654321/track/ HTTP/1.1" 404 1931
+INFO 2025-08-24 12:11:20,399 correlation_service 14240 6248 [bf4716c5-c199-4b5e-ad51-65e966719bd5] Operation started - Correlation ID: bf4716c5-c199-4b5e-ad51-65e966719bd5, Operation: test_operation, Function: traced_function
+INFO 2025-08-24 12:11:20,400 correlation_service 14240 6248 [bf4716c5-c199-4b5e-ad51-65e966719bd5] Operation completed - Correlation ID: bf4716c5-c199-4b5e-ad51-65e966719bd5, Operation: test_operation, Function: traced_function
+INFO 2025-08-24 12:12:14,149 correlation_id_middleware 15288 9816 [test-e2e-correlation-id-12345] Request started - Correlation ID: test-e2e-correlation-id-12345, Method: GET, Path: /api/test, User: Anonymous
+INFO 2025-08-24 12:12:14,149 correlation_service 15288 9816 [test-e2e-correlation-id-12345] Database operation - Correlation ID: test-e2e-correlation-id-12345, Operation: SELECT, Table: users
+INFO 2025-08-24 12:12:14,151 correlation_service 15288 9816 [test-e2e-correlation-id-12345] Operation started - Correlation ID: test-e2e-correlation-id-12345, Operation: external_api_call, Function: call_external_api
+INFO 2025-08-24 12:12:14,151 correlation_service 15288 9816 [test-e2e-correlation-id-12345] Operation completed - Correlation ID: test-e2e-correlation-id-12345, Operation: external_api_call, Function: call_external_api
+INFO 2025-08-24 12:12:14,151 correlation_id_middleware 15288 9816 [test-e2e-correlation-id-12345] Request completed - Correlation ID: test-e2e-correlation-id-12345, Status: 200, Method: GET, Path: /api/test
+INFO 2025-08-24 12:12:14,160 correlation_id_middleware 15288 9816 [834a4da4-21de-4cef-a44a-9ab431d220d5] Request started - Correlation ID: 834a4da4-21de-4cef-a44a-9ab431d220d5, Method: GET, Path: /api/test, User: Anonymous
+INFO 2025-08-24 18:18:23,404 autoreload 14404 7140 [N/A] C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
+INFO 2025-08-24 18:18:32,704 autoreload 5248 16312 Watching for file changes with StatReloader
+INFO 2025-08-24 18:18:38,155 database_security 5248 7492 Audit tables created successfully
+INFO 2025-08-24 18:18:38,155 database_security 5248 7492 Database security monitoring initialized successfully
