@@ -4962,3 +4962,83 @@ INFO 2025-08-24 18:18:23,404 autoreload 14404 7140 [N/A] C:\Local_ecom\backend\e
 INFO 2025-08-24 18:18:32,704 autoreload 5248 16312 Watching for file changes with StatReloader
 INFO 2025-08-24 18:18:38,155 database_security 5248 7492 Audit tables created successfully
 INFO 2025-08-24 18:18:38,155 database_security 5248 7492 Database security monitoring initialized successfully
+INFO 2025-08-24 18:31:45,818 database_security 13712 14552 Audit tables created successfully
+INFO 2025-08-24 18:31:45,823 database_security 13712 14552 Database security monitoring initialized successfully
+INFO 2025-08-24 18:32:31,101 autoreload 5248 16312 C:\Local_ecom\backend\ecommerce_project\settings\base.py changed, reloading.
+INFO 2025-08-24 18:32:39,927 autoreload 6960 3080 Watching for file changes with StatReloader
+INFO 2025-08-24 18:32:43,288 database_security 6960 7092 Audit tables created successfully
+INFO 2025-08-24 18:32:43,289 database_security 6960 7092 Database security monitoring initialized successfully
+INFO 2025-08-24 18:32:48,758 database_security 4820 15248 Audit tables created successfully
+INFO 2025-08-24 18:32:48,758 database_security 4820 15248 Database security monitoring initialized successfully
+INFO 2025-08-24 18:33:12,359 database_security 3356 6000 Audit tables created successfully
+INFO 2025-08-24 18:33:12,359 database_security 3356 6000 Database security monitoring initialized successfully
+INFO 2025-08-24 18:33:35,667 autoreload 6960 3080 C:\Local_ecom\backend\apps\debugging\models.py changed, reloading.
+INFO 2025-08-24 18:33:41,086 autoreload 14432 15880 Watching for file changes with StatReloader
+INFO 2025-08-24 18:33:42,659 database_security 14432 11940 Audit tables created successfully
+INFO 2025-08-24 18:33:42,661 database_security 14432 11940 Database security monitoring initialized successfully
+INFO 2025-08-24 18:34:07,442 database_security 6092 9888 Audit tables created successfully
+INFO 2025-08-24 18:34:07,442 database_security 6092 9888 Database security monitoring initialized successfully
+INFO 2025-08-24 18:34:30,877 database_security 16196 7228 Audit tables created successfully
+INFO 2025-08-24 18:34:30,878 database_security 16196 7228 Database security monitoring initialized successfully
+INFO 2025-08-24 18:34:55,411 database_security 13288 13704 Audit tables created successfully
+INFO 2025-08-24 18:34:55,411 database_security 13288 13704 Database security monitoring initialized successfully
+INFO 2025-08-24 18:35:02,532 monitoring 13288 13704 Task update_document (None) started
+INFO 2025-08-24 18:35:02,532 signals 13288 13704 Updating Elasticsearch document: migrations.migration ID: 77
+ERROR 2025-08-24 18:35:02,532 signals 13288 13704 Error updating Elasticsearch document: No installed app with label 'migrations'.
+WARNING 2025-08-24 18:35:02,537 monitoring 13288 13704 Retrying task tasks.monitoring.wrapper due to: No installed app with label 'migrations'.
+ERROR 2025-08-24 18:35:02,537 monitoring 13288 13704 Task retry failed: No installed app with label 'migrations'.
+ERROR 2025-08-24 18:35:02,538 monitoring 13288 13704 Task update_document (None) failed: No installed app with label 'migrations'.
+WARNING 2025-08-24 18:41:39,576 log 14432 14836 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 18:41:39,582 log 14432 16040 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 18:41:39,585 log 14432 16336 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 18:41:39,585 log 14432 15016 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 18:41:39,638 log 14432 960 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 18:41:39,756 basehttp 14432 14836 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 18:41:39,757 basehttp 14432 16336 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 18:41:39,757 basehttp 14432 16040 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 18:41:39,757 basehttp 14432 960 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=999999 HTTP/1.1" 404 1856
+WARNING 2025-08-24 18:41:39,760 basehttp 14432 15016 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 18:42:30,038 log 14432 3024 Not Found: /api/v1/shipping/shipments/TRK987654321/track/
+WARNING 2025-08-24 18:42:30,065 basehttp 14432 3024 "GET /api/v1/shipping/shipments/TRK987654321/track/ HTTP/1.1" 404 1931
+WARNING 2025-08-24 18:45:07,185 log 14432 12556 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 18:45:07,191 basehttp 14432 12556 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 18:45:07,355 log 14432 13432 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 18:45:07,361 log 14432 8280 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 18:45:07,390 basehttp 14432 13432 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=999999 HTTP/1.1" 404 1856
+WARNING 2025-08-24 18:45:07,392 basehttp 14432 8280 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 18:45:07,512 log 14432 10724 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 18:45:07,553 log 14432 13976 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 18:45:07,561 basehttp 14432 10724 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 18:45:07,623 basehttp 14432 13976 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 18:45:31,348 log 14432 5604 Not Found: /api/v1/shipping/shipments/TRK987654321/track/
+WARNING 2025-08-24 18:45:31,397 basehttp 14432 5604 "GET /api/v1/shipping/shipments/TRK987654321/track/ HTTP/1.1" 404 1931
+INFO 2025-08-24 19:05:12,997 database_security 9276 4812 Audit tables created successfully
+INFO 2025-08-24 19:05:12,999 database_security 9276 4812 Database security monitoring initialized successfully
+WARNING 2025-08-24 19:23:24,148 log 14432 1400 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 19:23:24,156 basehttp 14432 1400 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 19:23:24,254 log 14432 14284 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 19:23:24,300 basehttp 14432 14284 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 19:23:24,334 log 14432 7812 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 19:23:24,334 basehttp 14432 7812 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=999999 HTTP/1.1" 404 1856
+WARNING 2025-08-24 19:23:24,402 log 14432 16360 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 19:23:24,422 basehttp 14432 16360 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 19:23:24,459 log 14432 15288 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 19:23:24,461 basehttp 14432 15288 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 19:23:44,822 log 14432 15272 Not Found: /api/v1/shipping/shipments/TRK987654321/track/
+WARNING 2025-08-24 19:23:44,833 basehttp 14432 15272 "GET /api/v1/shipping/shipments/TRK987654321/track/ HTTP/1.1" 404 1931
+WARNING 2025-08-24 19:25:29,012 log 14432 14872 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 19:25:29,014 basehttp 14432 14872 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 19:25:29,059 log 14432 14484 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 19:25:29,060 basehttp 14432 14484 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 19:25:29,116 log 14432 11424 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 19:25:29,124 log 14432 7040 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 19:25:29,134 basehttp 14432 11424 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=999999 HTTP/1.1" 404 1856
+WARNING 2025-08-24 19:25:29,146 basehttp 14432 7040 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 19:25:29,163 log 14432 1920 Not Found: /api/v1/shipping/serviceable-areas/check_serviceability/
+WARNING 2025-08-24 19:25:29,165 basehttp 14432 1920 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
+WARNING 2025-08-24 19:25:49,508 log 14432 12424 Not Found: /api/v1/shipping/shipments/TRK987654321/track/
+WARNING 2025-08-24 19:25:49,548 basehttp 14432 12424 "GET /api/v1/shipping/shipments/TRK987654321/track/ HTTP/1.1" 404 1931
+INFO 2025-08-24 19:44:01,529 autoreload 14432 15880 C:\Local_ecom\backend\apps\debugging\models.py changed, reloading.
+INFO 2025-08-24 19:44:18,827 autoreload 7344 6424 Watching for file changes with StatReloader
+INFO 2025-08-24 19:44:23,126 database_security 7344 1996 Audit tables created successfully
+INFO 2025-08-24 19:44:23,126 database_security 7344 1996 Database security monitoring initialized successfully
