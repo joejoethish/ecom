@@ -2,7 +2,8 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import (
     WorkflowSession, TraceStep, PerformanceSnapshot, 
-    ErrorLog, DebugConfiguration, PerformanceThreshold
+    ErrorLog, DebugConfiguration, PerformanceThreshold,
+    FrontendRoute, APICallDiscovery, RouteDiscoverySession, RouteDependency
 )
 
 
@@ -148,3 +149,88 @@ class WorkflowStatsSerializer(serializers.Serializer):
     average_duration_ms = serializers.FloatField()
     workflow_types = serializers.DictField()
     recent_activity = serializers.ListField()
+
+
+class APICallDiscoverySerializer(serializers.ModelSerializer):
+    """Serializer for discovered API calls"""
+    class Meta:
+        model = APICallDiscovery
+        fields = [
+            'id', 'method', 'endpoint', 'component_file', 'line_number',
+            'function_name', 'requires_authentication', 'payload_schema',
+            'headers', 'query_params', 'discovered_at', 'last_validated',
+            'is_valid', 'validation_error'
+        ]
+        read_only_fields = ['id', 'discovered_at']
+
+
+class FrontendRouteSerializer(serializers.ModelSerializer):
+    """Serializer for frontend routes with nested API calls"""
+    api_calls = APICallDiscoverySerializer(many=True, read_only=True)
+    
+    class Meta:
+        model = FrontendRoute
+        fields = [
+            'id', 'path', 'route_type', 'component_path', 'component_name',
+            'is_dynamic', 'dynamic_segments', 'metadata', 'discovered_at',
+            'last_validated', 'is_valid', 'api_calls'
+        ]
+        read_only_fields = ['id', 'discovered_at']
+
+
+class RouteDiscoverySessionSerializer(serializers.ModelSerializer):
+    """Serializer for route discovery sessions"""
+    duration_seconds = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = RouteDiscoverySession
+        fields = [
+            'id', 'session_id', 'start_time', 'end_time', 'status',
+            'routes_discovered', 'api_calls_discovered', 'errors_encountered',
+            'scan_duration_ms', 'duration_seconds', 'metadata', 'error_log'
+        ]
+        read_only_fields = ['id', 'session_id', 'start_time']
+    
+    def get_duration_seconds(self, obj):
+        """Calculate session duration in seconds"""
+        if obj.scan_duration_ms:
+            return round(obj.scan_duration_ms / 1000, 2)
+        return None
+
+
+class RouteDependencySerializer(serializers.ModelSerializer):
+    """Serializer for route dependencies"""
+    frontend_route = FrontendRouteSerializer(read_only=True)
+    api_call = APICallDiscoverySerializer(read_only=True)
+    
+    class Meta:
+        model = RouteDependency
+        fields = [
+            'id', 'frontend_route', 'api_call', 'dependency_type',
+            'is_critical', 'load_order', 'conditions', 'discovered_at'
+        ]
+        read_only_fields = ['id', 'discovered_at']
+
+
+class RouteDiscoveryResultSerializer(serializers.Serializer):
+    """Serializer for route discovery results"""
+    routes = serializers.ListField(child=serializers.DictField())
+    totalRoutes = serializers.IntegerField()
+    apiCallsCount = serializers.IntegerField()
+    lastScanned = serializers.CharField(allow_null=True)
+    scanDuration = serializers.IntegerField()
+
+
+class DependencyMapSerializer(serializers.Serializer):
+    """Serializer for dependency mapping"""
+    frontend_routes = FrontendRouteSerializer(many=True)
+    api_endpoints = serializers.ListField(child=serializers.CharField())
+    dependencies = serializers.ListField(child=serializers.DictField())
+
+
+class RouteValidationResultSerializer(serializers.Serializer):
+    """Serializer for route validation results"""
+    totalRoutes = serializers.IntegerField()
+    validRoutes = serializers.IntegerField()
+    invalidRoutes = serializers.IntegerField()
+    errors = serializers.ListField(child=serializers.CharField())

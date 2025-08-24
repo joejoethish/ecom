@@ -5033,8 +5033,5 @@ WARNING 2025-08-24 19:25:29,163 log 14432 1920 Not Found: /api/v1/shipping/servi
 WARNING 2025-08-24 19:25:29,165 basehttp 14432 1920 "GET /api/v1/shipping/serviceable-areas/check_serviceability/?pin_code=110001 HTTP/1.1" 404 1856
 WARNING 2025-08-24 19:25:49,508 log 14432 12424 Not Found: /api/v1/shipping/shipments/TRK987654321/track/
 WARNING 2025-08-24 19:25:49,548 basehttp 14432 12424 "GET /api/v1/shipping/shipments/TRK987654321/track/ HTTP/1.1" 404 1931
-INFO 2025-08-24 19:44:01,529 autoreload 14432 15880 C:\Local_ecom\backend\apps\debugging\models.py changed, reloading.
-INFO 2025-08-24 19:44:18,827 autoreload 7344 6424 Watching for file changes with StatReloader
-INFO 2025-08-24 19:44:23,126 database_security 7344 1996 Audit tables created successfully
-INFO 2025-08-24 19:44:23,126 database_security 7344 1996 Database security monitoring initialized successfully
+
 

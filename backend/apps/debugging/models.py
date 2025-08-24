@@ -248,3 +248,135 @@ class PerformanceThreshold(models.Model):
     def __str__(self):
         component_str = f".{self.component}" if self.component else ""
         return f"{self.layer}{component_str} - {self.metric_name}"
+
+
+class FrontendRoute(models.Model):
+    """Discovered frontend routes from Next.js app"""
+    ROUTE_TYPES = [
+        ('page', 'Page Route'),
+        ('api', 'API Route'),
+        ('dynamic', 'Dynamic Route'),
+        ('layout', 'Layout Component'),
+        ('loading', 'Loading Component'),
+        ('error', 'Error Component'),
+        ('not_found', 'Not Found Component'),
+    ]
+    
+    path = models.CharField(max_length=255, unique=True, db_index=True)
+    route_type = models.CharField(max_length=20, choices=ROUTE_TYPES, db_index=True)
+    component_path = models.CharField(max_length=500)
+    component_name = models.CharField(max_length=100)
+    is_dynamic = models.BooleanField(default=False)
+    dynamic_segments = models.JSONField(default=list, blank=True)
+    metadata = models.JSONField(default=dict, blank=True)
+    discovered_at = models.DateTimeField(auto_now_add=True)
+    last_validated = models.DateTimeField(null=True, blank=True)
+    is_valid = models.BooleanField(default=True)
+    
+    class Meta:
+        db_table = 'debugging_frontend_route'
+        indexes = [
+            models.Index(fields=['route_type', 'is_valid']),
+            models.Index(fields=['is_dynamic', 'route_type']),
+            models.Index(fields=['discovered_at']),
+        ]
+        ordering = ['path']
+    
+    def __str__(self):
+        return f"{self.route_type}: {self.path}"
+
+
+class APICallDiscovery(models.Model):
+    """API calls discovered in frontend components"""
+    HTTP_METHODS = [
+        ('GET', 'GET'),
+        ('POST', 'POST'),
+        ('PUT', 'PUT'),
+        ('DELETE', 'DELETE'),
+        ('PATCH', 'PATCH'),
+        ('HEAD', 'HEAD'),
+        ('OPTIONS', 'OPTIONS'),
+    ]
+    
+    frontend_route = models.ForeignKey(FrontendRoute, on_delete=models.CASCADE, related_name='api_calls')
+    method = models.CharField(max_length=10, choices=HTTP_METHODS, db_index=True)
+    endpoint = models.CharField(max_length=255, db_index=True)
+    component_file = models.CharField(max_length=500)
+    line_number = models.IntegerField(null=True, blank=True)
+    function_name = models.CharField(max_length=100, null=True, blank=True)
+    requires_authentication = models.BooleanField(default=False)
+    payload_schema = models.JSONField(null=True, blank=True)
+    headers = models.JSONField(default=dict, blank=True)
+    query_params = models.JSONField(default=dict, blank=True)
+    discovered_at = models.DateTimeField(auto_now_add=True)
+    last_validated = models.DateTimeField(null=True, blank=True)
+    is_valid = models.BooleanField(default=True)
+    validation_error = models.TextField(null=True, blank=True)
+    
+    class Meta:
+        db_table = 'debugging_api_call_discovery'
+        indexes = [
+            models.Index(fields=['frontend_route', 'method']),
+            models.Index(fields=['endpoint', 'method']),
+            models.Index(fields=['requires_authentication', 'is_valid']),
+            models.Index(fields=['discovered_at']),
+        ]
+        ordering = ['frontend_route', 'endpoint']
+    
+    def __str__(self):
+        return f"{self.method} {self.endpoint} (from {self.frontend_route.path})"
+
+
+class RouteDiscoverySession(models.Model):
+    """Track route discovery scanning sessions"""
+    STATUS_CHOICES = [
+        ('running', 'Running'),
+        ('completed', 'Completed'),
+        ('failed', 'Failed'),
+        ('cancelled', 'Cancelled'),
+    ]
+    
+    session_id = models.UUIDField(unique=True, default=uuid.uuid4, db_index=True)
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(null=True, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='running', db_index=True)
+    routes_discovered = models.IntegerField(default=0)
+    api_calls_discovered = models.IntegerField(default=0)
+    errors_encountered = models.IntegerField(default=0)
+    scan_duration_ms = models.IntegerField(null=True, blank=True)
+    metadata = models.JSONField(default=dict, blank=True)
+    error_log = models.TextField(null=True, blank=True)
+    
+    class Meta:
+        db_table = 'debugging_route_discovery_session'
+        indexes = [
+            models.Index(fields=['status', 'start_time']),
+            models.Index(fields=['start_time']),
+        ]
+        ordering = ['-start_time']
+    
+    def __str__(self):
+        return f"Discovery Session {self.session_id} - {self.status}"
+
+
+class RouteDependency(models.Model):
+    """Dependencies between frontend routes and backend API endpoints"""
+    frontend_route = models.ForeignKey(FrontendRoute, on_delete=models.CASCADE, related_name='dependencies')
+    api_call = models.ForeignKey(APICallDiscovery, on_delete=models.CASCADE, related_name='dependencies')
+    dependency_type = models.CharField(max_length=50, default='direct')  # direct, conditional, lazy
+    is_critical = models.BooleanField(default=True)  # Critical for route functionality
+    load_order = models.IntegerField(default=0)  # Order in which API calls are made
+    conditions = models.JSONField(default=dict, blank=True)  # Conditions for this dependency
+    discovered_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'debugging_route_dependency'
+        unique_together = ['frontend_route', 'api_call']
+        indexes = [
+            models.Index(fields=['frontend_route', 'is_critical']),
+            models.Index(fields=['dependency_type', 'is_critical']),
+        ]
+        ordering = ['frontend_route', 'load_order']
+    
+    def __str__(self):
+        return f"{self.frontend_route.path} -> {self.api_call.method} {self.api_call.endpoint}"
