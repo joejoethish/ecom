@@ -82,6 +82,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'core.middleware.correlation_id_middleware.CorrelationIdMiddleware',  # Add correlation ID early in the stack
     'django.middleware.security.SecurityMiddleware',
     'apps.authentication.middleware.SecurityHeadersMiddleware',
     'apps.tenants.middleware.TenantMiddleware',  # Multi-tenant support
@@ -532,12 +533,17 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} [{correlation_id}] {message}',
             'style': '{',
         },
         'simple': {
-            'format': '{levelname} {message}',
+            'format': '{levelname} [{correlation_id}] {message}',
             'style': '{',
+        },
+    },
+    'filters': {
+        'correlation_id': {
+            '()': 'core.middleware.correlation_id_middleware.CorrelationIdFilter',
         },
     },
     'handlers': {
@@ -546,11 +552,13 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'filename': BASE_DIR / 'logs' / 'django.log',
             'formatter': 'verbose',
+            'filters': ['correlation_id'],
         },
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
+            'filters': ['correlation_id'],
         },
     },
     'root': {
