@@ -139,7 +139,7 @@ class AdminPermissionRequired(BasePermission):
     DRF permission class for admin panel endpoints.
     """
     
-    def __init__(self, permission_codename: str, resource_type: str = None):
+    def __init__(self, permission_codename: str = None, resource_type: str = None):
         self.permission_codename = permission_codename
         self.resource_type = resource_type
     
@@ -147,6 +147,18 @@ class AdminPermissionRequired(BasePermission):
         """Check if user has the required permission."""
         if not hasattr(request.user, 'adminuser'):
             return False
+        
+        # If no specific permission is set, check if user has required_permissions from view
+        permission_to_check = self.permission_codename
+        if not permission_to_check and hasattr(view, 'required_permissions'):
+            # Use the first required permission if available
+            required_perms = getattr(view, 'required_permissions', [])
+            if required_perms:
+                permission_to_check = required_perms[0] if isinstance(required_perms, list) else required_perms
+        
+        # If still no permission specified, allow access for admin users
+        if not permission_to_check:
+            return request.user.is_staff
         
         admin_user = request.user.adminuser
         context = {
@@ -157,7 +169,7 @@ class AdminPermissionRequired(BasePermission):
         
         return AdminPermissionManager.has_permission(
             admin_user, 
-            self.permission_codename,
+            permission_to_check,
             context=context
         )
 

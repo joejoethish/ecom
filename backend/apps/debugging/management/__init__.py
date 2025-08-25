@@ -1,1 +1,1 @@
-# Management commands for debugging system
+# Django management commands package

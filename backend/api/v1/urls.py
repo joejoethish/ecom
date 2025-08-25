@@ -22,7 +22,7 @@ urlpatterns = [
     path('payments/', include('apps.payments.urls')),
     # Other app URLs will be added as they are implemented
     # path('orders/', include('apps.orders.urls')),
-    # path('cart/', include('apps.cart.urls')),
+    path('cart/', include('apps.cart.urls')),
     path('customers/', include('apps.customers.urls')),
     # path('sellers/', include('apps.sellers.urls')),
     path('shipping/', include('apps.shipping.urls')),

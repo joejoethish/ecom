@@ -14,9 +14,9 @@ logger = logging.getLogger(__name__)
 
 
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+def handle_user_profile(sender, instance, created, **kwargs):
     """
-    Create a UserProfile when a new User is created.
+    Handle UserProfile creation and updates when User is saved.
     """
     if created:
         try:
@@ -24,21 +24,13 @@ def create_user_profile(sender, instance, created, **kwargs):
             logger.info(f"Profile created for user: {instance.email}")
         except Exception as e:
             logger.error(f"Failed to create profile for user {instance.email}: {str(e)}")
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    """
-    Save the UserProfile when User is saved.
-    """
-    try:
-        if hasattr(instance, 'profile'):
-            instance.profile.save()
-        else:
-            # Create profile if it doesn't exist
-            UserProfile.objects.get_or_create(user=instance)
-    except Exception as e:
-        logger.error(f"Failed to save profile for user {instance.email}: {str(e)}")
+    else:
+        # For updates, ensure profile exists but don't save it again to avoid recursion
+        try:
+            if not hasattr(instance, 'profile'):
+                UserProfile.objects.get_or_create(user=instance)
+        except Exception as e:
+            logger.error(f"Failed to ensure profile exists for user {instance.email}: {str(e)}")
 
 
 @receiver(user_logged_in)
@@ -55,13 +47,19 @@ def log_user_login(sender, request, user, **kwargs):
         # Create or update user session
         session_key = request.session.session_key or 'web_session'
         
+        # Create session record with device info
+        device_info = {
+            'type': device_type,
+            'user_agent': user_agent[:200]  # Limit length
+        }
+        
         UserSession.objects.update_or_create(
             user=user,
             session_key=session_key,
             defaults={
                 'ip_address': ip_address,
-                'user_agent': user_agent,
-                'device_type': device_type,
+                'user_agent': user_agent[:500],  # Limit length to avoid issues
+                'device_info': device_info,
                 'is_active': True,
             }
         )
@@ -134,72 +132,27 @@ def get_device_type(user_agent):
         return 'desktop'
 
 
-# Signal to handle user verification events
+# Consolidated signal handler for user verification and type changes
 @receiver(post_save, sender=User)
-def handle_user_verification(sender, instance, **kwargs):
+def handle_user_changes(sender, instance, created, **kwargs):
     """
-    Handle user verification status changes.
+    Handle user verification status changes and user type changes.
     """
+    if created:
+        return  # Skip for new users
+        
     try:
         # Check if email verification status changed
-        if instance.is_email_verified and not kwargs.get('created', False):
-            # User email was just verified
+        if instance.is_email_verified:
             logger.info(f"Email verified for user: {instance.email}")
             
-            # You can add additional logic here, such as:
-            # - Sending welcome email
-            # - Updating user permissions
-            # - Triggering other business logic
-        
         # Check if phone verification status changed
-        if instance.is_phone_verified and not kwargs.get('created', False):
+        if instance.is_phone_verified:
             logger.info(f"Phone verified for user: {instance.email}")
             
-            # Additional logic for phone verification
+        # Handle user type changes if needed
+        # Note: We're not storing original user type to avoid complexity
+        # If needed, this can be implemented with a separate tracking model
             
     except Exception as e:
-        logger.error(f"Failed to handle user verification for {instance.email}: {str(e)}")
-
-
-# Signal to handle user type changes
-@receiver(post_save, sender=User)
-def handle_user_type_change(sender, instance, **kwargs):
-    """
-    Handle user type changes (customer to seller, etc.).
-    """
-    try:
-        if not kwargs.get('created', False):
-            # This is an update, check if user_type changed
-            if hasattr(instance, '_original_user_type'):
-                old_type = instance._original_user_type
-                new_type = instance.user_type
-                
-                if old_type != new_type:
-                    logger.info(f"User type changed for {instance.email}: {old_type} -> {new_type}")
-                    
-                    # Handle specific type changes
-                    if new_type == 'seller':
-                        # User became a seller
-                        # You might want to create seller-specific records
-                        pass
-                    elif new_type == 'admin':
-                        # User became an admin
-                        # You might want to grant additional permissions
-                        pass
-                        
-    except Exception as e:
-        logger.error(f"Failed to handle user type change for {instance.email}: {str(e)}")
-
-
-# Store original user type for comparison
-@receiver(post_save, sender=User)
-def store_original_user_type(sender, instance, **kwargs):
-    """
-    Store the original user type for comparison in future saves.
-    """
-    try:
-        if not kwargs.get('created', False):
-            # Store current user_type for next comparison
-            instance._original_user_type = instance.user_type
-    except Exception as e:
-        logger.error(f"Failed to store original user type: {str(e)}")
+        logger.error(f"Failed to handle user changes for {instance.email}: {str(e)}")
