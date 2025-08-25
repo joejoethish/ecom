@@ -27,6 +27,9 @@ from .serializers import (
     RouteDiscoveryResultSerializer, DependencyMapSerializer,
     RouteValidationResultSerializer
 )
+from .services import WorkflowTracingEngine, TimingAnalyzer, ErrorTracker
+from .database_monitor import DatabaseHealthMonitor
+from .utils import PerformanceMonitor, ErrorLogger
 
 
 class WorkflowSessionViewSet(viewsets.ModelViewSet):
@@ -505,3 +508,313 @@ class RouteDiscoverySessionViewSet(viewsets.ModelViewSet):
     filterset_fields = ['status']
     ordering_fields = ['start_time', 'scan_duration_ms']
     ordering = ['-start_time']
+
+
+
+class WorkflowTracingViewSet(viewsets.ViewSet):
+    """ViewSet for workflow tracing operations"""
+    permission_classes = [IsAuthenticated]
+    
+    @action(detail=False, methods=['post'])
+    def start_workflow(self, request):
+        """Start a new workflow trace"""
+        try:
+            workflow_type = request.data.get('workflow_type')
+            metadata = request.data.get('metadata', {})
+            correlation_id = request.data.get('correlation_id')
+            
+            if not workflow_type:
+                return Response(
+                    {'error': 'workflow_type is required'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Create tracing engine
+            engine = WorkflowTracingEngine(
+                correlation_id=uuid.UUID(correlation_id) if correlation_id else None
+            )
+            
+            # Start workflow
+            session = engine.start_workflow(
+                workflow_type=workflow_type,
+                user=request.user,
+                metadata=metadata
+            )
+            
+            return Response({
+                'correlation_id': str(session.correlation_id),
+                'workflow_type': session.workflow_type,
+                'status': session.status,
+                'start_time': session.start_time.isoformat()
+            }, status=status.HTTP_201_CREATED)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to start workflow: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['post'])
+    def complete_workflow(self, request):
+        """Complete a workflow trace"""
+        try:
+            correlation_id = request.data.get('correlation_id')
+            metadata = request.data.get('metadata', {})
+            
+            if not correlation_id:
+                return Response(
+                    {'error': 'correlation_id is required'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Create tracing engine
+            engine = WorkflowTracingEngine(correlation_id=uuid.UUID(correlation_id))
+            
+            # Complete workflow
+            analysis = engine.complete_workflow(metadata=metadata)
+            
+            return Response(analysis)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to complete workflow: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['post'])
+    def fail_workflow(self, request):
+        """Fail a workflow trace"""
+        try:
+            correlation_id = request.data.get('correlation_id')
+            error_message = request.data.get('error_message')
+            metadata = request.data.get('metadata', {})
+            
+            if not correlation_id or not error_message:
+                return Response(
+                    {'error': 'correlation_id and error_message are required'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Create tracing engine
+            engine = WorkflowTracingEngine(correlation_id=uuid.UUID(correlation_id))
+            
+            # Fail workflow
+            analysis = engine.fail_workflow(error_message=error_message, metadata=metadata)
+            
+            return Response(analysis)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to fail workflow: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['post'])
+    def trace_events(self, request):
+        """Handle trace events from frontend"""
+        try:
+            event_type = request.data.get('event_type')
+            correlation_id = request.data.get('correlation_id')
+            
+            if not event_type or not correlation_id:
+                return Response(
+                    {'error': 'event_type and correlation_id are required'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Handle different event types
+            if event_type == 'workflow_started':
+                # Workflow already started, just acknowledge
+                pass
+            elif event_type == 'workflow_completed':
+                # Update workflow metadata
+                try:
+                    session = WorkflowSession.objects.get(correlation_id=correlation_id)
+                    session.metadata.update(request.data.get('metadata', {}))
+                    session.save()
+                except WorkflowSession.DoesNotExist:
+                    pass
+            elif event_type == 'workflow_failed':
+                # Update workflow with failure info
+                try:
+                    session = WorkflowSession.objects.get(correlation_id=correlation_id)
+                    session.status = 'failed'
+                    session.end_time = timezone.now()
+                    session.metadata.update(request.data.get('metadata', {}))
+                    session.save()
+                except WorkflowSession.DoesNotExist:
+                    pass
+            
+            return Response({'status': 'acknowledged'})
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to handle trace event: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['post'])
+    def errors(self, request):
+        """Handle error events from frontend"""
+        try:
+            correlation_id = request.data.get('correlation_id')
+            layer = request.data.get('layer', 'frontend')
+            component = request.data.get('component')
+            error_type = request.data.get('error_type')
+            error_message = request.data.get('error_message')
+            metadata = request.data.get('metadata', {})
+            
+            if not all([correlation_id, component, error_type, error_message]):
+                return Response(
+                    {'error': 'correlation_id, component, error_type, and error_message are required'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Log the error
+            error_log = ErrorLogger.log_error(
+                layer=layer,
+                component=component,
+                error_type=error_type,
+                error_message=error_message,
+                correlation_id=uuid.UUID(correlation_id),
+                severity='error',
+                metadata=metadata
+            )
+            
+            return Response({
+                'error_id': error_log.id,
+                'status': 'logged'
+            }, status=status.HTTP_201_CREATED)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to log error: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['post'])
+    def metrics(self, request):
+        """Handle performance metrics from frontend"""
+        try:
+            correlation_id = request.data.get('correlation_id')
+            layer = request.data.get('layer', 'frontend')
+            component = request.data.get('component')
+            metric_name = request.data.get('metric_name')
+            metric_value = request.data.get('metric_value')
+            metadata = request.data.get('metadata', {})
+            
+            if not all([correlation_id, component, metric_name, metric_value is not None]):
+                return Response(
+                    {'error': 'correlation_id, component, metric_name, and metric_value are required'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Record the metric
+            snapshot = PerformanceMonitor.record_metric(
+                layer=layer,
+                component=component,
+                metric_name=metric_name,
+                metric_value=float(metric_value),
+                correlation_id=uuid.UUID(correlation_id),
+                metadata=metadata
+            )
+            
+            return Response({
+                'metric_id': snapshot.id,
+                'status': 'recorded'
+            }, status=status.HTTP_201_CREATED)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to record metric: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['get'])
+    def analyze_timing(self, request):
+        """Analyze timing for a specific workflow"""
+        try:
+            correlation_id = request.query_params.get('correlation_id')
+            
+            if not correlation_id:
+                return Response(
+                    {'error': 'correlation_id is required'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Create timing analyzer
+            analyzer = TimingAnalyzer(uuid.UUID(correlation_id))
+            
+            # Get timing analysis
+            analysis = analyzer.analyze_workflow_timing()
+            
+            return Response(analysis)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to analyze timing: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['get'])
+    def analyze_errors(self, request):
+        """Analyze errors for a specific workflow"""
+        try:
+            correlation_id = request.query_params.get('correlation_id')
+            
+            if not correlation_id:
+                return Response(
+                    {'error': 'correlation_id is required'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # Create error tracker
+            tracker = ErrorTracker(uuid.UUID(correlation_id))
+            
+            # Get error analysis
+            analysis = tracker.analyze_error_patterns()
+            
+            return Response(analysis)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to analyze errors: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+class DatabaseMonitoringViewSet(viewsets.ViewSet):
+    """ViewSet for database monitoring operations"""
+    permission_classes = [IsAuthenticated]
+    
+    @action(detail=False, methods=['get'])
+    def health(self, request):
+        """Get database health status"""
+        try:
+            monitor = DatabaseHealthMonitor()
+            health_status = monitor.check_database_health()
+            
+            return Response(health_status)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to check database health: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['get'])
+    def performance_summary(self, request):
+        """Get database performance summary"""
+        try:
+            hours = int(request.query_params.get('hours', 24))
+            
+            monitor = DatabaseHealthMonitor()
+            summary = monitor.get_performance_summary(hours=hours)
+            
+            return Response(summary)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to get performance summary: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

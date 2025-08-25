@@ -4,7 +4,8 @@ from .views import (
     WorkflowSessionViewSet, TraceStepViewSet, PerformanceSnapshotViewSet,
     ErrorLogViewSet, DebugConfigurationViewSet, PerformanceThresholdViewSet,
     SystemHealthViewSet, RouteDiscoveryViewSet, FrontendRouteViewSet,
-    APICallDiscoveryViewSet, RouteDiscoverySessionViewSet
+    APICallDiscoveryViewSet, RouteDiscoverySessionViewSet,
+    WorkflowTracingViewSet, DatabaseMonitoringViewSet
 )
 
 # Create router and register viewsets
@@ -20,6 +21,8 @@ router.register(r'route-discovery', RouteDiscoveryViewSet, basename='route-disco
 router.register(r'frontend-routes', FrontendRouteViewSet, basename='frontend-route')
 router.register(r'api-call-discovery', APICallDiscoveryViewSet, basename='api-call-discovery')
 router.register(r'discovery-sessions', RouteDiscoverySessionViewSet, basename='discovery-session')
+router.register(r'workflow-tracing', WorkflowTracingViewSet, basename='workflow-tracing')
+router.register(r'database-monitoring', DatabaseMonitoringViewSet, basename='database-monitoring')
 
 app_name = 'debugging'
 
