@@ -6,6 +6,9 @@ from .base import *
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Add testserver to ALLOWED_HOSTS for Django test client
+ALLOWED_HOSTS += ['testserver']
+
 # Database - Using MySQL for development
 DATABASES = {
     'default': {

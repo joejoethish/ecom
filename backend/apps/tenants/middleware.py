@@ -16,6 +16,12 @@ class TenantMiddleware(MiddlewareMixin):
         # Get tenant from subdomain or domain
         host = request.get_host().lower()
         
+        # Skip tenant resolution for development/localhost/testserver
+        if host in ['127.0.0.1:8000', 'localhost:8000', '127.0.0.1', 'localhost', 'testserver']:
+            request.tenant = None
+            set_current_tenant(None)
+            return None
+        
         # Try to get tenant from cache first
         cache_key = f"tenant:{host}"
         tenant = cache.get(cache_key)
@@ -31,7 +37,7 @@ class TenantMiddleware(MiddlewareMixin):
                     if subdomain and subdomain != 'www':
                         tenant = Tenant.objects.get(subdomain=subdomain, is_active=True)
                     else:
-                        # Default tenant or main site
+                        # Default tenant or main site - allow None for development
                         tenant = None
                 
                 # Cache tenant for 5 minutes
@@ -39,7 +45,13 @@ class TenantMiddleware(MiddlewareMixin):
                     cache.set(cache_key, tenant, 300)
                     
             except Tenant.DoesNotExist:
-                raise Http404("Tenant not found")
+                # In development, allow requests without tenant
+                # In production, you might want to redirect to a default tenant or show an error page
+                from django.conf import settings
+                if settings.DEBUG:
+                    tenant = None
+                else:
+                    raise Http404("Tenant not found")
         
         # Set tenant in request and thread-local storage
         request.tenant = tenant

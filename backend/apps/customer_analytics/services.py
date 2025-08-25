@@ -306,8 +306,7 @@ class CustomerAnalyticsService:
         # Cap at 100
         risk_score = min(risk_score, Decimal('100.00'))
         
-        # Update the analytics record
-        analytics.churn_risk_score = risk_score
-        analytics.save()
+        # Update the analytics record using queryset update to avoid triggering signals
+        CustomerAnalytics.objects.filter(id=analytics.id).update(churn_risk_score=risk_score)
         
         return risk_score

@@ -17,6 +17,12 @@ def create_customer_analytics(sender, instance, created, **kwargs):
 @receiver(post_save, sender=CustomerAnalytics)
 def update_churn_risk(sender, instance, **kwargs):
     """Update churn risk score when analytics are updated"""
-    if not kwargs.get('raw', False):  # Skip during fixtures/migrations
-        service = CustomerAnalyticsService()
-        service.calculate_churn_risk(instance.customer.id)
+    if not kwargs.get('raw', False) and not getattr(instance, '_updating_churn_risk', False):
+        # Set flag to prevent recursion
+        instance._updating_churn_risk = True
+        try:
+            service = CustomerAnalyticsService()
+            service.calculate_churn_risk(instance.customer.id)
+        finally:
+            # Always clear the flag
+            instance._updating_churn_risk = False
