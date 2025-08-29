@@ -7,6 +7,10 @@ from .views import (
     APICallDiscoveryViewSet, RouteDiscoverySessionViewSet,
     WorkflowTracingViewSet, DatabaseHealthViewSet, TestingFrameworkViewSet
 )
+from .dashboard_views import (
+    DashboardDataViewSet, ReportGenerationViewSet, ManualAPITestingViewSet,
+    DashboardConfigurationViewSet, dashboard_health_check
+)
 from .performance_views import (
     system_health_summary, performance_metrics, performance_trends,
     optimization_recommendations, performance_thresholds, collect_manual_metric,
@@ -30,6 +34,10 @@ router.register(r'discovery-sessions', RouteDiscoverySessionViewSet, basename='d
 router.register(r'workflow-tracing', WorkflowTracingViewSet, basename='workflow-tracing')
 router.register(r'database-health', DatabaseHealthViewSet, basename='database-health')
 router.register(r'testing-framework', TestingFrameworkViewSet, basename='testing-framework')
+router.register(r'dashboard-data', DashboardDataViewSet, basename='dashboard-data')
+router.register(r'reports', ReportGenerationViewSet, basename='reports')
+router.register(r'manual-testing', ManualAPITestingViewSet, basename='manual-testing')
+router.register(r'dashboard-config', DashboardConfigurationViewSet, basename='dashboard-config')
 
 app_name = 'debugging'
 
@@ -47,4 +55,7 @@ urlpatterns = [
     path('api/v1/debugging/performance/initialize/', initialize_service, name='initialize-service'),
     path('api/v1/debugging/performance/shutdown/', shutdown_service, name='shutdown-service'),
     path('api/v1/debugging/performance/', PerformanceMonitoringAPIView.as_view(), name='performance-monitoring-api'),
+    
+    # Dashboard endpoints
+    path('api/v1/debugging/dashboard/health/', dashboard_health_check, name='dashboard-health-check'),
 ]

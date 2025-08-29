@@ -10,5 +10,6 @@ class DebuggingConfig(AppConfig):
         """Initialize debugging system when Django starts"""
         try:
             from . import signals  # Import signals when app is ready
+            from . import websocket_signals  # Import WebSocket signals
         except ImportError:
             pass

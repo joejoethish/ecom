@@ -602,6 +602,269 @@ class APITestFramework:
                 if r.validation_errors and len(r.validation_errors) > 0
             ]
         }
+    
+    def test_single_endpoint(self, method: str, endpoint: str, payload: Optional[Dict] = None, 
+                           headers: Optional[Dict] = None, expected_status: Optional[int] = None) -> Dict[str, Any]:
+        """
+        Test a single API endpoint with custom parameters.
+        
+        Args:
+            method: HTTP method (GET, POST, PUT, DELETE, PATCH)
+            endpoint: API endpoint URL
+            payload: Request payload for POST/PUT/PATCH requests
+            headers: Custom headers to include
+            expected_status: Expected HTTP status code
+            
+        Returns:
+            Dictionary containing test results
+        """
+        start_time = time.time()
+        
+        try:
+            # Prepare headers
+            test_headers = {'Content-Type': 'application/json'}
+            if headers:
+                test_headers.update(headers)
+            
+            # Make the request
+            if method.upper() == 'GET':
+                response = self.client.get(endpoint, **test_headers)
+            elif method.upper() == 'POST':
+                response = self.client.post(endpoint, data=json.dumps(payload) if payload else None, 
+                                          content_type='application/json', **test_headers)
+            elif method.upper() == 'PUT':
+                response = self.client.put(endpoint, data=json.dumps(payload) if payload else None,
+                                         content_type='application/json', **test_headers)
+            elif method.upper() == 'PATCH':
+                response = self.client.patch(endpoint, data=json.dumps(payload) if payload else None,
+                                           content_type='application/json', **test_headers)
+            elif method.upper() == 'DELETE':
+                response = self.client.delete(endpoint, **test_headers)
+            else:
+                raise ValueError(f"Unsupported HTTP method: {method}")
+            
+            response_time = (time.time() - start_time) * 1000  # Convert to milliseconds
+            
+            # Parse response data
+            response_data = None
+            try:
+                if response.content:
+                    response_data = json.loads(response.content.decode('utf-8'))
+            except json.JSONDecodeError:
+                response_data = {'raw_content': response.content.decode('utf-8')}
+            
+            # Check expected status
+            status_match = True
+            if expected_status and response.status_code != expected_status:
+                status_match = False
+            
+            success = response.status_code < 400 and status_match
+            
+            return {
+                'success': success,
+                'status_code': response.status_code,
+                'response_time_ms': response_time,
+                'response_data': response_data,
+                'headers': dict(response.headers),
+                'error_message': None if success else f"Request failed with status {response.status_code}",
+                'status_match': status_match,
+                'expected_status': expected_status
+            }
+            
+        except Exception as e:
+            response_time = (time.time() - start_time) * 1000
+            return {
+                'success': False,
+                'status_code': None,
+                'response_time_ms': response_time,
+                'response_data': None,
+                'headers': {},
+                'error_message': str(e),
+                'status_match': False,
+                'expected_status': expected_status
+            }
+    
+    def test_workflow_sequence(self, workflow_type: str, test_data: Dict[str, Any], 
+                             user: Optional[Any] = None) -> Dict[str, Any]:
+        """
+        Test a complete workflow sequence.
+        
+        Args:
+            workflow_type: Type of workflow to test (login, product_fetch, cart_update, checkout)
+            test_data: Test data for the workflow
+            user: User object for authenticated requests
+            
+        Returns:
+            Dictionary containing workflow test results
+        """
+        start_time = time.time()
+        workflow_results = []
+        
+        try:
+            # Set up authentication if user provided
+            if user:
+                refresh = RefreshToken.for_user(user)
+                self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
+            
+            # Define workflow sequences
+            if workflow_type == 'login':
+                workflow_results = self._test_login_workflow(test_data)
+            elif workflow_type == 'product_fetch':
+                workflow_results = self._test_product_fetch_workflow(test_data)
+            elif workflow_type == 'cart_update':
+                workflow_results = self._test_cart_update_workflow(test_data)
+            elif workflow_type == 'checkout':
+                workflow_results = self._test_checkout_workflow(test_data)
+            else:
+                raise ValueError(f"Unsupported workflow type: {workflow_type}")
+            
+            total_time = (time.time() - start_time) * 1000
+            success = all(result.get('success', False) for result in workflow_results)
+            
+            return {
+                'success': success,
+                'workflow_type': workflow_type,
+                'total_time_ms': total_time,
+                'steps': workflow_results,
+                'step_count': len(workflow_results),
+                'failed_steps': [r for r in workflow_results if not r.get('success', False)],
+                'error_message': None if success else "One or more workflow steps failed"
+            }
+            
+        except Exception as e:
+            total_time = (time.time() - start_time) * 1000
+            return {
+                'success': False,
+                'workflow_type': workflow_type,
+                'total_time_ms': total_time,
+                'steps': workflow_results,
+                'step_count': len(workflow_results),
+                'failed_steps': workflow_results,
+                'error_message': str(e)
+            }
+    
+    def _test_login_workflow(self, test_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Test login workflow sequence"""
+        results = []
+        
+        # Step 1: Login request
+        login_result = self.test_single_endpoint(
+            method='POST',
+            endpoint='/api/v1/auth/login/',
+            payload={
+                'username': test_data.get('username', 'testuser'),
+                'password': test_data.get('password', 'testpass123')
+            },
+            expected_status=200
+        )
+        login_result['step_name'] = 'login_request'
+        results.append(login_result)
+        
+        # Step 2: Token validation (if login successful)
+        if login_result['success'] and login_result.get('response_data'):
+            token = login_result['response_data'].get('access')
+            if token:
+                profile_result = self.test_single_endpoint(
+                    method='GET',
+                    endpoint='/api/v1/auth/profile/',
+                    headers={'Authorization': f'Bearer {token}'},
+                    expected_status=200
+                )
+                profile_result['step_name'] = 'token_validation'
+                results.append(profile_result)
+        
+        return results
+    
+    def _test_product_fetch_workflow(self, test_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Test product fetch workflow sequence"""
+        results = []
+        
+        # Step 1: Get product list
+        products_result = self.test_single_endpoint(
+            method='GET',
+            endpoint='/api/v1/products/',
+            expected_status=200
+        )
+        products_result['step_name'] = 'product_list'
+        results.append(products_result)
+        
+        # Step 2: Get specific product (if list successful)
+        if products_result['success'] and products_result.get('response_data'):
+            products = products_result['response_data'].get('results', [])
+            if products:
+                product_id = products[0].get('id')
+                if product_id:
+                    product_detail_result = self.test_single_endpoint(
+                        method='GET',
+                        endpoint=f'/api/v1/products/{product_id}/',
+                        expected_status=200
+                    )
+                    product_detail_result['step_name'] = 'product_detail'
+                    results.append(product_detail_result)
+        
+        return results
+    
+    def _test_cart_update_workflow(self, test_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Test cart update workflow sequence"""
+        results = []
+        
+        # Step 1: Get current cart
+        cart_result = self.test_single_endpoint(
+            method='GET',
+            endpoint='/api/v1/cart/',
+            expected_status=200
+        )
+        cart_result['step_name'] = 'get_cart'
+        results.append(cart_result)
+        
+        # Step 2: Add item to cart
+        add_item_result = self.test_single_endpoint(
+            method='POST',
+            endpoint='/api/v1/cart/items/',
+            payload={
+                'product_id': test_data.get('product_id', 1),
+                'quantity': test_data.get('quantity', 1)
+            },
+            expected_status=201
+        )
+        add_item_result['step_name'] = 'add_cart_item'
+        results.append(add_item_result)
+        
+        return results
+    
+    def _test_checkout_workflow(self, test_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Test checkout workflow sequence"""
+        results = []
+        
+        # Step 1: Get cart for checkout
+        cart_result = self.test_single_endpoint(
+            method='GET',
+            endpoint='/api/v1/cart/',
+            expected_status=200
+        )
+        cart_result['step_name'] = 'checkout_cart_review'
+        results.append(cart_result)
+        
+        # Step 2: Create order
+        order_result = self.test_single_endpoint(
+            method='POST',
+            endpoint='/api/v1/orders/',
+            payload={
+                'shipping_address': test_data.get('shipping_address', {}),
+                'payment_method': test_data.get('payment_method', 'credit_card')
+            },
+            expected_status=201
+        )
+        order_result['step_name'] = 'create_order'
+        results.append(order_result)
+        
+        return results
+
+
+# Alias for backward compatibility
+APITestingFramework = APITestFramework
+
+
 class ResponseFormatValidator:
     """Advanced response format validation with schema checking."""
     
@@ -2165,8 +2428,8 @@ def test_cors_configuration(self, endpoints: List[APIEndpoint]) -> List[TestResu
     return cors_validator.validate_cors_configuration(endpoints)
 
 # Add the method to APITestFramework class
-APITestFramework.test_cors_configuration = test_cors_configurationclass Perfor
-manceTestSuite:
+APITestFramework.test_cors_configuration = test_cors_configuration
+class PerformanceTestSuite:
     """Performance testing suite for API endpoints."""
     
     def __init__(self, client: APIClient):

@@ -234,3 +234,75 @@ class RouteValidationResultSerializer(serializers.Serializer):
     validRoutes = serializers.IntegerField()
     invalidRoutes = serializers.IntegerField()
     errors = serializers.ListField(child=serializers.CharField())
+
+
+class DashboardDataSerializer(serializers.Serializer):
+    """Serializer for comprehensive dashboard data"""
+    timestamp = serializers.DateTimeField()
+    system_health = serializers.DictField()
+    active_workflows = serializers.ListField()
+    recent_errors = serializers.ListField()
+    performance_metrics = serializers.DictField()
+    optimization_recommendations = serializers.ListField()
+    workflow_stats = serializers.DictField()
+    route_discovery_status = serializers.DictField()
+
+
+class RealtimeUpdateSerializer(serializers.Serializer):
+    """Serializer for real-time dashboard updates"""
+    timestamp = serializers.DateTimeField()
+    new_workflows = serializers.ListField()
+    new_errors = serializers.ListField()
+    new_metrics = serializers.ListField()
+    has_updates = serializers.BooleanField()
+
+
+class DebugReportSerializer(serializers.Serializer):
+    """Serializer for debugging reports"""
+    report_type = serializers.CharField()
+    generated_at = serializers.DateTimeField()
+    
+    # Optional fields that may be present depending on report type
+    workflow = serializers.DictField(required=False)
+    trace_steps = serializers.ListField(required=False)
+    errors = serializers.ListField(required=False)
+    performance_metrics = serializers.ListField(required=False)
+    timing_analysis = serializers.DictField(required=False)
+    summary = serializers.DictField(required=False)
+    time_range = serializers.DictField(required=False)
+    workflow_stats = serializers.DictField(required=False)
+    error_stats = serializers.DictField(required=False)
+    performance_stats = serializers.DictField(required=False)
+    overall_health = serializers.CharField(required=False)
+    filters = serializers.DictField(required=False)
+    metric_statistics = serializers.DictField(required=False)
+    total_metrics = serializers.IntegerField(required=False)
+    performance_alerts = serializers.IntegerField(required=False)
+    recommendations = serializers.ListField(required=False)
+
+
+class APITestRequestSerializer(serializers.Serializer):
+    """Serializer for API test requests"""
+    method = serializers.ChoiceField(choices=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
+    endpoint = serializers.CharField(max_length=255)
+    payload = serializers.JSONField(required=False, allow_null=True)
+    headers = serializers.DictField(required=False, default=dict)
+    expected_status = serializers.IntegerField(required=False, allow_null=True)
+    timeout = serializers.IntegerField(required=False, default=30)
+
+
+class APITestResponseSerializer(serializers.Serializer):
+    """Serializer for API test responses"""
+    test_id = serializers.CharField()
+    timestamp = serializers.DateTimeField()
+    request = serializers.DictField()
+    response = serializers.DictField()
+    success = serializers.BooleanField()
+
+
+class WebSocketMessageSerializer(serializers.Serializer):
+    """Serializer for WebSocket messages"""
+    message_type = serializers.CharField()
+    timestamp = serializers.DateTimeField()
+    data = serializers.DictField()
+    correlation_id = serializers.CharField(required=False, allow_null=True)
