@@ -33,6 +33,13 @@
         "python manage.py shell -c \"from apps.debugging.models import *; from apps.debugging.utils import *; print('Debugging system models imported successfully'); print('WorkflowSession count:', WorkflowSession.objects.count()); print('DebugConfiguration count:', DebugConfiguration.objects.count()); print('PerformanceThreshold count:', PerformanceThreshold.objects.count())\"",
         "python -c \"\nimport os\nimport sys\nimport django\nos.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development')\ndjango.setup()\n\nfrom apps.debugging.api_validation import APIDiscoveryService, APIValidationService\nprint('✓ API validation modules imported successfully')\n\n# Test basic functionality\ndiscovery = APIDiscoveryService()\nvalidation = APIValidationService()\nprint('✓ Services initialized successfully')\n\n# Test URL pattern conversion\ntest_url = validation._prepare_test_url('/api/users/<int:user_id>/')\nprint(f'✓ URL pattern conversion: {test_url}')\n\n# Test payload generation\nschema = {'name': {'type': 'string', 'required': True}}\npayload = validation._generate_test_payload(schema)\nprint(f'✓ Payload generation: {payload}')\n\nprint('All basic functionality tests passed!')\n\"",
         "python manage.py shell -c \"from apps.debugging.services import WorkflowTracingEngine; from apps.debugging.database_monitor import DatabaseHealthMonitor; print('All imports successful')\"",
-        "npx tsc --noEmit src/lib/workflow-tracing.ts"
+        "npx tsc --noEmit src/lib/workflow-tracing.ts",
+        "python -c \"from apps.debugging.performance_demo import PerformanceDemo; print('✅ Performance demo imported successfully')\"",
+        "python -c \"import django; django.setup(); from apps.cart.serializers import CartSerializer; print('✅ Cart serializers import successfully')\"",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from apps.cart.serializers import CartSerializer; print('✅ Cart serializers import successfully')\"",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from apps.orders.serializers import OrderSerializer; print('✅ Order serializers import successfully')\"",
+        "Get-Content ecommerce_project/settings/base.py | Select-Object -Last 20",
+        "Get-Content ecommerce_project/settings/base.py | Select-Object -Last 10",
+        "python -c \"import os; os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings.development'); import django; django.setup(); from drf_spectacular.generators import SchemaGenerator; generator = SchemaGenerator(); schema = generator.get_schema(request=None, public=True)\""
     ]
 }

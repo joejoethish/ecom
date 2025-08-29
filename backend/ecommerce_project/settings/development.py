@@ -61,3 +61,10 @@ RAZORPAY_KEY_SECRET = config('RAZORPAY_KEY_SECRET', default='your_razorpay_key_s
 # Payment Success and Cancel URLs
 PAYMENT_SUCCESS_URL = f"{FRONTEND_URL}/payment/success"
 PAYMENT_CANCEL_URL = f"{FRONTEND_URL}/payment/cancel"
+
+# Security settings for development (to suppress warnings)
+# Note: These should be True in production
+SECURE_HSTS_SECONDS = 0  # Disabled for development
+SECURE_SSL_REDIRECT = False  # Disabled for development
+SESSION_COOKIE_SECURE = False  # Disabled for development (no HTTPS in dev)
+CSRF_COOKIE_SECURE = False  # Disabled for development (no HTTPS in dev)

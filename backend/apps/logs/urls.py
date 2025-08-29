@@ -18,4 +18,12 @@ urlpatterns = [
     path('api/performance-metrics/', views.PerformanceMetricsAPIView.as_view(), name='api_performance_metrics'),
     path('api/security-metrics/', views.SecurityMetricsAPIView.as_view(), name='api_security_metrics'),
     path('api/alerts/', views.AlertAPIView.as_view(), name='api_alerts'),
+    
+    # Log aggregation endpoints
+    path('api/frontend-logs/', views.receive_frontend_logs, name='api_frontend_logs'),
+    path('api/logs/', views.get_aggregated_logs, name='api_logs'),
+    path('api/logs/create/', views.create_log_entry, name='api_create_log'),
+    path('api/workflow-trace/<str:correlation_id>/', views.get_workflow_trace, name='api_workflow_trace'),
+    path('api/error-patterns/', views.get_error_patterns, name='api_error_patterns'),
+    path('api/cleanup-logs/', views.cleanup_old_logs, name='api_cleanup_logs'),
 ]

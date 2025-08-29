@@ -1,4 +1,5 @@
 import uuid
+import time
 from django.utils import timezone
 from django.contrib.auth.models import User
 from .models import WorkflowSession, TraceStep, PerformanceSnapshot, ErrorLog
@@ -69,12 +70,21 @@ class WorkflowTracer:
 class PerformanceMonitor:
     """Utility class for monitoring performance metrics"""
     
-    @staticmethod
-    def record_metric(layer, component, metric_name, metric_value, 
+    def __init__(self, correlation_id=None):
+        self.correlation_id = correlation_id or uuid.uuid4()
+        self._metrics = []
+    
+    def measure_execution_time(self, operation_name):
+        """Context manager for measuring execution time"""
+        return ExecutionTimeContext(self, operation_name)
+    
+    def record_metric(self, layer, component, metric_name, metric_value, 
                      correlation_id=None, metadata=None):
         """Record a performance metric"""
         # Get thresholds if they exist
         from .models import PerformanceThreshold
+        
+        correlation_id = correlation_id or self.correlation_id
         
         threshold = PerformanceThreshold.objects.filter(
             metric_name=metric_name,
@@ -97,10 +107,44 @@ class PerformanceMonitor:
             metadata=metadata or {}
         )
         
+        # Store in local metrics for reporting
+        self._metrics.append({
+            'layer': layer,
+            'component': component,
+            'metric_name': metric_name,
+            'metric_value': metric_value,
+            'timestamp': snapshot.timestamp,
+            'correlation_id': correlation_id
+        })
+        
         return snapshot
     
-    @staticmethod
-    def check_thresholds(layer, component, metric_name, metric_value):
+    def get_performance_metrics(self):
+        """Get collected performance metrics"""
+        return self._metrics.copy()
+    
+    def track_memory_usage(self, operation_name):
+        """Track current memory usage for an operation"""
+        import psutil
+        import os
+        
+        # Get current process memory usage
+        process = psutil.Process(os.getpid())
+        memory_info = process.memory_info()
+        memory_mb = memory_info.rss / (1024 * 1024)  # Convert to MB
+        
+        # Record the memory usage metric
+        self.record_metric(
+            layer='system',
+            component='memory',
+            metric_name=f'{operation_name}_memory_usage',
+            metric_value=memory_mb,
+            metadata={'operation': operation_name, 'unit': 'MB'}
+        )
+        
+        return memory_mb
+    
+    def check_thresholds(self, layer, component, metric_name, metric_value):
         """Check if metric value exceeds thresholds"""
         from .models import PerformanceThreshold
         
@@ -120,6 +164,35 @@ class PerformanceMonitor:
             return {'status': 'warning', 'threshold': threshold.warning_threshold}
         else:
             return {'status': 'normal'}
+
+
+class ExecutionTimeContext:
+    """Context manager for measuring execution time"""
+    
+    def __init__(self, monitor, operation_name):
+        self.monitor = monitor
+        self.operation_name = operation_name
+        self.start_time = None
+        self.end_time = None
+    
+    def __enter__(self):
+        import time
+        self.start_time = time.time()
+        return self
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        import time
+        self.end_time = time.time()
+        duration_ms = (self.end_time - self.start_time) * 1000
+        
+        # Record the execution time metric
+        self.monitor.record_metric(
+            layer='performance',
+            component='demo',
+            metric_name=f'{self.operation_name}_execution_time',
+            metric_value=duration_ms,
+            metadata={'operation': self.operation_name}
+        )
 
 
 class ErrorLogger:

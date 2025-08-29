@@ -5,7 +5,13 @@ from .views import (
     ErrorLogViewSet, DebugConfigurationViewSet, PerformanceThresholdViewSet,
     SystemHealthViewSet, RouteDiscoveryViewSet, FrontendRouteViewSet,
     APICallDiscoveryViewSet, RouteDiscoverySessionViewSet,
-    WorkflowTracingViewSet, DatabaseMonitoringViewSet
+    WorkflowTracingViewSet, DatabaseHealthViewSet, TestingFrameworkViewSet
+)
+from .performance_views import (
+    system_health_summary, performance_metrics, performance_trends,
+    optimization_recommendations, performance_thresholds, collect_manual_metric,
+    metrics_summary, initialize_service, shutdown_service,
+    PerformanceMonitoringAPIView
 )
 
 # Create router and register viewsets
@@ -22,10 +28,23 @@ router.register(r'frontend-routes', FrontendRouteViewSet, basename='frontend-rou
 router.register(r'api-call-discovery', APICallDiscoveryViewSet, basename='api-call-discovery')
 router.register(r'discovery-sessions', RouteDiscoverySessionViewSet, basename='discovery-session')
 router.register(r'workflow-tracing', WorkflowTracingViewSet, basename='workflow-tracing')
-router.register(r'database-monitoring', DatabaseMonitoringViewSet, basename='database-monitoring')
+router.register(r'database-health', DatabaseHealthViewSet, basename='database-health')
+router.register(r'testing-framework', TestingFrameworkViewSet, basename='testing-framework')
 
 app_name = 'debugging'
 
 urlpatterns = [
     path('api/v1/debugging/', include(router.urls)),
+    
+    # Performance monitoring endpoints
+    path('api/v1/debugging/performance/health/', system_health_summary, name='performance-health'),
+    path('api/v1/debugging/performance/metrics/', performance_metrics, name='performance-metrics'),
+    path('api/v1/debugging/performance/trends/', performance_trends, name='performance-trends'),
+    path('api/v1/debugging/performance/recommendations/', optimization_recommendations, name='performance-recommendations'),
+    path('api/v1/debugging/performance/thresholds/', performance_thresholds, name='performance-thresholds-api'),
+    path('api/v1/debugging/performance/collect/', collect_manual_metric, name='collect-manual-metric'),
+    path('api/v1/debugging/performance/summary/', metrics_summary, name='metrics-summary'),
+    path('api/v1/debugging/performance/initialize/', initialize_service, name='initialize-service'),
+    path('api/v1/debugging/performance/shutdown/', shutdown_service, name='shutdown-service'),
+    path('api/v1/debugging/performance/', PerformanceMonitoringAPIView.as_view(), name='performance-monitoring-api'),
 ]

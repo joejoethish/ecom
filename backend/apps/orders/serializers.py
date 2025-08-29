@@ -4,7 +4,7 @@ Order serializers for the ecommerce platform.
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from .models import Order, OrderItem, OrderTracking, ReturnRequest, Replacement, Invoice
-from apps.products.serializers import ProductSerializer, ProductMinimalSerializer
+from apps.products.serializers import ProductListSerializer, ProductDetailSerializer
 
 User = get_user_model()
 
@@ -13,7 +13,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
     """
     Serializer for order items.
     """
-    product = ProductSerializer(read_only=True)
+    product = ProductListSerializer(read_only=True)
     product_id = serializers.IntegerField(write_only=True)
     can_return = serializers.BooleanField(read_only=True)
 
@@ -36,7 +36,7 @@ class OrderItemMinimalSerializer(serializers.ModelSerializer):
     """
     Minimal serializer for order items (used in nested contexts).
     """
-    product = ProductMinimalSerializer(read_only=True)
+    product = ProductListSerializer(read_only=True)
     
     class Meta:
         model = OrderItem

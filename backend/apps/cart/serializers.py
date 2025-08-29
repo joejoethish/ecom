@@ -3,14 +3,14 @@ Cart serializers for the ecommerce platform.
 """
 from rest_framework import serializers
 from .models import Cart, CartItem, SavedItem
-from apps.products.serializers import ProductSerializer
+from apps.products.serializers import ProductListSerializer
 
 
 class CartItemSerializer(serializers.ModelSerializer):
     """
     Serializer for cart items.
     """
-    product = ProductSerializer(read_only=True)
+    product = ProductListSerializer(read_only=True)
     line_total = serializers.DecimalField(
         max_digits=10, 
         decimal_places=2, 
@@ -61,7 +61,7 @@ class SavedItemSerializer(serializers.ModelSerializer):
     """
     Serializer for saved items.
     """
-    product = ProductSerializer(read_only=True)
+    product = ProductListSerializer(read_only=True)
 
     class Meta:
         model = SavedItem

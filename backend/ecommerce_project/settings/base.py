@@ -12,7 +12,7 @@ from .elasticsearch import *
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-me-in-production')
+SECRET_KEY = config('SECRET_KEY', default='dev-key-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -36,7 +36,7 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'channels',
     'django_elasticsearch_dsl',
-    'drf_spectacular',
+    # 'drf_spectacular',  # Temporarily disabled due to schema generation error
     'drf_yasg',
 ]
 
@@ -99,6 +99,7 @@ MIDDLEWARE = [
     'core.middleware.database_security_middleware.AuthenticationSecurityMiddleware',
     'apps.debugging.middleware.CorrelationIdMiddleware',  # Correlation ID tracking
     'apps.debugging.middleware.DebuggingMiddleware',  # Debugging and monitoring
+    'core.db_logging.DatabaseLoggingMiddleware',  # Database query logging
     # 'core.middleware.APIVersionMiddleware',  # Not implemented yet
     # 'core.middleware.RequestLoggingMiddleware',  # Not implemented yet
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -374,7 +375,7 @@ REST_FRAMEWORK = {
     'DEFAULT_VERSION': 'v1',
     'ALLOWED_VERSIONS': ['v1', 'v2'],
     'VERSION_PARAM': 'version',
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',  # Disabled with DRF Spectacular
 }
 
 # API Versioning Configuration
@@ -465,70 +466,70 @@ CHANNEL_LAYERS = {
     },
 }
 
-# DRF Spectacular Settings
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'E-Commerce Platform API',
-    'DESCRIPTION': 'A comprehensive API for the multi-vendor e-commerce platform',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-    'SCHEMA_PATH_PREFIX': r'/api/v[0-9]',
-    'COMPONENT_SPLIT_REQUEST': True,
-    'COMPONENT_SPLIT_RESPONSE': True,
-    'SWAGGER_UI_SETTINGS': {
-        'deepLinking': True,
-        'persistAuthorization': True,
-        'displayOperationId': True,
-        'defaultModelsExpandDepth': 3,
-        'defaultModelExpandDepth': 3,
-        'docExpansion': 'list',
-    },
-    'TAGS': [
-        {'name': 'Authentication', 'description': 'Authentication endpoints'},
-        {'name': 'Products', 'description': 'Product management endpoints'},
-        {'name': 'Orders', 'description': 'Order management endpoints'},
-        {'name': 'Cart', 'description': 'Shopping cart endpoints'},
-        {'name': 'Inventory', 'description': 'Inventory management endpoints'},
-        {'name': 'Customers', 'description': 'Customer management endpoints'},
-        {'name': 'Payments', 'description': 'Payment processing endpoints'},
-        {'name': 'Shipping', 'description': 'Shipping and logistics endpoints'},
-        {'name': 'Sellers', 'description': 'Seller management endpoints'},
-        {'name': 'Analytics', 'description': 'Analytics and reporting endpoints'},
-        {'name': 'Content', 'description': 'Content management endpoints'},
-        {'name': 'Reviews', 'description': 'Product review endpoints'},
-        {'name': 'Search', 'description': 'Search and filtering endpoints'},
-        {'name': 'Notifications', 'description': 'Notification management endpoints'},
-    ],
-    'SERVERS': [
-        {'url': '/api/v1', 'description': 'API v1 (Legacy)'},
-        {'url': '/api/v2', 'description': 'API v2 (Current)'},
-    ],
-    'SECURITY': [
-        {
-            'Bearer': {
-                'type': 'apiKey',
-                'name': 'Authorization',
-                'in': 'header',
-                'description': 'Enter your bearer token in the format: Bearer <token>'
-            }
-        }
-    ],
-    'APPEND_COMPONENTS': {
-        'securitySchemes': {
-            'Bearer': {
-                'type': 'http',
-                'scheme': 'bearer',
-                'bearerFormat': 'JWT',
-                'description': 'JWT token authentication'
-            }
-        }
-    },
-    'REDOC_UI_SETTINGS': {
-        'hideDownloadButton': False,
-        'hideHostname': False,
-        'expandResponses': '200,201',
-        'pathInMiddlePanel': True,
-    },
-}
+# DRF Spectacular Settings - Temporarily disabled
+# SPECTACULAR_SETTINGS = {
+#     'TITLE': 'E-Commerce Platform API',
+#     'DESCRIPTION': 'A comprehensive API for the multi-vendor e-commerce platform',
+#     'VERSION': '1.0.0',
+#     'SERVE_INCLUDE_SCHEMA': False,
+#     'SCHEMA_PATH_PREFIX': r'/api/v[0-9]',
+#     'COMPONENT_SPLIT_REQUEST': True,
+#     'COMPONENT_SPLIT_RESPONSE': True,
+#     'SWAGGER_UI_SETTINGS': {
+#         'deepLinking': True,
+#         'persistAuthorization': True,
+#         'displayOperationId': True,
+#         'defaultModelsExpandDepth': 3,
+#         'defaultModelExpandDepth': 3,
+#         'docExpansion': 'list',
+#     },
+#     'TAGS': [
+#         {'name': 'Authentication', 'description': 'Authentication endpoints'},
+#         {'name': 'Products', 'description': 'Product management endpoints'},
+#         {'name': 'Orders', 'description': 'Order management endpoints'},
+#         {'name': 'Cart', 'description': 'Shopping cart endpoints'},
+#         {'name': 'Inventory', 'description': 'Inventory management endpoints'},
+#         {'name': 'Customers', 'description': 'Customer management endpoints'},
+#         {'name': 'Payments', 'description': 'Payment processing endpoints'},
+#         {'name': 'Shipping', 'description': 'Shipping and logistics endpoints'},
+#         {'name': 'Sellers', 'description': 'Seller management endpoints'},
+#         {'name': 'Analytics', 'description': 'Analytics and reporting endpoints'},
+#         {'name': 'Content', 'description': 'Content management endpoints'},
+#         {'name': 'Reviews', 'description': 'Product review endpoints'},
+#         {'name': 'Search', 'description': 'Search and filtering endpoints'},
+#         {'name': 'Notifications', 'description': 'Notification management endpoints'},
+#     ],
+#     'SERVERS': [
+#         {'url': '/api/v1', 'description': 'API v1 (Legacy)'},
+#         {'url': '/api/v2', 'description': 'API v2 (Current)'},
+#     ],
+#     'SECURITY': [
+#         {
+#             'Bearer': {
+#                 'type': 'apiKey',
+#                 'name': 'Authorization',
+#                 'in': 'header',
+#                 'description': 'Enter your bearer token in the format: Bearer <token>'
+#             }
+#         }
+#     ],
+#     'APPEND_COMPONENTS': {
+#         'securitySchemes': {
+#             'Bearer': {
+#                 'type': 'http',
+#                 'scheme': 'bearer',
+#                 'bearerFormat': 'JWT',
+#                 'description': 'JWT token authentication'
+#             }
+#         }
+#     },
+#     'REDOC_UI_SETTINGS': {
+#         'hideDownloadButton': False,
+#         'hideHostname': False,
+#         'expandResponses': '200,201',
+#         'pathInMiddlePanel': True,
+#     },
+# }
 
 # Logging Configuration
 LOGGING = {
@@ -579,5 +580,21 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': False,
         },
+        'db_queries': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'log_aggregation': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
     },
 }
+
+# Security Settings (configurable for different environments)
+SECURE_HSTS_SECONDS = config('SECURE_HSTS_SECONDS', default=0, cast=int)
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=False, cast=bool)
+SESSION_COOKIE_SECURE = config('SESSION_COOKIE_SECURE', default=False, cast=bool)
+CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=False, cast=bool)

@@ -755,6 +755,7 @@ class WorkflowTracingViewSet(viewsets.ViewSet):
                 {'error': f'Failed to analyze timing: {str(e)}'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+                
     
     @action(detail=False, methods=['get'])
     def analyze_errors(self, request):
@@ -816,5 +817,116 @@ class DatabaseMonitoringViewSet(viewsets.ViewSet):
         except Exception as e:
             return Response(
                 {'error': f'Failed to get performance summary: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+import uuid
+
+
+class DatabaseHealthViewSet(viewsets.ViewSet):
+    """ViewSet for database health monitoring"""
+    permission_classes = [IsAuthenticated]
+    
+    @action(detail=False, methods=['get'])
+    def status(self, request):
+        """Get database health status"""
+        try:
+            monitor = DatabaseHealthMonitor()
+            health_status = monitor.check_database_health()
+            
+            return Response(health_status)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to check database health: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['get'])
+    def performance_summary(self, request):
+        """Get database performance summary"""
+        try:
+            hours = int(request.query_params.get('hours', 24))
+            
+            monitor = DatabaseHealthMonitor()
+            summary = monitor.get_performance_summary(hours=hours)
+            
+            return Response(summary)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to get performance summary: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+class TestingFrameworkViewSet(viewsets.ViewSet):
+    """ViewSet for comprehensive testing framework operations"""
+    permission_classes = [IsAuthenticated]
+    
+    @action(detail=False, methods=['post'])
+    def run_tests(self, request):
+        """Run comprehensive tests"""
+        try:
+            from .testing_framework import ComprehensiveTestingFramework
+            
+            test_type = request.data.get('test_type', 'all')
+            target_url = request.data.get('target_url')
+            
+            framework = ComprehensiveTestingFramework()
+            
+            if test_type == 'api':
+                results = framework.run_api_tests(target_url)
+            elif test_type == 'frontend':
+                results = framework.run_frontend_tests(target_url)
+            elif test_type == 'database':
+                results = framework.run_database_tests()
+            elif test_type == 'integration':
+                results = framework.run_integration_tests(target_url)
+            else:
+                results = framework.run_all_tests(target_url)
+            
+            return Response(results, status=status.HTTP_200_OK)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to run tests: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['get'])
+    def test_status(self, request):
+        """Get current test execution status"""
+        try:
+            from .testing_framework import ComprehensiveTestingFramework
+            
+            framework = ComprehensiveTestingFramework()
+            status_info = framework.get_test_status()
+            
+            return Response(status_info)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to get test status: {str(e)}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+    
+    @action(detail=False, methods=['get'])
+    def test_history(self, request):
+        """Get test execution history"""
+        try:
+            from .testing_framework import ComprehensiveTestingFramework
+            
+            limit = int(request.query_params.get('limit', 10))
+            test_type = request.query_params.get('test_type')
+            
+            framework = ComprehensiveTestingFramework()
+            history = framework.get_test_history(limit=limit, test_type=test_type)
+            
+            return Response(history)
+            
+        except Exception as e:
+            return Response(
+                {'error': f'Failed to get test history: {str(e)}'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

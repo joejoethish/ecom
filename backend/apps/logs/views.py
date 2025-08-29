@@ -8,11 +8,20 @@ from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count, Avg, Max, Min, Sum, F, Q
 from django.db.models.functions import TruncHour, TruncDay, TruncWeek, TruncMonth
+from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
 
 from .models import SystemLog, BusinessMetric, PerformanceMetric, SecurityEvent
 from backend.logs.monitoring import system_monitor
+from .aggregation import log_aggregation_service, log_frontend_entry, log_backend_entry
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @method_decorator(staff_member_required, name='dispatch')
@@ -589,3 +598,153 @@ class AlertAPIView(View):
                 'status': 'error',
                 'message': str(e),
             }, status=400)
+# Ne
+w API endpoints for log aggregation and frontend integration
+
+@api_view(['POST'])
+@permission_classes([AllowAny])  # Allow frontend to send logs without authentication
+@csrf_exempt
+def receive_frontend_logs(request):
+    """
+    Receive log entries from the frontend.
+    """
+    try:
+        data = request.data
+        logs = data.get('logs', [])
+        correlation_id = request.headers.get('X-Correlation-ID')
+        
+        for log_entry in logs:
+            # Extract frontend-specific fields
+            user_action = log_entry.get('action')
+            component = log_entry.get('component')
+            page_url = log_entry.get('pageUrl')
+            user_agent = log_entry.get('userAgent')
+            
+            # Log the frontend entry
+            log_frontend_entry(
+                correlation_id=log_entry.get('correlationId') or correlation_id or 'unknown',
+                level=log_entry.get('level', 'info'),
+                message=log_entry.get('message', ''),
+                user_id=log_entry.get('userId'),
+                session_id=log_entry.get('sessionId'),
+                context=log_entry.get('context'),
+                user_action=user_action,
+                component=component,
+                page_url=page_url,
+                user_agent=user_agent
+            )
+        
+        return Response({
+            'status': 'success', 
+            'processed_logs': len(logs)
+        }, status=status.HTTP_201_CREATED)
+        
+    except Exception as e:
+        logger.error(f"Error processing frontend logs: {str(e)}")
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_log_entry(request):
+    """
+    Create a new log entry.
+    """
+    try:
+        data = request.data
+        correlation_id = getattr(request, 'correlation_id', None) or data.get('correlation_id')
+        
+        # Log the backend entry
+        log_backend_entry(
+            correlation_id=correlation_id or 'unknown',
+            level=data.get('level', 'info'),
+            message=data.get('message', ''),
+            user_id=str(request.user.id) if request.user.is_authenticated else None,
+            context=data.get('context', {}),
+            request_method=request.method,
+            request_url=request.get_full_path(),
+            response_status=200
+        )
+        
+        return Response({'status': 'success'}, status=status.HTTP_201_CREATED)
+        
+    except Exception as e:
+        logger.error(f"Error creating log entry: {str(e)}")
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_aggregated_logs(request):
+    """
+    Retrieve logs based on filters using the aggregation service.
+    """
+    try:
+        correlation_id = request.GET.get('correlation_id')
+        level = request.GET.get('level')
+        source = request.GET.get('source')
+        limit = int(request.GET.get('limit', 100))
+        
+        if correlation_id:
+            # Get logs for specific correlation ID
+            logs = log_aggregation_service.get_logs_by_correlation_id(correlation_id)
+        else:
+            # Search logs
+            query = request.GET.get('query', '')
+            logs = log_aggregation_service.search_logs(
+                query=query,
+                level=level,
+                source=source,
+                limit=limit
+            )
+        
+        return Response({'logs': logs, 'count': len(logs)}, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        logger.error(f"Error retrieving logs: {str(e)}")
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_workflow_trace(request, correlation_id):
+    """
+    Get complete workflow trace for a correlation ID.
+    """
+    try:
+        trace = log_aggregation_service.get_workflow_trace(correlation_id)
+        return Response(trace, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        logger.error(f"Error retrieving workflow trace: {str(e)}")
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_error_patterns(request):
+    """
+    Get error patterns analysis.
+    """
+    try:
+        hours = int(request.GET.get('hours', 24))
+        patterns = log_aggregation_service.get_error_patterns(hours)
+        return Response(patterns, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        logger.error(f"Error retrieving error patterns: {str(e)}")
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def cleanup_old_logs(request):
+    """
+    Clean up old log entries.
+    """
+    try:
+        hours = int(request.data.get('hours', 24))
+        cleaned_count = log_aggregation_service.cleanup_old_logs(hours)
+        return Response({
+            'status': 'success',
+            'cleaned_entries': cleaned_count
+        }, status=status.HTTP_200_OK)
+        
+    except Exception as e:
+        logger.error(f"Error cleaning up logs: {str(e)}")
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
