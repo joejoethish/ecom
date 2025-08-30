@@ -5,7 +5,7 @@
  * includes correlation IDs in all requests for end-to-end tracing.
  */
 
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import axios from 'axios';
 import { correlationIdService, logWithCorrelationId } from './correlationId';
 
 export interface ApiClientConfig {
@@ -34,7 +34,7 @@ export interface ApiError {
 }
 
 export class ApiClient {
-  private axiosInstance: AxiosInstance;
+  private axiosInstance: any;
   private config: Required<ApiClientConfig>;
 
   constructor(config: ApiClientConfig) {
@@ -65,7 +65,7 @@ export class ApiClient {
   private setupInterceptors(): void {
     // Request interceptor - add correlation ID and log requests
     this.axiosInstance.interceptors.request.use(
-      (config) => {
+      (config: any) => {
         // Add correlation ID to headers
         const correlationHeaders = correlationIdService.getHeaders();
         config.headers = {
@@ -83,7 +83,7 @@ export class ApiClient {
 
         return config;
       },
-      (error) => {
+      (error: any) => {
         if (this.config.enableLogging) {
           logWithCorrelationId('error', 'API Request Error', error);
         }
@@ -93,7 +93,7 @@ export class ApiClient {
 
     // Response interceptor - log responses and handle errors
     this.axiosInstance.interceptors.response.use(
-      (response) => {
+      (response: any) => {
         // Extract correlation ID from response headers
         const correlationId = response.headers['x-correlation-id'] || 
                              response.headers['X-Correlation-ID'];
@@ -109,7 +109,7 @@ export class ApiClient {
 
         return response;
       },
-      (error: AxiosError) => {
+      (error: any) => {
         // Extract correlation ID from error response
         const correlationId = error.response?.headers?.['x-correlation-id'] || 
                              error.response?.headers?.['X-Correlation-ID'];
@@ -141,9 +141,9 @@ export class ApiClient {
   /**
    * Generic request method
    */
-  private async request<T = any>(config: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  private async request<T = any>(config: any): Promise<ApiResponse<T>> {
     try {
-      const response = await this.axiosInstance.request<T>(config);
+      const response = await this.axiosInstance.request(config);
       
       return {
         data: response.data,
@@ -160,7 +160,7 @@ export class ApiClient {
   /**
    * GET request
    */
-  public async get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  public async get<T = any>(url: string, config?: any): Promise<ApiResponse<T>> {
     return this.request<T>({
       method: 'GET',
       url,
@@ -171,7 +171,7 @@ export class ApiClient {
   /**
    * POST request
    */
-  public async post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  public async post<T = any>(url: string, data?: any, config?: any): Promise<ApiResponse<T>> {
     return this.request<T>({
       method: 'POST',
       url,
@@ -183,7 +183,7 @@ export class ApiClient {
   /**
    * PUT request
    */
-  public async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  public async put<T = any>(url: string, data?: any, config?: any): Promise<ApiResponse<T>> {
     return this.request<T>({
       method: 'PUT',
       url,
@@ -195,7 +195,7 @@ export class ApiClient {
   /**
    * PATCH request
    */
-  public async patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  public async patch<T = any>(url: string, data?: any, config?: any): Promise<ApiResponse<T>> {
     return this.request<T>({
       method: 'PATCH',
       url,
@@ -207,7 +207,7 @@ export class ApiClient {
   /**
    * DELETE request
    */
-  public async delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+  public async delete<T = any>(url: string, config?: any): Promise<ApiResponse<T>> {
     return this.request<T>({
       method: 'DELETE',
       url,
@@ -222,7 +222,7 @@ export class ApiClient {
     url: string, 
     file: File, 
     onProgress?: (progress: number) => void,
-    config?: AxiosRequestConfig
+    config?: any
   ): Promise<ApiResponse<T>> {
     const formData = new FormData();
     formData.append('file', file);
@@ -234,7 +234,7 @@ export class ApiClient {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      onUploadProgress: (progressEvent) => {
+      onUploadProgress: (progressEvent: any) => {
         if (onProgress && progressEvent.total) {
           const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
           onProgress(progress);

@@ -44,7 +44,7 @@ function extractCorrelationId(request: NextRequest): string | null {
   
   // Try to get from cookies if not in headers
   if (!correlationId) {
-    correlationId = request.cookies.get(CORRELATION_ID_COOKIE)?.value;
+    correlationId = request.cookies.get(CORRELATION_ID_COOKIE)?.value || null;
   }
   
   // Validate the correlation ID
@@ -171,7 +171,7 @@ export function createCorrelationContext(request: NextRequest): CorrelationConte
     correlationId,
     timestamp: new Date().toISOString(),
     userAgent: request.headers.get('user-agent') || undefined,
-    ip: request.ip || request.headers.get('x-forwarded-for') || undefined,
+    ip: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || undefined,
   };
 }
 
