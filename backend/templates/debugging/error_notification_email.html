@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Escalation Notification</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        
+        .header.critical {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+        }
+        
+        .header.high {
+            background: linear-gradient(135deg, #fd7e14, #e55a00);
+        }
+        
+        .header.medium {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+        }
+        
+        .header.low {
+            background: linear-gradient(135deg, #28a745, #1e7e34);
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .header .emoji {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .error-summary {
+            background-color: #f8f9fa;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .error-summary h2 {
+            margin: 0 0 10px 0;
+            color: #dc3545;
+            font-size: 18px;
+        }
+        
+        .error-message {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            background-color: #f1f3f4;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            word-break: break-word;
+        }
+        
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .detail-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .detail-item h3 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .detail-item p {
+            margin: 0;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .classification {
+            background-color: #e3f2fd;
+            border: 1px solid #bbdefb;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+        
+        .classification h3 {
+            margin: 0 0 15px 0;
+            color: #1976d2;
+            font-size: 16px;
+        }
+        
+        .classification-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .classification-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e3f2fd;
+        }
+        
+        .classification-item:last-child {
+            border-bottom: none;
+        }
+        
+        .classification-label {
+            font-weight: 600;
+            color: #1976d2;
+        }
+        
+        .classification-value {
+            color: #495057;
+        }
+        
+        .context-section {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+        
+        .context-section h3 {
+            margin: 0 0 15px 0;
+            color: #856404;
+            font-size: 16px;
+        }
+        
+        .stack-trace {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+        
+        .stack-trace h3 {
+            margin: 0 0 10px 0;
+            color: #495057;
+            font-size: 16px;
+        }
+        
+        .stack-trace pre {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #495057;
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .actions {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 0 10px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .footer p {
+            margin: 0;
+        }
+        
+        .timestamp {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .classification-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions {
+                text-align: left;
+            }
+            
+            .btn {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header {{ escalation_level }}">
+            <span class="emoji">
+                {% if escalation_level == 'critical' %}🚨
+                {% elif escalation_level == 'high' %}⚠️
+                {% elif escalation_level == 'medium' %}⚡
+                {% else %}ℹ️{% endif %}
+            </span>
+            <h1>Error Escalation - {{ escalation_level|title }}</h1>
+        </div>
+        
+        <div class="content">
+            <div class="error-summary">
+                <h2>{{ error_log.layer|title }}.{{ error_log.component }} Error</h2>
+                <div class="error-message">{{ error_log.error_message }}</div>
+            </div>
+            
+            <div class="details-grid">
+                <div class="detail-item">
+                    <h3>Error Type</h3>
+                    <p>{{ error_log.error_type }}</p>
+                </div>
+                
+                <div class="detail-item">
+                    <h3>Severity</h3>
+                    <p>{{ error_log.severity|title }}</p>
+                </div>
+                
+                <div class="detail-item">
+                    <h3>Layer</h3>
+                    <p>{{ error_log.layer|title }}</p>
+                </div>
+                
+                <div class="detail-item">
+                    <h3>Component</h3>
+                    <p>{{ error_log.component }}</p>
+                </div>
+            </div>
+            
+            {% if classification %}
+            <div class="classification">
+                <h3>Error Classification</h3>
+                <div class="classification-grid">
+                    <div class="classification-item">
+                        <span class="classification-label">Category:</span>
+                        <span class="classification-value">{{ classification.category.value|default:"Unknown" }}</span>
+                    </div>
+                    <div class="classification-item">
+                        <span class="classification-label">Recoverable:</span>
+                        <span class="classification-value">{{ classification.is_recoverable|yesno:"Yes,No,Unknown" }}</span>
+                    </div>
+                    <div class="classification-item">
+                        <span class="classification-label">Recovery Strategy:</span>
+                        <span class="classification-value">{{ classification.recovery_strategy.value|default:"Unknown" }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <div class="context-section">
+                <h3>Context Information</h3>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <h3>Correlation ID</h3>
+                        <p>{{ error_log.correlation_id|default:"None" }}</p>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <h3>User</h3>
+                        <p>{{ error_log.user.username|default:"Anonymous" }}</p>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <h3>Request Path</h3>
+                        <p>{{ error_log.request_path|default:"N/A" }}</p>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <h3>Request Method</h3>
+                        <p>{{ error_log.request_method|default:"N/A" }}</p>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <h3>IP Address</h3>
+                        <p>{{ error_log.ip_address|default:"N/A" }}</p>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <h3>Timestamp</h3>
+                        <p>{{ error_log.timestamp|date:"Y-m-d H:i:s T" }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            {% if error_log.stack_trace %}
+            <div class="stack-trace">
+                <h3>Stack Trace</h3>
+                <pre>{{ error_log.stack_trace }}</pre>
+            </div>
+            {% endif %}
+            
+            <div class="actions">
+                <a href="/admin/debugging/errorlog/{{ error_log.id }}/change/" class="btn btn-primary">
+                    View Error Details
+                </a>
+                <a href="/debugging/dashboard/" class="btn btn-secondary">
+                    Open Dashboard
+                </a>
+            </div>
+            
+            <div class="timestamp">
+                Notification sent at {{ timestamp|date:"Y-m-d H:i:s T" }}
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>This is an automated notification from the E2E Workflow Debugging System.</p>
+            <p>Please do not reply to this email.</p>
+        </div>
+    </div>
+</body>
+</html>

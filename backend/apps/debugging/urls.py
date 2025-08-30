@@ -7,6 +7,10 @@ from .views import (
     APICallDiscoveryViewSet, RouteDiscoverySessionViewSet,
     WorkflowTracingViewSet, DatabaseHealthViewSet, TestingFrameworkViewSet
 )
+from .error_views import (
+    ErrorRecoveryViewSet, CircuitBreakerViewSet, NotificationViewSet,
+    ErrorClassificationViewSet, SystemHealthViewSet as ErrorSystemHealthViewSet
+)
 from .dashboard_views import (
     DashboardDataViewSet, ReportGenerationViewSet, ManualAPITestingViewSet,
     DashboardConfigurationViewSet, dashboard_health_check
@@ -38,6 +42,11 @@ router.register(r'dashboard-data', DashboardDataViewSet, basename='dashboard-dat
 router.register(r'reports', ReportGenerationViewSet, basename='reports')
 router.register(r'manual-testing', ManualAPITestingViewSet, basename='manual-testing')
 router.register(r'dashboard-config', DashboardConfigurationViewSet, basename='dashboard-config')
+router.register(r'error-recovery', ErrorRecoveryViewSet, basename='error-recovery')
+router.register(r'circuit-breakers', CircuitBreakerViewSet, basename='circuit-breaker')
+router.register(r'notifications', NotificationViewSet, basename='notification')
+router.register(r'error-classification', ErrorClassificationViewSet, basename='error-classification')
+router.register(r'error-system-health', ErrorSystemHealthViewSet, basename='error-system-health')
 
 app_name = 'debugging'
 
