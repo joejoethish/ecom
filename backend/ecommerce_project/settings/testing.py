@@ -3,72 +3,61 @@ Testing settings for ecommerce project.
 """
 from .base import *
 
-# Use in-memory database for testing
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+# Use in-memory database for faster tests
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DB_NAME', default='ecommerce_db'),
-        'USER': config('DB_USER', default='root'),
-        'PASSWORD': config('DB_PASSWORD', default=''),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='3306'),
-        'OPTIONS': {
-            'sql_mode': 'traditional',
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ':memory:',
     }
 }
 
-# Use console email backend for testing
+# Disable migrations for faster tests
+class DisableMigrations:
+    def __contains__(self, item):
+        return True
+    
+    def __getitem__(self, item):
+        return None
+
+MIGRATION_MODULES = DisableMigrations()
+
+# Use console email backend for tests
 EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
 
-# Disable Celery for testing (run tasks synchronously)
+# Disable Celery for tests
 CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
-CELERY_BROKER_URL = 'memory://'
-CELERY_RESULT_BACKEND = 'cache+memory://'
 
-# Disable Elasticsearch for testing
-ELASTICSEARCH_DSL = {
+# Disable caching for tests
+CACHES = {
     'default': {
-        'hosts': 'localhost:9200'
-    },
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
 }
 
-# Disable Elasticsearch signal processor during testing
-ELASTICSEARCH_DSL_SIGNAL_PROCESSOR = 'django_elasticsearch_dsl.signals.RealTimeSignalProcessor'
-ELASTICSEARCH_DSL = {
-    'default': {
-        'hosts': 'localhost:9200'
-    },
-}
+# Disable password validation for tests
+AUTH_PASSWORD_VALIDATORS = []
 
-# Disable search signals during testing
-ELASTICSEARCH_DSL_AUTOSYNC = False
+# Apply testing-specific debugging configuration
+if 'testing' in DEBUGGING_ENVIRONMENT_CONFIG:
+    test_config = DEBUGGING_ENVIRONMENT_CONFIG['testing']
+    
+    # Update debugging system settings for testing
+    DEBUGGING_SYSTEM.update(test_config.get('DEBUGGING_SYSTEM', {}))
+    PERFORMANCE_MONITORING.update(test_config.get('PERFORMANCE_MONITORING', {}))
+    DEBUGGING_DASHBOARD.update(test_config.get('DEBUGGING_DASHBOARD', {}))
+    DEBUGGING_ALERTS.update(test_config.get('DEBUGGING_ALERTS', {}))
 
-# Disable channels for testing
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
-    },
-}
+# Disable logging during tests to reduce noise
+LOGGING['handlers']['console']['level'] = 'CRITICAL'
+LOGGING['handlers']['file']['level'] = 'CRITICAL'
+LOGGING['root']['level'] = 'CRITICAL'
 
-# Disable logging during tests
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'null': {
-            'class': 'logging.NullHandler',
-        },
-    },
-    'root': {
-        'handlers': ['null'],
-    },
-}
-
-# Speed up password hashing for tests
-PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.MD5PasswordHasher',
-]
+# Security settings for testing
+SECURE_HSTS_SECONDS = 0
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False

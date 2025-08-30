@@ -45,6 +45,9 @@
         "python -c \"from apps.debugging.dashboard_views import DashboardDataViewSet; print('Dashboard views imported successfully')\"",
         "python manage.py shell -c \"from apps.debugging.dashboard_views import DashboardDataViewSet; print('Dashboard views imported successfully')\"",
         "python manage.py shell -c \"from apps.debugging.consumers import DashboardConsumer; print('WebSocket consumers imported successfully')\"",
-        "python -c \"from apps.debugging.error_notifications import notification_manager; print('Import successful')\""
+        "python -c \"from apps.debugging.error_notifications import notification_manager; print('Import successful')\"",
+        "python -c \"from apps.debugging.utils import WorkflowTracer; print('WorkflowTracer imported successfully'); import uuid; session = WorkflowTracer.start_workflow('test', str(uuid.uuid4())); print(f'Session created: {session.id}')\"",
+        "npx tsc --noEmit --project tsconfig.json",
+        "npx tsc --noEmit src/config/debugging.ts"
     ]
 }

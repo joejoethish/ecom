@@ -1,7 +1,7 @@
 import uuid
 import time
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from .models import WorkflowSession, TraceStep, PerformanceSnapshot, ErrorLog
 
 
@@ -11,8 +11,8 @@ class WorkflowTracer:
     def __init__(self, correlation_id=None):
         self.correlation_id = correlation_id or uuid.uuid4()
     
-    def start_workflow(self, workflow_type, user=None, session_key=None, metadata=None):
-        """Start a new workflow session"""
+    def start_workflow_instance(self, workflow_type, user=None, session_key=None, metadata=None):
+        """Start a new workflow session (instance method)"""
         workflow = WorkflowSession.objects.create(
             correlation_id=self.correlation_id,
             workflow_type=workflow_type,
@@ -22,8 +22,8 @@ class WorkflowTracer:
         )
         return workflow
     
-    def add_trace_step(self, workflow_session, layer, component, operation, metadata=None):
-        """Add a trace step to the workflow"""
+    def add_trace_step_instance(self, workflow_session, layer, component, operation, metadata=None):
+        """Add a trace step to the workflow (instance method)"""
         trace_step = TraceStep.objects.create(
             workflow_session=workflow_session,
             layer=layer,
@@ -65,26 +65,109 @@ class WorkflowTracer:
         
         trace_step.save()
         return trace_step
+    
+    @staticmethod
+    def start_workflow(workflow_type, correlation_id=None, user=None, session_key=None, metadata=None):
+        """Start a new workflow session (static method)"""
+        if isinstance(correlation_id, str):
+            correlation_id = uuid.UUID(correlation_id)
+        elif correlation_id is None:
+            correlation_id = uuid.uuid4()
+        
+        workflow = WorkflowSession.objects.create(
+            correlation_id=correlation_id,
+            workflow_type=workflow_type,
+            user=user,
+            session_key=session_key,
+            metadata=metadata or {}
+        )
+        return workflow
+    
+    @staticmethod
+    def add_trace_step(correlation_id, layer, component, operation, metadata=None):
+        """Add a trace step to the workflow (static method)"""
+        if isinstance(correlation_id, str):
+            correlation_id = uuid.UUID(correlation_id)
+        
+        # Find the workflow session
+        try:
+            workflow_session = WorkflowSession.objects.get(correlation_id=correlation_id)
+        except WorkflowSession.DoesNotExist:
+            # Create a new workflow session if it doesn't exist
+            workflow_session = WorkflowSession.objects.create(
+                correlation_id=correlation_id,
+                workflow_type='unknown',
+                metadata={}
+            )
+        
+        trace_step = TraceStep.objects.create(
+            workflow_session=workflow_session,
+            layer=layer,
+            component=component,
+            operation=operation,
+            start_time=timezone.now(),
+            metadata=metadata or {}
+        )
+        return trace_step
+    
+    @staticmethod
+    def complete_workflow(correlation_id, status='completed', metadata=None):
+        """Complete a workflow session (static method)"""
+        if isinstance(correlation_id, str):
+            correlation_id = uuid.UUID(correlation_id)
+        
+        try:
+            workflow_session = WorkflowSession.objects.get(correlation_id=correlation_id)
+            workflow_session.status = status
+            workflow_session.end_time = timezone.now()
+            
+            if workflow_session.start_time:
+                delta = workflow_session.end_time - workflow_session.start_time
+                workflow_session.duration_ms = int(delta.total_seconds() * 1000)
+            
+            if metadata:
+                workflow_session.metadata.update(metadata)
+            
+            workflow_session.save()
+            return workflow_session
+        except WorkflowSession.DoesNotExist:
+            return None
+    
+    @staticmethod
+    def fail_workflow(correlation_id, error_message, metadata=None):
+        """Mark a workflow as failed (static method)"""
+        if isinstance(correlation_id, str):
+            correlation_id = uuid.UUID(correlation_id)
+        
+        try:
+            workflow_session = WorkflowSession.objects.get(correlation_id=correlation_id)
+            workflow_session.status = 'failed'
+            workflow_session.end_time = timezone.now()
+            
+            if workflow_session.start_time:
+                delta = workflow_session.end_time - workflow_session.start_time
+                workflow_session.duration_ms = int(delta.total_seconds() * 1000)
+            
+            workflow_session.metadata.update({
+                'error_message': error_message,
+                **(metadata or {})
+            })
+            
+            workflow_session.save()
+            return workflow_session
+        except WorkflowSession.DoesNotExist:
+            return None
 
 
 class PerformanceMonitor:
     """Utility class for monitoring performance metrics"""
     
-    def __init__(self, correlation_id=None):
-        self.correlation_id = correlation_id or uuid.uuid4()
-        self._metrics = []
-    
-    def measure_execution_time(self, operation_name):
-        """Context manager for measuring execution time"""
-        return ExecutionTimeContext(self, operation_name)
-    
-    def record_metric(self, layer, component, metric_name, metric_value, 
+    @staticmethod
+    def record_metric(layer, component, metric_name, metric_value, 
                      correlation_id=None, metadata=None):
         """Record a performance metric"""
         # Get thresholds if they exist
         from .models import PerformanceThreshold
-        
-        correlation_id = correlation_id or self.correlation_id
         
         threshold = PerformanceThreshold.objects.filter(
             metric_name=metric_name,
@@ -107,63 +190,124 @@ class PerformanceMonitor:
             metadata=metadata or {}
         )
         
-        # Store in local metrics for reporting
-        self._metrics.append({
-            'layer': layer,
-            'component': component,
-            'metric_name': metric_name,
-            'metric_value': metric_value,
-            'timestamp': snapshot.timestamp,
-            'correlation_id': correlation_id
-        })
-        
         return snapshot
     
-    def get_performance_metrics(self):
-        """Get collected performance metrics"""
-        return self._metrics.copy()
+    @staticmethod
+    def check_thresholds():
+        """Check all recent metrics against thresholds and return alerts"""
+        from .models import PerformanceSnapshot, PerformanceThreshold
+        from django.utils import timezone
+        from datetime import timedelta
+        
+        alerts = []
+        
+        # Check metrics from the last hour
+        cutoff_time = timezone.now() - timedelta(hours=1)
+        recent_metrics = PerformanceSnapshot.objects.filter(
+            timestamp__gte=cutoff_time
+        ).select_related()
+        
+        for metric in recent_metrics:
+            threshold = PerformanceThreshold.objects.filter(
+                metric_name=metric.metric_name,
+                layer=metric.layer,
+                component=metric.component or '',
+                enabled=True
+            ).first()
+            
+            if threshold:
+                alert_level = None
+                if threshold.critical_threshold and metric.metric_value >= threshold.critical_threshold:
+                    alert_level = 'critical'
+                elif threshold.warning_threshold and metric.metric_value >= threshold.warning_threshold:
+                    alert_level = 'warning'
+                
+                if alert_level:
+                    alerts.append({
+                        'level': alert_level,
+                        'metric_name': metric.metric_name,
+                        'layer': metric.layer,
+                        'component': metric.component,
+                        'value': metric.metric_value,
+                        'threshold': threshold.critical_threshold if alert_level == 'critical' else threshold.warning_threshold,
+                        'timestamp': metric.timestamp,
+                        'correlation_id': metric.correlation_id
+                    })
+        
+        return alerts
     
-    def track_memory_usage(self, operation_name):
-        """Track current memory usage for an operation"""
-        import psutil
-        import os
+    @staticmethod
+    def analyze_trends(layer, component, metric_name, hours=24):
+        """Analyze performance trends for a specific metric"""
+        from .models import PerformanceSnapshot
+        from django.utils import timezone
+        from datetime import timedelta
         
-        # Get current process memory usage
-        process = psutil.Process(os.getpid())
-        memory_info = process.memory_info()
-        memory_mb = memory_info.rss / (1024 * 1024)  # Convert to MB
-        
-        # Record the memory usage metric
-        self.record_metric(
-            layer='system',
-            component='memory',
-            metric_name=f'{operation_name}_memory_usage',
-            metric_value=memory_mb,
-            metadata={'operation': operation_name, 'unit': 'MB'}
-        )
-        
-        return memory_mb
-    
-    def check_thresholds(self, layer, component, metric_name, metric_value):
-        """Check if metric value exceeds thresholds"""
-        from .models import PerformanceThreshold
-        
-        threshold = PerformanceThreshold.objects.filter(
-            metric_name=metric_name,
+        cutoff_time = timezone.now() - timedelta(hours=hours)
+        metrics = PerformanceSnapshot.objects.filter(
             layer=layer,
-            component=component or '',
-            enabled=True
-        ).first()
+            component=component,
+            metric_name=metric_name,
+            timestamp__gte=cutoff_time
+        ).order_by('timestamp')
         
-        if not threshold:
-            return {'status': 'no_threshold'}
+        if not metrics.exists():
+            return {'trend_direction': 'no_data', 'data_points': 0}
         
-        if threshold.critical_threshold and metric_value >= threshold.critical_threshold:
-            return {'status': 'critical', 'threshold': threshold.critical_threshold}
-        elif threshold.warning_threshold and metric_value >= threshold.warning_threshold:
-            return {'status': 'warning', 'threshold': threshold.warning_threshold}
+        values = [m.metric_value for m in metrics]
+        
+        # Simple trend analysis
+        if len(values) < 2:
+            trend_direction = 'insufficient_data'
         else:
-            return {'status': 'normal'}
+            first_half = values[:len(values)//2]
+            second_half = values[len(values)//2:]
+            
+            avg_first = sum(first_half) / len(first_half)
+            avg_second = sum(second_half) / len(second_half)
+            
+            if avg_second > avg_first * 1.1:  # 10% increase
+                trend_direction = 'increasing'
+            elif avg_second < avg_first * 0.9:  # 10% decrease
+                trend_direction = 'decreasing'
+            else:
+                trend_direction = 'stable'
+        
+        return {
+            'trend_direction': trend_direction,
+            'average_value': sum(values) / len(values),
+            'min_value': min(values),
+            'max_value': max(values),
+            'data_points': len(values),
+            'time_range_hours': hours
+        }
+    
+    @staticmethod
+    def track_memory_usage(operation_name, correlation_id=None):
+        """Track current memory usage for an operation"""
+        try:
+            import psutil
+            import os
+            
+            # Get current process memory usage
+            process = psutil.Process(os.getpid())
+            memory_info = process.memory_info()
+            memory_mb = memory_info.rss / (1024 * 1024)  # Convert to MB
+            
+            # Record the memory usage metric
+            PerformanceMonitor.record_metric(
+                layer='system',
+                component='memory',
+                metric_name='memory_usage',
+                metric_value=memory_mb,
+                correlation_id=correlation_id,
+                metadata={'operation': operation_name, 'unit': 'MB'}
+            )
+            
+            return memory_mb
+        except ImportError:
+            # psutil not available, return None
+            return None
 
 
 class ExecutionTimeContext:

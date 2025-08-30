@@ -68,3 +68,17 @@ SECURE_HSTS_SECONDS = 0  # Disabled for development
 SECURE_SSL_REDIRECT = False  # Disabled for development
 SESSION_COOKIE_SECURE = False  # Disabled for development (no HTTPS in dev)
 CSRF_COOKIE_SECURE = False  # Disabled for development (no HTTPS in dev)
+
+# Apply development-specific debugging configuration
+if 'development' in DEBUGGING_ENVIRONMENT_CONFIG:
+    dev_config = DEBUGGING_ENVIRONMENT_CONFIG['development']
+    
+    # Update debugging system settings
+    DEBUGGING_SYSTEM.update(dev_config.get('DEBUGGING_SYSTEM', {}))
+    PERFORMANCE_MONITORING.update(dev_config.get('PERFORMANCE_MONITORING', {}))
+    WORKFLOW_TRACING.update(dev_config.get('WORKFLOW_TRACING', {}))
+    DEBUGGING_DASHBOARD.update(dev_config.get('DEBUGGING_DASHBOARD', {}))
+    
+    # Enable additional debugging features for development
+    DEBUGGING_SYSTEM['DETAILED_LOGGING'] = True
+    DEBUGGING_SYSTEM['VERBOSE_ERRORS'] = True
