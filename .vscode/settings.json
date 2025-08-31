@@ -48,6 +48,7 @@
         "python -c \"from apps.debugging.error_notifications import notification_manager; print('Import successful')\"",
         "python -c \"from apps.debugging.utils import WorkflowTracer; print('WorkflowTracer imported successfully'); import uuid; session = WorkflowTracer.start_workflow('test', str(uuid.uuid4())); print(f'Session created: {session.id}')\"",
         "npx tsc --noEmit --project tsconfig.json",
-        "npx tsc --noEmit src/config/debugging.ts"
+        "npx tsc --noEmit src/config/debugging.ts",
+        "chmod +x run_essential_tests.sh"
     ]
 }

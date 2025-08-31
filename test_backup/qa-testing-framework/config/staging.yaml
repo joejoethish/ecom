@@ -1,0 +1,104 @@
+# Staging Environment Configuration
+database:
+  host: staging-db.ecommerce.com
+  port: 3307
+  name: qa_test_staging
+  user: qa_staging_user
+  password: qa_staging_password
+  pool_size: 10
+  max_overflow: 20
+  charset: utf8mb4
+
+web:
+  base_url: https://staging.ecommerce.com
+  timeout: 45
+  implicit_wait: 15
+  page_load_timeout: 45
+  browsers:
+    - chrome
+    - firefox
+    - safari
+    - edge
+  headless: true
+  window_size:
+    width: 1920
+    height: 1080
+
+mobile:
+  appium_server: http://staging-appium.ecommerce.com:4723
+  platform_name: Android
+  device_name: staging-device
+  app_package: com.ecommerce.app
+  app_activity: .MainActivity
+  timeout: 45
+  implicit_wait: 15
+  new_command_timeout: 600
+
+api:
+  base_url: https://staging-api.ecommerce.com/api/v1
+  timeout: 45
+  auth_endpoint: /auth/login
+  rate_limit: 5000
+  retry_attempts: 5
+  retry_delay: 2
+
+reporting:
+  output_dir: reports/staging
+  formats:
+    - html
+    - json
+    - xml
+    - allure
+  screenshot_on_failure: true
+  detailed_logs: true
+  video_recording: true
+  allure_results_dir: allure-results
+
+test_data:
+  users_count: 100
+  products_count: 1000
+  categories_count: 50
+  cleanup_after_test: true
+  data_isolation: true
+
+notifications:
+  email:
+    smtp_server: smtp.staging.ecommerce.com
+    smtp_port: 587
+    use_tls: true
+    test_email: qa.staging@ecommerce.com
+    test_password: staging_password
+  sms:
+    provider: twilio
+    test_number: "+1234567890"
+    account_sid: staging_sid
+    auth_token: staging_token
+
+payment_gateways:
+  stripe:
+    sandbox_mode: true
+    api_key: sk_test_staging_key
+    webhook_secret: whsec_staging_secret
+  paypal:
+    sandbox_mode: true
+    client_id: staging_client_id
+    client_secret: staging_client_secret
+  razorpay:
+    sandbox_mode: true
+    key_id: staging_key_id
+    key_secret: staging_key_secret
+
+logging:
+  level: INFO
+  console_level: WARNING
+  file_level: INFO
+  max_file_size: 50MB
+  backup_count: 10
+  structured_logging: true
+
+performance:
+  load_test_users: 100
+  stress_test_users: 500
+  response_time_threshold: 3000  # milliseconds
+  memory_threshold: 85  # percentage
+  cpu_threshold: 80  # percentage
