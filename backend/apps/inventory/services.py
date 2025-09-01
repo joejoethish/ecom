@@ -1,6 +1,6 @@
 from django.db import transaction
 from django.utils import timezone
-from django.db.models import F, Sum
+from django.db.models import F, Sum, Count
 from django.core.exceptions import ValidationError
 
 from .models import Inventory, InventoryTransaction, PurchaseOrder, PurchaseOrderItem, Warehouse, Supplier
@@ -384,6 +384,9 @@ class InventoryService:
         if quantity <= 0:
             raise ValidationError("Quantity must be positive when removing stock")
         
+        # Refresh inventory to ensure we have current values
+        inventory.refresh_from_db()
+        
         if inventory.available_quantity < quantity:
             raise ValidationError(f"Insufficient stock. Available: {inventory.available_quantity}, Requested: {quantity}")
         
@@ -424,6 +427,9 @@ class InventoryService:
         """
         if quantity <= 0:
             raise ValidationError("Quantity must be positive when reserving stock")
+        
+        # Refresh inventory to ensure we have current values
+        inventory.refresh_from_db()
         
         if inventory.available_quantity < quantity:
             raise ValidationError(f"Insufficient stock to reserve. Available: {inventory.available_quantity}, Requested: {quantity}")
@@ -510,6 +516,9 @@ class InventoryService:
         if source_inventory.product.id != destination_inventory.product.id:
             raise ValidationError("Cannot transfer between different products")
         
+        # Refresh inventory to ensure we have current values
+        source_inventory.refresh_from_db()
+        
         if source_inventory.available_quantity < quantity:
             raise ValidationError(f"Insufficient stock to transfer. Available: {source_inventory.available_quantity}, Requested: {quantity}")
         
@@ -569,6 +578,9 @@ class InventoryService:
         """
         if adjustment_quantity == 0:
             raise ValidationError("Adjustment quantity cannot be zero")
+        
+        # Refresh inventory to ensure we have current values
+        inventory.refresh_from_db()
         
         if adjustment_quantity < 0 and abs(adjustment_quantity) > inventory.quantity:
             raise ValidationError(f"Cannot adjust more than available. Available: {inventory.quantity}, Adjustment: {adjustment_quantity}")

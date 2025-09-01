@@ -75,6 +75,14 @@ export const API_ENDPOINTS = {
     REMOVE: (id: string) => `/wishlist/${id}/`,
     CLEAR: '/wishlist/clear/',
   },
+  // Rewards
+  REWARDS: {
+    LIST: '/rewards/',
+    BALANCE: '/rewards/balance/',
+    TRANSACTIONS: '/rewards/transactions/',
+    REDEEM: '/rewards/redeem/',
+    PROGRAM: '/rewards/program/',
+  },
   // Payments
   PAYMENTS: {
     METHODS: '/payments/methods/',

@@ -1,0 +1,58 @@
+[
+  {
+    "test_name": "Setup Test Data",
+    "status": "FAIL",
+    "message": "Failed to setup test data: (1146, \"Table 'ecommerce_db.content_advancedcontentpage' doesn't exist\")",
+    "timestamp": "2025-09-01T04:52:56.338276",
+    "details": null
+  },
+  {
+    "test_name": "Inventory Creation",
+    "status": "SKIP",
+    "message": "Skipping due to setup failure",
+    "timestamp": "2025-09-01T04:52:56.338276",
+    "details": null
+  },
+  {
+    "test_name": "Stock Operations",
+    "status": "SKIP",
+    "message": "Skipping due to setup failure",
+    "timestamp": "2025-09-01T04:52:56.338276",
+    "details": null
+  },
+  {
+    "test_name": "Inventory Constraints",
+    "status": "SKIP",
+    "message": "Skipping due to setup failure",
+    "timestamp": "2025-09-01T04:52:56.342320",
+    "details": null
+  },
+  {
+    "test_name": "Stock Levels and Alerts",
+    "status": "SKIP",
+    "message": "Skipping due to setup failure",
+    "timestamp": "2025-09-01T04:52:56.342320",
+    "details": null
+  },
+  {
+    "test_name": "Purchase Order Basic",
+    "status": "SKIP",
+    "message": "Skipping due to setup failure",
+    "timestamp": "2025-09-01T04:52:56.342320",
+    "details": null
+  },
+  {
+    "test_name": "Inventory Reports Basic",
+    "status": "SKIP",
+    "message": "Skipping due to setup failure",
+    "timestamp": "2025-09-01T04:52:56.342320",
+    "details": null
+  },
+  {
+    "test_name": "Transaction Audit Trail",
+    "status": "SKIP",
+    "message": "Skipping due to setup failure",
+    "timestamp": "2025-09-01T04:52:56.342320",
+    "details": null
+  }
+]

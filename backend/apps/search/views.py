@@ -99,9 +99,111 @@ class SearchSuggestionsView(APIView):
         # Log suggestion query for analytics
         logger.info(f"Suggestion query: '{query}' with context: {context}")
         
-        suggestions = SearchService.get_suggestions(query, context, limit)
+        # Try to use Elasticsearch first, fallback to database
+        try:
+            suggestions = SearchService.get_suggestions(query, context, limit)
+        except Exception as e:
+            logger.warning(f"Elasticsearch suggestions failed, falling back to database: {str(e)}")
+            # Fallback to database-based suggestions
+            suggestions = self._get_database_suggestions(query, limit, context)
         
         return Response(suggestions)
+    
+    def _get_database_suggestions(self, query: str, limit: int = 5, context: dict = None):
+        """
+        Fallback method to get suggestions from database when Elasticsearch is unavailable.
+        """
+        from apps.products.models import Product, Category
+        from django.db.models import Q
+        
+        if len(query) < 2:
+            return {'suggestions': [], 'products': [], 'query': query}
+        
+        # Get products queryset
+        products_qs = Product.objects.filter(
+            is_active=True,
+            is_deleted=False,
+            status='active'
+        ).select_related('category').prefetch_related('images')
+        
+        # Apply context filters if provided
+        if context:
+            if context.get('category'):
+                products_qs = products_qs.filter(category__slug=context['category'])
+            if context.get('brand'):
+                products_qs = products_qs.filter(brand__iexact=context['brand'])
+        
+        # Get text suggestions
+        text_suggestions = set()
+        
+        # Product name suggestions
+        product_names = products_qs.filter(
+            name__icontains=query
+        ).values_list('name', flat=True)[:limit * 2]
+        
+        for name in product_names:
+            words = name.lower().split()
+            for word in words:
+                if query.lower() in word and len(word) > 2:
+                    text_suggestions.add(word.capitalize())
+        
+        # Brand suggestions
+        brands = products_qs.filter(
+            brand__icontains=query,
+            brand__isnull=False,
+            brand__gt=''
+        ).values_list('brand', flat=True).distinct()[:3]
+        
+        for brand in brands:
+            if query.lower() in brand.lower():
+                text_suggestions.add(brand)
+        
+        # Category suggestions
+        categories_qs = Category.objects.filter(
+            name__icontains=query,
+            is_active=True,
+            is_deleted=False
+        )
+        
+        if context and context.get('category'):
+            # If category context is provided, look for subcategories
+            try:
+                parent_category = Category.objects.get(slug=context['category'])
+                categories_qs = categories_qs.filter(parent=parent_category)
+            except Category.DoesNotExist:
+                pass
+        
+        categories = categories_qs.values_list('name', flat=True)[:3]
+        
+        for category in categories:
+            if query.lower() in category.lower():
+                text_suggestions.add(category)
+        
+        # Convert to list and limit
+        suggestions_list = list(text_suggestions)[:limit]
+        
+        # Get top matching products
+        products = products_qs.filter(
+            Q(name__icontains=query) | Q(brand__icontains=query)
+        ).select_related('category').prefetch_related('images')[:3]
+        
+        product_suggestions = []
+        for product in products:
+            primary_image = product.primary_image
+            product_suggestions.append({
+                'id': str(product.id),
+                'name': product.name,
+                'slug': product.slug,
+                'price': float(product.effective_price),
+                'image': primary_image.image.url if primary_image else None,
+                'category': product.category.name if product.category else None
+            })
+        
+        return {
+            'suggestions': suggestions_list,
+            'products': product_suggestions,
+            'query': query
+        }
 
 
 class FilterOptionsView(APIView):

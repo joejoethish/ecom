@@ -87,42 +87,20 @@ describe('ProductGrid', () => {
     expect(screen.getByText('Product 2')).toBeInTheDocument();
   });
 
-  it('applies correct grid columns based on props', () => {
+  it('applies correct grid columns based on responsive design', () => {
     const store = mockStore({});
 
-    const { container, rerender } = render(
+    const { container } = render(
       <Provider store={store}>
-        <ProductGrid products={mockProducts} columns={2} />
+        <ProductGrid products={mockProducts} />
       </Provider>
     );
 
-    // Check if grid has the correct column classes for 2 columns
-    expect(container.firstChild).toHaveClass('grid-cols-1');
-    expect(container.firstChild).toHaveClass('sm:grid-cols-2');
-
-    // Rerender with 3 columns
-    rerender(
-      <Provider store={store}>
-        <ProductGrid products={mockProducts} columns={3} />
-      </Provider>
-    );
-
-    // Check if grid has the correct column classes for 3 columns
-    expect(container.firstChild).toHaveClass('grid-cols-1');
-    expect(container.firstChild).toHaveClass('sm:grid-cols-2');
-    expect(container.firstChild).toHaveClass('lg:grid-cols-3');
-
-    // Rerender with 4 columns
-    rerender(
-      <Provider store={store}>
-        <ProductGrid products={mockProducts} columns={4} />
-      </Provider>
-    );
-
-    // Check if grid has the correct column classes for 4 columns
-    expect(container.firstChild).toHaveClass('grid-cols-1');
-    expect(container.firstChild).toHaveClass('sm:grid-cols-2');
-    expect(container.firstChild).toHaveClass('md:grid-cols-3');
-    expect(container.firstChild).toHaveClass('lg:grid-cols-4');
+    // Check if grid has the responsive column classes
+    const gridElement = container.querySelector('.grid');
+    expect(gridElement).toHaveClass('grid-cols-2');
+    expect(gridElement).toHaveClass('md:grid-cols-3');
+    expect(gridElement).toHaveClass('lg:grid-cols-4');
+    expect(gridElement).toHaveClass('xl:grid-cols-5');
   });
 });

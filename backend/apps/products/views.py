@@ -227,44 +227,75 @@ class ProductViewSet(viewsets.ModelViewSet):
     def search_suggestions(self, request):
         """Get search suggestions based on query."""
         query = request.GET.get('q', '').strip()
+        limit = int(request.GET.get('limit', 5))
         
         if not query or len(query) < 2:
-            return Response([])
+            return Response({'suggestions': [], 'products': [], 'query': query})
         
         queryset = self.get_queryset()
         
-        # Get product name suggestions
-        product_suggestions = list(
-            queryset.filter(
-                name__icontains=query
-            ).values_list('name', flat=True)[:5]
-        )
+        # Get text suggestions from product names and brands
+        text_suggestions = set()
         
-        # Get brand suggestions
-        brand_suggestions = list(
-            queryset.filter(
-                brand__icontains=query,
-                brand__isnull=False,
-                brand__gt=''
-            ).values_list('brand', flat=True).distinct()[:3]
-        )
+        # Product name suggestions
+        product_names = queryset.filter(
+            name__icontains=query
+        ).values_list('name', flat=True)[:limit * 2]
         
-        # Get category suggestions
-        category_suggestions = list(
-            Category.objects.filter(
-                name__icontains=query,
-                is_active=True,
-                is_deleted=False
-            ).values_list('name', flat=True)[:3]
-        )
+        for name in product_names:
+            # Extract words that match the query
+            words = name.lower().split()
+            for word in words:
+                if query.lower() in word and len(word) > 2:
+                    text_suggestions.add(word.capitalize())
         
-        suggestions = {
+        # Brand suggestions
+        brands = queryset.filter(
+            brand__icontains=query,
+            brand__isnull=False,
+            brand__gt=''
+        ).values_list('brand', flat=True).distinct()[:3]
+        
+        for brand in brands:
+            if query.lower() in brand.lower():
+                text_suggestions.add(brand)
+        
+        # Category suggestions
+        categories = Category.objects.filter(
+            name__icontains=query,
+            is_active=True,
+            is_deleted=False
+        ).values_list('name', flat=True)[:3]
+        
+        for category in categories:
+            if query.lower() in category.lower():
+                text_suggestions.add(category)
+        
+        # Convert to list and limit
+        suggestions_list = list(text_suggestions)[:limit]
+        
+        # Get top matching products for rich suggestions
+        products = queryset.filter(
+            Q(name__icontains=query) | Q(brand__icontains=query)
+        ).select_related('category').prefetch_related('images')[:3]
+        
+        product_suggestions = []
+        for product in products:
+            primary_image = product.primary_image
+            product_suggestions.append({
+                'id': str(product.id),
+                'name': product.name,
+                'slug': product.slug,
+                'price': float(product.effective_price),
+                'image': primary_image.image.url if primary_image else None,
+                'category': product.category.name if product.category else None
+            })
+        
+        return Response({
+            'suggestions': suggestions_list,
             'products': product_suggestions,
-            'brands': brand_suggestions,
-            'categories': category_suggestions
-        }
-        
-        return Response(suggestions)
+            'query': query
+        })
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAdminUser])
     def toggle_featured(self, request, slug=None):

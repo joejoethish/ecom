@@ -1,11 +1,11 @@
 """
 Cart views for the ecommerce platform.
 """
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, action
 from django.shortcuts import get_object_or_404
 from .models import Cart, CartItem, SavedItem
 from .serializers import CartSerializer, CartItemSerializer, SavedItemSerializer
@@ -19,6 +19,10 @@ class CartView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
+        # Ensure session exists
+        if not request.session.session_key:
+            request.session.create()
+            
         # Get cart based on user or session
         session_key = request.session.session_key
         cart = CartService.get_or_create_cart(
@@ -57,6 +61,10 @@ class AddToCartView(APIView):
                 'message': 'Product ID is required',
                 'success': False
             }, status=status.HTTP_400_BAD_REQUEST)
+            
+        # Ensure session exists
+        if not request.session.session_key:
+            request.session.create()
             
         # Get cart based on user or session
         session_key = request.session.session_key
@@ -356,6 +364,201 @@ class RemoveCouponView(APIView):
                 'message': message,
                 'success': True
             })
+        else:
+            return Response({
+                'message': message,
+                'success': False
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CartViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet for cart operations with add_item, remove_item, and update_quantity actions.
+    """
+    serializer_class = CartSerializer
+    permission_classes = [AllowAny]
+    
+    def get_queryset(self):
+        """
+        Get cart queryset based on user or session.
+        """
+        if self.request.user.is_authenticated:
+            return Cart.objects.filter(user=self.request.user)
+        else:
+            session_key = self.request.session.session_key
+            if session_key:
+                return Cart.objects.filter(session_key=session_key)
+            return Cart.objects.none()
+    
+    def get_cart(self):
+        """
+        Get or create cart for current user/session.
+        """
+        session_key = self.request.session.session_key
+        return CartService.get_or_create_cart(
+            user=self.request.user if self.request.user.is_authenticated else None,
+            session_key=session_key
+        )
+    
+    def list(self, request):
+        """
+        Get cart contents.
+        """
+        cart = self.get_cart()
+        
+        if not cart:
+            return Response({
+                'message': 'No cart found',
+                'success': False
+            }, status=status.HTTP_404_NOT_FOUND)
+            
+        serializer = self.get_serializer(cart)
+        return Response({
+            'cart': serializer.data,
+            'success': True
+        })
+    
+    @action(detail=False, methods=['post'])
+    def add_item(self, request):
+        """
+        Add item to cart.
+        """
+        product_id = request.data.get('product_id')
+        quantity = int(request.data.get('quantity', 1))
+        is_gift = request.data.get('is_gift', False)
+        gift_message = request.data.get('gift_message')
+        
+        if not product_id:
+            return Response({
+                'message': 'Product ID is required',
+                'success': False
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        cart = self.get_cart()
+        
+        # Add item to cart
+        cart_item, message = CartService.add_to_cart(
+            cart=cart,
+            product_id=product_id,
+            quantity=quantity,
+            is_gift=is_gift,
+            gift_message=gift_message
+        )
+        
+        if cart_item:
+            cart_serializer = self.get_serializer(cart)
+            return Response({
+                'message': message,
+                'cart': cart_serializer.data,
+                'success': True
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({
+                'message': message,
+                'success': False
+            }, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(detail=False, methods=['post'])
+    def remove_item(self, request):
+        """
+        Remove item from cart.
+        """
+        product_id = request.data.get('product_id')
+        
+        if not product_id:
+            return Response({
+                'message': 'Product ID is required',
+                'success': False
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        cart = self.get_cart()
+        
+        # Remove item from cart
+        success, message = CartService.remove_from_cart(
+            cart=cart,
+            product_id=product_id
+        )
+        
+        if success:
+            cart_serializer = self.get_serializer(cart)
+            return Response({
+                'message': message,
+                'cart': cart_serializer.data,
+                'success': True
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({
+                'message': message,
+                'success': False
+            }, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(detail=False, methods=['post'])
+    def update_quantity(self, request):
+        """
+        Update item quantity in cart.
+        """
+        product_id = request.data.get('product_id')
+        quantity = request.data.get('quantity')
+        
+        if not product_id:
+            return Response({
+                'message': 'Product ID is required',
+                'success': False
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        if quantity is None:
+            return Response({
+                'message': 'Quantity is required',
+                'success': False
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            quantity = int(quantity)
+        except (ValueError, TypeError):
+            return Response({
+                'message': 'Quantity must be a valid integer',
+                'success': False
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        cart = self.get_cart()
+        
+        # Update item quantity
+        cart_item, message = CartService.update_quantity(
+            cart=cart,
+            product_id=product_id,
+            quantity=quantity
+        )
+        
+        if cart_item or quantity == 0:  # quantity 0 means item was removed
+            cart_serializer = self.get_serializer(cart)
+            return Response({
+                'message': message,
+                'cart': cart_serializer.data,
+                'success': True
+            }, status=status.HTTP_200_OK)
+        else:
+            return Response({
+                'message': message,
+                'success': False
+            }, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(detail=False, methods=['post'])
+    def clear(self, request):
+        """
+        Clear all items from cart.
+        """
+        cart = self.get_cart()
+        
+        # Clear cart
+        success, message = CartService.clear_cart(cart)
+        
+        if success:
+            cart_serializer = self.get_serializer(cart)
+            return Response({
+                'message': message,
+                'cart': cart_serializer.data,
+                'success': True
+            }, status=status.HTTP_200_OK)
         else:
             return Response({
                 'message': message,

@@ -78,10 +78,10 @@ class Inventory(models.Model):
     """
     Model for tracking product inventory levels across warehouses.
     """
-    product = models.OneToOneField(
+    product = models.ForeignKey(
         Product, 
         on_delete=models.CASCADE,
-        related_name="inventory",
+        related_name="inventories",
         verbose_name=_("Product")
     )
     warehouse = models.ForeignKey(

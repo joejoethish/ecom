@@ -1,16 +1,51 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAppSelector } from '@/store';
 import { LogoutButton } from '@/components/auth/LogoutButton';
+import { SearchAutocomplete } from '@/components/search/SearchAutocomplete';
 import { ROUTES } from '@/constants';
+
+interface SearchSuggestion {
+  id: string;
+  type: 'product' | 'category';
+  name: string;
+  image?: string;
+  url: string;
+}
 
 export function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   const { itemCount } = useAppSelector((state) => state.cart);
+  const router = useRouter();
+  const moreMenuRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  // Handle search suggestion selection
+  const handleSearchSelect = (suggestion: SearchSuggestion) => {
+    router.push(suggestion.url);
+  };
+
+  // Handle click outside to close dropdowns
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
+        setIsMoreMenuOpen(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="bg-blue-600 shadow-lg">
@@ -30,20 +65,11 @@ export function Header() {
 
           {/* Search Bar */}
           <div className="flex-1 max-w-2xl mx-8">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search for products, brands and more"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 pl-4 pr-12 text-gray-900 bg-white border-0 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              />
-              <button className="absolute right-0 top-0 h-full px-4 bg-yellow-400 hover:bg-yellow-500 rounded-r-sm">
-                <svg className="h-5 w-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
-            </div>
+            <SearchAutocomplete
+              onSelect={handleSearchSelect}
+              placeholder="Search for products, brands and more"
+              className="w-full"
+            />
           </div>
 
           {/* Right side */}
@@ -57,13 +83,66 @@ export function Header() {
             </Link>
 
             {/* More dropdown */}
-            <div className="relative">
-              <button className="flex items-center space-x-1 text-white hover:text-yellow-300 text-sm font-medium">
+            <div className="relative" ref={moreMenuRef}>
+              <button 
+                onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
+                className="flex items-center space-x-1 text-white hover:text-yellow-300 text-sm font-medium"
+              >
                 <span>More</span>
-                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg 
+                  className={`h-4 w-4 transition-transform ${isMoreMenuOpen ? 'rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
+              
+              {isMoreMenuOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-50 border">
+                  <Link
+                    href="/notifications"
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setIsMoreMenuOpen(false)}
+                  >
+                    <svg className="h-4 w-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5zM9 7H4l5-5v5z" />
+                    </svg>
+                    Notification Preferences
+                  </Link>
+                  <Link
+                    href="/customer-care"
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setIsMoreMenuOpen(false)}
+                  >
+                    <svg className="h-4 w-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    24x7 Customer Care
+                  </Link>
+                  <Link
+                    href="/advertise"
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setIsMoreMenuOpen(false)}
+                  >
+                    <svg className="h-4 w-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    </svg>
+                    Advertise
+                  </Link>
+                  <Link
+                    href="/download-app"
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setIsMoreMenuOpen(false)}
+                  >
+                    <svg className="h-4 w-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    Download App
+                  </Link>
+                </div>
+              )}
             </div>
 
             {/* Cart */}
@@ -84,7 +163,7 @@ export function Header() {
 
             {/* User menu */}
             {isAuthenticated ? (
-              <div className="relative">
+              <div className="relative" ref={userMenuRef}>
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="flex items-center space-x-2 text-white hover:text-yellow-300 px-3 py-2 text-sm font-medium"

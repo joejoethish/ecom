@@ -1,0 +1,79 @@
+[
+  {
+    "test_name": "Setup Test Data",
+    "status": "FAIL",
+    "message": "Failed to setup test data: (1062, \"Duplicate entry '' for key 'products_product.sku'\")",
+    "timestamp": "2025-09-01T04:47:14.040892",
+    "details": null
+  },
+  {
+    "test_name": "Inventory Creation",
+    "status": "PASS",
+    "message": "Created inventory for 0 products",
+    "timestamp": "2025-09-01T04:47:14.042908",
+    "details": null
+  },
+  {
+    "test_name": "Stock Addition",
+    "status": "PASS",
+    "message": "Successfully added stock to all test products",
+    "timestamp": "2025-09-01T04:47:14.042908",
+    "details": null
+  },
+  {
+    "test_name": "Stock Removal",
+    "status": "PASS",
+    "message": "Successfully removed stock from all test products",
+    "timestamp": "2025-09-01T04:47:14.042908",
+    "details": null
+  },
+  {
+    "test_name": "Stock Reservation",
+    "status": "PASS",
+    "message": "Successfully reserved stock for all test products",
+    "timestamp": "2025-09-01T04:47:14.042908",
+    "details": null
+  },
+  {
+    "test_name": "Stock Transfer",
+    "status": "FAIL",
+    "message": "Failed to transfer stock: list index out of range",
+    "timestamp": "2025-09-01T04:47:14.141666",
+    "details": null
+  },
+  {
+    "test_name": "Purchase Order Flow",
+    "status": "FAIL",
+    "message": "Failed purchase order flow: 'InventoryFlowAutomationTest' object has no attribute 'test_supplier'",
+    "timestamp": "2025-09-01T04:47:14.141666",
+    "details": null
+  },
+  {
+    "test_name": "Low Stock Alerts",
+    "status": "FAIL",
+    "message": "Failed low stock test: list index out of range",
+    "timestamp": "2025-09-01T04:47:14.141666",
+    "details": null
+  },
+  {
+    "test_name": "Inventory Reports",
+    "status": "FAIL",
+    "message": "Failed inventory reports: 'InventoryFlowAutomationTest' object has no attribute 'test_warehouse'",
+    "timestamp": "2025-09-01T04:47:14.141666",
+    "details": null
+  },
+  {
+    "test_name": "API Endpoints",
+    "status": "FAIL",
+    "message": "API test failed: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/v1/inventory/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000026880D86500>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-01T04:47:18.206498",
+    "details": null
+  },
+  {
+    "test_name": "Data Integrity",
+    "status": "FAIL",
+    "message": "Data integrity test failed: list index out of range",
+    "timestamp": "2025-09-01T04:47:18.207718",
+    "details": null
+  }
+]

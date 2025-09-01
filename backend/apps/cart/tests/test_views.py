@@ -810,3 +810,406 @@ class CartViewsTest(TestCase):
         
         # Check that saved item still exists
         self.assertTrue(SavedItem.objects.filter(id=other_saved_item.id).exists())
+
+class CartViewSetTest(TestCase):
+    """
+    Test case for CartViewSet.
+    """
+    
+    def setUp(self):
+        """Set up test data."""
+        # Create a test user
+        self.user = User.objects.create_user(
+            email='test@example.com',
+            password='testpassword',
+            first_name='Test',
+            last_name='User'
+        )
+        
+        # Create a category
+        self.category = Category.objects.create(
+            name='Test Category',
+            slug='test-category'
+        )
+        
+        # Create products
+        self.product1 = Product.objects.create(
+            name='Test Product 1',
+            slug='test-product-1',
+            description='Test description 1',
+            category=self.category,
+            sku='TP1',
+            price=Decimal('10.00'),
+            status='active'
+        )
+        
+        self.product2 = Product.objects.create(
+            name='Test Product 2',
+            slug='test-product-2',
+            description='Test description 2',
+            category=self.category,
+            sku='TP2',
+            price=Decimal('20.00'),
+            status='active'
+        )
+        
+        self.product3 = Product.objects.create(
+            name='Test Product 3',
+            slug='test-product-3',
+            description='Test description 3',
+            category=self.category,
+            sku='TP3',
+            price=Decimal('30.00'),
+            status='out_of_stock'
+        )
+        
+        # Create a cart for user
+        self.cart = Cart.objects.create(user=self.user)
+        
+        # Add items to the cart
+        self.cart_item1 = CartItem.objects.create(
+            cart=self.cart,
+            product=self.product1,
+            quantity=2
+        )
+        
+        # Set up API client
+        self.client = APIClient()
+    
+    def test_viewset_list_authenticated(self):
+        """Test ViewSet list action for authenticated user."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Get cart using ViewSet
+        response = self.client.get('/api/v1/cart/viewset/')
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['success'])
+        self.assertEqual(response.data['cart']['total_items_count'], 2)
+        self.assertEqual(len(response.data['cart']['items']), 1)
+        self.assertEqual(response.data['cart']['items'][0]['product']['name'], 'Test Product 1')
+    
+    def test_viewset_list_unauthenticated(self):
+        """Test ViewSet list action for unauthenticated user."""
+        # Create a session
+        session = self.client.session
+        session.create()
+        session_key = session.session_key
+        session.save()
+        
+        # Create a cart for the session
+        session_cart = Cart.objects.create(session_key=session_key)
+        CartItem.objects.create(
+            cart=session_cart,
+            product=self.product2,
+            quantity=3
+        )
+        
+        # Get cart using ViewSet
+        response = self.client.get('/api/v1/cart/viewset/')
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['success'])
+        self.assertEqual(response.data['cart']['total_items_count'], 3)
+        self.assertEqual(len(response.data['cart']['items']), 1)
+        self.assertEqual(response.data['cart']['items'][0]['product']['name'], 'Test Product 2')
+    
+    def test_viewset_add_item_authenticated(self):
+        """Test ViewSet add_item action for authenticated user."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Add item using ViewSet
+        response = self.client.post(
+            '/api/v1/cart/viewset/add_item/',
+            {
+                'product_id': str(self.product2.id),
+                'quantity': 3,
+                'is_gift': True,
+                'gift_message': 'Happy Birthday!'
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['success'])
+        self.assertIn('cart', response.data)
+        
+        # Check database
+        cart_item = CartItem.objects.get(cart=self.cart, product=self.product2)
+        self.assertEqual(cart_item.quantity, 3)
+        self.assertTrue(cart_item.is_gift)
+        self.assertEqual(cart_item.gift_message, 'Happy Birthday!')
+    
+    def test_viewset_add_item_unauthenticated(self):
+        """Test ViewSet add_item action for unauthenticated user."""
+        # Create a session
+        session = self.client.session
+        session.create()
+        session_key = session.session_key
+        session.save()
+        
+        # Add item using ViewSet
+        response = self.client.post(
+            '/api/v1/cart/viewset/add_item/',
+            {
+                'product_id': str(self.product1.id),
+                'quantity': 2
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['success'])
+        self.assertIn('cart', response.data)
+        
+        # Check database
+        session_cart = Cart.objects.get(session_key=session_key)
+        cart_item = CartItem.objects.get(cart=session_cart, product=self.product1)
+        self.assertEqual(cart_item.quantity, 2)
+    
+    def test_viewset_add_item_out_of_stock(self):
+        """Test ViewSet add_item action with out of stock product."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Add out of stock item using ViewSet
+        response = self.client.post(
+            '/api/v1/cart/viewset/add_item/',
+            {
+                'product_id': str(self.product3.id),
+                'quantity': 1
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(response.data['success'])
+        self.assertEqual(response.data['message'], 'Product is out of stock')
+        
+        # Check database
+        self.assertFalse(CartItem.objects.filter(cart=self.cart, product=self.product3).exists())
+    
+    def test_viewset_remove_item(self):
+        """Test ViewSet remove_item action."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Remove item using ViewSet
+        response = self.client.post(
+            '/api/v1/cart/viewset/remove_item/',
+            {
+                'product_id': str(self.product1.id)
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['success'])
+        self.assertIn('cart', response.data)
+        
+        # Check database
+        self.assertFalse(CartItem.objects.filter(cart=self.cart, product=self.product1).exists())
+    
+    def test_viewset_update_quantity(self):
+        """Test ViewSet update_quantity action."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Update quantity using ViewSet
+        response = self.client.post(
+            '/api/v1/cart/viewset/update_quantity/',
+            {
+                'product_id': str(self.product1.id),
+                'quantity': 5
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['success'])
+        self.assertIn('cart', response.data)
+        
+        # Check database
+        cart_item = CartItem.objects.get(cart=self.cart, product=self.product1)
+        self.assertEqual(cart_item.quantity, 5)
+    
+    def test_viewset_update_quantity_zero(self):
+        """Test ViewSet update_quantity action with zero quantity."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Update quantity to zero using ViewSet
+        response = self.client.post(
+            '/api/v1/cart/viewset/update_quantity/',
+            {
+                'product_id': str(self.product1.id),
+                'quantity': 0
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['success'])
+        self.assertIn('cart', response.data)
+        
+        # Check database - item should be removed
+        self.assertFalse(CartItem.objects.filter(cart=self.cart, product=self.product1).exists())
+    
+    def test_viewset_clear_cart(self):
+        """Test ViewSet clear action."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Clear cart using ViewSet
+        response = self.client.post('/api/v1/cart/viewset/clear/')
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['success'])
+        self.assertIn('cart', response.data)
+        
+        # Check database
+        self.assertEqual(CartItem.objects.filter(cart=self.cart).count(), 0)
+    
+    def test_viewset_missing_product_id(self):
+        """Test ViewSet actions with missing product_id."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Try add_item without product_id
+        response = self.client.post(
+            '/api/v1/cart/viewset/add_item/',
+            {
+                'quantity': 1
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(response.data['success'])
+        self.assertEqual(response.data['message'], 'Product ID is required')
+        
+        # Try remove_item without product_id
+        response = self.client.post(
+            '/api/v1/cart/viewset/remove_item/',
+            {},
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(response.data['success'])
+        self.assertEqual(response.data['message'], 'Product ID is required')
+        
+        # Try update_quantity without product_id
+        response = self.client.post(
+            '/api/v1/cart/viewset/update_quantity/',
+            {
+                'quantity': 5
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(response.data['success'])
+        self.assertEqual(response.data['message'], 'Product ID is required')
+    
+    def test_viewset_missing_quantity(self):
+        """Test ViewSet update_quantity action with missing quantity."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Try update_quantity without quantity
+        response = self.client.post(
+            '/api/v1/cart/viewset/update_quantity/',
+            {
+                'product_id': str(self.product1.id)
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(response.data['success'])
+        self.assertEqual(response.data['message'], 'Quantity is required')
+    
+    def test_viewset_invalid_quantity(self):
+        """Test ViewSet update_quantity action with invalid quantity."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Try update_quantity with invalid quantity
+        response = self.client.post(
+            '/api/v1/cart/viewset/update_quantity/',
+            {
+                'product_id': str(self.product1.id),
+                'quantity': 'invalid'
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(response.data['success'])
+        self.assertEqual(response.data['message'], 'Quantity must be a valid integer')
+    
+    def test_viewset_nonexistent_product(self):
+        """Test ViewSet actions with nonexistent product."""
+        # Login
+        self.client.force_authenticate(user=self.user)
+        
+        # Try add_item with nonexistent product
+        response = self.client.post(
+            '/api/v1/cart/viewset/add_item/',
+            {
+                'product_id': str(uuid.uuid4()),
+                'quantity': 1
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(response.data['success'])
+        self.assertEqual(response.data['message'], 'Product not found')
+        
+        # Try remove_item with nonexistent product
+        response = self.client.post(
+            '/api/v1/cart/viewset/remove_item/',
+            {
+                'product_id': str(uuid.uuid4())
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(response.data['success'])
+        self.assertEqual(response.data['message'], 'Product not found')
+        
+        # Try update_quantity with nonexistent product
+        response = self.client.post(
+            '/api/v1/cart/viewset/update_quantity/',
+            {
+                'product_id': str(uuid.uuid4()),
+                'quantity': 5
+            },
+            format='json'
+        )
+        
+        # Check response
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(response.data['success'])
+        self.assertEqual(response.data['message'], 'Product not found')

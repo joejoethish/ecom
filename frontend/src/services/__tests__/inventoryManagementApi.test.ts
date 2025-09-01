@@ -117,7 +117,7 @@ describe('inventoryManagementApi', () => {
         next: null,
         previous: null,
       };
-      mockApiClient.get.mockResolvedValue({ data: mockResponse });
+      mockApiClient.get.mockResolvedValue({ success: true, data: mockResponse });
 
       const filters = { search: 'test', warehouse: '1', stock_status: 'in_stock' as const };
       const result = await inventoryManagementApi.getInventory(filters);
@@ -127,7 +127,7 @@ describe('inventoryManagementApi', () => {
     });
 
     it('should fetch inventory by ID', async () => {
-      mockApiClient.get.mockResolvedValue({ data: mockInventoryItem });
+      mockApiClient.get.mockResolvedValue({ success: true, data: mockInventoryItem });
 
       const result = await inventoryManagementApi.getInventoryById('1');
 
@@ -142,7 +142,7 @@ describe('inventoryManagementApi', () => {
         stock_quantity: 100,
         reorder_level: 20,
       };
-      mockApiClient.post.mockResolvedValue({ data: mockInventoryItem });
+      mockApiClient.post.mockResolvedValue({ success: true, data: mockInventoryItem });
 
       const result = await inventoryManagementApi.createInventory(createData);
 
@@ -152,7 +152,7 @@ describe('inventoryManagementApi', () => {
 
     it('should update inventory', async () => {
       const updateData = { stock_quantity: 150, reorder_level: 25 };
-      mockApiClient.patch.mockResolvedValue({ data: { ...mockInventoryItem, ...updateData } });
+      mockApiClient.patch.mockResolvedValue({ success: true, data: { ...mockInventoryItem, ...updateData } });
 
       const result = await inventoryManagementApi.updateInventory('1', updateData);
 
@@ -161,7 +161,7 @@ describe('inventoryManagementApi', () => {
     });
 
     it('should delete inventory', async () => {
-      mockApiClient.delete.mockResolvedValue({ data: null });
+      mockApiClient.delete.mockResolvedValue({ success: true, data: null });
 
       const result = await inventoryManagementApi.deleteInventory('1');
 
@@ -171,7 +171,7 @@ describe('inventoryManagementApi', () => {
 
     it('should adjust stock', async () => {
       const adjustmentData = { adjustment: 10, reason: 'Inventory count correction' };
-      mockApiClient.post.mockResolvedValue({ data: mockInventoryItem });
+      mockApiClient.post.mockResolvedValue({ success: true, data: mockInventoryItem });
 
       const result = await inventoryManagementApi.adjustStock('1', adjustmentData);
 
@@ -211,7 +211,7 @@ describe('inventoryManagementApi', () => {
     };
 
     it('should fetch warehouses', async () => {
-      mockApiClient.get.mockResolvedValue({ data: [mockWarehouse] });
+      mockApiClient.get.mockResolvedValue({ success: true, data: [mockWarehouse] });
 
       const result = await inventoryManagementApi.getWarehouses();
 
@@ -233,7 +233,7 @@ describe('inventoryManagementApi', () => {
         manager: 'New Manager',
         is_active: true,
       };
-      mockApiClient.post.mockResolvedValue({ data: { ...mockWarehouse, ...createData } });
+      mockApiClient.post.mockResolvedValue({ success: true, data: { ...mockWarehouse, ...createData } });
 
       const result = await inventoryManagementApi.createWarehouse(createData);
 
@@ -243,7 +243,7 @@ describe('inventoryManagementApi', () => {
 
     it('should update warehouse', async () => {
       const updateData = { name: 'Updated Warehouse', manager: 'Updated Manager' };
-      mockApiClient.patch.mockResolvedValue({ data: { ...mockWarehouse, ...updateData } });
+      mockApiClient.patch.mockResolvedValue({ success: true, data: { ...mockWarehouse, ...updateData } });
 
       const result = await inventoryManagementApi.updateWarehouse('1', updateData);
 
@@ -252,7 +252,7 @@ describe('inventoryManagementApi', () => {
     });
 
     it('should delete warehouse', async () => {
-      mockApiClient.delete.mockResolvedValue({ data: null });
+      mockApiClient.delete.mockResolvedValue({ success: true, data: null });
 
       const result = await inventoryManagementApi.deleteWarehouse('1');
 
@@ -284,7 +284,7 @@ describe('inventoryManagementApi', () => {
 
     it('should fetch batches with filters', async () => {
       const mockResponse = { results: [mockBatch], count: 1 };
-      mockApiClient.get.mockResolvedValue({ data: mockResponse });
+      mockApiClient.get.mockResolvedValue({ success: true, data: mockResponse });
 
       const filters = { warehouse: '1', status: 'active' as const };
       const result = await inventoryManagementApi.getBatches(filters);
@@ -304,7 +304,7 @@ describe('inventoryManagementApi', () => {
         supplier: 'New Supplier',
         cost_per_unit: 8.75,
       };
-      mockApiClient.post.mockResolvedValue({ data: { ...mockBatch, ...createData } });
+      mockApiClient.post.mockResolvedValue({ success: true, data: { ...mockBatch, ...createData } });
 
       const result = await inventoryManagementApi.createBatch(createData);
 
@@ -314,7 +314,7 @@ describe('inventoryManagementApi', () => {
 
     it('should update batch', async () => {
       const updateData = { quantity: 120, supplier: 'Updated Supplier' };
-      mockApiClient.patch.mockResolvedValue({ data: { ...mockBatch, ...updateData } });
+      mockApiClient.patch.mockResolvedValue({ success: true, data: { ...mockBatch, ...updateData } });
 
       const result = await inventoryManagementApi.updateBatch('1', updateData);
 
@@ -323,7 +323,7 @@ describe('inventoryManagementApi', () => {
     });
 
     it('should delete batch', async () => {
-      mockApiClient.delete.mockResolvedValue({ data: null });
+      mockApiClient.delete.mockResolvedValue({ success: true, data: null });
 
       const result = await inventoryManagementApi.deleteBatch('1');
 
@@ -354,7 +354,7 @@ describe('inventoryManagementApi', () => {
 
     it('should fetch transactions with filters', async () => {
       const mockResponse = { results: [mockTransaction], count: 1 };
-      mockApiClient.get.mockResolvedValue({ data: mockResponse });
+      mockApiClient.get.mockResolvedValue({ success: true, data: mockResponse });
 
       const filters = { transaction_type: 'adjustment' as const, date_from: '2024-01-01' };
       const result = await inventoryManagementApi.getTransactions(filters);
@@ -365,7 +365,7 @@ describe('inventoryManagementApi', () => {
 
     it('should export transactions', async () => {
       const mockBlob = new Blob(['csv data'], { type: 'text/csv' });
-      mockApiClient.get.mockResolvedValue({ data: mockBlob });
+      mockApiClient.get.mockResolvedValue({ success: true, data: mockBlob });
 
       const result = await inventoryManagementApi.exportTransactions({ date_from: '2024-01-01' });
 
@@ -402,7 +402,7 @@ describe('inventoryManagementApi', () => {
         results: [mockAlert],
         pagination: { count: 1, current_page: 1, total_pages: 1 },
       };
-      mockApiClient.get.mockResolvedValue({ data: mockResponse });
+      mockApiClient.get.mockResolvedValue({ success: true, data: mockResponse });
 
       const filters = { alert_type: 'low_stock' as const, priority: 'high' as const };
       const result = await inventoryManagementApi.getAlerts(filters);
@@ -413,7 +413,7 @@ describe('inventoryManagementApi', () => {
 
     it('should acknowledge alert', async () => {
       const acknowledgedAlert = { ...mockAlert, is_acknowledged: true };
-      mockApiClient.post.mockResolvedValue({ data: acknowledgedAlert });
+      mockApiClient.post.mockResolvedValue({ success: true, data: acknowledgedAlert });
 
       const result = await inventoryManagementApi.acknowledgeAlert('1');
 
@@ -422,7 +422,7 @@ describe('inventoryManagementApi', () => {
     });
 
     it('should dismiss alert', async () => {
-      mockApiClient.delete.mockResolvedValue({ data: null });
+      mockApiClient.delete.mockResolvedValue({ success: true, data: null });
 
       const result = await inventoryManagementApi.dismissAlert('1');
 
@@ -438,7 +438,7 @@ describe('inventoryManagementApi', () => {
         { inventory_id: '2', adjustment: -5, reason: 'Damaged goods' },
       ];
       const mockResponse = { success: true, updated_items: 2 };
-      mockApiClient.post.mockResolvedValue({ data: mockResponse });
+      mockApiClient.post.mockResolvedValue({ success: true, data: mockResponse });
 
       const result = await inventoryManagementApi.bulkAdjustStock(adjustments);
 
@@ -459,7 +459,7 @@ describe('inventoryManagementApi', () => {
           attributes: { color: 'red' },
         },
       ];
-      mockApiClient.get.mockResolvedValue({ data: mockVariants });
+      mockApiClient.get.mockResolvedValue({ success: true, data: mockVariants });
 
       const result = await inventoryManagementApi.searchProductVariants('test');
 

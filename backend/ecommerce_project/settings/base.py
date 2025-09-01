@@ -55,6 +55,7 @@ LOCAL_APPS = [
     'apps.products',
     'apps.orders',
     'apps.cart',
+    'apps.rewards',
     'apps.inventory',
     'apps.customers',
     'apps.payments',

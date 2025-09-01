@@ -241,30 +241,33 @@ try:
         """
         Send low inventory alerts to administrators
         """
-        if not created and instance.quantity <= instance.minimum_stock_level:
-            notification_service = NotificationService()
-            
-            # Get admin users
-            admin_users = User.objects.filter(is_staff=True, is_active=True)
-            
-            context_data = {
-                'product_name': instance.product.name,
-                'product_sku': instance.product.sku,
-                'current_stock': instance.quantity,
-                'minimum_stock': instance.minimum_stock_level,
-                'reorder_point': instance.reorder_point,
-                'product_url': f'/admin/products/{instance.product.id}',
-            }
-            
-            for admin_user in admin_users:
-                notification_service.send_notification(
-                    user=admin_user,
-                    template_type='INVENTORY_LOW',
-                    context_data=context_data,
-                    channels=['EMAIL', 'IN_APP'],
-                    related_object=instance,
-                    priority='HIGH'
-                )
+        # Refresh instance to get actual values after F() expressions
+        if not created:
+            instance.refresh_from_db()
+            if instance.quantity <= instance.minimum_stock_level:
+                notification_service = NotificationService()
+                
+                # Get admin users
+                admin_users = User.objects.filter(is_staff=True, is_active=True)
+                
+                context_data = {
+                    'product_name': instance.product.name,
+                    'product_sku': instance.product.sku,
+                    'current_stock': instance.quantity,
+                    'minimum_stock': instance.minimum_stock_level,
+                    'reorder_point': instance.reorder_point,
+                    'product_url': f'/admin/products/{instance.product.id}',
+                }
+                
+                for admin_user in admin_users:
+                    notification_service.send_notification(
+                        user=admin_user,
+                        template_type='INVENTORY_LOW',
+                        context_data=context_data,
+                        channels=['EMAIL', 'IN_APP'],
+                        related_object=instance,
+                        priority='HIGH'
+                    )
 
 except ImportError:
     pass
