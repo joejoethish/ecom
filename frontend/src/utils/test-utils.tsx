@@ -26,23 +26,23 @@ export interface TestStoreOptions {
   store?: EnhancedStore;
 }
 
-export function createTestStore(options: TestStoreOptions = {}) {
+export function createTestStore(options: TestStoreOptions = {}): EnhancedStore<RootState> {
   const { preloadedState } = options;
   
   return configureStore({
     reducer: {
-      auth: authReducer as any,
-      cart: cartReducer as any,
-      products: productReducer as any,
-      orders: orderReducer as any,
-      notifications: notificationReducer as any,
-      inventory: inventoryReducer as any,
-      chat: chatReducer as any,
-      payments: paymentReducer as any,
-      shipping: shippingReducer as any,
-      seller: sellerReducer as any,
-      wishlist: wishlistReducer as any,
-      customer: customerReducer as any,
+      auth: authReducer,
+      cart: cartReducer,
+      products: productReducer,
+      orders: orderReducer,
+      notifications: notificationReducer,
+      inventory: inventoryReducer,
+      chat: chatReducer,
+      payments: paymentReducer,
+      shipping: shippingReducer,
+      seller: sellerReducer,
+      wishlist: wishlistReducer,
+      customer: customerReducer,
     },
     preloadedState,
     middleware: (getDefaultMiddleware) =>
@@ -53,13 +53,13 @@ export function createTestStore(options: TestStoreOptions = {}) {
           ignoredPaths: ['auth.user', 'auth.token'],
         },
       }),
-  });
+  }) as EnhancedStore<RootState>;
 }
 
 // Custom render function with providers
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
   preloadedState?: Partial<RootState>;
-  store?: EnhancedStore;
+  store?: EnhancedStore<RootState>;
   theme?: 'light' | 'dark' | 'system';
 }
 
@@ -250,6 +250,11 @@ export const waitForCondition = async (
     }
     await new Promise(resolve => setTimeout(resolve, interval));
   }
+};
+
+// Centralized mock store factory for consistent test store configuration
+export const createMockStore = (initialState: Partial<RootState> = {}): EnhancedStore<RootState> => {
+  return createTestStore({ preloadedState: initialState });
 };
 
 // Re-export everything from testing library

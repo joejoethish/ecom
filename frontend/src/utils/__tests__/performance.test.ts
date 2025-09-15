@@ -169,8 +169,8 @@ describe('Performance Utilities', () => {
       const MockErrorObserver = jest.fn().mockImplementation(() => {
         throw new Error('Test error');
       });
-      MockErrorObserver.supportedEntryTypes = ['longtask'];
-      global.PerformanceObserver = MockErrorObserver;
+      (MockErrorObserver as any).supportedEntryTypes = ['longtask'];
+      global.PerformanceObserver = MockErrorObserver as any;
       
       const cleanup = observeLongTasks();
       

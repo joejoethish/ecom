@@ -4,16 +4,16 @@
  */
 
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { createMockStore } from '@/utils/test-utils';
+import type { RootState } from '@/store';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { ForgotPasswordForm } from '@/components/auth/ForgotPasswordForm';
 import { ResetPasswordForm } from '@/components/auth/ResetPasswordForm';
 import { authApi } from '@/services/authApi';
-import authSlice from '@/store/slices/authSlice';
 import toast from 'react-hot-toast';
 
 // Mock dependencies
@@ -52,21 +52,13 @@ const mockSearchParams = {
   get: jest.fn(),
 };
 
-const createMockStore = (initialState: any = {}) => {
-  return configureStore({
-    reducer: {
-      auth: authSlice,
-    },
-    preloadedState: {
-      auth: {
-        user: null,
-        loading: false,
-        error: null,
-        isAuthenticated: false,
-        ...(initialState && 'auth' in initialState ? initialState.auth : {}),
-      },
-    },
-  });
+// Mock auth state
+const mockAuthState = {
+  user: null,
+  tokens: null,
+  isAuthenticated: false,
+  loading: false,
+  error: null,
 };
 
 describe('Authentication Integration', () => {
@@ -78,7 +70,9 @@ describe('Authentication Integration', () => {
 
   describe('Login Form Integration', () => {
     it('should display forgot password link', () => {
-      const store = createMockStore();
+      const store = createMockStore({
+        auth: mockAuthState,
+      } as Partial<RootState>);
       mockSearchParams.get.mockReturnValue(null);
 
       render(
@@ -93,7 +87,9 @@ describe('Authentication Integration', () => {
     });
 
     it('should show success message when redirected from password reset', () => {
-      const store = createMockStore();
+      const store = createMockStore({
+        auth: mockAuthState,
+      } as Partial<RootState>);
       mockSearchParams.get.mockReturnValue('password-reset-success');
 
       render(
@@ -108,7 +104,9 @@ describe('Authentication Integration', () => {
     });
 
     it('should have remember me functionality', () => {
-      const store = createMockStore();
+      const store = createMockStore({
+        auth: mockAuthState,
+      } as Partial<RootState>);
       mockSearchParams.get.mockReturnValue(null);
 
       render(
@@ -267,7 +265,9 @@ describe('Authentication Integration', () => {
       });
 
       // Step 1: Login form with forgot password link
-      const store = createMockStore();
+      const store = createMockStore({
+        auth: mockAuthState,
+      } as Partial<RootState>);
       mockSearchParams.get.mockReturnValue(null);
 
       const { rerender } = render(

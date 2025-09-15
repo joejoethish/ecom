@@ -1,21 +1,7 @@
 'use client';
 
 import { ProductCard } from './ProductCard';
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  discount?: number;
-  rating: number;
-  reviewCount: number;
-  image: string;
-  brand?: string;
-  features?: string[];
-  freeDelivery?: boolean;
-  exchangeOffer?: boolean;
-}
+import { Product } from '@/services/productsApi';
 
 interface ProductGridProps {
   products: Product[];

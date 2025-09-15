@@ -15,7 +15,7 @@ jest.mock('../../services/correlationId', () => ({
   logWithCorrelationId: jest.fn(),
 }));
 
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { ApiClient } from '../../services/apiClient';
 import { correlationIdService } from '../../services/correlationId';
 
@@ -228,7 +228,7 @@ describe('ApiClient', () => {
     });
 
     it('should handle and transform errors', () => {
-      const axiosError: AxiosError = {
+      const axiosError: any = {
         message: 'Request failed',
         name: 'AxiosError',
         config: { url: '/test' },
@@ -266,7 +266,7 @@ describe('ApiClient', () => {
     });
 
     it('should handle network errors', () => {
-      const networkError: AxiosError = {
+      const networkError: any = {
         message: 'Network Error',
         name: 'AxiosError',
         config: { url: '/test' },

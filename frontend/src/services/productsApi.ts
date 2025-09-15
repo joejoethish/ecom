@@ -26,8 +26,12 @@ export interface Product {
 }
 
 export interface ProductsResponse {
-  products: Product[];
+  data: Product[];
   total_count: number;
+  page: number;
+  total_pages: number;
+  has_next: boolean;
+  has_previous: boolean;
 }
 
 export interface CategoryProductsResponse extends ProductsResponse {
@@ -57,16 +61,18 @@ export const productsApi = {
   getProductsByCategory: async (
     categorySlug: string,
     params?: {
-      min_price?: number;
-      max_price?: number;
+      page?: number;
+      price_min?: number;
+      price_max?: number;
       brand?: string;
-      sort?: 'name' | 'price_low' | 'price_high' | 'rating' | 'newest';
+      sort?: string;
     }
-  ): Promise<ApiResponse<CategoryProductsResponse>> => {
+  ): Promise<ApiResponse<ProductsResponse>> => {
     const queryParams = new URLSearchParams();
     
-    if (params?.min_price) queryParams.append('min_price', params.min_price.toString());
-    if (params?.max_price) queryParams.append('max_price', params.max_price.toString());
+    if (params?.page) queryParams.append('page', params.page.toString());
+    if (params?.price_min) queryParams.append('price_min', params.price_min.toString());
+    if (params?.price_max) queryParams.append('price_max', params.price_max.toString());
     if (params?.brand) queryParams.append('brand', params.brand);
     if (params?.sort) queryParams.append('sort', params.sort);
     

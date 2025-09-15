@@ -2,7 +2,8 @@
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
+import { createMockStore } from '@/utils/test-utils';
+import type { RootState } from '@/store';
 
 // Mock Dashboard component
 const Dashboard = () => (
@@ -29,39 +30,31 @@ jest.mock('react-chartjs-2', () => ({
   Pie: () => <div data-testid="pie-chart">Pie Chart</div>,
 }));
 
-// Mock store setup
-const createMockStore = (initialState = {}) => {
-  return configureStore({
-    reducer: {
-      dashboard: dashboardSlice.reducer,
-    },
-    preloadedState: {
-      dashboard: {
-        stats: {
-          totalOrders: 0,
-          totalRevenue: 0,
-          totalCustomers: 0,
-          totalProducts: 0,
-          pendingOrders: 0,
-          lowStockProducts: 0,
-        },
-        charts: {
-          salesChart: { labels: [], datasets: [] },
-          ordersChart: { labels: [], datasets: [] },
-        },
-        isLoading: false,
-        error: null,
-        ...initialState,
-      },
-    },
-  });
+// Mock dashboard slice
+const mockDashboardState = {
+  stats: {
+    totalOrders: 0,
+    totalRevenue: 0,
+    totalCustomers: 0,
+    totalProducts: 0,
+    pendingOrders: 0,
+    lowStockProducts: 0,
+  },
+  charts: {
+    salesChart: { labels: [], datasets: [] },
+    ordersChart: { labels: [], datasets: [] },
+  },
+  isLoading: false,
+  error: null,
 };
 
 describe("Dashboard Component", () => {
   let mockStore: ReturnType<typeof createMockStore>;
   
   beforeEach(() => {
-    mockStore = createMockStore();
+    mockStore = createMockStore({
+      dashboard: mockDashboardState,
+    } as Partial<RootState>);
   });
 
   const renderWithProvider = (component: React.ReactElement) => {
@@ -86,15 +79,18 @@ describe("Dashboard Component", () => {
 
   test("renders dashboard stats correctly", () => {
     const statsStore = createMockStore({
-      stats: {
-        totalOrders: 150,
-        totalRevenue: 25000,
-        totalCustomers: 75,
-        totalProducts: 200,
-        pendingOrders: 12,
-        lowStockProducts: 5,
+      dashboard: {
+        ...mockDashboardState,
+        stats: {
+          totalOrders: 150,
+          totalRevenue: 25000,
+          totalCustomers: 75,
+          totalProducts: 200,
+          pendingOrders: 12,
+          lowStockProducts: 5,
+        },
       },
-    });
+    } as Partial<RootState>);
     
     render(
       <Provider store={statsStore}>
@@ -112,17 +108,20 @@ describe("Dashboard Component", () => {
 
   test("renders charts when data is available", () => {
     const chartsStore = createMockStore({
-      charts: {
-        salesChart: {
-          labels: ["Jan", "Feb", "Mar"],
-          datasets: [{ data: [100, 200, 300] }],
-        },
-        ordersChart: {
-          labels: ["Jan", "Feb", "Mar"],
-          datasets: [{ data: [10, 20, 30] }],
+      dashboard: {
+        ...mockDashboardState,
+        charts: {
+          salesChart: {
+            labels: ["Jan", "Feb", "Mar"],
+            datasets: [{ data: [100, 200, 300] }],
+          },
+          ordersChart: {
+            labels: ["Jan", "Feb", "Mar"],
+            datasets: [{ data: [10, 20, 30] }],
+          },
         },
       },
-    });
+    } as Partial<RootState>);
     
     render(
       <Provider store={chartsStore}>
@@ -136,8 +135,11 @@ describe("Dashboard Component", () => {
 
   test("displays error message when data loading fails", () => {
     const errorStore = createMockStore({
-      error: "Failed to load dashboard data",
-    });
+      dashboard: {
+        ...mockDashboardState,
+        error: "Failed to load dashboard data",
+      },
+    } as Partial<RootState>);
     
     render(
       <Provider store={errorStore}>
@@ -150,15 +152,18 @@ describe("Dashboard Component", () => {
 
   test("shows empty state when no data is available", () => {
     const emptyStore = createMockStore({
-      stats: {
-        totalOrders: 0,
-        totalRevenue: 0,
-        totalCustomers: 0,
-        totalProducts: 0,
-        pendingOrders: 0,
-        lowStockProducts: 0,
+      dashboard: {
+        ...mockDashboardState,
+        stats: {
+          totalOrders: 0,
+          totalRevenue: 0,
+          totalCustomers: 0,
+          totalProducts: 0,
+          pendingOrders: 0,
+          lowStockProducts: 0,
+        },
       },
-    });
+    } as Partial<RootState>);
     
     render(
       <Provider store={emptyStore}>
@@ -171,10 +176,14 @@ describe("Dashboard Component", () => {
 
   test("formats currency values correctly", () => {
     const statsStore = createMockStore({
-      stats: {
-        totalRevenue: 1234567.89,
+      dashboard: {
+        ...mockDashboardState,
+        stats: {
+          ...mockDashboardState.stats,
+          totalRevenue: 1234567.89,
+        },
       },
-    });
+    } as Partial<RootState>);
     
     render(
       <Provider store={statsStore}>
@@ -187,11 +196,15 @@ describe("Dashboard Component", () => {
 
   test("handles large numbers with proper formatting", () => {
     const statsStore = createMockStore({
-      stats: {
-        totalOrders: 1000000,
-        totalCustomers: 500000,
+      dashboard: {
+        ...mockDashboardState,
+        stats: {
+          ...mockDashboardState.stats,
+          totalOrders: 1000000,
+          totalCustomers: 500000,
+        },
       },
-    });
+    } as Partial<RootState>);
     
     render(
       <Provider store={statsStore}>
@@ -246,11 +259,14 @@ describe("Dashboard Component", () => {
 
   test("displays recent activity feed", () => {
     const activityStore = createMockStore({
-      recentActivity: [
-        { id: 1, type: "order", message: "New order #1001 received", timestamp: "2024-01-01T10:00:00Z" },
-        { id: 2, type: "product", message: "Product &quot;Test Item&quot; updated", timestamp: "2024-01-01T09:30:00Z" },
-      ],
-    });
+      dashboard: {
+        ...mockDashboardState,
+        recentActivity: [
+          { id: 1, type: "order", message: "New order #1001 received", timestamp: "2024-01-01T10:00:00Z" },
+          { id: 2, type: "product", message: "Product &quot;Test Item&quot; updated", timestamp: "2024-01-01T09:30:00Z" },
+        ],
+      },
+    } as Partial<RootState>);
     
     render(
       <Provider store={activityStore}>
@@ -279,11 +295,14 @@ describe("Dashboard Component", () => {
 
   test("shows alerts for critical issues", () => {
     const alertsStore = createMockStore({
-      alerts: [
-        { id: 1, type: "warning", message: "5 products are low in stock" },
-        { id: 2, type: "error", message: "Payment gateway is down" },
-      ],
-    });
+      dashboard: {
+        ...mockDashboardState,
+        alerts: [
+          { id: 1, type: "warning", message: "5 products are low in stock" },
+          { id: 2, type: "error", message: "Payment gateway is down" },
+        ],
+      },
+    } as Partial<RootState>);
     
     render(
       <Provider store={alertsStore}>
@@ -297,12 +316,15 @@ describe("Dashboard Component", () => {
 
   test("displays performance metrics", () => {
     const metricsStore = createMockStore({
-      metrics: {
-        conversionRate: 2.5,
-        averageOrderValue: 85.50,
-        customerRetentionRate: 68.2,
+      dashboard: {
+        ...mockDashboardState,
+        metrics: {
+          conversionRate: 2.5,
+          averageOrderValue: 85.50,
+          customerRetentionRate: 68.2,
+        },
       },
-    });
+    } as Partial<RootState>);
     
     render(
       <Provider store={metricsStore}>
@@ -317,13 +339,17 @@ describe("Dashboard Component", () => {
 
   test("handles chart interactions", async () => {
     const chartsStore = createMockStore({
-      charts: {
-        salesChart: {
-          labels: ["Jan", "Feb", "Mar"],
-          datasets: [{ data: [100, 200, 300] }],
+      dashboard: {
+        ...mockDashboardState,
+        charts: {
+          salesChart: {
+            labels: ["Jan", "Feb", "Mar"],
+            datasets: [{ data: [100, 200, 300] }],
+          },
+          ordersChart: { labels: [], datasets: [] },
         },
       },
-    });
+    } as Partial<RootState>);
     
     render(
       <Provider store={chartsStore}>

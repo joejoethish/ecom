@@ -75,6 +75,12 @@
         "npx tsc --noEmit --project . --skipLibCheck | findstr \"page.test.tsx:104\"",
         "npx tsc --noEmit src/app/profile/wishlist/__tests__/page.test.tsx --skipLibCheck",
         "npx tsc --noEmit --project . --skipLibCheck | findstr -v \"__tests__\"",
-        "python manage.py shell -c \"from apps.inventory.models import Inventory; print(f'Existing inventories: {Inventory.objects.count()}'); Inventory.objects.filter(product__name__startswith='E2E Test').delete(); print('Cleaned up test inventories')\""
+        "python manage.py shell -c \"from apps.inventory.models import Inventory; print(f'Existing inventories: {Inventory.objects.count()}'); Inventory.objects.filter(product__name__startswith='E2E Test').delete(); print('Cleaned up test inventories')\"",
+        "npx tsc --noEmit src/services/__tests__/inventoryManagementApi.test.ts --skipLibCheck",
+        "npm test -- --verbose --no-coverage --maxWorkers=1 --testTimeout=10000 2>&1 | findstr /i \"fail\\|error\\|✗\\|●\"",
+        "npm test -- --verbose --no-coverage --maxWorkers=1 --testTimeout=10000 2>&1 | head -200",
+        "curl -X GET http://localhost:8000/api/v1/",
+        "Start-Process python -ArgumentList \"manage.py\",\"runserver\",\"127.0.0.1:8000\" -WindowStyle Hidden",
+        "npm run type-check 2>&1 | Select-String -Pattern \"test.*store|redux.*test|createMockStore|configureStore.*test\" -Context 2"
     ]
 }

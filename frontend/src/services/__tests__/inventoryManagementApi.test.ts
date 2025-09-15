@@ -480,7 +480,7 @@ describe('inventoryManagementApi', () => {
         total_stock_value: 50000,
         total_transactions_today: 25,
       };
-      mockApiClient.get.mockResolvedValue({ data: mockStats });
+      mockApiClient.get.mockResolvedValue({ success: true, data: mockStats });
 
       const result = await inventoryManagementApi.getInventoryStats();
 

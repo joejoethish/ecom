@@ -111,7 +111,7 @@ describe('StockAlerts', () => {
   afterEach(() => {
     // Clean up WebSocket mock
     if (mockWebSocket.onclose && typeof mockWebSocket.onclose === 'function') {
-      mockWebSocket.onclose(new CloseEvent('close'));
+      (mockWebSocket.onclose as any)(new CloseEvent('close'));
     }
   });
 
@@ -463,7 +463,7 @@ describe('StockAlerts', () => {
 
     // Simulate WebSocket message
     if (mockWebSocket.onmessage && typeof mockWebSocket.onmessage === 'function') {
-      mockWebSocket.onmessage({
+      (mockWebSocket.onmessage as any)({
         data: JSON.stringify({
           type: 'alert_created',
           alert: mockAlerts[0],

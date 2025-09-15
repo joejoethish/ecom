@@ -14,7 +14,6 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { configureStore } from '@reduxjs/toolkit';
 import userEvent from '@testing-library/user-event';
 import { jest } from '@jest/globals';
 
@@ -40,6 +39,7 @@ import cartSlice from '../../store/slices/cartSlice';
 
 // Test utilities
 import { createMockStore, mockApiResponse } from '../../utils/test-utils';
+import type { RootState } from '../../store';
 
 // Mock implementations
 jest.mock('../../services/authApi');
@@ -84,7 +84,7 @@ describe('Workflow Debugging E2E Tests', () => {
     mockStore = createMockStore({
       auth: {
         user: null,
-        token: null,
+        tokens: null,
         isAuthenticated: false,
         loading: false,
         error: null
@@ -101,7 +101,7 @@ describe('Workflow Debugging E2E Tests', () => {
         loading: false,
         error: null
       }
-    });
+    } as Partial<RootState>);
   });
 
   const renderWithProviders = (component: React.ReactElement) => {
@@ -359,7 +359,7 @@ describe('Workflow Debugging E2E Tests', () => {
       mockStore = createMockStore({
         auth: {
           user: { id: 1, username: 'testuser' },
-          token: 'mock-token',
+          tokens: { access: 'mock-token', refresh: 'mock-refresh-token' },
           isAuthenticated: true,
           loading: false,
           error: null
@@ -370,7 +370,7 @@ describe('Workflow Debugging E2E Tests', () => {
           loading: false,
           error: null
         }
-      });
+      } as Partial<RootState>);
     });
 
     it('should trace add to cart workflow', async () => {
@@ -475,7 +475,7 @@ describe('Workflow Debugging E2E Tests', () => {
       mockStore = createMockStore({
         auth: {
           user: { id: 1, username: 'testuser' },
-          token: 'mock-token',
+          tokens: { access: 'mock-token', refresh: 'mock-refresh-token' },
           isAuthenticated: true,
           loading: false,
           error: null
@@ -488,7 +488,7 @@ describe('Workflow Debugging E2E Tests', () => {
           loading: false,
           error: null
         }
-      });
+      } as Partial<RootState>);
 
       const mockCartApi = {
         removeItem: jest.fn().mockResolvedValue({})
@@ -549,7 +549,7 @@ describe('Workflow Debugging E2E Tests', () => {
       mockStore = createMockStore({
         auth: {
           user: { id: 1, username: 'testuser' },
-          token: 'mock-token',
+          tokens: { access: 'mock-token', refresh: 'mock-refresh-token' },
           isAuthenticated: true,
           loading: false,
           error: null
@@ -562,7 +562,7 @@ describe('Workflow Debugging E2E Tests', () => {
           loading: false,
           error: null
         }
-      });
+      } as Partial<RootState>);
     });
 
     it('should trace complete checkout workflow', async () => {

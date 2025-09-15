@@ -8,6 +8,7 @@ from .categories import (
     get_category_details,
     get_category_filters
 )
+from .products_by_category import get_products_by_category
 from .products import (
     get_featured_products,
     get_products_by_category,
@@ -42,6 +43,9 @@ urlpatterns = [
     path('categories/featured/', get_featured_categories, name='featured-categories'),
     path('categories/<slug:category_slug>/', get_category_details, name='category-details'),
     path('categories/<slug:category_slug>/filters/', get_category_filters, name='category-filters'),
+    
+    # Products by Category API
+    path('products/category/<slug:category_slug>/', get_products_by_category, name='products-by-category'),
     
     # Products API
     path('products/featured/', get_featured_products, name='featured-products'),

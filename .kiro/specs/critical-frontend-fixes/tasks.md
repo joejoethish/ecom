@@ -49,7 +49,10 @@
   - Write tests for search functionality and API integration
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
 
-- [ ] 5. Fix category navigation and routing
+- [-] 5. Fix category navigation and routing
+
+
+
   - Create proper Next.js dynamic routing for categories with [slug]/page.tsx
   - Implement category API endpoints that return category data and products
   - Fix category links in navigation components to use proper routing
